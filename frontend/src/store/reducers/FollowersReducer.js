@@ -12,8 +12,12 @@ REMOVE_FOLLOWER_FAILURE
 
 export const FollowersReducer = (state = {}, action) => {
     switch(action.type){
-        case GET_FOLLOWERS:
         case GET_FOLLOWERS_SUCCESS:
+            return {
+                ...state,
+                followers: action.payload,
+            }
+        case GET_FOLLOWERS:
         case GET_FOLLOWERS_FAILURE:
         case ADD_FOLLOWER:
         case ADD_FOLLOWER_SUCCESS:

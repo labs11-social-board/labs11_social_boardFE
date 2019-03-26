@@ -31,7 +31,8 @@ export const getFollowers = (userId) => dispatch => {
   dispatch({ type: GET_FOLLOWERS });
   return axios
     .get(`${backendURL}/followers/${userId}`, headers)
-    .then(() => dispatch({ type: GET_FOLLOWERS_SUCCESS }))
+    // .get(`${backendURL}/followers/${userId}`)
+    .then((res) => dispatch({ type: GET_FOLLOWERS_SUCCESS, payload: res.data}))
     .catch(err => handleError(err, GET_FOLLOWERS_FAILURE)(dispatch));
 };
 //REMOVE FOLLOWER FROM LIST
