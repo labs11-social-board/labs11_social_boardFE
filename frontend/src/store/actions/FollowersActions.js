@@ -35,15 +35,32 @@ export const getFollowers = () => dispatch => {
     .then(() => dispatch({ type: GET_FOLLOWERS_SUCCESS }))
     .catch(err => handleError(err, GET_FOLLOWERS_FAILURE)(dispatch));
 };
-
+//REMOVE FOLLOWER FROM LIST
 export const removeFollower = following_id => dispatch => {
   const token = localStorage.getItem("symposium_token");
   const userId = localStoarage.getItem("symposium_user_id");
   const headers = { headers: { Authorization: token } };
-  dispatch({type: REMOVE_FOLLOWER})
+  dispatch({ type: REMOVE_FOLLOWER });
   return axios
     .delete(`${backendURL}/followers/${userId}/${following_id}`, headers)
-    .then(() => dispatch({type: REMOVE_FOLLOWER_SUCCESS}))
+    .then(() => dispatch({ type: REMOVE_FOLLOWER_SUCCESS }))
     .catch(err => handleError(err, REMOVE_FOLLOWER_FAILURE)(dispatch));
 };
 
+//ADD TO FOLLOWER LIST
+export const addFollower = following_id => dispatch => {
+  const token = localStorage.getItem("symposium_token");
+  const userId = localStoarage.getItem("symposium_user_id");
+  const headers = { headers: { Authorization: token } };
+  const body = {};
+  dispatch({type: ADD_FOLLOWER})
+  //userId has to be different than the following_id; 
+  if(userId !== following_id){
+      return axios
+        .post(`${backendURL}/followers/${userId}/${following_id}`, body, headers)
+        .then(() => dispatch({type: ADD_FOLLOWER_SUCCESS}))
+        .catch(err => handleError(err, ADD_FOLLOWER_FAILURE)(dispatch));
+  } else {
+      dispatch({type: ADD_FOLLOWER_FAILURE, err: "A user cannot follow themselves"});
+  }
+};
