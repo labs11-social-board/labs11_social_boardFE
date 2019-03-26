@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Spinner from '../assets/gif/spinner/Spinner'; //need to move to assets folder
 import { getProfile } from '../store/actions/index';
+import { getFollowers } from '../store/actions/index';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { phoneP } from '../globals/globals';
@@ -365,6 +366,7 @@ class Profile extends Component {
   }
   componentDidMount() {
     this.props.getProfile(this.props.match.params.id);
+    this.props.getFollowers(this.props.match.params.id); 
   };
   componentDidUpdate(prevProps) {
     if (prevProps.match.params.id !== this.props.match.params.id) {
@@ -560,6 +562,7 @@ class Profile extends Component {
 
 Profile.propTypes = {
   getProfile: PropTypes.func,
+  getFollowers: PropTypes.func,
   profile: PropTypes.arrayOf(
     PropTypes.shape({
       status: PropTypes.string.isRequired,
@@ -572,4 +575,4 @@ const mapStateToProps = state => ({
   profile: state.profilesData.singleProfileData
 });
 
-export default connect(mapStateToProps, { getProfile })(Profile);
+export default connect(mapStateToProps, { getProfile,getFollowers })(Profile);

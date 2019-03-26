@@ -25,9 +25,8 @@ export const REMOVE_FOLLOWER_FAILURE = "REMOVE_FOLLOWER_FAILURE";
  **************************************************************************************************/
 
 //GET FOLLOWERS LIST
-export const getFollowers = () => dispatch => {
+export const getFollowers = (userId) => dispatch => {
   const token = localStorage.getItem("symposium_token");
-  const userId = localStoarage.getItem("symposium_user_id");
   const headers = { headers: { Authorization: token } };
   dispatch({ type: GET_FOLLOWERS });
   return axios
