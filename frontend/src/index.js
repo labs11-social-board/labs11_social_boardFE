@@ -11,19 +11,21 @@ import logger from "redux-logger";
 
 // reducers
 import {
-  UsersReducer,
-  PostsReducer,
-  DiscussionsReducer,
-  ProfilesReducer,
-  CategoriesReducer
-} from "./store/reducers/index.js";
+	UsersReducer,
+	PostsReducer,
+	DiscussionsReducer,
+	ProfilesReducer,
+	CategoriesReducer,
+	FollowersReducer,
+} from './store/reducers/index.js';
 
 const rootReducer = combineReducers({
-  users: UsersReducer,
-  posts: PostsReducer,
-  discussions: DiscussionsReducer,
-  profilesData: ProfilesReducer,
-  categories: CategoriesReducer
+	users: UsersReducer,
+	posts: PostsReducer,
+	discussions: DiscussionsReducer,
+	profilesData: ProfilesReducer,
+	categories: CategoriesReducer,
+	followers : FollowersReducer,
 });
 
 let store;
