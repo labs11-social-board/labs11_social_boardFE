@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Spinner from '../assets/gif/spinner/Spinner'; //need to move to assets folder
 import { getProfile } from '../store/actions/index';
-import { getFollowers } from '../store/actions/index';
+import { getFollowers, getProfileFollowers } from '../store/actions/index';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { phoneP } from '../globals/globals';
@@ -244,7 +244,10 @@ class Profile extends Component {
   }
   componentDidMount() {
     this.props.getProfile(this.props.match.params.id);
-    this.props.getFollowers(this.props.match.params.id); 
+    this.props.getProfileFollowers(this.props.match.params.id); 
+    const userId = localStorage.getItem("symposium_user_id");
+    this.props.getFollowers(userId);
+
   };
   componentDidUpdate(prevProps) {
     if (prevProps.match.params.id !== this.props.match.params.id) {
@@ -255,16 +258,17 @@ class Profile extends Component {
   profileItems displays our spinner component, however if our props contains a profile we display that profile
   by mapping through our data received and choosing what properties we want to display with our profile parameter*/
   render() {
-    //use the default 
-    // let followList = this.state.followList.slice(); 
-    let followList = this.props.followers; 
-    const {bio, twitter, github, linkedin} = this.state; 
     const userId = localStorage.getItem("symposium_user_id");
-    console.log(this.props.followers, this.props.followers.length)
-    console.log(followList.followers)
-    followList = followList.followers;
+    let followList; 
+    if (userId !== this.props.match.params.id){
+      followList = this.props.followers;
+      followList = followList.profileFollowers;  
+    } else {
+      followList = this.props.followers; 
+      followList = followList.followers;
+    }
+    const {bio, twitter, github, linkedin} = this.state; 
     const followListLength = followList ? followList.length : 0; 
-
     let profileItems;
     if (this.props.profile.length === 0) {
       profileItems = <Spinner />;
@@ -448,6 +452,7 @@ class Profile extends Component {
 Profile.propTypes = {
   getProfile: PropTypes.func,
   getFollowers: PropTypes.func,
+  getProfileFollowers: PropTypes.func,
   profile: PropTypes.arrayOf(
     PropTypes.shape({
       status: PropTypes.string.isRequired,
@@ -465,7 +470,8 @@ Profile.propTypes = {
 
 const mapStateToProps = state => ({
   profile: state.profilesData.singleProfileData,
-  followers: state.followers
+  followers: state.followers,
+  profileFollowers : state.profileFollowers
 });
 
-export default connect(mapStateToProps, { getProfile,getFollowers })(Profile);
+export default connect(mapStateToProps, { getProfile,getFollowers, getProfileFollowers })(Profile);
