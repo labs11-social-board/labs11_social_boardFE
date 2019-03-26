@@ -25,20 +25,20 @@ export const REMOVE_FOLLOWER_FAILURE = "REMOVE_FOLLOWER_FAILURE";
  **************************************************************************************************/
 
 //GET FOLLOWERS LIST
-export const getFollowers = () => dispatch => {
+export const getFollowers = (userId) => dispatch => {
   const token = localStorage.getItem("symposium_token");
-  const userId = localStoarage.getItem("symposium_user_id");
   const headers = { headers: { Authorization: token } };
   dispatch({ type: GET_FOLLOWERS });
   return axios
     .get(`${backendURL}/followers/${userId}`, headers)
-    .then(() => dispatch({ type: GET_FOLLOWERS_SUCCESS }))
+    // .get(`${backendURL}/followers/${userId}`)
+    .then((res) => dispatch({ type: GET_FOLLOWERS_SUCCESS, payload: res.data}))
     .catch(err => handleError(err, GET_FOLLOWERS_FAILURE)(dispatch));
 };
 //REMOVE FOLLOWER FROM LIST
 export const removeFollower = following_id => dispatch => {
   const token = localStorage.getItem("symposium_token");
-  const userId = localStoarage.getItem("symposium_user_id");
+  const userId = localStorage.getItem("symposium_user_id");
   const headers = { headers: { Authorization: token } };
   dispatch({ type: REMOVE_FOLLOWER });
   return axios
@@ -50,7 +50,7 @@ export const removeFollower = following_id => dispatch => {
 //ADD TO FOLLOWER LIST
 export const addFollower = following_id => dispatch => {
   const token = localStorage.getItem("symposium_token");
-  const userId = localStoarage.getItem("symposium_user_id");
+  const userId = localStorage.getItem("symposium_user_id");
   const headers = { headers: { Authorization: token } };
   const body = {};
   dispatch({type: ADD_FOLLOWER})
