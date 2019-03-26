@@ -257,11 +257,13 @@ class Profile extends Component {
   render() {
     //use the default 
     // let followList = this.state.followList.slice(); 
-    const followList = this.props.followers; 
+    let followList = this.props.followers; 
     const {bio, twitter, github, linkedin} = this.state; 
     const userId = localStorage.getItem("symposium_user_id");
-    console.log(this.props.followers)
-    console.log(this.props.match)
+    console.log(this.props.followers, this.props.followers.length)
+    console.log(followList.followers)
+    followList = followList.followers;
+    const followListLength = followList ? followList.length : 0; 
 
     let profileItems;
     if (this.props.profile.length === 0) {
@@ -300,7 +302,7 @@ class Profile extends Component {
                 <a href="#">Invite a friend</a>
               </div>
               <div>
-                {followList.length > 0 ?  followList.map((user, id) => 
+                {followListLength > 0 ?  followList.map((user, id) => 
                   // user.following_id can be used to go to the users profile upon clicking on them currently not implemented. 
                   <WrappedDiv key = {id}> 
                     <Avatar 
@@ -451,7 +453,14 @@ Profile.propTypes = {
       status: PropTypes.string.isRequired,
       username: PropTypes.string.isRequired,
       email: PropTypes.string,
-    }))
+    })),
+  followers: PropTypes.arrayOf(
+    PropTypes.shape({
+      avatar: PropTypes.string.isRequired, 
+      following_id: PropTypes.number.isRequired,
+      username: PropTypes.string.isRequired
+    })
+  ) 
 };
 
 const mapStateToProps = state => ({
