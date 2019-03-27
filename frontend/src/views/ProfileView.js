@@ -258,16 +258,34 @@ class Profile extends Component {
   profileItems displays our spinner component, however if our props contains a profile we display that profile
   by mapping through our data received and choosing what properties we want to display with our profile parameter*/
   render() {
+    /*Profile data for user profile*/
+    const usernameForProfile = this.props.profile[0].username; 
+    const bio  = this.props.profile[0].bio ?  this.props.profile[0].bio : ""; 
+    const twitter = this.props.profile[0].twitter ? this.props.profile[0].twitter : ""; 
+    const github = this.props.profile[0].github ? this.props.profile[0].github : ""; 
+    const linkedin = this.props.profile[0].linkedin ? this.props.profile[0].linkedin : "";
+    //add in location here once created on backend.  
+    
+    //userId is user logged in. === localStorage.getItem   profileId === match.params.id
     const userId = localStorage.getItem("symposium_user_id");
-    let followList; 
-    if (userId !== this.props.match.params.id){
-      followList = this.props.followers;
-      followList = followList.profileFollowers;  
-    } else {
-      followList = this.props.followers; 
-      followList = followList.followers;
+    const profileId = this.props.match.params.id
+    /*Check if the user logged in is not the user listed on the profile.
+      Then check if the user listed on the profile is being followed by the user logged in.
+    */
+    let alreadyFollowing = false; // will be used to display follow or unfollow depending on false vs true. 
+    
+    //initially the data won't exist so an empty array is used once it loads it will be what is returned. 
+    const followList = this.props.followers.profileFollowers ? this.props.followers.profileFollowers : []; 
+    if (userId !== profileId){
+      let userLoggedInFollowList = this.props.followers.followers ?  this.props.followers.followers : []; 
+      for(let user of userLoggedInFollowList){
+        if(user.username === usernameForProfile){
+          alreadyFollowing = true; 
+          break; 
+        }
+      }
     }
-    const {bio, twitter, github, linkedin} = this.state; 
+    
     const followListLength = followList ? followList.length : 0; 
     let profileItems;
     if (this.props.profile.length === 0) {
@@ -289,7 +307,7 @@ class Profile extends Component {
                 
                 <WrappedDiv className='username-style'>
                   <p className='property-content'> {profile.username ? profile.username : <Deleted />}</p>
-                  {this.props.match.params.id !== userId ? <button>Follow</button> : <button>Edit Profile</button>}
+                  {profileId !== userId ? <button>Follow</button> : <button>Edit Profile</button>}
                 </WrappedDiv>
               </HeaderStyle>
               {/* This section is for the bio and the links for a user account */}
@@ -319,7 +337,7 @@ class Profile extends Component {
                     <span>{user.username}</span>
                   
                   </WrappedDiv>
-                ) : <div>{this.props.match.params.id !== userId ? "This user currently doesn't follow any users." :  "You are not currently following any users."}</div>}
+                ) : <div>{profileId !== userId ? "This user currently doesn't follow any users." :  "You are not currently following any users."}</div>}
               </div>
               <Tabs>
                 <TabList>
