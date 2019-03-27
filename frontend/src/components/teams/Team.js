@@ -167,12 +167,12 @@ const DivTeamInfo = styled.div`
  ********************************************* Component *******************************************
  **************************************************************************************************/
 const Team = ({ team, history }) => {
-  const { id, team_name, created_at, wiki } = team;
+  const { id, team_name, created_at} = team;
   // const latestPostBodyElipsis = (latest_post_body) ? `${latest_post_body.slice(0, 25)}...` : 'none';
   const goToTeam = (ev) => {
     ev.preventDefault();
     ev.stopPropagation();
-    // history.push(`/discussions/Team/${id}`);
+    history.push(`/team/${id}`);
   }
   // const profileSuperModerator = (ev) => {
   //   ev.preventDefault();
@@ -186,7 +186,7 @@ const Team = ({ team, history }) => {
   // }
   const stopPropagation = e => e.stopPropagation();
   return (
-    <DivRow onClick={() => history.push(`/discussions/Team/${id}`)}>
+    <DivRow onClick={() => history.push(`/team/${id}`)}>
       <DivTeamContainer>
         {/* <DivIcon>
           {(Team.icon) ? <i className={Team.icon} /> : <img src={require('../../assets/img/TeamBook2.png')} alt='Emoji' />}

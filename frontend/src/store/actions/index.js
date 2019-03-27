@@ -32,9 +32,14 @@ import {
   GET_TEAMS_LOADING,
   GET_TEAMS_SUCCESS,
   GET_TEAMS_FAILURE,
+  GET_TEAM_DISCUSSIONS_LOADING,
+  GET_TEAM_DISCUSSIONS_SUCCESS,
+  GET_TEAM_DISCUSSIONS_FAILURE,
+  
 
   //Action Creators
-  getTeams
+  getTeams,
+  getTeamDiscussions
 } from './TeamsActions.js';
 
 import {
@@ -310,6 +315,9 @@ export {
   GET_TEAMS_LOADING,
   GET_TEAMS_SUCCESS,
   GET_TEAMS_FAILURE,
+  GET_TEAM_DISCUSSIONS_LOADING,
+  GET_TEAM_DISCUSSIONS_SUCCESS,
+  GET_TEAM_DISCUSSIONS_FAILURE,
   
   // Discussion Actions
   GET_DISCUSSIONS_LOADING,
@@ -487,7 +495,8 @@ export {
 
   // Teams Action Creators
   getTeams,
-  
+  getTeamDiscussions,
+
   // Discussion Action Creators
   getTopDiscussions,
   getDiscussionsByCat,
