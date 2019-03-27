@@ -25,3 +25,13 @@ export const ADD_TEAM_FAILURE = 'ADD_TEAM_FAILURE';
 /***************************************************************************************************
  ********************************************* Action Creators *************************************
  **************************************************************************************************/
+
+ export const getTeams = (order, orderType) => dispatch => {
+  const user_id = localStorage.getItem('symposium_user_id');
+  const token = localStorage.getItem('symposium_token');
+  const headers = { headers: { Authorization: token, order, orderType } };
+  dispatch({ type: GET_TEAMS_LOADING });
+  return axios.get(`${backendUrl}/team/teams/${user_id}`, headers)
+    .then(res => dispatch({ type: GET_TEAMS_SUCCESS, payload: res.data.teams }))
+    .catch(err => handleError(err, GET_TEAMS_FAILURE)(dispatch));
+ }

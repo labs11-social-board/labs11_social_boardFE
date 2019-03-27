@@ -121,7 +121,7 @@ class TeamsView extends Component {
       this.props.getTeams(this.state.order, this.state.orderType);
     });
   };
-  componentDidMount = () => this.props.getTeams(this.state.order, this.state.orderType);
+  componentDidMount = () => this.props.getTeams();
   render() {
     return (
       <TeamsWrapper>
@@ -144,7 +144,7 @@ class TeamsView extends Component {
           </div>
         </TeamsHeader>
         <DivTeamsComponent>
-          <Teams Teams={this.props.Teams} history={this.props.history} />
+          <Teams teams={this.props.teams} history={this.props.history} />
         </DivTeamsComponent>
       </TeamsWrapper>
     );
@@ -152,7 +152,7 @@ class TeamsView extends Component {
 }
 
 const mapStateToProps = state => ({
-  Teams: state.Teams.Teams,
+  teams: state.teams.teams,
 });
 
 export default connect(

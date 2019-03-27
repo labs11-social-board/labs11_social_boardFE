@@ -27,6 +27,17 @@ import {
 } from './CategoriesActions.js';
 
 import {
+  // Teams
+  //GET TEAMS
+  GET_TEAMS_LOADING,
+  GET_TEAMS_SUCCESS,
+  GET_TEAMS_FAILURE,
+
+  //Action Creators
+  getTeams
+} from './TeamsActions.js';
+
+import {
   // Actions
   //TOP DISCUSSIONS
   TOP_DISCUSSIONS_LOADING,
@@ -295,6 +306,11 @@ export {
   ADD_CATEGORY_SUCCESS,
   ADD_CATEGORY_FAILURE,
 
+  // Team Actions 
+  GET_TEAMS_LOADING,
+  GET_TEAMS_SUCCESS,
+  GET_TEAMS_FAILURE,
+  
   // Discussion Actions
   GET_DISCUSSIONS_LOADING,
   GET_DISCUSSIONS_SUCCESS,
@@ -469,6 +485,9 @@ export {
   followCategory,
   addCategory,
 
+  // Teams Action Creators
+  getTeams,
+  
   // Discussion Action Creators
   getTopDiscussions,
   getDiscussionsByCat,
