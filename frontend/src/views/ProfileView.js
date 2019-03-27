@@ -247,6 +247,7 @@ class Profile extends Component {
   };
   componentDidUpdate(prevProps) {
     if (prevProps.match.params.id !== this.props.match.params.id) {
+      this.handleInitializeFollowList(); // this line handles going from profile to profile. 
       return this.props.getProfile(this.props.match.params.id);
     }
   };
@@ -255,16 +256,13 @@ class Profile extends Component {
     const userId = localStorage.getItem("symposium_user_id");
     this.props.getProfileFollowers(this.props.match.params.id); 
     this.props.getFollowers(userId);
-
   }
   /*double arrow functions prevent peformance issues because it will not create a new function on every render */
   handleAddFollower = (userId, followingId) => () => {
-    this.setState({alreadyFollowing : true}); //Will immedidately update the button to a unfollow button to prevent multiple follow requests.
     this.props.addFollower(userId, followingId);
   }
 
   handleRemoveFollower = (userId, followingId) => () => {
-    this.setState({alreadyFollowing : false}); //Will immediately update the button to a folow button to prevent multiple unfollow requests.
     this.props.removeFollower(userId, followingId);
   }
 
@@ -289,7 +287,7 @@ class Profile extends Component {
     let alreadyFollowing = false; // will be used to display follow or unfollow depending on false vs true. 
     let userLoggedInFollowList;
     //initially the data won't exist so an empty array is used once it loads it will be what is returned. 
-    const followList = this.props.followers.profileFollowers ? this.props.followers.profileFollowers : []; 
+    let followList = this.props.followers.profileFollowers ? this.props.followers.profileFollowers : []; 
     /*Check if the user logged in is not the user listed on the profile.
       Then check if the user listed on the profile is being followed by the user logged in.
     */
