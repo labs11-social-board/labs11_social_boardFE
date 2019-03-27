@@ -237,47 +237,25 @@ const SubWrapper = styled.div`
  **************************************************************************************************/
 class Profile extends Component {
   state = {
-    bio : "Generic bio just to test out what things will look like",
-    twitter: "http:www.faketwitter.com/user",
-    github: "http:www.fakegithub.com/user",
-    linkedin: "http:www.linkedin.com/user",
+    
   }
   componentDidMount() {
     this.props.getProfile(this.props.match.params.id);
     this.props.getProfileFollowers(this.props.match.params.id); 
     const userId = localStorage.getItem("symposium_user_id");
     this.props.getFollowers(userId);
-
-  };
-  componentDidUpdate(prevProps) {
-    if (prevProps.match.params.id !== this.props.match.params.id) {
-      return this.props.getProfile(this.props.match.params.id);
-    }
-  };
-  /* we use profileItems to manipulate what data is displayed. if the data received from our props is 0,
-  profileItems displays our spinner component, however if our props contains a profile we display that profile
-  by mapping through our data received and choosing what properties we want to display with our profile parameter*/
-  render() {
-    /*Profile data for user profile*/
+    const profileId = this.props.match.params.id; 
     const usernameForProfile = this.props.profile[0].username; 
-    const bio  = this.props.profile[0].bio ?  this.props.profile[0].bio : ""; 
-    const twitter = this.props.profile[0].twitter ? this.props.profile[0].twitter : ""; 
-    const github = this.props.profile[0].github ? this.props.profile[0].github : ""; 
-    const linkedin = this.props.profile[0].linkedin ? this.props.profile[0].linkedin : "";
-    //add in location here once created on backend.  
-    
-    //userId is user logged in. === localStorage.getItem   profileId === match.params.id
-    const userId = localStorage.getItem("symposium_user_id");
-    const profileId = this.props.match.params.id
+
+    let alreadyFollowing = false; // will be used to display follow or unfollow depending on false vs true. 
+    let userLoggedInFollowList;
+    //initially the data won't exist so an empty array is used once it loads it will be what is returned. 
+    const followList = this.props.followers.profileFollowers ? this.props.followers.profileFollowers : []; 
     /*Check if the user logged in is not the user listed on the profile.
       Then check if the user listed on the profile is being followed by the user logged in.
     */
-    let alreadyFollowing = false; // will be used to display follow or unfollow depending on false vs true. 
-    
-    //initially the data won't exist so an empty array is used once it loads it will be what is returned. 
-    const followList = this.props.followers.profileFollowers ? this.props.followers.profileFollowers : []; 
     if (userId !== profileId){
-      let userLoggedInFollowList = this.props.followers.followers ?  this.props.followers.followers : []; 
+      userLoggedInFollowList = this.props.followers.followers ?  this.props.followers.followers : []; 
       for(let user of userLoggedInFollowList){
         if(user.username === usernameForProfile){
           alreadyFollowing = true; 
@@ -285,8 +263,46 @@ class Profile extends Component {
         }
       }
     }
+
+    this.setState({alreadyFollowing, followList, userLoggedInFollowList, userId, profileId, usernameForProfile});
+
+  };
+  componentDidUpdate(prevProps) {
+    if (prevProps.match.params.id !== this.props.match.params.id) {
+      return this.props.getProfile(this.props.match.params.id);
+    }
+  };
+  /*double arrow functions prevent peformance issues because it will not create a new function on every render */
+  handleAddFollower = (userId, followingId, followingUsername) => () => {
+    this.setState({alreadyFollowing : true}); //Will immedidately update the button to a unfollow button to prevent multiple follow requests.
+    this.props.addFollower(userId, followingId, followingUsername);
+  }
+
+  handleRemoveFollower = (userId, followingId) => () => {
+    this.setState({alreadyFollowing : false}); //Will immediately update the button to a folow button to prevent multiple unfollow requests.
+    this.props.removeFollower(userId, followingId);
+  }
+
+
+  /* we use profileItems to manipulate what data is displayed. if the data received from our props is 0,
+  profileItems displays our spinner component, however if our props contains a profile we display that profile
+  by mapping through our data received and choosing what properties we want to display with our profile parameter*/
+  render() {
+    /*Profile data for user profile*/
+    const usernameForProfile = this.state.usernameForProfile; 
+    const bio  = this.props.profile[0].bio ?  this.props.profile[0].bio : ""; 
+    const twitter = this.props.profile[0].twitter ? this.props.profile[0].twitter : ""; 
+    const github = this.props.profile[0].github ? this.props.profile[0].github : ""; 
+    const linkedin = this.props.profile[0].linkedin ? this.props.profile[0].linkedin : "";
+    //add in location here once created on backend.  
     
+    //Follow list variables 
+    const userId = this.state.userId; 
+    const profileId = this.state.profileId; 
+    const followList = this.state.followList;  
+    const alreadyFollowing = this.state.alreadyFollowing; 
     const followListLength = followList ? followList.length : 0; 
+
     let profileItems;
     if (this.props.profile.length === 0) {
       profileItems = <Spinner />;
@@ -307,7 +323,7 @@ class Profile extends Component {
                 
                 <WrappedDiv className='username-style'>
                   <p className='property-content'> {profile.username ? profile.username : <Deleted />}</p>
-                  {profileId !== userId ? alreadyFollowing === false ? <button onClick = {() => this.props.addFollower(userId, profileId)}>Follow</button> : <button onClick = {() => this.props.removeFollower(userId, profileId)}>UnFollow</button> : <button>Edit Profile</button>}
+                  {profileId !== userId ? alreadyFollowing === false ? <button onClick = {this.handleAddFollower(userId, profileId,usernameForProfile )}>Follow</button> : <button onClick = {this.handleRemoveFollower(userId, profileId)}>UnFollow</button> : <button>Edit Profile</button>}
                 </WrappedDiv>
               </HeaderStyle>
               {/* This section is for the bio and the links for a user account */}

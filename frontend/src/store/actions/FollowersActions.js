@@ -63,7 +63,7 @@ export const removeFollower = (userId, following_id) => dispatch => {
 };
 
 //ADD TO FOLLOWER LIST
-export const addFollower = (userId, following_id) => dispatch => {
+export const addFollower = (userId, following_id, followerName) => dispatch => {
   const token = localStorage.getItem("symposium_token");
   const headers = { headers: { Authorization: token } };
   const body = {};
