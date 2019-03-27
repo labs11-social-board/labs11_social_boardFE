@@ -12,6 +12,10 @@ export const GET_FOLLOWERS = "GET_FOLLOWERS";
 export const GET_FOLLOWERS_SUCCESS = "GET_FOLLOWERS_SUCCESS";
 export const GET_FOLLOWERS_FAILURE = "GET_FOLLOWERS_FAILURE";
 
+export const GET_USER_FOLLOWERS = "GET_USER_FOLLOWERS";
+export const GET_USER_FOLLOWERS_SUCCESS = "GET_USER_FOLLOWERS_SUCCESS";
+export const GET_USER_FOLLOWERS_FAILURE = "GET_USER_FOLLOWERS_FAILURE"
+
 export const ADD_FOLLOWER = "ADD_FOLLOWER";
 export const ADD_FOLLOWER_SUCCESS = "ADD_FOLLOWER_SUCCESS";
 export const ADD_FOLLOWER_FAILURE = "ADD_FOLLOWER_FAILURE";
@@ -24,7 +28,7 @@ export const REMOVE_FOLLOWER_FAILURE = "REMOVE_FOLLOWER_FAILURE";
  ********************************************* Actions *******************************************
  **************************************************************************************************/
 
-//GET FOLLOWERS LIST
+//GET FOLLOWERS LIST FOR THE USER THAT IS LOGGED IN. 
 export const getFollowers = (userId) => dispatch => {
   const token = localStorage.getItem("symposium_token");
   const headers = { headers: { Authorization: token } };
@@ -35,6 +39,18 @@ export const getFollowers = (userId) => dispatch => {
     .then((res) => dispatch({ type: GET_FOLLOWERS_SUCCESS, payload: res.data}))
     .catch(err => handleError(err, GET_FOLLOWERS_FAILURE)(dispatch));
 };
+//GET FOLLOWERS LIST FOR ANOTHER USER THAT THE USER LOGGED IN IS GOING TO. 
+export const getProfileFollowers = (userId) => dispatch => {
+    const token = localStorage.getItem("symposium_token");
+    const headers = { headers: { Authorization: token } };
+    dispatch({ type: GET_USER_FOLLOWERS  });
+    return axios
+      .get(`${backendURL}/followers/${userId}`, headers)
+      // .get(`${backendURL}/followers/${userId}`)
+      .then((res) => dispatch({ type: GET_USER_FOLLOWERS_SUCCESS, payload: res.data}))
+      .catch(err => handleError(err, GET_USER_FOLLOWERS_FAILURE)(dispatch));
+};
+
 //REMOVE FOLLOWER FROM LIST
 export const removeFollower = following_id => dispatch => {
   const token = localStorage.getItem("symposium_token");

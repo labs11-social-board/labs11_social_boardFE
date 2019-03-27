@@ -1,13 +1,13 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
-import { Provider } from 'react-redux';
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import { createStore, applyMiddleware, combineReducers, compose } from "redux";
+import { Provider } from "react-redux";
 
 // middleware
-import thunk from 'redux-thunk';
-import logger from 'redux-logger';
+import thunk from "redux-thunk";
+import logger from "redux-logger";
 
 // reducers
 import {
@@ -29,22 +29,24 @@ const rootReducer = combineReducers({
 });
 
 let store;
-if (process.env.NODE_ENV === 'development') {
-	store = createStore(
-		rootReducer,
-		compose(
-			applyMiddleware(thunk, logger),
-			window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-		));
+if (process.env.NODE_ENV === "development") {
+  store = createStore(
+    rootReducer,
+    compose(
+      applyMiddleware(thunk, logger),
+      window.__REDUX_DEVTOOLS_EXTENSION__ &&
+        window.__REDUX_DEVTOOLS_EXTENSION__()
+    )
+  );
 } else {
-	store = createStore(rootReducer, applyMiddleware(thunk));
+  store = createStore(rootReducer, applyMiddleware(thunk));
 }
 
 ReactDOM.render(
-	<Provider store = { store }>
-		<Router>
-			<Route path = '/' component = { App } />
-		</Router>
-	</Provider>,
-	document.getElementById('root')
+  <Provider store={store}>
+    <Router>
+      <Route path="/" component={App} />
+    </Router>
+  </Provider>,
+  document.getElementById("root")
 );
