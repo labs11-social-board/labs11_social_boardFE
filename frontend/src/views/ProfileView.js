@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Spinner from '../assets/gif/spinner/Spinner'; //need to move to assets folder
 import { getProfile } from '../store/actions/index';
-import { getFollowers, getProfileFollowers } from '../store/actions/index';
+import { getFollowers, getProfileFollowers, removeFollower, addFollower } from '../store/actions/index';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { phoneP } from '../globals/globals';
@@ -307,7 +307,7 @@ class Profile extends Component {
                 
                 <WrappedDiv className='username-style'>
                   <p className='property-content'> {profile.username ? profile.username : <Deleted />}</p>
-                  {profileId !== userId ? <button>Follow</button> : <button>Edit Profile</button>}
+                  {profileId !== userId ? alreadyFollowing === false ? <button onClick = {() => this.props.addFollower(userId, profileId)}>Follow</button> : <button onClick = {() => this.props.removeFollower(userId, profileId)}>UnFollow</button> : <button>Edit Profile</button>}
                 </WrappedDiv>
               </HeaderStyle>
               {/* This section is for the bio and the links for a user account */}
@@ -337,7 +337,7 @@ class Profile extends Component {
                     <span>{user.username}</span>
                   
                   </WrappedDiv>
-                ) : <div>{profileId !== userId ? "This user currently doesn't follow any users." :  "You are not currently following any users."}</div>}
+                ) : <div>{profileId !== userId ? `${usernameForProfile} currently doesn't follow any users.` :  "You are not currently following any users."}</div>}
               </div>
               <Tabs>
                 <TabList>
@@ -471,6 +471,8 @@ Profile.propTypes = {
   getProfile: PropTypes.func,
   getFollowers: PropTypes.func,
   getProfileFollowers: PropTypes.func,
+  removeFollower : PropTypes.func, 
+  addFollower : PropTypes.func, 
   profile: PropTypes.arrayOf(
     PropTypes.shape({
       status: PropTypes.string.isRequired,
@@ -492,4 +494,4 @@ const mapStateToProps = state => ({
   profileFollowers : state.profileFollowers
 });
 
-export default connect(mapStateToProps, { getProfile,getFollowers, getProfileFollowers })(Profile);
+export default connect(mapStateToProps, { getProfile,getFollowers, getProfileFollowers, removeFollower, addFollower })(Profile);
