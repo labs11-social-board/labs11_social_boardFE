@@ -111,7 +111,7 @@ export const followDiscussion = (discussion_id, user_id, historyPush) => dispatc
     .catch(err => handleError(err, FOLLOW_DISCUSSION_FAILURE)(dispatch));
 };
 
-// add a discussion
+// add a discussion to a Category
 export const addDiscussion = (dBody, category_id) => dispatch => {
   const user_id = localStorage.getItem('symposium_user_id');
   const token = localStorage.getItem('symposium_token');
@@ -125,6 +125,20 @@ export const addDiscussion = (dBody, category_id) => dispatch => {
     })
     .catch(err => handleError(err, ADD_DISCUSSION_FAILURE)(dispatch));
 };
+
+export const addTeamDiscussion = (dBody, team_id) => dispatch => {
+  const user_id = localStorage.getItem('symposium_user_id');
+  const token = localStorage.getItem('symposium_token');
+  const headers = { headers: { Authorization: token } };
+  const body = { dBody, team_id };
+  dispatch({ type: ADD_DISCUSSION_LOADING });
+  return axios.post(`${ backendURL }/discussions/${ user_id }`, body, headers)
+    .then(async res => {
+      dispatch({ type: ADD_DISCUSSION_SUCCESS });
+      await followDiscussion(res.data[0], user_id)(dispatch);
+    })
+    .catch(err => handleError(err, ADD_DISCUSSION_FAILURE)(dispatch));
+}
 
 export const editDiscussion = (discussion_id, dBody, historyPush) => dispatch => {
   const user_id = localStorage.getItem('symposium_user_id');

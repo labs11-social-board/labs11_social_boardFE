@@ -87,6 +87,7 @@ import {
   getAllDiscussionsByFollowedCategories,
   followDiscussion,
   addDiscussion,
+  addTeamDiscussion,
   editDiscussion,
   removeDiscussion,
 } from './DiscussionsActions.js';
@@ -504,6 +505,7 @@ export {
   getAllDiscussionsByFollowedCategories,
   followDiscussion,
   addDiscussion,
+  addTeamDiscussion,
   editDiscussion,
   removeDiscussion,
 

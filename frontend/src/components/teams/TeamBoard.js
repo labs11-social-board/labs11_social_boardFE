@@ -214,14 +214,14 @@ class TeamBoard extends Component {
           </DiscussionHeader>
           <hr />
           <div className='content'>
-            {/* {discussions.map((discussion, i) =>
+            {discussions.map((discussion, i) =>
               <DiscussionByFollowedCats
                 key={i}
                 discussion={discussion}
                 history={history}
                 voteOnDiscussion={this.handleDiscussionVote}
               />)
-            } */}
+            }
           </div>
           {
             showAddDiscussionForm &&
@@ -238,7 +238,7 @@ class TeamBoard extends Component {
 };
 
 const mapStateToProps = state => ({
-  discussions: state.teams.teamDiscussions,
+  discussions: state.teams.teamDiscussions.discussions,
   team: state.teams.teamDiscussions.team,
 });
 
