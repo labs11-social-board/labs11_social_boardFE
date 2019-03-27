@@ -241,8 +241,19 @@ class Profile extends Component {
   }
   componentDidMount() {
     this.props.getProfile(this.props.match.params.id);
-    this.props.getProfileFollowers(this.props.match.params.id); 
+    this.handleInitializeFollowList();
+    
+
+  };
+  componentDidUpdate(prevProps) {
+    if (prevProps.match.params.id !== this.props.match.params.id) {
+      return this.props.getProfile(this.props.match.params.id);
+    }
+  };
+
+  handleInitializeFollowList = () => {
     const userId = localStorage.getItem("symposium_user_id");
+    this.props.getProfileFollowers(this.props.match.params.id); 
     this.props.getFollowers(userId);
     const profileId = this.props.match.params.id; 
     const usernameForProfile = this.props.profile[0].username; 
@@ -265,17 +276,11 @@ class Profile extends Component {
     }
 
     this.setState({alreadyFollowing, followList, userLoggedInFollowList, userId, profileId, usernameForProfile});
-
-  };
-  componentDidUpdate(prevProps) {
-    if (prevProps.match.params.id !== this.props.match.params.id) {
-      return this.props.getProfile(this.props.match.params.id);
-    }
-  };
+  }
   /*double arrow functions prevent peformance issues because it will not create a new function on every render */
-  handleAddFollower = (userId, followingId, followingUsername) => () => {
+  handleAddFollower = (userId, followingId) => () => {
     this.setState({alreadyFollowing : true}); //Will immedidately update the button to a unfollow button to prevent multiple follow requests.
-    this.props.addFollower(userId, followingId, followingUsername);
+    this.props.addFollower(userId, followingId);
   }
 
   handleRemoveFollower = (userId, followingId) => () => {
@@ -299,9 +304,10 @@ class Profile extends Component {
     //Follow list variables 
     const userId = this.state.userId; 
     const profileId = this.state.profileId; 
-    const followList = this.state.followList;  
+    const followList = this.props.followers.profileFollowers ? this.props.followers.profileFollowers : [];  
     const alreadyFollowing = this.state.alreadyFollowing; 
     const followListLength = followList ? followList.length : 0; 
+    console.log(followList, followListLength);
 
     let profileItems;
     if (this.props.profile.length === 0) {
@@ -323,7 +329,7 @@ class Profile extends Component {
                 
                 <WrappedDiv className='username-style'>
                   <p className='property-content'> {profile.username ? profile.username : <Deleted />}</p>
-                  {profileId !== userId ? alreadyFollowing === false ? <button onClick = {this.handleAddFollower(userId, profileId,usernameForProfile )}>Follow</button> : <button onClick = {this.handleRemoveFollower(userId, profileId)}>UnFollow</button> : <button>Edit Profile</button>}
+                  {profileId !== userId ? alreadyFollowing === false ? <button onClick = {this.handleAddFollower(userId, profileId)}>Follow</button> : <button onClick = {this.handleRemoveFollower(userId, profileId)}>UnFollow</button> : <button>Edit Profile</button>}
                 </WrappedDiv>
               </HeaderStyle>
               {/* This section is for the bio and the links for a user account */}

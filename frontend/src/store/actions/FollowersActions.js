@@ -58,12 +58,12 @@ export const removeFollower = (userId, following_id) => dispatch => {
   dispatch({ type: REMOVE_FOLLOWER });
   return axios
     .delete(`${backendURL}/followers/${userId}/${following_id}`, headers)
-    .then(() => dispatch({ type: REMOVE_FOLLOWER_SUCCESS }))
+    .then((res) => dispatch({ type: REMOVE_FOLLOWER_SUCCESS, payload: res.data }))
     .catch(err => handleError(err, REMOVE_FOLLOWER_FAILURE)(dispatch));
 };
 
 //ADD TO FOLLOWER LIST
-export const addFollower = (userId, following_id, followerName) => dispatch => {
+export const addFollower = (userId, following_id) => dispatch => {
   const token = localStorage.getItem("symposium_token");
   const headers = { headers: { Authorization: token } };
   const body = {};
@@ -72,7 +72,7 @@ export const addFollower = (userId, following_id, followerName) => dispatch => {
   if(userId !== following_id){
       return axios
         .post(`${backendURL}/followers/${userId}/${following_id}`, body, headers)
-        .then(() => dispatch({type: ADD_FOLLOWER_SUCCESS}))
+        .then((res) => dispatch({type: ADD_FOLLOWER_SUCCESS, payload: res.data}))
         .catch(err => handleError(err, ADD_FOLLOWER_FAILURE)(dispatch));
   } else {
       dispatch({type: ADD_FOLLOWER_FAILURE, err: "A user cannot follow themselves"});
