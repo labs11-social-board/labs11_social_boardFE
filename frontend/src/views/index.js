@@ -5,7 +5,8 @@ import PostsView from './PostsView.js';
 import RegisterView from './RegisterView.js';
 import TopDiscussionsView from './TopDiscussionsView.js';
 import RepliesView from './RepliesView.js';
-import NonUserLandingView from './NonUserLandingView'
+import NonUserLandingView from './NonUserLandingView.js';
+import TeamsView from './TeamsView.js';
 
 export {
   CategoriesView,
@@ -16,4 +17,5 @@ export {
   TopDiscussionsView,
   RepliesView,
   NonUserLandingView,
+  TeamsView
 };
