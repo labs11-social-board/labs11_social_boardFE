@@ -119,7 +119,9 @@ class TeamBoard extends Component {
     order: 'created_at', // possible values: 'created_at', 'post_count', 'discussion_votes'
     orderType: '', // possible values: 'desc', 'asc'
     showAddDiscussionForm: false,
+    isTeam: true,
   };
+  toggleIsTeam = () => this.setState({ isTeam: !this.state.isTeam });
   toggleAddDiscussionForm = () => this.setState({
     showAddDiscussionForm: !this.state.showAddDiscussionForm,
   });
@@ -168,10 +170,12 @@ class TeamBoard extends Component {
   componentDidMount = () => this.getDiscussions();
 
   componentDidUpdate(prevProps) {
-    const { match, getTeamDiscussions } = this.props;
+    const { match, getTeamDiscussions, posts } = this.props;
     const { team_id } = match.params;
     const { order, orderType } = this.state;
+    
     if (prevProps.match.params.team_id !== team_id) {
+      console.log(prevProps.match.params.team_id, team_id, match.params)
       return getTeamDiscussions(team_id, order, orderType);
     };
   };
@@ -220,6 +224,8 @@ class TeamBoard extends Component {
                 discussion={discussion}
                 history={history}
                 voteOnDiscussion={this.handleDiscussionVote}
+                isTeam={this.state.isTeam}
+                toggleIsTeam={this.toggleIsTeam}
               />)
             }
           </div>

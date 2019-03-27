@@ -172,7 +172,7 @@ const Team = ({ team, history }) => {
   const goToTeam = (ev) => {
     ev.preventDefault();
     ev.stopPropagation();
-    history.push(`/team/${id}`);
+    history.push(`/team/discussions/${id}`);
   }
   // const profileSuperModerator = (ev) => {
   //   ev.preventDefault();
@@ -186,7 +186,7 @@ const Team = ({ team, history }) => {
   // }
   const stopPropagation = e => e.stopPropagation();
   return (
-    <DivRow onClick={() => history.push(`/team/${id}`)}>
+    <DivRow onClick={() => history.push(`/team/discussions/${id}`)}>
       <DivTeamContainer>
         {/* <DivIcon>
           {(Team.icon) ? <i className={Team.icon} /> : <img src={require('../../assets/img/TeamBook2.png')} alt='Emoji' />}

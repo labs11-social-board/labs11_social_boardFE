@@ -60,6 +60,7 @@ export const getTopDiscussions = (order, orderType) => dispatch => {
     .catch(err => handleError(err, TOP_DISCUSSIONS_FAILURE)(dispatch));
 };
 
+// get a Dicussion by its id within a category
 export const getDiscussionById = (id, order, orderType) => dispatch => {
   const user_id = localStorage.getItem('symposium_user_id');
   const token = localStorage.getItem('symposium_token');
@@ -126,6 +127,7 @@ export const addDiscussion = (dBody, category_id) => dispatch => {
     .catch(err => handleError(err, ADD_DISCUSSION_FAILURE)(dispatch));
 };
 
+// add a discussion to a Team
 export const addTeamDiscussion = (dBody, team_id) => dispatch => {
   const user_id = localStorage.getItem('symposium_user_id');
   const token = localStorage.getItem('symposium_token');

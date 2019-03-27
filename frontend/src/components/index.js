@@ -3,6 +3,7 @@ import Category from './categories/Category.js';
 import Teams from './teams/Teams.js';
 import Team from './teams/Team.js';
 import TeamBoard from './teams/TeamBoard.js';
+import TeamDiscussion from './teams/TeamDiscussion.js';
 import AddCategoryModal from './categories/AddCategoryModal.js';
 import ChangeSubscriptionModal from './ChangeSubscriptionModal.js';
 import Discussion from './Discussion.js';
@@ -69,6 +70,7 @@ export {
   Teams,
   Team,
   TeamBoard,
+  TeamDiscussion,
   ChangeSubscriptionModal,
   AddCategoryModal,
   Discussion,

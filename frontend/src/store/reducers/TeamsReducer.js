@@ -3,13 +3,20 @@ import {
   GET_TEAMS_SUCCESS,
   GET_TEAM_DISCUSSIONS_LOADING,
   GET_TEAM_DISCUSSIONS_SUCCESS,
+  IS_TEAM,
+  RESET_IS_TEAM,
+  GET_TEAM_DISCUSSION_POSTS_LOADING,
+  GET_TEAM_DISCUSSION_POSTS_SUCCESS
 } from '../actions/index.js';
 
 const initialState = {
   teams: [],
   teamDiscussions: [],
+  posts: [],
   isGettingTeams: false,
   isGettingTeamDiscussions: false,
+  isGettingPosts: false,
+  isTeam: false
 };
 
 export const TeamsReducer = (state = initialState, action) => {
@@ -40,6 +47,30 @@ export const TeamsReducer = (state = initialState, action) => {
         teamDiscussions: action.payload
       };
     
+    case IS_TEAM: 
+      return {
+        ...state,
+        isTeam: true
+      };
+    
+    case RESET_IS_TEAM:
+      return {
+        ...state,
+        isTeam: false
+      };
+    
+    case GET_TEAM_DISCUSSION_POSTS_LOADING: 
+      return {
+        ...state,
+        isGettingPosts: true
+      };
+      
+    case GET_TEAM_DISCUSSION_POSTS_SUCCESS:
+      return {
+        ...state,
+        isGettingPosts: false,
+        posts: action.payload
+      }
     default : 
       return state;
   };
