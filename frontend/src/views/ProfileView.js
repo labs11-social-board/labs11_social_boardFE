@@ -255,27 +255,7 @@ class Profile extends Component {
     const userId = localStorage.getItem("symposium_user_id");
     this.props.getProfileFollowers(this.props.match.params.id); 
     this.props.getFollowers(userId);
-    const profileId = this.props.match.params.id; 
-    const usernameForProfile = this.props.profile[0].username; 
 
-    let alreadyFollowing = false; // will be used to display follow or unfollow depending on false vs true. 
-    let userLoggedInFollowList;
-    //initially the data won't exist so an empty array is used once it loads it will be what is returned. 
-    const followList = this.props.followers.profileFollowers ? this.props.followers.profileFollowers : []; 
-    /*Check if the user logged in is not the user listed on the profile.
-      Then check if the user listed on the profile is being followed by the user logged in.
-    */
-    if (userId !== profileId){
-      userLoggedInFollowList = this.props.followers.followers ?  this.props.followers.followers : []; 
-      for(let user of userLoggedInFollowList){
-        if(user.username === usernameForProfile){
-          alreadyFollowing = true; 
-          break; 
-        }
-      }
-    }
-
-    this.setState({alreadyFollowing, followList, userLoggedInFollowList, userId, profileId, usernameForProfile});
   }
   /*double arrow functions prevent peformance issues because it will not create a new function on every render */
   handleAddFollower = (userId, followingId) => () => {
@@ -294,7 +274,7 @@ class Profile extends Component {
   by mapping through our data received and choosing what properties we want to display with our profile parameter*/
   render() {
     /*Profile data for user profile*/
-    const usernameForProfile = this.state.usernameForProfile; 
+    const usernameForProfile = this.props.profile[0].username; 
     const bio  = this.props.profile[0].bio ?  this.props.profile[0].bio : ""; 
     const twitter = this.props.profile[0].twitter ? this.props.profile[0].twitter : ""; 
     const github = this.props.profile[0].github ? this.props.profile[0].github : ""; 
@@ -302,10 +282,27 @@ class Profile extends Component {
     //add in location here once created on backend.  
     
     //Follow list variables 
-    const userId = this.state.userId; 
-    const profileId = this.state.profileId; 
-    const followList = this.props.followers.profileFollowers ? this.props.followers.profileFollowers : [];  
-    const alreadyFollowing = this.state.alreadyFollowing; 
+    const userId = localStorage.getItem("symposium_user_id");
+    
+    const profileId = this.props.match.params.id; 
+
+    let alreadyFollowing = false; // will be used to display follow or unfollow depending on false vs true. 
+    let userLoggedInFollowList;
+    //initially the data won't exist so an empty array is used once it loads it will be what is returned. 
+    const followList = this.props.followers.profileFollowers ? this.props.followers.profileFollowers : []; 
+    /*Check if the user logged in is not the user listed on the profile.
+      Then check if the user listed on the profile is being followed by the user logged in.
+    */
+    if (userId !== profileId){
+      userLoggedInFollowList = this.props.followers.followers ?  this.props.followers.followers : []; 
+      for(let user of userLoggedInFollowList){
+        if(user.username === usernameForProfile){
+          alreadyFollowing = true; 
+          break; 
+        }
+      }
+    }
+
     const followListLength = followList ? followList.length : 0; 
     console.log(followList, followListLength);
 
