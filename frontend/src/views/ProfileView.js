@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Spinner from '../assets/gif/spinner/Spinner'; //need to move to assets folder
 import { getProfile } from '../store/actions/index';
+import { getFollowers, getProfileFollowers, removeFollower, addFollower } from '../store/actions/index';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { phoneP } from '../globals/globals';
@@ -235,18 +236,73 @@ const SubWrapper = styled.div`
  ********************************************* Component *******************************************
  **************************************************************************************************/
 class Profile extends Component {
+  state = {
+    
+  }
   componentDidMount() {
     this.props.getProfile(this.props.match.params.id);
+    this.handleInitializeFollowList();
+    
+
   };
   componentDidUpdate(prevProps) {
     if (prevProps.match.params.id !== this.props.match.params.id) {
+      this.handleInitializeFollowList(); // this line handles going from profile to profile. 
       return this.props.getProfile(this.props.match.params.id);
     }
   };
+
+  handleInitializeFollowList = () => {
+    const userId = localStorage.getItem("symposium_user_id");
+    this.props.getProfileFollowers(this.props.match.params.id); 
+    this.props.getFollowers(userId);
+  }
+  /*double arrow functions prevent peformance issues because it will not create a new function on every render */
+  handleAddFollower = (userId, followingId) => () => {
+    this.props.addFollower(userId, followingId);
+  }
+
+  handleRemoveFollower = (userId, followingId) => () => {
+    this.props.removeFollower(userId, followingId);
+  }
+
+
   /* we use profileItems to manipulate what data is displayed. if the data received from our props is 0,
   profileItems displays our spinner component, however if our props contains a profile we display that profile
   by mapping through our data received and choosing what properties we want to display with our profile parameter*/
   render() {
+    /*Profile data for user profile*/
+    const usernameForProfile = this.props.profile[0].username; 
+    const bio  = this.props.profile[0].bio ?  this.props.profile[0].bio : ""; 
+    const twitter = this.props.profile[0].twitter ? this.props.profile[0].twitter : ""; 
+    const github = this.props.profile[0].github ? this.props.profile[0].github : ""; 
+    const linkedin = this.props.profile[0].linkedin ? this.props.profile[0].linkedin : "";
+    //add in location here once created on backend.  
+    
+    //Follow list variables 
+    const userId = localStorage.getItem("symposium_user_id");
+    
+    const profileId = this.props.match.params.id; 
+
+    let alreadyFollowing = false; // will be used to display follow or unfollow depending on false vs true. 
+    let userLoggedInFollowList;
+    //initially the data won't exist so an empty array is used once it loads it will be what is returned. 
+    let followList = this.props.followers.profileFollowers ? this.props.followers.profileFollowers : []; 
+    /*Check if the user logged in is not the user listed on the profile.
+      Then check if the user listed on the profile is being followed by the user logged in.
+    */
+    if (userId !== profileId){
+      userLoggedInFollowList = this.props.followers.followers ?  this.props.followers.followers : []; 
+      for(let user of userLoggedInFollowList){
+        if(user.username === usernameForProfile){
+          alreadyFollowing = true; 
+          break; 
+        }
+      }
+    }
+
+    const followListLength = followList ? followList.length : 0; 
+    console.log(followList, followListLength);
 
     let profileItems;
     if (this.props.profile.length === 0) {
@@ -264,10 +320,42 @@ class Profile extends Component {
                     src={profile.avatar}
                   />
                 </WrappedDiv>
+                <br/>
+                
                 <WrappedDiv className='username-style'>
                   <p className='property-content'> {profile.username ? profile.username : <Deleted />}</p>
+                  {profileId !== userId ? alreadyFollowing === false ? <button onClick = {this.handleAddFollower(userId, profileId)}>Follow</button> : <button onClick = {this.handleRemoveFollower(userId, profileId)}>UnFollow</button> : <button>Edit Profile</button>}
                 </WrappedDiv>
               </HeaderStyle>
+              {/* This section is for the bio and the links for a user account */}
+              <div>
+                  <p><span>Bio</span><span>{bio}</span></p>
+                  <br/>
+                  <p><span>Github</span> <span>{github}</span></p>
+                  <p><span>LinkedIn</span> <span>{linkedin}</span></p>
+                  <p><span>Twitter</span> <span>{twitter}</span></p>
+              </div>
+              <br/>
+              <div>
+                <input type="search" name = "friendSearch" placeholder = "find a new friend"></input>
+                <a href="#">Invite a friend</a>
+              </div>
+              <div>
+                {followListLength > 0 ?  followList.map((user, id) => 
+                  // user.following_id can be used to go to the users profile upon clicking on them currently not implemented. 
+                  <WrappedDiv key = {id}> 
+                    <Avatar 
+                      height = '50px'
+                      width = '50px'
+                      src= {user.avatar}
+                    >
+                      
+                    </Avatar>
+                    <span>{user.username}</span>
+                  
+                  </WrappedDiv>
+                ) : <div>{profileId !== userId ? `${usernameForProfile} currently doesn't follow any users.` :  "You are not currently following any users."}</div>}
+              </div>
               <Tabs>
                 <TabList>
                   <Tab> Followed Posts</Tab>
@@ -398,16 +486,29 @@ class Profile extends Component {
 
 Profile.propTypes = {
   getProfile: PropTypes.func,
+  getFollowers: PropTypes.func,
+  getProfileFollowers: PropTypes.func,
+  removeFollower : PropTypes.func, 
+  addFollower : PropTypes.func, 
   profile: PropTypes.arrayOf(
     PropTypes.shape({
       status: PropTypes.string.isRequired,
       username: PropTypes.string.isRequired,
       email: PropTypes.string,
-    }))
+    })),
+  followers: PropTypes.arrayOf(
+    PropTypes.shape({
+      avatar: PropTypes.string.isRequired, 
+      following_id: PropTypes.number.isRequired,
+      username: PropTypes.string.isRequired
+    })
+  ) 
 };
 
 const mapStateToProps = state => ({
-  profile: state.profilesData.singleProfileData
+  profile: state.profilesData.singleProfileData,
+  followers: state.followers,
+  profileFollowers : state.profileFollowers
 });
 
-export default connect(mapStateToProps, { getProfile })(Profile);
+export default connect(mapStateToProps, { getProfile,getFollowers, getProfileFollowers, removeFollower, addFollower })(Profile);
