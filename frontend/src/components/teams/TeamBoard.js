@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { DiscussionByFollowedCats, AddDiscussionForm, FollowCat } from '../index.js';
 
 // action creators
-import { getTeamDiscussions, handleDiscussionVote } from '../../store/actions/index.js';
+import { getTeamDiscussions, handleDiscussionVote, getTeamMembers } from '../../store/actions/index.js';
 
 // globals
 import { tabletP } from '../../globals/globals.js';
@@ -177,7 +177,6 @@ class TeamBoard extends Component {
     e.target.classList.add('tab-selected');
 
     content.forEach(item => {
-      console.log(item.id)
       item.classList.remove('selected');
       if(item.id === e.target.textContent.toLowerCase()){
         item.classList.add('selected');
@@ -221,7 +220,10 @@ class TeamBoard extends Component {
     const { getTeamDiscussions, match } = this.props;
     return getTeamDiscussions(match.params.team_id, order, orderType);
   };
-  componentDidMount = () => this.getDiscussions();
+  componentDidMount = () => {
+    this.getDiscussions();
+    this.props.getTeamMembers(this.props.match.params.team_id);
+  }
 
   componentDidUpdate(prevProps) {
     const { match, getTeamDiscussions, posts } = this.props;
@@ -233,7 +235,7 @@ class TeamBoard extends Component {
     };
   };
   render() {
-    const { discussions, history, team, match } = this.props;
+    const { discussions, history, team, match, team_members } = this.props;
     const { showAddDiscussionForm } = this.state;
     if(!team){
       return (<h1>Loading..</h1>)
@@ -291,7 +293,14 @@ class TeamBoard extends Component {
             <p>{team.wiki}</p>
           </div>
           <div id='team members' className='team-members tab-content'>
-            <p>placeholder</p>
+            {team_members.map( member => {
+              return (
+                <div key={member.id} className='member-wrapper'>
+                  <h2>{member.username}</h2>
+                  <p>{member.role}</p>
+                </div>
+              );
+            })}
           </div>
           {
             showAddDiscussionForm &&
@@ -310,6 +319,7 @@ class TeamBoard extends Component {
 const mapStateToProps = state => ({
   discussions: state.teams.teamDiscussions.discussions,
   team: state.teams.teamDiscussions.team,
+  team_members: state.teams.team_members
 });
 
-export default connect(mapStateToProps, { getTeamDiscussions, handleDiscussionVote })(TeamBoard);
+export default connect(mapStateToProps, { getTeamDiscussions, handleDiscussionVote, getTeamMembers })(TeamBoard);

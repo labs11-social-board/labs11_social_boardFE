@@ -40,14 +40,16 @@ import {
   JOIN_TEAM_LOADING,
   JOIN_TEAM_SUCCESS,
   JOIN_TEAM_FAILURE,
+  GET_TEAM_MEMBERS_LOADING,
+  GET_TEAM_MEMBERS_SUCCESS,
+  GET_TEAM_MEMBERS_FAILURE,
 
   //Action Creators
   getTeams,
   getTeamDiscussions,
-  setIsTeam,
-  resetIsTeam,
   getTeamDiscussionsById,
-  joinTeam
+  joinTeam,
+  getTeamMembers,
 } from './TeamsActions.js';
 
 import {
@@ -363,6 +365,9 @@ export {
   JOIN_TEAM_LOADING,
   JOIN_TEAM_SUCCESS,
   JOIN_TEAM_FAILURE,
+  GET_TEAM_MEMBERS_LOADING,
+  GET_TEAM_MEMBERS_SUCCESS,
+  GET_TEAM_MEMBERS_FAILURE,
   
   // Discussion Actions
   GET_DISCUSSIONS_LOADING,
@@ -543,6 +548,7 @@ export {
   getTeamDiscussions,
   joinTeam,
   getTeamDiscussionsById,
+  getTeamMembers,
 
   // Discussion Action Creators
   getTopDiscussions,
