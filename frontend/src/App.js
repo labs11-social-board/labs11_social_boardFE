@@ -27,6 +27,7 @@ import {
   Notifications,
   ChangeSubscriptionModal,
   RegisterDropdown,
+  TeamBoard
 } from './components/index.js';
 
 // views
@@ -36,6 +37,8 @@ import {
   DiscussionView,
   RegisterView,
   NonUserLandingView,
+  TeamsView,
+  TeamDiscussionView
 } from './views/index.js';
 
 // action creators
@@ -231,6 +234,9 @@ class App extends Component {
                 <Route path='/profiles' component={Profiles} />
                 <Route path='/profile/:id' component={Profile} />
                 <Route path='/categories' render={() => <CategoriesView history={history} historyPush={this.props.history.push} setAddCatModalRaised={this.setAddCatModalRaised} isAddCatModalRaised={this.state.isAddCatModalRaised} />} />
+                <Route path='/teams' render={() => <TeamsView history={history} /> } />
+                <Route path='/team/discussions/:team_id' component={TeamBoard} />
+                <Route path='/team/posts/:id' render={props => <TeamDiscussionView {...props} scrollTo={this.scrollTo} />} />
                 <Route path='/discussion/:id' render={props => <DiscussionView {...props} scrollTo={this.scrollTo} />} />
                 <Route path='/settings/:id' render={props => <Settings {...props} setChangeSubModalRaised={this.setChangeSubModalRaised} />} />
                 <Route path='/discussions/category/:category_id' component={DiscussionsByCats} />

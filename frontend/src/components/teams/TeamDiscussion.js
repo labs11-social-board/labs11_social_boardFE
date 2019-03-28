@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 //globals
-import { phoneL, tabletP } from '../globals/globals.js'
+import { phoneL, tabletP } from '../../globals/globals.js'
 
 // components
 import {
@@ -15,13 +15,13 @@ import {
   // VoteCount,
   // Deleted,
   DiscussionByFollowedCats,
-} from './index.js';
+} from '../index.js';
 
 // views
-import { PostsView } from '../views/index.js';
+import { PostsView } from '../../views/index.js';
 
 // action creators
-import { getDiscussionById, removePost, removeDiscussion, handleDiscussionVote } from '../store/actions/index.js';
+import { getTeamDiscussionsById, removePost, removeDiscussion, handleDiscussionVote } from '../../store/actions/index.js';
 
 /***************************************************************************************************
  ********************************************* Styles *********************************************
@@ -197,7 +197,7 @@ const newest = 'newest';
 const oldest = 'oldest';
 const mostUpvotes = 'most upvotes';
 
-class Discussion extends Component {
+class TeamDiscussion extends Component {
   state = {
     showAddPostForm: false, // boolean
     showEditDiscussionForm: false, // boolean
@@ -207,19 +207,19 @@ class Discussion extends Component {
   };
   handleSelectChange = e => this.setState({
     [e.target.name]: e.target.value,
-  }, () => this.handleFilterChange());
-  handleFilterChange = () => {
+  }, () => this.handleTeamFilter());
+  handleTeamFilter = () => {
     const { filter } = this.state;
-    const { getDiscussionById, id } = this.props;
+    const { getTeamDiscussionsById, id } = this.props;
     switch (filter) {
       case newest: {
-        return getDiscussionById(id, 'created_at', 'desc');
+        return getTeamDiscussionsById(id, 'created_at', 'desc');
       }
       case oldest: {
-        return getDiscussionById(id, 'created_at', 'asc');
+        return getTeamDiscussionsById(id, 'created_at', 'asc');
       }
       case mostUpvotes: {
-        return getDiscussionById(id, 'upvotes', 'desc');
+        return getTeamDiscussionsById(id, 'upvotes', 'desc');
       }
       default:
         return;
@@ -239,21 +239,21 @@ class Discussion extends Component {
       historyPush,
       discussion,
     } = this.props;
-    const { category_id } = discussion;
-    return removeDiscussion(id, category_id, historyPush);
+    const { team_id } = discussion;
+    return removeDiscussion(id, team_id, historyPush);
   };
   handleDiscussionVote = (discussion_id, type) => {
     const { handleDiscussionVote } = this.props;
     return handleDiscussionVote(discussion_id, type)
-      .then(() => this.handleFilterChange());
+      .then(() => this.handleTeamFilter());
   };
   componentDidMount = () => {
     const { scrollTo } = this.props;
-    return this.handleFilterChange().then(() => scrollTo());
+    return this.handleTeamFilter().then(() => scrollTo());
   };
   componentDidUpdate = prevProps => {
     const { id, scrollTo } = this.props;
-    if (prevProps.id !== id) return this.handleFilterChange().then(() => scrollTo());
+    if (prevProps.id !== id) return this.handleTeamFilter().then(() => scrollTo());
   };
   handleVote = (id, type) => {
     this.handleDiscussionVote(id, type);
@@ -273,7 +273,7 @@ class Discussion extends Component {
       // downvotes,
       // avatar,
       // category_name,
-      category_id,
+      team_id,
       // category_icon,
       id,
       posts,
@@ -285,7 +285,7 @@ class Discussion extends Component {
     return (
       <Wrapper>
         <div className='back-follow-wrapper'>
-          <Link className='back' to={`/discussions/category/${category_id}`}><i className="far fa-arrow-alt-circle-left"></i></Link>
+          <Link className='back' to={`/team/discussions/${team_id}`}><i className="far fa-arrow-alt-circle-left"></i></Link>
           <Follow
             discussion_id={id}
             historyPush={historyPush}
@@ -334,10 +334,11 @@ class Discussion extends Component {
                   discussion_id={id}
                   historyPush={historyPush}
                   toggleAddPostForm={this.toggleAddPostForm}
-                  handleFilterChange={this.handleFilterChange}
+                  team_id={team_id}
+                  handleTeamFilter={this.handleTeamFilter}
                 />
               )}
-              <Posts>
+              { posts ? <Posts>
                 <PostsView
                   posts={posts}
                   showEditPostForm={showEditPostForm}
@@ -348,10 +349,10 @@ class Discussion extends Component {
                   discussion_id={id}
                   historyPush={historyPush}
                   repliedPost={posts.find(post => post.id === showAddReplyForm)}
-                  handleFilterChange={this.handleFilterChange}
+                  handleTeamFilter={this.handleTeamFilter}
                   scrollTo={scrollTo}
                 />
-              </Posts>
+              </Posts> : null}
             </CommentWrapper>
           </SubWrapper>
         </DiscussionWrapper>
@@ -361,11 +362,11 @@ class Discussion extends Component {
 };
 
 const mapStateToProps = state => ({
-  discussion: state.discussions.discussion,
+  discussion: state.teams.posts,
   loggedInUserId: state.users.user_id
 });
 
 export default connect(
   mapStateToProps,
-  { getDiscussionById, removePost, removeDiscussion, handleDiscussionVote }
-)(Discussion);
+  { getTeamDiscussionsById, removePost, removeDiscussion, handleDiscussionVote }
+)(TeamDiscussion);
