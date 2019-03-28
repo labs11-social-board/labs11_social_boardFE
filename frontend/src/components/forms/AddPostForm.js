@@ -85,9 +85,11 @@ class AddPostForm extends Component {
 		this.props.addPost(discussion_id, postBody, historyPush);
 		
 		if(team_id){
+      console.log('yes')
 			handleTeamFilter();
 			toggleAddPostForm();
 		} else {
+      console.log('no')
 			handleFilterChange();
 			toggleAddPostForm();
 		}

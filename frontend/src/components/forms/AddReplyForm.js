@@ -156,8 +156,16 @@ class AddReplyForm extends Component {
 	handleSubmit = e => {
 		e.preventDefault();
 		const { replyBody } = this.state;
-		const { post_id, historyPush, discussion_id } = this.props;
-		return this.props.addReply(post_id, discussion_id, replyBody, historyPush);
+		const { post_id, historyPush, discussion_id, team_id, handleFilterChange, handleTeamFilter, toggleAddReplyForm } = this.props;
+		this.props.addReply(post_id, discussion_id, replyBody, historyPush);
+
+		if(team_id){
+			handleTeamFilter();
+			toggleAddReplyForm();
+		} else {
+			handleFilterChange();
+			toggleAddReplyForm();
+		}
 	};
 	handleToggle = () => this.props.toggleAddReplyForm();
 	render() {

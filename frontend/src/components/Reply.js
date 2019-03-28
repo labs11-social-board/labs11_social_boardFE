@@ -139,6 +139,10 @@ const Reply = ({
     toggleAddReplyForm,
     showAddReplyForm,
     handleReplyVote,
+    team_id,
+    handleFilterChange,
+    handleTeamFilter
+    
 }) => {
     const {
         body, 
@@ -207,6 +211,9 @@ const Reply = ({
                   discussion_id = {discussion_id}
                   post_id={post_id}
                   historyPush={historyPush}
+                  team_id = { team_id }
+                  handleFilterChange = { handleFilterChange }
+                  handleTeamFilter = { handleTeamFilter }
               />
             }
         </ReplyWrapper>

@@ -13,6 +13,8 @@ export const ADD_REPLY_FAILURE = 'ADD_REPLY_FAILURE';
 /***************************************************************************************************
 ********************************************** Actions ********************************************
 **************************************************************************************************/
+// .then(() => historyPush('/'))
+// .then(() => historyPush(`/discussion/${discussion_id}`))
 
 //Add Reply
 export const addReply = (post_id, discussion_id, replyBody, historyPush) => dispatch => {
@@ -23,7 +25,5 @@ export const addReply = (post_id, discussion_id, replyBody, historyPush) => disp
   dispatch({ type: ADD_REPLY_LOADING });
   return axios.post(`${backendURL}/replies/${user_id}`, body, headers)
     .then(() => dispatch({ type: ADD_REPLY_SUCCESS }))
-    .then(() => historyPush('/'))
-    .then(() => historyPush(`/discussion/${discussion_id}`))
     .catch(err => handleError(err, ADD_REPLY_FAILURE)(dispatch));
 }
