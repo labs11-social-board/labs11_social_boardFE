@@ -265,6 +265,9 @@ class Profile extends Component {
   handleRemoveFollower = (userId, followingId) => () => {
     this.props.removeFollower(userId, followingId);
   }
+  goToUsersPage = (followingId) => () => {
+    this.props.history.push(`/profile/${followingId}`);
+  }
 
 
   /* we use profileItems to manipulate what data is displayed. if the data received from our props is 0,
@@ -343,7 +346,11 @@ class Profile extends Component {
               <div>
                 {followListLength > 0 ?  followList.map((user, id) => 
                   // user.following_id can be used to go to the users profile upon clicking on them currently not implemented. 
-                  <WrappedDiv key = {id}> 
+                  <WrappedDiv
+                    style = {{cursor:"pointer"}} 
+                    key = {id} 
+                    onClick = {this.goToUsersPage(user.following_id)}
+                    > 
                     <Avatar 
                       height = '50px'
                       width = '50px'

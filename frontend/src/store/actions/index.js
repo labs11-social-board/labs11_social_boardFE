@@ -31,21 +31,24 @@ import {
   //GET TEAMS
   GET_TEAMS_LOADING,
   GET_TEAMS_SUCCESS,
-  GET_TEAMS_FAILURE,
   GET_TEAM_DISCUSSIONS_LOADING,
   GET_TEAM_DISCUSSIONS_SUCCESS,
-  GET_TEAM_DISCUSSIONS_FAILURE,
-  IS_TEAM,
-  RESET_IS_TEAM,
   GET_TEAM_DISCUSSION_POSTS_LOADING,
   GET_TEAM_DISCUSSION_POSTS_SUCCESS,
-
+  JOIN_TEAM_LOADING,
+  JOIN_TEAM_SUCCESS,
+  GET_TEAM_MEMBERS_LOADING,
+  GET_TEAM_MEMBERS_SUCCESS,
+  LEAVE_TEAM_LOADING,
+  LEAVE_TEAM_SUCCESS,
+ 
   //Action Creators
   getTeams,
   getTeamDiscussions,
-  setIsTeam,
-  resetIsTeam,
-  getTeamDiscussionsById
+  getTeamDiscussionsById,
+  joinTeam,
+  getTeamMembers,
+  leaveTeam,
 } from './TeamsActions.js';
 
 import {
@@ -352,14 +355,16 @@ export {
   // Team Actions 
   GET_TEAMS_LOADING,
   GET_TEAMS_SUCCESS,
-  GET_TEAMS_FAILURE,
   GET_TEAM_DISCUSSIONS_LOADING,
   GET_TEAM_DISCUSSIONS_SUCCESS,
-  GET_TEAM_DISCUSSIONS_FAILURE,
   GET_TEAM_DISCUSSION_POSTS_LOADING,
   GET_TEAM_DISCUSSION_POSTS_SUCCESS,
-  IS_TEAM,
-  RESET_IS_TEAM,
+  JOIN_TEAM_LOADING,
+  JOIN_TEAM_SUCCESS,
+  GET_TEAM_MEMBERS_LOADING,
+  GET_TEAM_MEMBERS_SUCCESS,
+  LEAVE_TEAM_LOADING,
+  LEAVE_TEAM_SUCCESS,
   
   // Discussion Actions
   GET_DISCUSSIONS_LOADING,
@@ -538,9 +543,10 @@ export {
   // Teams Action Creators
   getTeams,
   getTeamDiscussions,
-  setIsTeam,
-  resetIsTeam,
+  joinTeam,
   getTeamDiscussionsById,
+  getTeamMembers,
+  leaveTeam,
 
   // Discussion Action Creators
   getTopDiscussions,

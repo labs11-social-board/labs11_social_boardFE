@@ -17,7 +17,9 @@ const PostsView = ({
 	handleRemovePost,
 	toggleAddReplyForm,
 	handleFilterChange,
+	handleTeamFilter,
 	scrollTo,
+	team_id
 }) => {
 	return(
 		<PostsViewWrapper>
@@ -32,6 +34,8 @@ const PostsView = ({
 					handleRemovePost = { handleRemovePost }
 					toggleAddReplyForm = { toggleAddReplyForm }
 					handleFilterChange = { handleFilterChange }
+					handleTeamFilter = { handleTeamFilter }
+					team_id = { team_id }
 					scrollTo = { scrollTo }
 				/>)
 			}
