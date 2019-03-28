@@ -76,16 +76,22 @@ const UserActions = styled.div`
 `;
 
 class AddPostForm extends Component {
-  state = { postBody: ""};
-  handleChange = e => this.setState({ [e.target.name]: e.target.value });
-  handleSubmit = e => {
-    e.preventDefault();
-    const { postBody } = this.state;
-    const { discussion_id, historyPush } = this.props;
-    return this.props.addPost(discussion_id, postBody, historyPush);
-  };
-  
-//added Upload button to front end Per balsamic.  Need to get post for it now (MAG).
+	state = { postBody: '' };
+	handleChange = e => this.setState({ [e.target.name]: e.target.value });
+	handleSubmit = e => {
+		e.preventDefault();
+		const { postBody } = this.state;
+		const { discussion_id, team_id, handleTeamFilter, handleFilterChange, toggleAddPostForm } = this.props;
+		this.props.addPost(discussion_id, postBody, team_id);
+		
+		if(team_id){
+      toggleAddPostForm();
+      setTimeout(() => handleTeamFilter(), 100);
+    	} else {
+			toggleAddPostForm();
+			setTimeout(() => handleFilterChange(), 100);
+		}
+	};
 	
   render() {
     const { postBody } = this.state;

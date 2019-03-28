@@ -163,8 +163,10 @@ const Post = ({
   handlePostVote,
   toggleAddReplyForm,
   handleFilterChange,
+  handleTeamFilter,
   handleReplyVote,
   scrollTo,
+  team_id
 }) => {
 
   const {
@@ -241,6 +243,9 @@ const Post = ({
           historyPush = { historyPush }
           discussion_id = { discussion_id }
           toggleAddReplyForm = { toggleAddReplyForm }
+          team_id = { team_id }
+          handleFilterChange = { handleFilterChange }
+          handleTeamFilter = { handleTeamFilter }
         />
       }
       <div>
@@ -253,6 +258,9 @@ const Post = ({
               toggleAddReplyForm = { toggleAddReplyForm }
               showAddReplyForm = { showAddReplyForm }
               handleReplyVote = { handleReplyVoting }
+              team_id = { team_id }
+              handleFilterChange = { handleFilterChange }
+              handleTeamFilter = { handleTeamFilter }
             />
           )
         }

@@ -23,17 +23,19 @@ export const REMOVE_POST_FAILURE = 'REMOVE_POST_FAILURE';
 /***************************************************************************************************
  ********************************************** Actions ********************************************
  **************************************************************************************************/
+
+// .then(() => historyPush('/'))
+// .then(() => historyPush(`/discussion/${ discussion_id }`))
+
 // add a post
-export const addPost = (discussion_id, postBody, historyPush, repliedPostID) => dispatch => {
+export const addPost = (discussion_id, postBody, team_id, repliedPostID) => dispatch => {
 	const user_id = localStorage.getItem('symposium_user_id');
 	const token = localStorage.getItem('symposium_token');
 	const headers = { headers: { Authorization: token } };
-	const body = { discussion_id, postBody, repliedPostID };
+	const body = { discussion_id, postBody, repliedPostID, team_id };
 	dispatch({ type: ADD_POST_LOADING });
 	return axios.post(`${ backendURL }/posts/${ user_id }`, body, headers)
 		.then(() => dispatch({ type: ADD_POST_SUCCESS }))
-		.then(() => historyPush('/'))
-		.then(() => historyPush(`/discussion/${ discussion_id }`))
 		.catch(err => handleError(err, ADD_POST_FAILURE)(dispatch));
 };
 

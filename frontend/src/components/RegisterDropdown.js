@@ -269,7 +269,7 @@ class RegisterDropdown extends Component {
 				<input
 					type='email'
 					onChange={this.handleInputChange}
-					placeholder='Optional email'
+					placeholder='email'
 					value={this.state.email}
 					name='email'
 					autoComplete='on'
