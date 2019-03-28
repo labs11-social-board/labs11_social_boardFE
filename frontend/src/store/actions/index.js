@@ -294,6 +294,37 @@ import {
   toggleTheme,
 } from './UsersActions.js';
 
+/************************************************************
+*****************************************************************
+*****************************************************************
+*************************FOLLOWERS*******************************/
+
+import {
+  //FOLLOW ACTIONS
+  GET_FOLLOWERS,
+  GET_FOLLOWERS_SUCCESS,
+  GET_FOLLOWERS_FAILURE,
+  GET_USER_FOLLOWERS,
+  GET_USER_FOLLOWERS_SUCCESS,
+  GET_USER_FOLLOWERS_FAILURE,
+  ADD_FOLLOWER,
+  ADD_FOLLOWER_SUCCESS,
+  ADD_FOLLOWER_FAILURE,
+  REMOVE_FOLLOWER,
+  REMOVE_FOLLOWER_SUCCESS,
+  REMOVE_FOLLOWER_FAILURE,
+
+  //FOLLOW CREATORS 
+  getFollowers,
+  getProfileFollowers, 
+  removeFollower, 
+  addFollower
+  
+  
+  } from '../actions/FollowersActions.js';
+
+
+
 //*************************************************************************************************
 //*************************************************************************************************
 //*************************************************************************************************
@@ -569,4 +600,25 @@ export {
 
   // Reply Action Creators
   addReply,
+  //followers actions
+  GET_FOLLOWERS,
+  GET_FOLLOWERS_SUCCESS,
+  GET_FOLLOWERS_FAILURE,
+  GET_USER_FOLLOWERS,
+  GET_USER_FOLLOWERS_SUCCESS,
+  GET_USER_FOLLOWERS_FAILURE,
+  ADD_FOLLOWER,
+  ADD_FOLLOWER_SUCCESS,
+  ADD_FOLLOWER_FAILURE,
+  REMOVE_FOLLOWER,
+  REMOVE_FOLLOWER_SUCCESS,
+  REMOVE_FOLLOWER_FAILURE,
+
+  //FOLLOW CREATORS 
+  getFollowers, 
+  getProfileFollowers,
+  removeFollower, 
+  addFollower
 };
+
+
