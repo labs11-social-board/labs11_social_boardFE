@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import ReactPlayer from 'react-player';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { socrates } from '../assets/index.js';
+import { background } from '../assets/index.js';
+
 
 const Woah = styled.div`
   width: 100%;
@@ -12,10 +12,6 @@ const Woah = styled.div`
   flex-wrap: wrap;
   flex-direction: column;
   align-items: flex-end;
-  background-image: url(${socrates});
-  background-repeat: no-repeat;
-  background-position: left;
-  background-size: contain;
 
   @media (max-width: 1240px) {
     background-image: none;
@@ -29,7 +25,9 @@ const LandingText = styled.div`
   height: 40%;
   width: 50%;
   margin-right: 30px;
-
+  display: flex;
+  align-text: center;
+  color: lightgtr;
   @media (max-width: 1240px) {
     width: 100%;
     background-color: white;
@@ -44,37 +42,37 @@ const LandingText = styled.div`
   }
 `;
 
-const VideoPlayer = styled.div`
-  position: relative;
+// const VideoPlayer = styled.div`
+//   position: relative;
 
-  @media (max-width: 1240px) {
-    position: absolute;
-    top: 40%;
-    left: 0;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto;
-  }
+//   @media (max-width: 1240px) {
+//     position: absolute;
+//     top: 40%;
+//     left: 0;
+//     right: 0;
+//     margin-left: auto;
+//     margin-right: auto;
+//   }
 
-  ${ ({ loggedIn }) => loggedIn && '@media (max-width: 980px) {position: absolute;top: 40%;left: 0;right: 0;margin-left: auto;margin-right: auto;}'}
+//   ${ ({ loggedIn }) => loggedIn && '@media (max-width: 980px) {position: absolute;top: 40%;left: 0;right: 0;margin-left: auto;margin-right: auto;}'}
 
-  .vid-player{
-    width: 1400px;
-    height: 212px;
-    position: absolute;
-    top: 0;
-    right: 30px;
+//   .vid-player{
+//     width: 1400px;
+//     height: 212px;
+//     position: absolute;
+//     top: 0;
+//     right: 30px;
 
-    @media (max-width: 1240px) {
-      left: 0;
-      right: 0;
-      margin-left: auto;
-      margin-right: auto;
-    }
+//     @media (max-width: 1240px) {
+//       left: 0;
+//       right: 0;
+//       margin-left: auto;
+//       margin-right: auto;
+//     }
 
-    ${ ({ loggedIn }) => loggedIn && '@media (max-width: 980px) {left: 0;right: 0;margin-left: auto;margin-right: auto;}'}
-  }
-`;
+//     ${ ({ loggedIn }) => loggedIn && '@media (max-width: 980px) {left: 0;right: 0;margin-left: auto;margin-right: auto;}'}
+//   }
+// `;
 
 // const Vidception = styled.div `
 //   width: 60%;
@@ -89,20 +87,13 @@ class NonUserLandingView extends Component {
     return (
 
       <Woah loggedIn={this.props.user_id !== 0}>
+
         <LandingText loggedIn={this.props.user_id !== 0}>
           <p className='blurb'>
-            Symposium is a place where like-minded people can come together to share and discuss ideas.
+            Welcome to Symposium. 
             </p>
         </LandingText>
 
-        <VideoPlayer loggedIn={this.props.user_id !== 0}>
-          <ReactPlayer
-            className='vid-player'
-            url='https://youtu.be/T-Dji780Ro0'
-            width='320px' height='180px'
-            controls={true}
-          />
-        </VideoPlayer>
       </Woah>
     )
   }
