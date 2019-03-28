@@ -33,7 +33,7 @@ const DiscussionsWrapper = styled.div`
 	}
 
 	.content {
-		display: flex;
+		display: none;
 		flex-wrap: wrap;
 		flex-direction: column;
 		justify-content: center;
@@ -42,8 +42,20 @@ const DiscussionsWrapper = styled.div`
 		color: ${props => props.theme.discussionPostColor};
 		@media ${ tabletP} {
 			width: 100%;
-		}
-	}
+    }
+  }
+
+  .wiki {
+    display: none;
+  }
+
+  .team-members {
+    display: none;
+  }
+    
+  .selected {
+    display: flex;
+  }
 `;
 
 const DiscussionHeader = styled.div`
@@ -59,6 +71,14 @@ const DiscussionHeader = styled.div`
     align-items: center;
     .name {
       font-size: 24px;
+    }
+  }
+
+  .team-tabs {
+    display: flex;
+    
+    .tab-selected {
+      color: red;
     }
   }
 
@@ -131,6 +151,23 @@ class TeamBoard extends Component {
     return handleDiscussionVote(discussion_id, type)
       .then(() => getTeamDiscussions(match.params.team_id, order, orderType));
   };
+  handleTab = e => {
+    const content = document.querySelectorAll('.tab-content');
+    const tabs = document.querySelectorAll('.tab');
+
+    tabs.forEach(tab => tab.classList.remove('tab-selected'));
+
+    e.target.classList.add('tab-selected');
+
+    content.forEach(item => {
+      console.log(item.id)
+      item.classList.remove('selected');
+      if(item.id === e.target.textContent.toLowerCase()){
+        item.classList.add('selected');
+      }
+      }
+    );
+  }
   handleSelectChange = e => {
     let order = 'created_at';
     let orderType;
@@ -194,6 +231,11 @@ class TeamBoard extends Component {
                 historyPush={history.push}
               />
             </div>
+            <div className = 'team-tabs'>
+              <h3 className='tab tab-selected' onClick={this.handleTab}>Discussions</h3>
+              <h3 className='tab' onClick={this.handleTab}>Wiki</h3>
+              <h3 className='tab' onClick={this.handleTab}>Team Members</h3>
+            </div>
             <div className='filter-add-btn-wrapper'>
               <div className='filter-wrapper'>
                 <i className='fab fa-mix' />
@@ -216,7 +258,7 @@ class TeamBoard extends Component {
             </div>
           </DiscussionHeader>
           <hr />
-          <div className='content'>
+          <div id='discussions' className='content tab-content selected'>
             {discussions.map((discussion, i) =>
               <DiscussionByFollowedCats
                 key={i}
@@ -227,6 +269,12 @@ class TeamBoard extends Component {
                 toggleIsTeam={this.toggleIsTeam}
               />)
             }
+          </div>
+          <div id='wiki' className='wiki tab-content '>
+            <p>placeholder</p>
+          </div>
+          <div id='team members' className='team-members tab-content'>
+            <p>placeholder</p>
           </div>
           {
             showAddDiscussionForm &&
