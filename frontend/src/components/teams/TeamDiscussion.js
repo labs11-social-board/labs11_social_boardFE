@@ -207,8 +207,8 @@ class TeamDiscussion extends Component {
   };
   handleSelectChange = e => this.setState({
     [e.target.name]: e.target.value,
-  }, () => this.handleFilterChange());
-  handleFilterChange = () => {
+  }, () => this.handleTeamFilter());
+  handleTeamFilter = () => {
     const { filter } = this.state;
     const { getTeamDiscussionsById, id } = this.props;
     switch (filter) {
@@ -245,15 +245,15 @@ class TeamDiscussion extends Component {
   handleDiscussionVote = (discussion_id, type) => {
     const { handleDiscussionVote } = this.props;
     return handleDiscussionVote(discussion_id, type)
-      .then(() => this.handleFilterChange());
+      .then(() => this.handleTeamFilter());
   };
   componentDidMount = () => {
     const { scrollTo } = this.props;
-    return this.handleFilterChange().then(() => scrollTo());
+    return this.handleTeamFilter().then(() => scrollTo());
   };
   componentDidUpdate = prevProps => {
     const { id, scrollTo } = this.props;
-    if (prevProps.id !== id) return this.handleFilterChange().then(() => scrollTo());
+    if (prevProps.id !== id) return this.handleTeamFilter().then(() => scrollTo());
   };
   handleVote = (id, type) => {
     this.handleDiscussionVote(id, type);
@@ -334,6 +334,8 @@ class TeamDiscussion extends Component {
                   discussion_id={id}
                   historyPush={historyPush}
                   toggleAddPostForm={this.toggleAddPostForm}
+                  team_id={team_id}
+                  handleTeamFilter={this.handleTeamFilter}
                 />
               )}
               { posts ? <Posts>
@@ -347,7 +349,7 @@ class TeamDiscussion extends Component {
                   discussion_id={id}
                   historyPush={historyPush}
                   repliedPost={posts.find(post => post.id === showAddReplyForm)}
-                  handleFilterChange={this.handleFilterChange}
+                  handleTeamFilter={this.handleTeamFilter}
                   scrollTo={scrollTo}
                 />
               </Posts> : null}
