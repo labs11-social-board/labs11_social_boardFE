@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 // components
-import { DiscussionByFollowedCats, AddDiscussionForm, FollowCat } from '../index.js';
+import { DiscussionByFollowedCats, AddDiscussionForm, FollowCat, Avatar } from '../index.js';
 
 // action creators
-import { getTeamDiscussions, handleDiscussionVote } from '../../store/actions/index.js';
+import { getTeamDiscussions, handleDiscussionVote, getTeamMembers } from '../../store/actions/index.js';
 
 // globals
 import { tabletP } from '../../globals/globals.js';
@@ -47,10 +47,38 @@ const DiscussionsWrapper = styled.div`
 
   .wiki {
     display: none;
+    width: 95%;
+    margin-top: 5%;
   }
 
   .team-members {
     display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: baseline;
+    width: 95%;
+    margin-top: 2%;
+
+    .member-wrapper {
+      display:flex;
+      align-items: center;
+      width: 40%;
+      margin-bottom: 2%;
+      cursor: pointer;
+
+      &:hover {
+        background: lightgrey;
+        border-radius: 3px;
+      }
+
+      h2 {
+        margin: 0% 5% 0% 5%;
+        width: 60%;
+      }
+      .member_role {
+        margin-right: 5%;
+      }
+    }
   }
     
   .selected {
@@ -82,7 +110,7 @@ const DiscussionHeader = styled.div`
 
     .tab {
       border: 1px solid black;
-      padding: 2% 4%;
+      padding: 6px 15px;
       border-radius: 3px;
       box-shadow: 1px 1px 1px 1px black;
       cursor:pointer;
@@ -177,7 +205,6 @@ class TeamBoard extends Component {
     e.target.classList.add('tab-selected');
 
     content.forEach(item => {
-      console.log(item.id)
       item.classList.remove('selected');
       if(item.id === e.target.textContent.toLowerCase()){
         item.classList.add('selected');
@@ -185,6 +212,10 @@ class TeamBoard extends Component {
       }
     );
   }
+  handleUserClick = (e, user_id)=> {
+		e.stopPropagation();
+		return this.props.history.push(`/profile/${ user_id }`);
+	};
   handleSelectChange = e => {
     let order = 'created_at';
     let orderType;
@@ -221,7 +252,10 @@ class TeamBoard extends Component {
     const { getTeamDiscussions, match } = this.props;
     return getTeamDiscussions(match.params.team_id, order, orderType);
   };
-  componentDidMount = () => this.getDiscussions();
+  componentDidMount = () => {
+    this.getDiscussions();
+    this.props.getTeamMembers(this.props.match.params.team_id);
+  }
 
   componentDidUpdate(prevProps) {
     const { match, getTeamDiscussions, posts } = this.props;
@@ -233,7 +267,7 @@ class TeamBoard extends Component {
     };
   };
   render() {
-    const { discussions, history, team, match } = this.props;
+    const { discussions, history, team, match, team_members } = this.props;
     const { showAddDiscussionForm } = this.state;
     if(!team){
       return (<h1>Loading..</h1>)
@@ -246,6 +280,7 @@ class TeamBoard extends Component {
               <FollowCat
                 team_id={match.params.team_id}
                 historyPush={history.push}
+                team_members={team_members}
               />
             </div>
             <div className = 'team-tabs'>
@@ -291,7 +326,15 @@ class TeamBoard extends Component {
             <p>{team.wiki}</p>
           </div>
           <div id='team members' className='team-members tab-content'>
-            <p>placeholder</p>
+            {team_members.map( (member, i)=> {
+              return (
+                <div key={i} className='member-wrapper' onClick={e => this.handleUserClick(e, member.user_id)}>
+                  <Avatar height='70px' width='70px' src={ member.avatar }/>
+                  <h2>{member.username}</h2>
+                  <p className='member_role'>{member.role}</p>
+                </div>
+              );
+            })}
           </div>
           {
             showAddDiscussionForm &&
@@ -310,6 +353,7 @@ class TeamBoard extends Component {
 const mapStateToProps = state => ({
   discussions: state.teams.teamDiscussions.discussions,
   team: state.teams.teamDiscussions.team,
+  team_members: state.teams.team_members
 });
 
-export default connect(mapStateToProps, { getTeamDiscussions, handleDiscussionVote })(TeamBoard);
+export default connect(mapStateToProps, { getTeamDiscussions, handleDiscussionVote, getTeamMembers })(TeamBoard);

@@ -29,6 +29,14 @@ export const JOIN_TEAM_LOADING = 'JOIN_TEAM_LOADING';
 export const JOIN_TEAM_SUCCESS = 'JOIN_TEAM_SUCCESS';
 export const JOIN_TEAM_FAILURE = 'JOIN_TEAM_FAILURE';
 
+export const LEAVE_TEAM_LOADING = 'LEAVE_TEAM_LOADING';
+export const LEAVE_TEAM_SUCCESS = 'LEAVE_TEAM_SUCCESS';
+export const LEAVE_TEAM_FAILURE = 'LEAVE_TEAM_FAILURE';
+
+export const GET_TEAM_MEMBERS_LOADING = 'GET_TEAM_MEMBERS_LOADING';
+export const GET_TEAM_MEMBERS_SUCCESS = 'GET_TEAM_MEMBERS_SUCCESS';
+export const GET_TEAM_MEMBERS_FAILURE = 'GET_TEAM_MEMBERS_FAILURE';
+
 
 /***************************************************************************************************
  ********************************************* Action Creators *************************************
@@ -66,11 +74,10 @@ export const getTeamDiscussionsById = (discussion_id, order, orderType) => dispa
     .catch(err => handleError(err, GET_TEAM_DISCUSSION_POSTS_FAILURE)(dispatch));
 };
 
-export const joinTeam = (team_id) => dispatch => {
+export const joinTeam = team_id => dispatch => {
   const user_id = localStorage.getItem('symposium_user_id');
   const token = localStorage.getItem('symposium_token');
   const headers = { headers: { Authorization: token } };
-  console.log(headers)
   dispatch({ type: JOIN_TEAM_LOADING });
   return axios
     .post(`${backendUrl}/team/team_members/${user_id}/${team_id}`, {}, headers)
@@ -78,10 +85,24 @@ export const joinTeam = (team_id) => dispatch => {
     .catch(err => handleError(err, JOIN_TEAM_FAILURE)(dispatch));
 }
 
-// export const setIsTeam = () => dispatch => {
-//    dispatch({ type: IS_TEAM });
-// }
+export const leaveTeam = team_id => dispatch => {
+  const user_id = localStorage.getItem('symposium_user_id');
+  const token = localStorage.getItem('symposium_token');
+  const headers = { headers: { Authorization: token } };
+  dispatch({ type: LEAVE_TEAM_LOADING });
+  return axios
+    .delete(`${backendUrl}/team/team_members/${user_id}/${team_id}`, headers)
+    .then(res => dispatch({ type: LEAVE_TEAM_SUCCESS, payload: res.data }))
+    .catch(err => handleError(err, LEAVE_TEAM_FAILURE)(dispatch));
+}
 
-// export const resetIsTeam = () => dispatch => {
-//   dispatch({ type: RESET_IS_TEAM });
-// }
+export const getTeamMembers = team_id => dispatch => {
+  const user_id = localStorage.getItem('symposium_user_id');
+  const token = localStorage.getItem('symposium_token');
+  const headers = { headers: { Authorization: token } };
+  dispatch({ type: GET_TEAM_MEMBERS_LOADING });
+  return axios
+  .get(`${backendUrl}/team/team_members/${user_id}/${team_id}`, headers)
+  .then(res => dispatch({ type:GET_TEAM_MEMBERS_SUCCESS, payload: res.data }))
+  .catch(err => handleError(err, GET_TEAM_MEMBERS_FAILURE)(dispatch));
+}
