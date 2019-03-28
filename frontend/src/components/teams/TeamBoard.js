@@ -33,7 +33,7 @@ const DiscussionsWrapper = styled.div`
 	}
 
 	.content {
-		display: flex;
+		display: none;
 		flex-wrap: wrap;
 		flex-direction: column;
 		justify-content: center;
@@ -42,8 +42,20 @@ const DiscussionsWrapper = styled.div`
 		color: ${props => props.theme.discussionPostColor};
 		@media ${ tabletP} {
 			width: 100%;
-		}
-	}
+    }
+  }
+
+  .wiki {
+    display: none;
+  }
+
+  .team-members {
+    display: none;
+  }
+    
+  .selected {
+    display: flex;
+  }
 `;
 
 const DiscussionHeader = styled.div`
@@ -59,6 +71,31 @@ const DiscussionHeader = styled.div`
     align-items: center;
     .name {
       font-size: 24px;
+    }
+  }
+
+  .team-tabs {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 25%;
+
+    .tab {
+      border: 1px solid black;
+      padding: 2% 4%;
+      border-radius: 3px;
+      box-shadow: 1px 1px 1px 1px black;
+      cursor:pointer;
+
+      &:hover {
+        background: lightskyblue;
+        color: white;
+      }
+    } 
+      
+    .tab-selected {
+      color: white;
+      background: dodgerblue;
     }
   }
 
@@ -131,6 +168,23 @@ class TeamBoard extends Component {
     return handleDiscussionVote(discussion_id, type)
       .then(() => getTeamDiscussions(match.params.team_id, order, orderType));
   };
+  handleTab = e => {
+    const content = document.querySelectorAll('.tab-content');
+    const tabs = document.querySelectorAll('.tab');
+
+    tabs.forEach(tab => tab.classList.remove('tab-selected'));
+
+    e.target.classList.add('tab-selected');
+
+    content.forEach(item => {
+      console.log(item.id)
+      item.classList.remove('selected');
+      if(item.id === e.target.textContent.toLowerCase()){
+        item.classList.add('selected');
+      }
+      }
+    );
+  }
   handleSelectChange = e => {
     let order = 'created_at';
     let orderType;
@@ -175,7 +229,6 @@ class TeamBoard extends Component {
     const { order, orderType } = this.state;
     
     if (prevProps.match.params.team_id !== team_id) {
-      console.log(prevProps.match.params.team_id, team_id, match.params)
       return getTeamDiscussions(team_id, order, orderType);
     };
   };
@@ -190,10 +243,15 @@ class TeamBoard extends Component {
           <DiscussionHeader>
             <div className='name-follow-wrapper'>
               <h2 className='name'>{team.team_name}</h2>
-              {/* <FollowCat
+              <FollowCat
                 team_id={match.params.team_id}
                 historyPush={history.push}
-              /> */}
+              />
+            </div>
+            <div className = 'team-tabs'>
+              <h3 className='tab tab-selected' onClick={this.handleTab}>Discussions</h3>
+              <h3 className='tab' onClick={this.handleTab}>Wiki</h3>
+              <h3 className='tab' onClick={this.handleTab}>Team Members</h3>
             </div>
             <div className='filter-add-btn-wrapper'>
               <div className='filter-wrapper'>
@@ -217,7 +275,7 @@ class TeamBoard extends Component {
             </div>
           </DiscussionHeader>
           <hr />
-          <div className='content'>
+          <div id='discussions' className='content tab-content selected'>
             {discussions.map((discussion, i) =>
               <DiscussionByFollowedCats
                 key={i}
@@ -228,6 +286,12 @@ class TeamBoard extends Component {
                 toggleIsTeam={this.toggleIsTeam}
               />)
             }
+          </div>
+          <div id='wiki' className='wiki tab-content '>
+            <p>{team.wiki}</p>
+          </div>
+          <div id='team members' className='team-members tab-content'>
+            <p>placeholder</p>
           </div>
           {
             showAddDiscussionForm &&
