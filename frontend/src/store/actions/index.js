@@ -27,6 +27,28 @@ import {
 } from './CategoriesActions.js';
 
 import {
+  // Teams
+  //GET TEAMS
+  GET_TEAMS_LOADING,
+  GET_TEAMS_SUCCESS,
+  GET_TEAMS_FAILURE,
+  GET_TEAM_DISCUSSIONS_LOADING,
+  GET_TEAM_DISCUSSIONS_SUCCESS,
+  GET_TEAM_DISCUSSIONS_FAILURE,
+  IS_TEAM,
+  RESET_IS_TEAM,
+  GET_TEAM_DISCUSSION_POSTS_LOADING,
+  GET_TEAM_DISCUSSION_POSTS_SUCCESS,
+
+  //Action Creators
+  getTeams,
+  getTeamDiscussions,
+  setIsTeam,
+  resetIsTeam,
+  getTeamDiscussionsById
+} from './TeamsActions.js';
+
+import {
   // Actions
   //TOP DISCUSSIONS
   TOP_DISCUSSIONS_LOADING,
@@ -71,6 +93,7 @@ import {
   getAllDiscussionsByFollowedCategories,
   followDiscussion,
   addDiscussion,
+  addTeamDiscussion,
   editDiscussion,
   removeDiscussion,
 } from './DiscussionsActions.js';
@@ -326,6 +349,18 @@ export {
   ADD_CATEGORY_SUCCESS,
   ADD_CATEGORY_FAILURE,
 
+  // Team Actions 
+  GET_TEAMS_LOADING,
+  GET_TEAMS_SUCCESS,
+  GET_TEAMS_FAILURE,
+  GET_TEAM_DISCUSSIONS_LOADING,
+  GET_TEAM_DISCUSSIONS_SUCCESS,
+  GET_TEAM_DISCUSSIONS_FAILURE,
+  GET_TEAM_DISCUSSION_POSTS_LOADING,
+  GET_TEAM_DISCUSSION_POSTS_SUCCESS,
+  IS_TEAM,
+  RESET_IS_TEAM,
+  
   // Discussion Actions
   GET_DISCUSSIONS_LOADING,
   GET_DISCUSSIONS_SUCCESS,
@@ -500,6 +535,13 @@ export {
   followCategory,
   addCategory,
 
+  // Teams Action Creators
+  getTeams,
+  getTeamDiscussions,
+  setIsTeam,
+  resetIsTeam,
+  getTeamDiscussionsById,
+
   // Discussion Action Creators
   getTopDiscussions,
   getDiscussionsByCat,
@@ -507,6 +549,7 @@ export {
   getAllDiscussionsByFollowedCategories,
   followDiscussion,
   addDiscussion,
+  addTeamDiscussion,
   editDiscussion,
   removeDiscussion,
 
