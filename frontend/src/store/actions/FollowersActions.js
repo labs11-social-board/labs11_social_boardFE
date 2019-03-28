@@ -52,21 +52,19 @@ export const getProfileFollowers = (userId) => dispatch => {
 };
 
 //REMOVE FOLLOWER FROM LIST
-export const removeFollower = following_id => dispatch => {
+export const removeFollower = (userId, following_id) => dispatch => {
   const token = localStorage.getItem("symposium_token");
-  const userId = localStorage.getItem("symposium_user_id");
   const headers = { headers: { Authorization: token } };
   dispatch({ type: REMOVE_FOLLOWER });
   return axios
     .delete(`${backendURL}/followers/${userId}/${following_id}`, headers)
-    .then(() => dispatch({ type: REMOVE_FOLLOWER_SUCCESS }))
+    .then((res) => dispatch({ type: REMOVE_FOLLOWER_SUCCESS, payload: res.data }))
     .catch(err => handleError(err, REMOVE_FOLLOWER_FAILURE)(dispatch));
 };
 
 //ADD TO FOLLOWER LIST
-export const addFollower = following_id => dispatch => {
+export const addFollower = (userId, following_id) => dispatch => {
   const token = localStorage.getItem("symposium_token");
-  const userId = localStorage.getItem("symposium_user_id");
   const headers = { headers: { Authorization: token } };
   const body = {};
   dispatch({type: ADD_FOLLOWER})
@@ -74,7 +72,7 @@ export const addFollower = following_id => dispatch => {
   if(userId !== following_id){
       return axios
         .post(`${backendURL}/followers/${userId}/${following_id}`, body, headers)
-        .then(() => dispatch({type: ADD_FOLLOWER_SUCCESS}))
+        .then((res) => dispatch({type: ADD_FOLLOWER_SUCCESS, payload: res.data}))
         .catch(err => handleError(err, ADD_FOLLOWER_FAILURE)(dispatch));
   } else {
       dispatch({type: ADD_FOLLOWER_FAILURE, err: "A user cannot follow themselves"});
