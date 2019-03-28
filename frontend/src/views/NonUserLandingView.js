@@ -12,10 +12,6 @@ const Woah = styled.div`
   flex-wrap: wrap;
   flex-direction: column;
   align-items: flex-end;
-  background-image: url(${background});
-  background-repeat: no-repeat;
-  background-position:left;
-  background-size:contain;
 
   @media (max-width: 1240px) {
     background-image: none;
@@ -31,7 +27,7 @@ const LandingText = styled.div`
   margin-right: 30px;
   display: flex;
   align-text: center;
-
+  color: lightgtr;
   @media (max-width: 1240px) {
     width: 100%;
     background-color: white;
