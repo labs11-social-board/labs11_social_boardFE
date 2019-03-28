@@ -51,6 +51,20 @@ const DiscussionsWrapper = styled.div`
 
   .team-members {
     display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: baseline;
+    width: 95%;
+
+    .member-wrapper {
+      display:flex;
+      align-items: baseline;
+      width: 100%;
+
+      h2 {
+        margin-right: 5%;
+      }
+    }
   }
     
   .selected {
@@ -294,9 +308,9 @@ class TeamBoard extends Component {
             <p>{team.wiki}</p>
           </div>
           <div id='team members' className='team-members tab-content'>
-            {team_members.map( member => {
+            {team_members.map( (member, i)=> {
               return (
-                <div key={member.id} className='member-wrapper'>
+                <div key={i} className='member-wrapper'>
                   <h2>{member.username}</h2>
                   <p>{member.role}</p>
                 </div>
