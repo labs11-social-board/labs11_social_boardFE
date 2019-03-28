@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { socrates } from '../assets/index.js';
 
 const Woah = styled.div`
   width: 100%;
@@ -11,7 +10,6 @@ const Woah = styled.div`
   flex-wrap: wrap;
   flex-direction: column;
   align-items: flex-end;
-  background-image: url(${socrates});
   background-repeat: no-repeat;
   background-position: left;
   background-size: contain;
