@@ -85,11 +85,11 @@ class AddPostForm extends Component {
 		this.props.addPost(discussion_id, postBody, team_id);
 		
 		if(team_id){
-			handleTeamFilter();
+      toggleAddPostForm();
+      setTimeout(() => handleTeamFilter(), 100);
+    	} else {
 			toggleAddPostForm();
-		} else {
-			handleFilterChange();
-			toggleAddPostForm();
+			setTimeout(() => handleFilterChange(), 100);
 		}
 	};
 	

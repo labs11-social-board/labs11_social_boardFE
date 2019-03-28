@@ -47,17 +47,17 @@ export const TeamsReducer = (state = initialState, action) => {
         teamDiscussions: action.payload
       };
     
-    case IS_TEAM: 
-      return {
-        ...state,
-        isTeam: true
-      };
+    // case IS_TEAM: 
+    //   return {
+    //     ...state,
+    //     isTeam: true
+    //   };
     
-    case RESET_IS_TEAM:
-      return {
-        ...state,
-        isTeam: false
-      };
+    // case RESET_IS_TEAM:
+    //   return {
+    //     ...state,
+    //     isTeam: false
+    //   };
     
     case GET_TEAM_DISCUSSION_POSTS_LOADING: 
       return {

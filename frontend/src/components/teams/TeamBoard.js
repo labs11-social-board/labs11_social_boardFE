@@ -175,7 +175,6 @@ class TeamBoard extends Component {
     const { order, orderType } = this.state;
     
     if (prevProps.match.params.team_id !== team_id) {
-      console.log(prevProps.match.params.team_id, team_id, match.params)
       return getTeamDiscussions(team_id, order, orderType);
     };
   };
@@ -190,10 +189,10 @@ class TeamBoard extends Component {
           <DiscussionHeader>
             <div className='name-follow-wrapper'>
               <h2 className='name'>{team.team_name}</h2>
-              {/* <FollowCat
+              <FollowCat
                 team_id={match.params.team_id}
                 historyPush={history.push}
-              /> */}
+              />
             </div>
             <div className='filter-add-btn-wrapper'>
               <div className='filter-wrapper'>

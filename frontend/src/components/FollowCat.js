@@ -46,43 +46,58 @@ class FollowCat extends Component {
 	  handleChange = e => this.setState({ [e.target.name]: e.target.value });
 	  handleFollowClick = e => {
       e.preventDefault();
-      const { followCategory, displayError, category_id, user_id, historyPush, onCategoriesPage } = this.props;
+      const { followCategory, displayError, category_id, team_id, user_id, historyPush, onCategoriesPage } = this.props;
       if (!user_id) {
         return displayError('You must be logged in to follow a category.');
       }
-      return followCategory(category_id, user_id, historyPush, onCategoriesPage);
+      if(team_id){
+        
+      } else {
+        return followCategory(category_id, user_id, historyPush, onCategoriesPage);
+      }
 	  };
     
     render() {
-      const { onCategoriesPage } = this.props;
+      const { onCategoriesPage, team_id } = this.props;
         const isFollowing = this.props.categoriesFollowed.some(follow => follow.id === Number(this.props.category_id));
         return (
           <>
-            {
-              isFollowing ?
-              onCategoriesPage ?
+            { team_id ? 
               <FollowWrapper>
-              <Followed isFollowing = { isFollowing }>
-                <button
-                  className="follow"
-                  onClick={this.handleFollowClick}
-                  onChange = { this.handleChange }
-                >
-                  <i className={isFollowing ? "fas fa-minus-circle" : "fas fa-plus-circle"}></i>&nbsp;&nbsp;Unfollow
-                </button>
-              </Followed>
-            </FollowWrapper> : null :
-              <FollowWrapper>
-                <Followed>
+                <Followed isFollowing = { isFollowing }>
                   <button
                     className="follow"
                     onClick={this.handleFollowClick}
                     onChange = { this.handleChange }
                   >
-                    <i className={isFollowing ? "fas fa-minus-circle" : "fas fa-plus-circle"}></i>&nbsp;&nbsp;Follow
+                    <i className={isFollowing ? "fas fa-minus-circle" : "fas fa-plus-circle"}></i>&nbsp;&nbsp;Join!
                   </button>
                 </Followed>
-              </FollowWrapper>
+              </FollowWrapper>  : 
+                isFollowing ?
+                onCategoriesPage ?
+                <FollowWrapper>
+                  <Followed isFollowing = { isFollowing }>
+                    <button
+                      className="follow"
+                      onClick={this.handleFollowClick}
+                      onChange = { this.handleChange }
+                    >
+                      <i className={isFollowing ? "fas fa-minus-circle" : "fas fa-plus-circle"}></i>&nbsp;&nbsp;Unfollow
+                    </button>
+                  </Followed>
+              </FollowWrapper> : null :
+                <FollowWrapper>
+                  <Followed>
+                    <button
+                      className="follow"
+                      onClick={this.handleFollowClick}
+                      
+                    >
+                      <i className={isFollowing ? "fas fa-minus-circle" : "fas fa-plus-circle"}></i>&nbsp;&nbsp;Follow
+                    </button>
+                  </Followed>
+                </FollowWrapper>
             }
           </>
         );

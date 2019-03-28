@@ -160,11 +160,11 @@ class AddReplyForm extends Component {
 		this.props.addReply(post_id, team_id, replyBody);
 
 		if(team_id){
-			handleTeamFilter();
+      toggleAddReplyForm();
+      setTimeout(() => handleTeamFilter(), 100);
+    	} else {
 			toggleAddReplyForm();
-		} else {
-			handleFilterChange();
-			toggleAddReplyForm();
+			setTimeout(() => handleFilterChange(), 100);
 		}
 	};
 	handleToggle = () => this.props.toggleAddReplyForm();
