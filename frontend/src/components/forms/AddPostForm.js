@@ -86,10 +86,10 @@ class AddPostForm extends Component {
 		
 		if(team_id){
       toggleAddPostForm();
-      setTimeout(() => handleTeamFilter(), 100);
+      setTimeout(() => handleTeamFilter(), 200);
     	} else {
 			toggleAddPostForm();
-			setTimeout(() => handleFilterChange(), 100);
+			setTimeout(() => handleFilterChange(), 200);
 		}
 	};
 	

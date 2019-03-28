@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { followCategory, joinTeam } from '../store/actions/index.js';
+import { followCategory, joinTeam, leaveTeam } from '../store/actions/index.js';
 
 // action creators
 import { displayError } from '../store/actions/index.js';
@@ -56,48 +56,73 @@ class FollowCat extends Component {
         return followCategory(category_id, user_id, historyPush, onCategoriesPage);
       }
 	  };
-    
-    render() {
+    handleLeaveTeam = e => {
+      e.preventDefault();
+      this.props.leaveTeam(this.props.team_id);
+    }
+    conditionalRender = () => {
       const { onCategoriesPage, team_id } = this.props;
+
+      if(team_id){
+        const isTeamMember = this.props.team_members.some( member => member.user_id === this.props.user_id);
+        console.log(isTeamMember)
+        return (
+          isTeamMember ?
+          <FollowWrapper>
+            <Followed isTeamMember = { isTeamMember }>
+              <button
+                className="follow"
+                onClick={this.handleLeaveTeam}
+              >
+                <i className={isTeamMember ? "fas fa-minus-circle" : "fas fa-plus-circle"}></i>&nbsp;&nbsp;Leave Team!
+              </button>
+            </Followed>
+          </FollowWrapper> : 
+            <FollowWrapper>
+              <Followed>
+                <button
+                  className="follow"
+                  onClick={this.handleFollowClick}
+                >
+                  <i className={isTeamMember ? "fas fa-minus-circle" : "fas fa-plus-circle"}></i>&nbsp;&nbsp;Join!
+                </button>
+              </Followed>
+            </FollowWrapper>
+        );
+      } else {
         const isFollowing = this.props.categoriesFollowed.some(follow => follow.id === Number(this.props.category_id));
         return (
+          isFollowing ?
+          onCategoriesPage ?
+          <FollowWrapper>
+            <Followed isFollowing = { isFollowing }>
+              <button
+                className="follow"
+                onClick={this.handleFollowClick}
+                onChange = { this.handleChange }
+              >
+                <i className={isFollowing ? "fas fa-minus-circle" : "fas fa-plus-circle"}></i>&nbsp;&nbsp;Unfollow
+              </button>
+            </Followed>
+        </FollowWrapper> : null :
+          <FollowWrapper>
+            <Followed>
+              <button
+                className="follow"
+                onClick={this.handleFollowClick}
+                onChange = { this.handleChange }
+              >
+                <i className={isFollowing ? "fas fa-minus-circle" : "fas fa-plus-circle"}></i>&nbsp;&nbsp;Follow
+              </button>
+            </Followed>
+          </FollowWrapper>
+        );
+      }
+    };
+    render() {        
+        return (
           <>
-            { team_id ? 
-              <FollowWrapper>
-                <Followed isFollowing = { isFollowing }>
-                  <button
-                    className="follow"
-                    onClick={this.handleFollowClick}
-                  >
-                    <i className={isFollowing ? "fas fa-minus-circle" : "fas fa-plus-circle"}></i>&nbsp;&nbsp;Join!
-                  </button>
-                </Followed>
-              </FollowWrapper>  : 
-                isFollowing ?
-                onCategoriesPage ?
-                <FollowWrapper>
-                  <Followed isFollowing = { isFollowing }>
-                    <button
-                      className="follow"
-                      onClick={this.handleFollowClick}
-                      onChange = { this.handleChange }
-                    >
-                      <i className={isFollowing ? "fas fa-minus-circle" : "fas fa-plus-circle"}></i>&nbsp;&nbsp;Unfollow
-                    </button>
-                  </Followed>
-              </FollowWrapper> : null :
-                <FollowWrapper>
-                  <Followed>
-                    <button
-                      className="follow"
-                      onClick={this.handleFollowClick}
-                      onChange = { this.handleChange }
-                    >
-                      <i className={isFollowing ? "fas fa-minus-circle" : "fas fa-plus-circle"}></i>&nbsp;&nbsp;Follow
-                    </button>
-                  </Followed>
-                </FollowWrapper>
-            }
+            {this.conditionalRender()}
           </>
         );
     }
@@ -108,5 +133,5 @@ const mapStateToProps = state => ({
     user_id: state.users.user_id
 });
 
-export default connect(mapStateToProps, { followCategory, displayError, joinTeam })(FollowCat);
+export default connect(mapStateToProps, { followCategory, displayError, joinTeam, leaveTeam })(FollowCat);
 

@@ -82,7 +82,7 @@ const DiscussionHeader = styled.div`
 
     .tab {
       border: 1px solid black;
-      padding: 2% 4%;
+      padding: 6px 15px;
       border-radius: 3px;
       box-shadow: 1px 1px 1px 1px black;
       cursor:pointer;
@@ -248,6 +248,7 @@ class TeamBoard extends Component {
               <FollowCat
                 team_id={match.params.team_id}
                 historyPush={history.push}
+                team_members={team_members}
               />
             </div>
             <div className = 'team-tabs'>
