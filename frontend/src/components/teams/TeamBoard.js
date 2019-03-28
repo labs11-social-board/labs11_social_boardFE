@@ -76,9 +76,26 @@ const DiscussionHeader = styled.div`
 
   .team-tabs {
     display: flex;
-    
+    align-items: center;
+    justify-content: space-evenly;
+    width: 25%;
+
+    .tab {
+      border: 1px solid black;
+      padding: 2% 4%;
+      border-radius: 3px;
+      box-shadow: 1px 1px 1px 1px black;
+      cursor:pointer;
+
+      &:hover {
+        background: lightskyblue;
+        color: white;
+      }
+    } 
+      
     .tab-selected {
-      color: red;
+      color: white;
+      background: dodgerblue;
     }
   }
 
@@ -271,7 +288,7 @@ class TeamBoard extends Component {
             }
           </div>
           <div id='wiki' className='wiki tab-content '>
-            <p>placeholder</p>
+            <p>{team.wiki}</p>
           </div>
           <div id='team members' className='team-members tab-content'>
             <p>placeholder</p>
