@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
+import { background } from '../assets/index.js';
+
 
 const Woah = styled.div`
   width: 100%;
@@ -10,9 +12,10 @@ const Woah = styled.div`
   flex-wrap: wrap;
   flex-direction: column;
   align-items: flex-end;
+  background-image: url(${background});
   background-repeat: no-repeat;
-  background-position: left;
-  background-size: contain;
+  background-position:left;
+  background-size:contain;
 
   @media (max-width: 1240px) {
     background-image: none;
@@ -26,6 +29,8 @@ const LandingText = styled.div`
   height: 40%;
   width: 50%;
   margin-right: 30px;
+  display: flex;
+  align-text: center;
 
   @media (max-width: 1240px) {
     width: 100%;
@@ -86,9 +91,10 @@ class NonUserLandingView extends Component {
     return (
 
       <Woah loggedIn={this.props.user_id !== 0}>
+
         <LandingText loggedIn={this.props.user_id !== 0}>
           <p className='blurb'>
-            Welcome to Symposium, a forum for all communities. 
+            Welcome to Symposium. 
             </p>
         </LandingText>
 
