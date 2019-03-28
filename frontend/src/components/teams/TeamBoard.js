@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 // components
-import { DiscussionByFollowedCats, AddDiscussionForm, FollowCat } from '../index.js';
+import { DiscussionByFollowedCats, AddDiscussionForm, FollowCat, Avatar } from '../index.js';
 
 // action creators
 import { getTeamDiscussions, handleDiscussionVote, getTeamMembers } from '../../store/actions/index.js';
@@ -47,6 +47,8 @@ const DiscussionsWrapper = styled.div`
 
   .wiki {
     display: none;
+    width: 95%;
+    margin-top: 5%;
   }
 
   .team-members {
@@ -55,13 +57,25 @@ const DiscussionsWrapper = styled.div`
     justify-content: center;
     align-items: baseline;
     width: 95%;
+    margin-top: 2%;
 
     .member-wrapper {
       display:flex;
-      align-items: baseline;
-      width: 100%;
+      align-items: center;
+      width: 40%;
+      margin-bottom: 2%;
+      cursor: pointer;
+
+      &:hover {
+        background: lightgrey;
+        border-radius: 3px;
+      }
 
       h2 {
+        margin: 0% 5% 0% 5%;
+        width: 60%;
+      }
+      .member_role {
         margin-right: 5%;
       }
     }
@@ -198,6 +212,10 @@ class TeamBoard extends Component {
       }
     );
   }
+  handleUserClick = (e, user_id)=> {
+		e.stopPropagation();
+		return this.props.history.push(`/profile/${ user_id }`);
+	};
   handleSelectChange = e => {
     let order = 'created_at';
     let orderType;
@@ -310,9 +328,10 @@ class TeamBoard extends Component {
           <div id='team members' className='team-members tab-content'>
             {team_members.map( (member, i)=> {
               return (
-                <div key={i} className='member-wrapper'>
+                <div key={i} className='member-wrapper' onClick={e => this.handleUserClick(e, member.user_id)}>
+                  <Avatar height='70px' width='70px' src={ member.avatar }/>
                   <h2>{member.username}</h2>
-                  <p>{member.role}</p>
+                  <p className='member_role'>{member.role}</p>
                 </div>
               );
             })}
