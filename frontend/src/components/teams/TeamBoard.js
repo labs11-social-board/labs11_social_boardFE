@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 // components
-import { DiscussionByFollowedCats, AddDiscussionForm, FollowCat } from '../index.js';
+import { DiscussionByFollowedCats, AddDiscussionForm, FollowCat, Avatar } from '../index.js';
 
 // action creators
-import { getTeamDiscussions, handleDiscussionVote } from '../../store/actions/index.js';
+import { getTeamDiscussions, handleDiscussionVote, getTeamMembers } from '../../store/actions/index.js';
 
 // globals
 import { tabletP } from '../../globals/globals.js';
@@ -33,7 +33,7 @@ const DiscussionsWrapper = styled.div`
 	}
 
 	.content {
-		display: flex;
+		display: none;
 		flex-wrap: wrap;
 		flex-direction: column;
 		justify-content: center;
@@ -42,8 +42,48 @@ const DiscussionsWrapper = styled.div`
 		color: ${props => props.theme.discussionPostColor};
 		@media ${ tabletP} {
 			width: 100%;
-		}
-	}
+    }
+  }
+
+  .wiki {
+    display: none;
+    width: 95%;
+    margin-top: 5%;
+  }
+
+  .team-members {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: baseline;
+    width: 95%;
+    margin-top: 2%;
+
+    .member-wrapper {
+      display:flex;
+      align-items: center;
+      width: 40%;
+      margin-bottom: 2%;
+      cursor: pointer;
+
+      &:hover {
+        background: lightgrey;
+        border-radius: 3px;
+      }
+
+      h2 {
+        margin: 0% 5% 0% 5%;
+        width: 60%;
+      }
+      .member_role {
+        margin-right: 5%;
+      }
+    }
+  }
+    
+  .selected {
+    display: flex;
+  }
 `;
 
 const DiscussionHeader = styled.div`
@@ -59,6 +99,31 @@ const DiscussionHeader = styled.div`
     align-items: center;
     .name {
       font-size: 24px;
+    }
+  }
+
+  .team-tabs {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 25%;
+
+    .tab {
+      border: 1px solid black;
+      padding: 6px 15px;
+      border-radius: 3px;
+      box-shadow: 1px 1px 1px 1px black;
+      cursor:pointer;
+
+      &:hover {
+        background: lightskyblue;
+        color: white;
+      }
+    } 
+      
+    .tab-selected {
+      color: white;
+      background: dodgerblue;
     }
   }
 
@@ -131,6 +196,26 @@ class TeamBoard extends Component {
     return handleDiscussionVote(discussion_id, type)
       .then(() => getTeamDiscussions(match.params.team_id, order, orderType));
   };
+  handleTab = e => {
+    const content = document.querySelectorAll('.tab-content');
+    const tabs = document.querySelectorAll('.tab');
+
+    tabs.forEach(tab => tab.classList.remove('tab-selected'));
+
+    e.target.classList.add('tab-selected');
+
+    content.forEach(item => {
+      item.classList.remove('selected');
+      if(item.id === e.target.textContent.toLowerCase()){
+        item.classList.add('selected');
+      }
+      }
+    );
+  }
+  handleUserClick = (e, user_id)=> {
+		e.stopPropagation();
+		return this.props.history.push(`/profile/${ user_id }`);
+	};
   handleSelectChange = e => {
     let order = 'created_at';
     let orderType;
@@ -167,20 +252,22 @@ class TeamBoard extends Component {
     const { getTeamDiscussions, match } = this.props;
     return getTeamDiscussions(match.params.team_id, order, orderType);
   };
-  componentDidMount = () => this.getDiscussions();
+  componentDidMount = () => {
+    this.getDiscussions();
+    this.props.getTeamMembers(this.props.match.params.team_id);
+  }
 
   componentDidUpdate(prevProps) {
-    const { match, getTeamDiscussions, posts } = this.props;
+    const { match, getTeamDiscussions } = this.props;
     const { team_id } = match.params;
     const { order, orderType } = this.state;
     
     if (prevProps.match.params.team_id !== team_id) {
-      console.log(prevProps.match.params.team_id, team_id, match.params)
       return getTeamDiscussions(team_id, order, orderType);
     };
   };
   render() {
-    const { discussions, history, team, match } = this.props;
+    const { discussions, history, team, match, team_members } = this.props;
     const { showAddDiscussionForm } = this.state;
     if(!team){
       return (<h1>Loading..</h1>)
@@ -190,10 +277,16 @@ class TeamBoard extends Component {
           <DiscussionHeader>
             <div className='name-follow-wrapper'>
               <h2 className='name'>{team.team_name}</h2>
-              {/* <FollowCat
+              <FollowCat
                 team_id={match.params.team_id}
                 historyPush={history.push}
-              /> */}
+                team_members={team_members}
+              />
+            </div>
+            <div className = 'team-tabs'>
+              <h3 className='tab tab-selected' onClick={this.handleTab}>Discussions</h3>
+              <h3 className='tab' onClick={this.handleTab}>Wiki</h3>
+              <h3 className='tab' onClick={this.handleTab}>Team Members</h3>
             </div>
             <div className='filter-add-btn-wrapper'>
               <div className='filter-wrapper'>
@@ -217,7 +310,7 @@ class TeamBoard extends Component {
             </div>
           </DiscussionHeader>
           <hr />
-          <div className='content'>
+          <div id='discussions' className='content tab-content selected'>
             {discussions.map((discussion, i) =>
               <DiscussionByFollowedCats
                 key={i}
@@ -228,6 +321,20 @@ class TeamBoard extends Component {
                 toggleIsTeam={this.toggleIsTeam}
               />)
             }
+          </div>
+          <div id='wiki' className='wiki tab-content '>
+            <p>{team.wiki}</p>
+          </div>
+          <div id='team members' className='team-members tab-content'>
+            {team_members.map( (member, i)=> {
+              return (
+                <div key={i} className='member-wrapper' onClick={e => this.handleUserClick(e, member.user_id)}>
+                  <Avatar height='70px' width='70px' src={ member.avatar }/>
+                  <h2>{member.username}</h2>
+                  <p className='member_role'>{member.role}</p>
+                </div>
+              );
+            })}
           </div>
           {
             showAddDiscussionForm &&
@@ -246,6 +353,7 @@ class TeamBoard extends Component {
 const mapStateToProps = state => ({
   discussions: state.teams.teamDiscussions.discussions,
   team: state.teams.teamDiscussions.team,
+  team_members: state.teams.team_members
 });
 
-export default connect(mapStateToProps, { getTeamDiscussions, handleDiscussionVote })(TeamBoard);
+export default connect(mapStateToProps, { getTeamDiscussions, handleDiscussionVote, getTeamMembers })(TeamBoard);
