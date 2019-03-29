@@ -332,7 +332,7 @@ class TeamBoard extends Component {
               />)
             }
           </div>
-          <TeamWiki wiki={team.wiki} team_members={team_members} user_id={user_id}/>
+          <TeamWiki wiki={team.wiki} team_members={team_members} user_id={user_id} team_id={team.id} getDiscussions={this.getDiscussions}/>
           <div id='team members' className='team-members tab-content'>
             {team_members.map( (member, i)=> {
               return (

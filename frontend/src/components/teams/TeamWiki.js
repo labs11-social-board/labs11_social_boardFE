@@ -1,5 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
+
+// action creators
+import { updateTeam } from '../../store/actions/index.js';
 
 class TeamWiki extends React.Component {
   state = {
@@ -10,22 +14,34 @@ class TeamWiki extends React.Component {
     e.preventDefault();
 
     this.setState({ updatedWiki: e.target.value })
-  }
+  };
   toggleEditting = e => {
     e.preventDefault();
-    this.setState({ isEditting: true });
+    this.setState({ isEditting: !this.state.isEditting });
   };
+  updateWiki = e => {
+    e.preventDefault();
+    const changes = { wiki: this.state.updatedWiki };
 
+    this.props.updateTeam(this.props.team_id, changes);
+    this.setState({ isEditting: false }, () => {
+      setTimeout(() => this.props.getDiscussions(), 150);
+    });
+  };
   conditionalRender = isTeamOwner => {
     if(this.state.isEditting){
       return (
-        <form>
-          <textarea value={this.state.updatedWiki} onChange={this.handleInput}></textarea>
-        </form>
+       <div id='wiki' className='wiki tab-content'>
+          <form onSubmit={this.updateWiki}>
+            <textarea value={this.state.updatedWiki} onChange={this.handleInput}></textarea>
+            <button>Update Wiki</button>
+            <button onClick={this.toggleEditting}>Back</button>
+          </form>
+       </div>
       );
     } else {
       return (
-        <div id='wiki' className='wiki tab-content '>
+        <div id='wiki' className='wiki tab-content'>
           <div className='edit-wiki'>
             {isTeamOwner ? <button onClick={this.toggleEditting}>Edit</button> : null}
           </div>
@@ -59,4 +75,6 @@ class TeamWiki extends React.Component {
   }
 };
 
-export default TeamWiki;
+const mapStateToProps = state => ({ });
+
+export default connect(mapStateToProps, { updateTeam })(TeamWiki);

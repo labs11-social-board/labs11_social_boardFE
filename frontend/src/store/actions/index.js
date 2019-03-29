@@ -41,6 +41,9 @@ import {
   GET_TEAM_MEMBERS_SUCCESS,
   LEAVE_TEAM_LOADING,
   LEAVE_TEAM_SUCCESS,
+  UPDATE_TEAM_LOADING,
+  UPDATE_TEAM_SUCCESS,
+  UPDATE_TEAM_FAILURE,
  
   //Action Creators
   getTeams,
@@ -49,6 +52,7 @@ import {
   joinTeam,
   getTeamMembers,
   leaveTeam,
+  updateTeam
 } from './TeamsActions.js';
 
 import {
@@ -365,6 +369,9 @@ export {
   GET_TEAM_MEMBERS_SUCCESS,
   LEAVE_TEAM_LOADING,
   LEAVE_TEAM_SUCCESS,
+  UPDATE_TEAM_LOADING,
+  UPDATE_TEAM_SUCCESS,
+  UPDATE_TEAM_FAILURE,
   
   // Discussion Actions
   GET_DISCUSSIONS_LOADING,
@@ -547,6 +554,7 @@ export {
   getTeamDiscussionsById,
   getTeamMembers,
   leaveTeam,
+  updateTeam,
 
   // Discussion Action Creators
   getTopDiscussions,
