@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 // components
-import { DiscussionByFollowedCats, AddDiscussionForm, FollowCat, Avatar } from '../index.js';
+import { DiscussionByFollowedCats, AddDiscussionForm, FollowCat, Avatar, TeamWiki } from '../index.js';
 
 // action creators
 import { getTeamDiscussions, handleDiscussionVote, getTeamMembers } from '../../store/actions/index.js';
@@ -47,8 +47,19 @@ const DiscussionsWrapper = styled.div`
 
   .wiki {
     display: none;
+    flex-direction: column;
     width: 95%;
     margin-top: 5%;
+
+    .edit-wiki{
+      display: flex;
+      justify-content: flex-end;
+      padding-right: 5%;
+
+      button {
+        padding: 13px 25px;
+      }
+    }
   }
 
   .team-members {
@@ -255,8 +266,7 @@ class TeamBoard extends Component {
   componentDidMount = () => {
     this.getDiscussions();
     this.props.getTeamMembers(this.props.match.params.team_id);
-  }
-
+  };
   componentDidUpdate(prevProps) {
     const { match, getTeamDiscussions } = this.props;
     const { team_id } = match.params;
@@ -267,7 +277,7 @@ class TeamBoard extends Component {
     };
   };
   render() {
-    const { discussions, history, team, match, team_members } = this.props;
+    const { discussions, history, team, match, team_members, user_id } = this.props;
     const { showAddDiscussionForm } = this.state;
     if(!team){
       return (<h1>Loading..</h1>)
@@ -322,9 +332,7 @@ class TeamBoard extends Component {
               />)
             }
           </div>
-          <div id='wiki' className='wiki tab-content '>
-            <p>{team.wiki}</p>
-          </div>
+          <TeamWiki wiki={team.wiki} team_members={team_members} user_id={user_id}/>
           <div id='team members' className='team-members tab-content'>
             {team_members.map( (member, i)=> {
               return (
@@ -353,7 +361,8 @@ class TeamBoard extends Component {
 const mapStateToProps = state => ({
   discussions: state.teams.teamDiscussions.discussions,
   team: state.teams.teamDiscussions.team,
-  team_members: state.teams.team_members
+  team_members: state.teams.team_members,
+  user_id: state.users.user_id
 });
 
 export default connect(mapStateToProps, { getTeamDiscussions, handleDiscussionVote, getTeamMembers })(TeamBoard);
