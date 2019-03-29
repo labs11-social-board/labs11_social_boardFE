@@ -121,7 +121,7 @@ class TeamsView extends Component {
       this.props.getTeams(this.state.order, this.state.orderType);
     });
   };
-  componentDidMount = () => this.props.getTeams();
+  componentDidMount = () => this.props.getTeams(this.state.order, this.state.orderType);
   render() {
     return (
       <TeamsWrapper>
