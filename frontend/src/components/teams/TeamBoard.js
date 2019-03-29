@@ -283,9 +283,9 @@ class TeamBoard extends Component {
     };
   };
   render() {
-    const { discussions, history, team, match, team_members, user_id } = this.props;
+    const { discussions, history, team, match, team_members, user_id} = this.props;
     const { showAddDiscussionForm } = this.state;
-    const member = this.props.team_members.filter(member => member.user_id === this.props.user_id);
+    const member = this.props.team_members.filter(member => member.user_id === user_id);
     let isTeamOwner;
     if(member.length === 0 ){
       return <div>...Loading</div>
