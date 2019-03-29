@@ -95,6 +95,7 @@ const DiscussionsWrapper = styled.div`
 
   .team-settings {
     display:none;
+    flex-direction: column;
   }
     
   .selected {
@@ -363,7 +364,7 @@ class TeamBoard extends Component {
             })}
           </div>
           {isTeamOwner ? 
-            <TeamSettings /> : null
+            <TeamSettings team={team} getDiscussions={this.getDiscussions} /> : null
           }
           {
             showAddDiscussionForm &&
