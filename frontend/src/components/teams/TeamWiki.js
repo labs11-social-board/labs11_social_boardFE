@@ -54,19 +54,8 @@ class TeamWiki extends React.Component {
   }
   
   render(){
-  const { team_members, user_id } = this.props;
+  const { isTeamOwner } = this.props;
 
-  const member = team_members.filter(member => member.user_id === user_id);
-  let isTeamOwner = false;
-  if(member.length === 0 ){
-    return <div>...Loading</div>
-  } else {
-    if(member[0].role === 'team_owner'){
-      isTeamOwner = true;
-    } else {
-      isTeamOwner = false;
-    }
-  }
   return (
    <>
      {this.conditionalRender(isTeamOwner)}

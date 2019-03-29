@@ -10,6 +10,7 @@ import { getTeamDiscussions, handleDiscussionVote, getTeamMembers } from '../../
 
 // globals
 import { tabletP } from '../../globals/globals.js';
+import TeamSettings from './TeamSettings.js';
 
 /***************************************************************************************************
  ********************************************** Styles **********************************************
@@ -91,6 +92,10 @@ const DiscussionsWrapper = styled.div`
       }
     }
   }
+
+  .team-settings {
+    display:none;
+  }
     
   .selected {
     display: flex;
@@ -117,7 +122,7 @@ const DiscussionHeader = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    width: 25%;
+    width: 31%;
 
     .tab {
       border: 1px solid black;
@@ -279,6 +284,18 @@ class TeamBoard extends Component {
   render() {
     const { discussions, history, team, match, team_members, user_id } = this.props;
     const { showAddDiscussionForm } = this.state;
+    const member = this.props.team_members.filter(member => member.user_id === this.props.user_id);
+    let isTeamOwner;
+    if(member.length === 0 ){
+      return <div>...Loading</div>
+    } else {
+      if(member[0].role === 'team_owner'){
+        isTeamOwner=true;
+      } else {
+        isTeamOwner=false;
+      }
+    }
+
     if(!team){
       return (<h1>Loading..</h1>)
     } else {
@@ -297,6 +314,7 @@ class TeamBoard extends Component {
               <h3 className='tab tab-selected' onClick={this.handleTab}>Discussions</h3>
               <h3 className='tab' onClick={this.handleTab}>Wiki</h3>
               <h3 className='tab' onClick={this.handleTab}>Team Members</h3>
+              {isTeamOwner ? <h3 className='tab' onClick={this.handleTab}>Settings</h3> : null}
             </div>
             <div className='filter-add-btn-wrapper'>
               <div className='filter-wrapper'>
@@ -332,7 +350,7 @@ class TeamBoard extends Component {
               />)
             }
           </div>
-          <TeamWiki wiki={team.wiki} team_members={team_members} user_id={user_id} team_id={team.id} getDiscussions={this.getDiscussions}/>
+          <TeamWiki wiki={team.wiki} isTeamOwner={isTeamOwner} team_id={team.id} getDiscussions={this.getDiscussions}/>
           <div id='team members' className='team-members tab-content'>
             {team_members.map( (member, i)=> {
               return (
@@ -344,6 +362,9 @@ class TeamBoard extends Component {
               );
             })}
           </div>
+          {isTeamOwner ? 
+            <TeamSettings /> : null
+          }
           {
             showAddDiscussionForm &&
             <AddDiscussionForm
