@@ -87,7 +87,7 @@ class TeamsView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      order: 'name', // possible values: 'name', 'discussion_count', 'created_at'
+      order: 'team_name', // possible values: 'name', 'discussion_count', 'created_at'
       orderType: '', // possible values: 'asc', 'desc'
     };
   };
@@ -97,7 +97,7 @@ class TeamsView extends Component {
     let orderType;
     switch (e.target.value) {
       case name:
-        order = 'name';
+        order = 'team_name';
         orderType = 'asc';
         break;
       case newest:
