@@ -258,7 +258,7 @@ class TeamBoard extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { match, getTeamDiscussions, posts } = this.props;
+    const { match, getTeamDiscussions } = this.props;
     const { team_id } = match.params;
     const { order, orderType } = this.state;
     
