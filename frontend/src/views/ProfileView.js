@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Spinner from '../assets/gif/spinner/Spinner'; //need to move to assets folder
 import { getProfile } from '../store/actions/index';
-import { getFollowers, getProfileFollowers, removeFollower, addFollower } from '../store/actions/index';
+import { getFollowers, getProfileFollowers, removeFollower, addFollower, inviteFriend } from '../store/actions/index';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { phoneP } from '../globals/globals';
@@ -277,6 +277,7 @@ class Profile extends Component {
       alert("Email must feature @ symbol and must end with .com  .net or .edu. Sorry all other emails are currently not supported");
     }else {
       alert(`Thank you we have invited your friend at ${email}`);
+      this.props.inviteFriend(email); 
     }
   }
 
@@ -520,7 +521,8 @@ Profile.propTypes = {
   getFollowers: PropTypes.func,
   getProfileFollowers: PropTypes.func,
   removeFollower : PropTypes.func, 
-  addFollower : PropTypes.func, 
+  addFollower : PropTypes.func,
+  inviteFriend : PropTypes.func,  
   profile: PropTypes.arrayOf(
     PropTypes.shape({
       status: PropTypes.string.isRequired,
@@ -542,4 +544,4 @@ const mapStateToProps = state => ({
   profileFollowers : state.profileFollowers
 });
 
-export default connect(mapStateToProps, { getProfile,getFollowers, getProfileFollowers, removeFollower, addFollower })(Profile);
+export default connect(mapStateToProps, { getProfile,getFollowers, getProfileFollowers, removeFollower, addFollower, inviteFriend })(Profile);
