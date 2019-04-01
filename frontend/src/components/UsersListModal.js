@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 // action creators
-import { addTeam } from '../store/actions/index.js';
+import { getUsers } from '../store/actions/index.js';
 
 // globals
 import { phoneL, topHeaderHeight } from '../globals/globals.js';
@@ -83,21 +83,40 @@ const DivModal = styled.div`
   }
 `;
 
-const UsersListModal = ({ setTeamMemberModal }) => {
-  return (
-    <ModalBackground>
-      <DivModalCloser onClick={(e) => setTeamMemberModal(e, false)} />
-      <DivModal>
-        <div className='above-input'>
-          <span
-            className='back'
-            onClick={(e) => setTeamMemberModal(e, false)}		
-          ><i className="far fa-arrow-alt-circle-left"></i></span>
-          <span></span>
-        </div>
-      </DivModal>
-    </ModalBackground>
-  );
+class UsersListModal extends React.Component {
+  componentDidMount(){
+    this.props.getUsers();
+  }
+  render(){
+    const { setTeamMemberModal, users } = this.props;
+    if(!users){
+      return <div>...Loading</div>;
+    } else {
+      return (
+        <ModalBackground>
+          <DivModalCloser onClick={(e) => setTeamMemberModal(e, false)} />
+          <DivModal>
+            <div className='above-input'>
+              <span
+                className='back'
+                onClick={(e) => setTeamMemberModal(e, false)}		
+              ><i className="far fa-arrow-alt-circle-left"></i></span>
+              <span></span>
+            </div>
+            <div className='users-list-wrapper'>
+              {users.map(user => {
+                return <h2>{user.username}</h2>
+              })}
+            </div>
+          </DivModal>
+        </ModalBackground>
+      );
+    }
+  };
 };
 
-export default UsersListModal;
+const mapStateToProps = state => ({
+  users: state.users.users
+});
+
+export default connect(mapStateToProps, { getUsers })(UsersListModal);

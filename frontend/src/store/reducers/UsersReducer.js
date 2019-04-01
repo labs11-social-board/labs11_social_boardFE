@@ -86,9 +86,11 @@ import {
   EDIT_SIGNATURE_FAILURE,
 
   TOGGLE_THEME,
+  GET_USERS_SUCCESS
 } from '../actions/index.js';
 
 const initialState = {
+  users: [],
   user_id: 0,
   avatar: null,
   username: '',
@@ -363,6 +365,12 @@ export const UsersReducer = (state = initialState, action) => {
       return {
         ...state,
         signature: action.payload.signature,
+      };
+    
+    case GET_USERS_SUCCESS: 
+      return {
+        ...state,
+        users: action.payload
       };
 
     case CHANGE_USER_TYPE_LOADING:
