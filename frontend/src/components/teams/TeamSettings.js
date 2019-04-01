@@ -11,7 +11,7 @@ import { ToggleSwitch } from '../index.js';
 class TeamSettings extends React.Component{
   state = {
     team_name: this.props.team.team_name,
-    isPrivate: this.props.team.isPrivate
+    isPrivate: this.props.team.isPrivate,
   };
   handleInput = e => {
     e.preventDefault();
@@ -28,8 +28,8 @@ class TeamSettings extends React.Component{
     setTimeout(() => this.props.getDiscussions(), 150);
   };
   componentDidUpdate(prevProps){
-    if(this.state.team_name !== this.props.team.team_name){
-      this.setState({ team_name: this.props.team.team_name, isPrivate: this.props.team.isPrivate })
+    if( prevProps.team.team_name !== this.props.team.team_name){
+      this.setState({ team_name: this.props.team.team_name, isPrivate: this.props.team.isPrivate });
     }
   }
   render() {

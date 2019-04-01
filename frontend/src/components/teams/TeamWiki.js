@@ -17,20 +17,21 @@ class TeamWiki extends React.Component {
   };
   toggleEditting = e => {
     e.preventDefault();
-    this.setState({ isEditting: !this.state.isEditting });
+    this.setState({ isEditting: !this.state.isEditting, });
   };
   updateWiki = e => {
     e.preventDefault();
     const changes = { wiki: this.state.updatedWiki };
 
     this.props.updateTeam(this.props.team_id, changes);
+    // this.setState({ isEditting: false });
     this.setState({ isEditting: false }, () => {
       setTimeout(() => this.props.getDiscussions(), 150);
     });
   };
   componentDidUpdate(prevProps){
-    if(this.state.updatedWiki !== this.props.wiki){
-      this.setState({ updatedWiki: this.props.wiki })
+    if(prevProps.wiki !== this.props.wiki){
+     this.setState({ updatedWiki: this.props.wiki})
     }
   }
   conditionalRender = isTeamOwner => {
