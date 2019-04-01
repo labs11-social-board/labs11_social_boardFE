@@ -22,6 +22,7 @@ import {
   ResetPWForm,
   DiscussionsByCats,
   AddCategoryModal,
+  AddTeamModal,
   LoginDropdown,
   AvatarDropdown,
   Notifications,
@@ -137,6 +138,7 @@ class App extends Component {
       isChangeSubModalRaised: false,
       isAddCatModalRaised: false,
       showRegisterModal: false,
+      isAddTeamModalRaised: false
     };
   }
 
@@ -175,6 +177,11 @@ class App extends Component {
   setAddCatModalRaised = (ev, status) => {
     ev.stopPropagation();
     this.setState({ isAddCatModalRaised: status });
+  }
+
+  setAddTeamModalRaised = (ev, status) => {
+    ev.stopPropagation();
+    this.setState({ isAddTeamModalRaised: status });
   }
 
   toggleSearch = () => this.setState({ showSearch: !this.state.showSearch });
@@ -225,10 +232,11 @@ class App extends Component {
             <ChangeSubscriptionModal isChangeSubModalRaised={this.state.isChangeSubModalRaised} setChangeSubModalRaised={this.setChangeSubModalRaised} />
             <DivBody isLoggedIn>
               <DivSideNav isLoggedIn>
-                <SideNav setAddCatModalRaised={this.setAddCatModalRaised} />
+                <SideNav setAddCatModalRaised={this.setAddCatModalRaised} setAddTeamModalRaised={this.setAddTeamModalRaised}/>
               </DivSideNav>
               <DivPage>
                 {(this.state.isAddCatModalRaised) && <AddCategoryModal history={history} historyPush={this.props.history.push} pathname={location.pathname} isAuthenticated={this.isAuthenticated} setAddCatModalRaised={this.setAddCatModalRaised} />}
+                {(this.state.isAddTeamModalRaised) && <AddTeamModal history={history} historyPush={this.props.history.push} pathname={location.pathname} isAuthenticated={this.isAuthenticated} setAddTeamModalRaised={this.setAddTeamModalRaised} />}
                 <Route exact path='/' component={NonUserLandingView} />
                 <Route exact path='/home' component={LandingView} />
                 <Route path='/profiles' component={Profiles} />
