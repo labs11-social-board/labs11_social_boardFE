@@ -128,12 +128,9 @@ export const GET_USERS_FAILURE = 'GET_USERS_FAILURE';
  **************************************************************************************************/
 
 export const getUsers = () => dispatch => {
-  const user_id = localStorage.getItem('symposium_user_id');
-  const token = localStorage.getItem('symposium_token');
-  const headers = { headers: { Authorization: token, } };
   dispatch({ type: GET_USERS_LOADING });
   return axios
-    .get(`${backendUrl}/users/${user_id}`, headers)
+    .get(`${backendUrl}/users`)
     .then(res => dispatch({ type: GET_USERS_SUCCESS, payload: res.data }))
     .catch(err => handleError(err, GET_USERS_FAILURE)(dispatch));
 }
