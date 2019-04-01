@@ -273,6 +273,10 @@ import {
 
   TOGGLE_THEME,
 
+  SENDING_INVITE,
+  SENDING_INVITE_FAILURE,
+  SENDING_INVITE_SUCCESSFUL,
+
   // Action Creators
   login,
   signout,
@@ -299,6 +303,7 @@ import {
   editSignature,
   editUser,
   toggleTheme,
+  inviteFriend, 
 } from './UsersActions.js';
 
 /************************************************************
@@ -632,7 +637,13 @@ export {
   getFollowers, 
   getProfileFollowers,
   removeFollower, 
-  addFollower
+  addFollower,
+
+  //INVITE A FRIEND 
+  SENDING_INVITE,
+  SENDING_INVITE_FAILURE,
+  SENDING_INVITE_SUCCESSFUL,
+  inviteFriend,
 };
 
 

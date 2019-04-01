@@ -86,6 +86,11 @@ import {
   EDIT_SIGNATURE_FAILURE,
 
   TOGGLE_THEME,
+  //invites
+  SENDING_INVITE,
+  SENDING_INVITE_FAILURE,
+  SENDING_INVITE_SUCCESSFUL,
+  inviteFriend,
 } from '../actions/index.js';
 
 const initialState = {
@@ -396,6 +401,10 @@ export const UsersReducer = (state = initialState, action) => {
     case EDIT_USER_LOADING:
     case EDIT_USER_SUCCESS:
     case EDIT_USER_FAILURE:
+    case SENDING_INVITE:
+    case SENDING_INVITE_FAILURE:
+    case SENDING_INVITE_SUCCESSFUL:
+  
     default:
       return state;
   }
