@@ -65,13 +65,15 @@ overflow: auto;
 
 class UsersListModal extends React.Component {
   inviteUser = (e, user_id)=> {
-    const { team_id } = this.props;
     e.preventDefault();
-    this.props.addTeamMember(user_id, team_id)
-  }
+    const { team_id } = this.props;
+
+    this.props.addTeamMember(user_id, team_id);
+    this.props.setTeamMemberModal(e, false)
+  };
   componentDidMount(){
     this.props.getUsers();
-  }
+  };
   render(){
     const { setTeamMemberModal, users } = this.props;
     if(!users){
