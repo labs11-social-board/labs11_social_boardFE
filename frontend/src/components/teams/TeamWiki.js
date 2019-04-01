@@ -28,6 +28,11 @@ class TeamWiki extends React.Component {
       setTimeout(() => this.props.getDiscussions(), 150);
     });
   };
+  componentDidUpdate(prevProps){
+    if(this.state.updatedWiki !== this.props.wiki){
+      this.setState({ updatedWiki: this.props.wiki })
+    }
+  }
   conditionalRender = isTeamOwner => {
     if(this.state.isEditting){
       return (
