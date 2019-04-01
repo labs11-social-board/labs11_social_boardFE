@@ -161,7 +161,7 @@ const BodyWrapper = styled.p`
 	margin-bottom: 20px;
 `;
 
-const DiscussionByFollowedCats = ({ discussion, history, voteOnDiscussion, singleDiscussion, isDay }) => {
+const DiscussionByFollowedCats = ({ discussion, history, voteOnDiscussion, singleDiscussion, isDay, isTeam, toggleIsTeam }) => {
 	const {
 		avatar,
 		body,
@@ -178,7 +178,14 @@ const DiscussionByFollowedCats = ({ discussion, history, voteOnDiscussion, singl
 		user_id,
 		views,
 	} = discussion;
-	const handleDiscussionClick = () => history.push(`/discussion/${ id }`);
+	const handleDiscussionClick = () => {
+			if(isTeam){
+				history.push(`/team/posts/${ id }`);
+				toggleIsTeam();
+			} else {
+				history.push(`/discussion/${ id }`);
+			}
+	}
 	const handleCategoryClick = e => {
 		e.stopPropagation();
 		return history.push(`/discussions/category/${ category_id }`);
@@ -239,4 +246,4 @@ const mapStateToProps = state => ({
 	isDay: state.users.isDay,
 });
 
-export default connect(mapStateToProps, {})(DiscussionByFollowedCats);
+export default connect(mapStateToProps, { })(DiscussionByFollowedCats);
