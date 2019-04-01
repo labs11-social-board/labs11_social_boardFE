@@ -4,11 +4,15 @@ import Teams from './teams/Teams.js';
 import Team from './teams/Team.js';
 import TeamBoard from './teams/TeamBoard.js';
 import TeamDiscussion from './teams/TeamDiscussion.js';
+import TeamWiki from './teams/TeamWiki.js';
+import TeamSettings from './teams/TeamSettings.js';
+import AddTeamModal from './teams/AddTeamModal.js';
 import AddCategoryModal from './categories/AddCategoryModal.js';
 import ChangeSubscriptionModal from './ChangeSubscriptionModal.js';
 import Discussion from './Discussion.js';
 import DiscussionsByCats from './DiscussionsByCats.js';
 import Reply from './Reply.js';
+import ToggleSwitch from './ToggleSwitch.js';
 
 import Auth from './Auth.js';
 import LoginDropdown from './LoginDropdown.js';
@@ -47,6 +51,8 @@ import DiscussionByFollowedCats from './DiscussionByFollowedCats.js';
 import IconList from './categories/IconList.js';
 import Icon from './categories/Icon.js';
 import RegisterDropdown from './RegisterDropdown.js';
+import UsersListModal from './UsersListModal.js';
+import User from './User.js';
 
 // forms
 import AddPostForm from './forms/AddPostForm.js';
@@ -71,8 +77,10 @@ export {
   Team,
   TeamBoard,
   TeamDiscussion,
+  TeamSettings,
   ChangeSubscriptionModal,
   AddCategoryModal,
+  AddTeamModal,
   Discussion,
   DiscussionsByCats,
   LoginDropdown,
@@ -111,6 +119,10 @@ export {
   IconList,
   Icon,
   RegisterDropdown,
+  TeamWiki,
+  ToggleSwitch,
+  UsersListModal,
+  User,
 
   // forms
   AddPostForm,

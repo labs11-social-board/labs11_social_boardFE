@@ -41,6 +41,11 @@ import {
   GET_TEAM_MEMBERS_SUCCESS,
   LEAVE_TEAM_LOADING,
   LEAVE_TEAM_SUCCESS,
+  UPDATE_TEAM_LOADING,
+  UPDATE_TEAM_SUCCESS,
+  UPDATE_TEAM_FAILURE,
+  ADD_TEAM_LOADING,
+  ADD_TEAM_SUCCESS,
  
   //Action Creators
   getTeams,
@@ -49,6 +54,9 @@ import {
   joinTeam,
   getTeamMembers,
   leaveTeam,
+  updateTeam,
+  addTeam,
+  addTeamMember
 } from './TeamsActions.js';
 
 import {
@@ -269,6 +277,12 @@ import {
 
   TOGGLE_THEME,
 
+  SENDING_INVITE,
+  SENDING_INVITE_FAILURE,
+  SENDING_INVITE_SUCCESSFUL,
+  GET_USERS_LOADING,
+  GET_USERS_SUCCESS,
+
   // Action Creators
   login,
   signout,
@@ -295,6 +309,8 @@ import {
   editSignature,
   editUser,
   toggleTheme,
+  inviteFriend, 
+  getUsers
 } from './UsersActions.js';
 
 /************************************************************
@@ -365,6 +381,11 @@ export {
   GET_TEAM_MEMBERS_SUCCESS,
   LEAVE_TEAM_LOADING,
   LEAVE_TEAM_SUCCESS,
+  UPDATE_TEAM_LOADING,
+  UPDATE_TEAM_SUCCESS,
+  UPDATE_TEAM_FAILURE,
+  ADD_TEAM_LOADING,
+  ADD_TEAM_SUCCESS,
   
   // Discussion Actions
   GET_DISCUSSIONS_LOADING,
@@ -492,6 +513,9 @@ export {
 
   TOGGLE_THEME,
 
+  GET_USERS_LOADING,
+  GET_USERS_SUCCESS,
+
   // Profile Actions
   GET_PROFILES_LOADING,
   GET_PROFILES_SUCCESS,
@@ -547,7 +571,10 @@ export {
   getTeamDiscussionsById,
   getTeamMembers,
   leaveTeam,
-
+  updateTeam,
+  addTeam,
+  addTeamMember,
+  
   // Discussion Action Creators
   getTopDiscussions,
   getDiscussionsByCat,
@@ -594,6 +621,7 @@ export {
   editSignature,
   editUser,
   toggleTheme,
+  getUsers,
 
   // Profile Action Creators
   getProfiles,
@@ -624,7 +652,13 @@ export {
   getFollowers, 
   getProfileFollowers,
   removeFollower, 
-  addFollower
+  addFollower,
+
+  //INVITE A FRIEND 
+  SENDING_INVITE,
+  SENDING_INVITE_FAILURE,
+  SENDING_INVITE_SUCCESSFUL,
+  inviteFriend,
 };
 
 

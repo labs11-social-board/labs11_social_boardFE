@@ -64,8 +64,18 @@ class FollowCat extends Component {
       const { onCategoriesPage, team_id } = this.props;
 
       if(team_id){
-        const isTeamMember = this.props.team_members.some( member => member.user_id === this.props.user_id);
-        console.log(isTeamMember)
+        let isTeamMember = false;
+        const isTeamOwner = this.props.team_members.filter( member => member.user_id === this.props.user_id);
+
+        if(isTeamOwner.length === 0){
+         isTeamMember = false;
+        } else {
+          if(isTeamOwner[0].role === 'team_owner'){
+            return null;
+          } else if(isTeamOwner.length > 0){
+            isTeamMember = true;
+          }
+        }
         return (
           isTeamMember ?
           <FollowWrapper>
