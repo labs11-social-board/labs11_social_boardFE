@@ -324,7 +324,6 @@ class Search extends Component {
 	render() {
 		const { searchBy, searchText, searchResults, loading } = this.state;
 		const { showSearch, pathname, scrollTo } = this.props;
-		console.log(searchResults)
 		return(
 			<SearchBox>
 				<div className = 'search-input-wrapper'>
