@@ -6,11 +6,13 @@ import TeamBoard from './teams/TeamBoard.js';
 import TeamDiscussion from './teams/TeamDiscussion.js';
 import TeamWiki from './teams/TeamWiki.js';
 import TeamSettings from './teams/TeamSettings.js';
+import AddTeamModal from './teams/AddTeamModal.js';
 import AddCategoryModal from './categories/AddCategoryModal.js';
 import ChangeSubscriptionModal from './ChangeSubscriptionModal.js';
 import Discussion from './Discussion.js';
 import DiscussionsByCats from './DiscussionsByCats.js';
 import Reply from './Reply.js';
+import ToggleSwitch from './ToggleSwitch.js';
 
 import Auth from './Auth.js';
 import LoginDropdown from './LoginDropdown.js';
@@ -76,6 +78,7 @@ export {
   TeamSettings,
   ChangeSubscriptionModal,
   AddCategoryModal,
+  AddTeamModal,
   Discussion,
   DiscussionsByCats,
   LoginDropdown,
@@ -115,6 +118,7 @@ export {
   Icon,
   RegisterDropdown,
   TeamWiki,
+  ToggleSwitch,
 
   // forms
   AddPostForm,

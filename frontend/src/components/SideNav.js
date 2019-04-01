@@ -448,7 +448,7 @@ class SideNav extends Component {
         </DivCategoriesFollowed>
         <DivHeader>
           <LinkBrowseCategories to='/teams'>Teams</LinkBrowseCategories>
-          <i className="fas fa-plus-circle" onClick={(ev) => this.props.setAddCatModalRaised(ev, true)} />
+          <i className="fas fa-plus-circle" onClick={(ev) => this.props.setAddTeamModalRaised(ev, true)} />
         </DivHeader>
       </DivSideNav>
     );
