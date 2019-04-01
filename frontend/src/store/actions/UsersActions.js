@@ -119,9 +119,24 @@ export const EDIT_USER_FAILURE = 'EDIT_USER_FAILURE';
 
 export const TOGGLE_THEME = 'TOGGLE_THEME';
 
+export const GET_USERS_LOADING = 'GET_USERS_LOADING';
+export const GET_USERS_SUCCESS = 'GET_USERS_SUCCESS';
+export const GET_USERS_FAILURE = 'GET_USERS_FAILURE';
+
 /***************************************************************************************************
  ****************************************** Action Creators ****************************************
  **************************************************************************************************/
+
+export const getUsers = () => dispatch => {
+  const user_id = localStorage.getItem('symposium_user_id');
+  const token = localStorage.getItem('symposium_token');
+  const headers = { headers: { Authorization: token, } };
+  dispatch({ type: GET_USERS_LOADING });
+  return axios
+    .get(`${backendUrl}/users/${user_id}`, headers)
+    .then(res => dispatch({ type: GET_USERS_SUCCESS, payload: res.data }))
+    .catch(err => handleError(err, GET_USERS_FAILURE)(dispatch));
+}
 export const login = creds => dispatch => {
   dispatch({ type: USER_LOGIN_LOADING });
   return axios

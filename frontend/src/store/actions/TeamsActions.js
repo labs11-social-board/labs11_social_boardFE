@@ -66,7 +66,7 @@ export const getTeamDiscussions = (team_id, order, orderType) => dispatch => {
     .catch(err => handleError(err, GET_TEAM_DISCUSSIONS_FAILURE)(dispatch));
 };
 
-export const addTeam = (team, historyPush )=> dispatch => {
+export const addTeam = (team, historyPush)=> dispatch => {
   const user_id = localStorage.getItem('symposium_user_id');
   const token = localStorage.getItem('symposium_token');
   const headers = { headers: { Authorization: token } };

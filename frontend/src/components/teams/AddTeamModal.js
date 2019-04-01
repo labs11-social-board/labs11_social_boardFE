@@ -176,15 +176,15 @@ class AddTeamModal extends React.Component {
     const { team_name, wiki, isPrivate } = this.state;
     return (
       <ModalBackground>
-        <DivModalCloser onClick={(ev) => setAddTeamModalRaised(ev, false)} />
+        <DivModalCloser onClick={(e) => setAddTeamModalRaised(e, false)} />
         <DivModal>
-        <div className='above-input'>
-            <span
-              className='back'
-              onClick={(ev) => setAddTeamModalRaised(ev, false)}		
-            ><i className="far fa-arrow-alt-circle-left"></i></span>
-            <span></span>
-          </div>
+          <div className='above-input'>
+              <span
+                className='back'
+                onClick={(e) => setAddTeamModalRaised(e, false)}		
+              ><i className="far fa-arrow-alt-circle-left"></i></span>
+              <span></span>
+            </div>
           <FormContent onSubmit={this.handleSubmit}>
             <DivRight>
               <DivName>
