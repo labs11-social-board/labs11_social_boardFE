@@ -134,4 +134,15 @@ export const updateTeam = (team_id, changes) => dispatch => {
     .put(`${backendUrl}/team/${user_id}/${team_id}`, changes, headers)
     .then(res => dispatch({ type: UPDATE_TEAM_SUCCESS, payload: res.data }))
     .catch(err => handleError(err, UPDATE_TEAM_FAILURE)(dispatch));
-}
+};
+
+export const addTeamMember = (team_member_id, team_id) => dispatch => {
+  const user_id = localStorage.getItem('symposium_user_id');
+  const token = localStorage.getItem('symposium_token');
+  const headers = { headers: { Authorization: token } };
+  dispatch({ type: JOIN_TEAM_LOADING });
+  return axios
+    .post(`${backendUrl}/team/team_members/${user_id}/${team_id}`, {team_member_id}, headers)
+    .then(res => dispatch({ type: JOIN_TEAM_SUCCESS, payload: res.data }))
+    .catch(err => handleError(err, JOIN_TEAM_FAILURE)(dispatch));
+};

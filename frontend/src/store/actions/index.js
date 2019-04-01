@@ -55,7 +55,8 @@ import {
   getTeamMembers,
   leaveTeam,
   updateTeam,
-  addTeam
+  addTeam,
+  addTeamMember
 } from './TeamsActions.js';
 
 import {
@@ -568,7 +569,8 @@ export {
   leaveTeam,
   updateTeam,
   addTeam,
-
+  addTeamMember,
+  
   // Discussion Action Creators
   getTopDiscussions,
   getDiscussionsByCat,

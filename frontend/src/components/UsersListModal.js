@@ -3,7 +3,10 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 // action creators
-import { getUsers } from '../store/actions/index.js';
+import { getUsers, addTeamMember } from '../store/actions/index.js';
+
+// components 
+import { User } from './index.js';
 
 // globals
 import { phoneL, topHeaderHeight } from '../globals/globals.js';
@@ -32,38 +35,14 @@ const DivModalCloser = styled.div`
 `;
 
 const DivModal = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  z-index: 8003;
-  background: rgb(248,249,254);
-  padding: 25px;
-  border-radius: 5px;
-  box-sizing: border-box;
-  width: 590px;
-
-  .btn {
-    margin-left: 10px;
-    padding: 10px 15px;
-    border-radius: 5px;
-    border: 1px solid #418DCF;
-    background-color: #418DCF;
-    color: white;
-
-    &:hover {
-      cursor: pointer;
-      background-color: white;
-      color: #418DCF;
-      border: 1px solid #418DCF;
-    }
-
-    @media (max-width: 600px) {
-      width: 60vw;
-      margin-top: 10px;
-      padding-top: 20px;
-      padding-bottom: 20px;
-    }
-  }
+z-index: 8003;
+background: rgb(248,249,254);
+padding: 25px;
+border-radius: 5px;
+box-sizing: border-box;
+width: 590px;
+height: 50%;
+overflow: auto;
 
   .above-input {
     display: flex;
@@ -81,9 +60,15 @@ const DivModal = styled.div`
         }
     }			
   }
+
 `;
 
 class UsersListModal extends React.Component {
+  inviteUser = (e, user_id)=> {
+    const { team_id } = this.props;
+    e.preventDefault();
+    this.props.addTeamMember(user_id, team_id)
+  }
   componentDidMount(){
     this.props.getUsers();
   }
@@ -104,9 +89,7 @@ class UsersListModal extends React.Component {
               <span></span>
             </div>
             <div className='users-list-wrapper'>
-              {users.map(user => {
-                return <h2>{user.username}</h2>
-              })}
+              {users.map(user => <User user={user} key={user.id} inviteUser={this.inviteUser} /> )}
             </div>
           </DivModal>
         </ModalBackground>
@@ -119,4 +102,4 @@ const mapStateToProps = state => ({
   users: state.users.users
 });
 
-export default connect(mapStateToProps, { getUsers })(UsersListModal);
+export default connect(mapStateToProps, { getUsers, addTeamMember })(UsersListModal);

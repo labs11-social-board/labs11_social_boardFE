@@ -314,7 +314,7 @@ class TeamBoard extends Component {
     } else {
       return (
         <DiscussionsWrapper>
-          {isAddTeamMemberModalRaised && <UsersListModal setTeamMemberModal={this.setTeamMemberModal} /> }
+          {isAddTeamMemberModalRaised && <UsersListModal setTeamMemberModal={this.setTeamMemberModal} team_id={team.id}/> }
           <DiscussionHeader>
             <div className='name-follow-wrapper'>
               <h2 className='name'>{team.team_name}</h2>
