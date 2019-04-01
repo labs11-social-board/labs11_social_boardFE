@@ -268,6 +268,30 @@ class Profile extends Component {
   goToUsersPage = (followingId) => () => {
     this.props.history.push(`/profile/${followingId}`);
   }
+  handleEmailInput = () => {
+    console.log("Where is the prompt")
+    const email = prompt("Please enter your friends email.", "example@gmail.com");
+    const validEmail = this.verifyEmail(email); 
+    /*if validEmail is false return some type of alert */
+    if(validEmail === false){
+      alert("Email must feature @ symbol and must end with .com  .net or .edu. Sorry all other emails are currently not supported");
+    }else {
+      alert(`Thank you we have invited your friend at ${email}`);
+    }
+  }
+
+  /*should check for @ symbol and .com .net .edu endpoints more can be added in if neccessary */
+  verifyEmail = (email) => {
+    if(email.includes('@') === true){
+      const possibleEndOfEmail = {".com" : 0, ".net": 1, ".edu": 2} // O(1) for Object rather than O(n) for array 
+      const lastFourCharactersOfEmail = email.slice(-4);
+      if(lastFourCharactersOfEmail in possibleEndOfEmail){
+        return true; //Valid Email
+      }
+    }
+
+    return false; //Invalid email 
+  }
 
 
   /* we use profileItems to manipulate what data is displayed. if the data received from our props is 0,
@@ -341,7 +365,7 @@ class Profile extends Component {
               <br/>
               <div>
                 <input type="search" name = "friendSearch" placeholder = "find a new friend"></input>
-                <a href="#">Invite a friend</a>
+                <p style = {{cursor:"pointer", textDecoration: "underline"}} onClick = {this.handleEmailInput}>Invite a friend</p>
               </div>
               <div>
                 {followListLength > 0 ?  followList.map((user, id) => 
