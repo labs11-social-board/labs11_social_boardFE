@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 // action creators
-import { addDiscussion, displayError } from '../../store/actions/index.js';
+import { addDiscussion, addTeamDiscussion, displayError } from '../../store/actions/index.js';
 
 // globals
 import {
@@ -189,9 +189,16 @@ class AddDiscussionForm extends Component {
     e.preventDefault();
     const { body, category_id } = this.state;
     const { toggleAddDiscussionForm, getDiscussions } = this.props;
-    return this.props.addDiscussion(body, category_id)
+		
+		if(this.props.team_id){
+			return this.props.addTeamDiscussion(body, this.props.team_id)
+			.then(() => toggleAddDiscussionForm())
+      .then(() => getDiscussions());
+		} else {
+			return this.props.addDiscussion(body, category_id)
       .then(() => toggleAddDiscussionForm())
       .then(() => getDiscussions());
+		}
   };
   getCategoryNames = () => this.setState({ categoryNames: this.props.categoriesFollowed, category_id: this.props.category_id || this.props.categoriesFollowed[0].id });
   componentDidMount = () => this.getCategoryNames();
@@ -228,18 +235,19 @@ class AddDiscussionForm extends Component {
 								{username}
 							</Link>
 						</div>
-						<select
-							className='categories-select'
-							onChange={this.handleInputChange}
-							name='category_id'
-							value = {category_id}
-						>
+						{ this.props.team_id ? null : 
+							<select
+								className='categories-select'
+								onChange={this.handleInputChange}
+								name='category_id'
+								value = {category_id}
+							>
 							{
 								categoryNames.map((cat, i) =>
 									<option key={i} value={cat.id}>{cat.name}</option>
 								)
 							}
-						</select>
+						</select> }
             <button className='submit-btn' type='submit'>Post</button>  
           </div>
         </AddDiscussionFormBox>
@@ -256,4 +264,4 @@ const mapStateToProps = state => ({
 	isDay: state.users.isDay,
 });
 
-export default connect(mapStateToProps, { addDiscussion, displayError })(AddDiscussionForm);
+export default connect(mapStateToProps, { addDiscussion, addTeamDiscussion, displayError })(AddDiscussionForm);
