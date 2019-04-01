@@ -283,7 +283,7 @@ class TeamBoard extends Component {
     this.setState({ isAddTeamMemberModalRaised: status });
   }
   componentDidMount = () => {
-    this.getDiscussions();
+    this.getDiscussions().then(() => window.scrollTo(0, 0));
     this.props.getTeamMembers(this.props.match.params.team_id);
   };
   componentDidUpdate(prevProps) {
