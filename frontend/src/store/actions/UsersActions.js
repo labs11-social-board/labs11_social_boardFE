@@ -119,16 +119,13 @@ export const EDIT_USER_FAILURE = 'EDIT_USER_FAILURE';
 
 export const TOGGLE_THEME = 'TOGGLE_THEME';
 
-<<<<<<< HEAD
 export const SENDING_INVITE = 'SENDING_INVITE'; 
 export const SENDING_INVITE_SUCCESSFUL = 'SENDING_INVITE_SUCCESSFUL';
 export const SENDING_INVITE_FAILURE = 'SENDING_INVITE_FAILURE'; 
-=======
 export const GET_USERS_LOADING = 'GET_USERS_LOADING';
 export const GET_USERS_SUCCESS = 'GET_USERS_SUCCESS';
 export const GET_USERS_FAILURE = 'GET_USERS_FAILURE';
 
->>>>>>> 069d3109a84d99929c1e27f42d9ec88419326b9c
 /***************************************************************************************************
  ****************************************** Action Creators ****************************************
  **************************************************************************************************/

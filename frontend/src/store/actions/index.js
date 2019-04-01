@@ -277,14 +277,11 @@ import {
 
   TOGGLE_THEME,
 
-<<<<<<< HEAD
   SENDING_INVITE,
   SENDING_INVITE_FAILURE,
   SENDING_INVITE_SUCCESSFUL,
-=======
   GET_USERS_LOADING,
   GET_USERS_SUCCESS,
->>>>>>> 069d3109a84d99929c1e27f42d9ec88419326b9c
 
   // Action Creators
   login,
@@ -312,11 +309,8 @@ import {
   editSignature,
   editUser,
   toggleTheme,
-<<<<<<< HEAD
   inviteFriend, 
-=======
   getUsers
->>>>>>> 069d3109a84d99929c1e27f42d9ec88419326b9c
 } from './UsersActions.js';
 
 /************************************************************

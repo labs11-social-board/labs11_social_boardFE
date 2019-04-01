@@ -86,16 +86,13 @@ import {
   EDIT_SIGNATURE_FAILURE,
 
   TOGGLE_THEME,
-<<<<<<< HEAD
   //invites
   SENDING_INVITE,
   SENDING_INVITE_FAILURE,
   SENDING_INVITE_SUCCESSFUL,
   inviteFriend,
-=======
   GET_USERS_LOADING,
   GET_USERS_SUCCESS
->>>>>>> 069d3109a84d99929c1e27f42d9ec88419326b9c
 } from '../actions/index.js';
 
 const initialState = {
