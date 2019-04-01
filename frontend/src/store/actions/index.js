@@ -277,6 +277,9 @@ import {
 
   TOGGLE_THEME,
 
+  SENDING_INVITE,
+  SENDING_INVITE_FAILURE,
+  SENDING_INVITE_SUCCESSFUL,
   GET_USERS_LOADING,
   GET_USERS_SUCCESS,
 
@@ -306,6 +309,7 @@ import {
   editSignature,
   editUser,
   toggleTheme,
+  inviteFriend, 
   getUsers
 } from './UsersActions.js';
 
@@ -648,7 +652,13 @@ export {
   getFollowers, 
   getProfileFollowers,
   removeFollower, 
-  addFollower
+  addFollower,
+
+  //INVITE A FRIEND 
+  SENDING_INVITE,
+  SENDING_INVITE_FAILURE,
+  SENDING_INVITE_SUCCESSFUL,
+  inviteFriend,
 };
 
 
