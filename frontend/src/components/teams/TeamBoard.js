@@ -326,7 +326,7 @@ class TeamBoard extends Component {
                 historyPush={history.push}
                 team_members={team_members}
               />
-              {isTeamMembersTab ? <button onClick={e => this.setTeamMemberModal(e, true)}>Invite</button> : null}
+              {!isMember ? null : isTeamMembersTab ? <button onClick={e => this.setTeamMemberModal(e, true)}>Invite</button> : null}
             </div>
             <div className = 'team-tabs'>
               <h3 className='tab tab-selected' onClick={this.handleTab}>Discussions</h3>

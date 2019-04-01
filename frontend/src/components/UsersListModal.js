@@ -75,9 +75,13 @@ class UsersListModal extends React.Component {
     this.props.getUsers();
   };
   render(){
-    const { setTeamMemberModal, users } = this.props;
-    if(!users){
-      return <div>...Loading</div>;
+    const { setTeamMemberModal, users, isGettingUsers } = this.props;
+    if(isGettingUsers){
+      return (
+        <ModalBackground>
+          <DivModal>...Loading</DivModal>
+        </ModalBackground>
+      );
     } else {
       return (
         <ModalBackground>
@@ -101,7 +105,8 @@ class UsersListModal extends React.Component {
 };
 
 const mapStateToProps = state => ({
-  users: state.users.users
+  users: state.users.users,
+  isGettingUsers: state.users.isGettingUsers
 });
 
 export default connect(mapStateToProps, { getUsers, addTeamMember })(UsersListModal);

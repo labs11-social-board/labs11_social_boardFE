@@ -86,6 +86,7 @@ import {
   EDIT_SIGNATURE_FAILURE,
 
   TOGGLE_THEME,
+  GET_USERS_LOADING,
   GET_USERS_SUCCESS
 } from '../actions/index.js';
 
@@ -117,6 +118,7 @@ const initialState = {
   signature: null,
   stripePaymentInfo: [],
   isDay: true,
+  isGettingUsers: false
 };
 
 export const UsersReducer = (state = initialState, action) => {
@@ -367,9 +369,16 @@ export const UsersReducer = (state = initialState, action) => {
         signature: action.payload.signature,
       };
     
+    case GET_USERS_LOADING:
+      return {
+        ...state,
+        isGettingUsers: true
+      };
+
     case GET_USERS_SUCCESS: 
       return {
         ...state,
+        isGettingUsers: false,
         users: action.payload
       };
 
