@@ -203,7 +203,8 @@ class TeamBoard extends Component {
     showAddDiscussionForm: false,
     isTeam: true,
     isTeamMembersTab: false,
-    isAddTeamMemberModalRaised: false
+    isAddTeamMemberModalRaised: false,
+    isMember: false
   };
   toggleIsTeam = () => this.setState({ isTeam: !this.state.isTeam });
   toggleAddDiscussionForm = () => this.setState({
@@ -299,9 +300,11 @@ class TeamBoard extends Component {
     const { showAddDiscussionForm, isTeamMembersTab, isAddTeamMemberModalRaised } = this.state;
     const member = this.props.team_members.filter(member => member.user_id === user_id);
     let isTeamOwner;
+    let isMember;
     if(member.length === 0 ){
-      return <div>...Loading</div>
+      isMember = false;
     } else {
+      isMember = true;
       if(member[0].role === 'team_owner'){
         isTeamOwner=true;
       } else {
