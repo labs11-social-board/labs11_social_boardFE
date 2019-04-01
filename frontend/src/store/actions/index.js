@@ -31,21 +31,32 @@ import {
   //GET TEAMS
   GET_TEAMS_LOADING,
   GET_TEAMS_SUCCESS,
-  GET_TEAMS_FAILURE,
   GET_TEAM_DISCUSSIONS_LOADING,
   GET_TEAM_DISCUSSIONS_SUCCESS,
-  GET_TEAM_DISCUSSIONS_FAILURE,
-  IS_TEAM,
-  RESET_IS_TEAM,
   GET_TEAM_DISCUSSION_POSTS_LOADING,
   GET_TEAM_DISCUSSION_POSTS_SUCCESS,
-
+  JOIN_TEAM_LOADING,
+  JOIN_TEAM_SUCCESS,
+  GET_TEAM_MEMBERS_LOADING,
+  GET_TEAM_MEMBERS_SUCCESS,
+  LEAVE_TEAM_LOADING,
+  LEAVE_TEAM_SUCCESS,
+  UPDATE_TEAM_LOADING,
+  UPDATE_TEAM_SUCCESS,
+  UPDATE_TEAM_FAILURE,
+  ADD_TEAM_LOADING,
+  ADD_TEAM_SUCCESS,
+ 
   //Action Creators
   getTeams,
   getTeamDiscussions,
-  setIsTeam,
-  resetIsTeam,
-  getTeamDiscussionsById
+  getTeamDiscussionsById,
+  joinTeam,
+  getTeamMembers,
+  leaveTeam,
+  updateTeam,
+  addTeam,
+  addTeamMember
 } from './TeamsActions.js';
 
 import {
@@ -266,6 +277,12 @@ import {
 
   TOGGLE_THEME,
 
+  SENDING_INVITE,
+  SENDING_INVITE_FAILURE,
+  SENDING_INVITE_SUCCESSFUL,
+  GET_USERS_LOADING,
+  GET_USERS_SUCCESS,
+
   // Action Creators
   login,
   signout,
@@ -292,6 +309,8 @@ import {
   editSignature,
   editUser,
   toggleTheme,
+  inviteFriend, 
+  getUsers
 } from './UsersActions.js';
 
 /************************************************************
@@ -352,14 +371,21 @@ export {
   // Team Actions 
   GET_TEAMS_LOADING,
   GET_TEAMS_SUCCESS,
-  GET_TEAMS_FAILURE,
   GET_TEAM_DISCUSSIONS_LOADING,
   GET_TEAM_DISCUSSIONS_SUCCESS,
-  GET_TEAM_DISCUSSIONS_FAILURE,
   GET_TEAM_DISCUSSION_POSTS_LOADING,
   GET_TEAM_DISCUSSION_POSTS_SUCCESS,
-  IS_TEAM,
-  RESET_IS_TEAM,
+  JOIN_TEAM_LOADING,
+  JOIN_TEAM_SUCCESS,
+  GET_TEAM_MEMBERS_LOADING,
+  GET_TEAM_MEMBERS_SUCCESS,
+  LEAVE_TEAM_LOADING,
+  LEAVE_TEAM_SUCCESS,
+  UPDATE_TEAM_LOADING,
+  UPDATE_TEAM_SUCCESS,
+  UPDATE_TEAM_FAILURE,
+  ADD_TEAM_LOADING,
+  ADD_TEAM_SUCCESS,
   
   // Discussion Actions
   GET_DISCUSSIONS_LOADING,
@@ -487,6 +513,9 @@ export {
 
   TOGGLE_THEME,
 
+  GET_USERS_LOADING,
+  GET_USERS_SUCCESS,
+
   // Profile Actions
   GET_PROFILES_LOADING,
   GET_PROFILES_SUCCESS,
@@ -538,10 +567,14 @@ export {
   // Teams Action Creators
   getTeams,
   getTeamDiscussions,
-  setIsTeam,
-  resetIsTeam,
+  joinTeam,
   getTeamDiscussionsById,
-
+  getTeamMembers,
+  leaveTeam,
+  updateTeam,
+  addTeam,
+  addTeamMember,
+  
   // Discussion Action Creators
   getTopDiscussions,
   getDiscussionsByCat,
@@ -588,6 +621,7 @@ export {
   editSignature,
   editUser,
   toggleTheme,
+  getUsers,
 
   // Profile Action Creators
   getProfiles,
@@ -618,7 +652,13 @@ export {
   getFollowers, 
   getProfileFollowers,
   removeFollower, 
-  addFollower
+  addFollower,
+
+  //INVITE A FRIEND 
+  SENDING_INVITE,
+  SENDING_INVITE_FAILURE,
+  SENDING_INVITE_SUCCESSFUL,
+  inviteFriend,
 };
 
 
