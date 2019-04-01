@@ -24,7 +24,7 @@ class TeamSettings extends React.Component{
   updateTeam = e => {
     e.preventDefault();
     const changes = { ...this.state };
-    this.props.updateTeam(this.props.team.id, changes);
+    this.props.updateTeam(this.props.team.id, changes).then(() => alert('Team Settings Updated!'));
     setTimeout(() => this.props.getDiscussions(), 150);
   };
   componentDidUpdate(prevProps){

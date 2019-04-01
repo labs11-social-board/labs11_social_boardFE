@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 // components
-import { DiscussionByFollowedCats, AddDiscussionForm, FollowCat, Avatar, TeamWiki } from '../index.js';
+import { DiscussionByFollowedCats, AddDiscussionForm, FollowCat, Avatar, TeamWiki, UsersListModal } from '../index.js';
 
 // action creators
 import { getTeamDiscussions, handleDiscussionVote, getTeamMembers } from '../../store/actions/index.js';
@@ -202,6 +202,9 @@ class TeamBoard extends Component {
     orderType: '', // possible values: 'desc', 'asc'
     showAddDiscussionForm: false,
     isTeam: true,
+    isTeamMembersTab: false,
+    isAddTeamMemberModalRaised: false,
+    isMember: false
   };
   toggleIsTeam = () => this.setState({ isTeam: !this.state.isTeam });
   toggleAddDiscussionForm = () => this.setState({
@@ -220,6 +223,12 @@ class TeamBoard extends Component {
     tabs.forEach(tab => tab.classList.remove('tab-selected'));
 
     e.target.classList.add('tab-selected');
+
+    if(e.target.textContent === 'Team Members'){
+      this.setState({ isTeamMembersTab: true })
+    } else {
+      this.setState({ isTeamMembersTab: false })
+    }
 
     content.forEach(item => {
       item.classList.remove('selected');
@@ -269,8 +278,12 @@ class TeamBoard extends Component {
     const { getTeamDiscussions, match } = this.props;
     return getTeamDiscussions(match.params.team_id, order, orderType);
   };
+  setTeamMemberModal = (e, status) => {
+    e.stopPropagation();
+    this.setState({ isAddTeamMemberModalRaised: status });
+  }
   componentDidMount = () => {
-    this.getDiscussions();
+    this.getDiscussions().then(() => window.scrollTo(0, 0));
     this.props.getTeamMembers(this.props.match.params.team_id);
   };
   componentDidUpdate(prevProps) {
@@ -284,12 +297,14 @@ class TeamBoard extends Component {
   };
   render() {
     const { discussions, history, team, match, team_members, user_id} = this.props;
-    const { showAddDiscussionForm } = this.state;
+    const { showAddDiscussionForm, isTeamMembersTab, isAddTeamMemberModalRaised } = this.state;
     const member = this.props.team_members.filter(member => member.user_id === user_id);
     let isTeamOwner;
+    let isMember;
     if(member.length === 0 ){
-      return <div>...Loading</div>
+      isMember = false;
     } else {
+      isMember = true;
       if(member[0].role === 'team_owner'){
         isTeamOwner=true;
       } else {
@@ -302,6 +317,7 @@ class TeamBoard extends Component {
     } else {
       return (
         <DiscussionsWrapper>
+          {isAddTeamMemberModalRaised && <UsersListModal setTeamMemberModal={this.setTeamMemberModal} team_id={team.id}/> }
           <DiscussionHeader>
             <div className='name-follow-wrapper'>
               <h2 className='name'>{team.team_name}</h2>
@@ -310,6 +326,7 @@ class TeamBoard extends Component {
                 historyPush={history.push}
                 team_members={team_members}
               />
+              {!isMember ? null : isTeamMembersTab ? <button onClick={e => this.setTeamMemberModal(e, true)}>Invite</button> : null}
             </div>
             <div className = 'team-tabs'>
               <h3 className='tab tab-selected' onClick={this.handleTab}>Discussions</h3>

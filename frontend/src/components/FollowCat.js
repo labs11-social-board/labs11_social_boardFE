@@ -68,7 +68,7 @@ class FollowCat extends Component {
         const isTeamOwner = this.props.team_members.filter( member => member.user_id === this.props.user_id);
 
         if(isTeamOwner.length === 0){
-          return <div>...Loading</div>
+         isTeamMember = false;
         } else {
           if(isTeamOwner[0].role === 'team_owner'){
             return null;

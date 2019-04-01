@@ -51,6 +51,8 @@ import DiscussionByFollowedCats from './DiscussionByFollowedCats.js';
 import IconList from './categories/IconList.js';
 import Icon from './categories/Icon.js';
 import RegisterDropdown from './RegisterDropdown.js';
+import UsersListModal from './UsersListModal.js';
+import User from './User.js';
 
 // forms
 import AddPostForm from './forms/AddPostForm.js';
@@ -119,6 +121,8 @@ export {
   RegisterDropdown,
   TeamWiki,
   ToggleSwitch,
+  UsersListModal,
+  User,
 
   // forms
   AddPostForm,

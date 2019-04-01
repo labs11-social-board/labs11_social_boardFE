@@ -55,7 +55,8 @@ import {
   getTeamMembers,
   leaveTeam,
   updateTeam,
-  addTeam
+  addTeam,
+  addTeamMember
 } from './TeamsActions.js';
 
 import {
@@ -276,6 +277,9 @@ import {
 
   TOGGLE_THEME,
 
+  GET_USERS_LOADING,
+  GET_USERS_SUCCESS,
+
   // Action Creators
   login,
   signout,
@@ -302,6 +306,7 @@ import {
   editSignature,
   editUser,
   toggleTheme,
+  getUsers
 } from './UsersActions.js';
 
 /************************************************************
@@ -504,6 +509,9 @@ export {
 
   TOGGLE_THEME,
 
+  GET_USERS_LOADING,
+  GET_USERS_SUCCESS,
+
   // Profile Actions
   GET_PROFILES_LOADING,
   GET_PROFILES_SUCCESS,
@@ -561,7 +569,8 @@ export {
   leaveTeam,
   updateTeam,
   addTeam,
-
+  addTeamMember,
+  
   // Discussion Action Creators
   getTopDiscussions,
   getDiscussionsByCat,
@@ -608,6 +617,7 @@ export {
   editSignature,
   editUser,
   toggleTheme,
+  getUsers,
 
   // Profile Action Creators
   getProfiles,
