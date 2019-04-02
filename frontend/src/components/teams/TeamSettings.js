@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 // action creators
-import { updateTeam, deleteTeam } from '../../store/actions/index.js';
+import { updateTeam, deleteTeam, displayMessage } from '../../store/actions/index.js';
 
 // components
 import { ToggleSwitch } from '../index.js';
@@ -24,13 +24,13 @@ class TeamSettings extends React.Component{
   updateTeam = e => {
     e.preventDefault();
     const changes = { ...this.state };
-    this.props.updateTeam(this.props.team.id, changes).then(() => alert('Team Settings Updated!'));
+    this.props.updateTeam(this.props.team.id, changes).then(() => this.props.displayMessage('Team Settings Updated!'));
     setTimeout(() => this.props.getDiscussions(), 150);
   };
   deleteTeam = e => {
     e.preventDefault();
     this.props.deleteTeam(this.props.team.id).then(() => {
-      alert('Team Deleted!');
+      this.props.displayMessage('Team Deleted!');
       this.props.history.push('/teams');
     });
   };
@@ -57,4 +57,4 @@ class TeamSettings extends React.Component{
 
 const mapStateToProps = state => ({ });
 
-export default connect(mapStateToProps, { updateTeam, deleteTeam })(TeamSettings);
+export default connect(mapStateToProps, { updateTeam, deleteTeam, displayMessage })(TeamSettings);
