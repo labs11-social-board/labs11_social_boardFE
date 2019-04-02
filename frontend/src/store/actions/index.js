@@ -47,6 +47,8 @@ import {
   ADD_TEAM_LOADING,
   ADD_TEAM_SUCCESS,
   DELETE_TEAM_SUCCESS,
+  GET_USERS_TEAMS_LOADING,
+  GET_USERS_TEAMS_SUCCESS,
  
   //Action Creators
   getTeams,
@@ -58,7 +60,8 @@ import {
   updateTeam,
   addTeam,
   addTeamMember,
-  deleteTeam
+  deleteTeam,
+  getUsersTeams
 } from './TeamsActions.js';
 
 import {
@@ -389,6 +392,8 @@ export {
   ADD_TEAM_LOADING,
   ADD_TEAM_SUCCESS,
   DELETE_TEAM_SUCCESS,
+  GET_USERS_TEAMS_LOADING,
+  GET_USERS_TEAMS_SUCCESS,
   
   // Discussion Actions
   GET_DISCUSSIONS_LOADING,
@@ -578,6 +583,7 @@ export {
   addTeam,
   addTeamMember,
   deleteTeam,
+  getUsersTeams,
   
   // Discussion Action Creators
   getTopDiscussions,

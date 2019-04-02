@@ -45,6 +45,10 @@ export const DELETE_TEAM_LOADING = 'DELETE_TEAM_LOADING';
 export const DELETE_TEAM_SUCCESS = 'DELETE_TEAM_SUCCESS';
 export const DELETE_TEAM_FAILURE = 'DELETE_TEAM_FAILURE';
 
+export const GET_USERS_TEAMS_LOADING = 'GET_USERS_TEAMS_LOADING';
+export const GET_USERS_TEAMS_SUCCESS = 'GET_USERS_TEAMS_SUCCESS';
+export const GET_USERS_TEAMS_FAILURE= 'GET_USERS_TEAMS_FAILURE';
+
 
 /***************************************************************************************************
  ********************************************* Action Creators *************************************
@@ -160,4 +164,14 @@ export const addTeamMember = (team_member_id, team_id) => dispatch => {
     .post(`${backendUrl}/team/team_members/${user_id}/${team_id}`, {team_member_id}, headers)
     .then(res => dispatch({ type: JOIN_TEAM_SUCCESS, payload: res.data }))
     .catch(err => handleError(err, JOIN_TEAM_FAILURE)(dispatch));
+};
+
+export const getUsersTeams = () => dispatch => {
+  const user_id = localStorage.getItem('symposium_user_id');
+  const token = localStorage.getItem('symposium_token');
+  const headers = { headers: { Authorization: token } };
+  dispatch({ type: GET_USERS_TEAMS_LOADING });
+  return axios.get(`${backendUrl}/users/teams/${user_id}`, headers)
+    .then(res => dispatch({ type: GET_USERS_TEAMS_SUCCESS, payload: res.data }))
+    .catch(err => handleError(err, GET_USERS_TEAMS_FAILURE)(dispatch));
 };
