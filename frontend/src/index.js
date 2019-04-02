@@ -17,7 +17,8 @@ import {
 	ProfilesReducer,
 	CategoriesReducer,
 	TeamsReducer,
-	FollowersReducer,
+  FollowersReducer,
+  editProfileReducer,
 } from './store/reducers/index.js';
 
 const rootReducer = combineReducers({
@@ -27,7 +28,8 @@ const rootReducer = combineReducers({
 	profilesData: ProfilesReducer,
 	categories: CategoriesReducer,
 	teams: TeamsReducer,
-	followers : FollowersReducer,
+  followers : FollowersReducer,
+  editProfile : editProfileReducer,
 });
 
 let store;

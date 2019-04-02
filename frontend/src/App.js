@@ -138,7 +138,8 @@ class App extends Component {
       isChangeSubModalRaised: false,
       isAddCatModalRaised: false,
       showRegisterModal: false,
-      isAddTeamModalRaised: false
+      isAddTeamModalRaised: false,
+      isEditProfileModalRaised: false
     };
   }
 
@@ -182,6 +183,11 @@ class App extends Component {
   setAddTeamModalRaised = (ev, status) => {
     ev.stopPropagation();
     this.setState({ isAddTeamModalRaised: status });
+  }
+
+  setEditProfileModalRaised = (ev, status) => {
+    ev.stopPropagation();
+    this.setState({ isEditProfileModalRaised : status});
   }
 
   toggleSearch = () => this.setState({ showSearch: !this.state.showSearch });
@@ -240,7 +246,8 @@ class App extends Component {
                 <Route exact path='/' component={NonUserLandingView} />
                 <Route exact path='/home' component={LandingView} />
                 <Route path='/profiles' component={Profiles} />
-                <Route path='/profile/:id' component={Profile} />
+                {/* <Route path='/profile/:id' component={Profile} /> commented out instead of deleted incase I need to change it back J.H*/}
+                <Route path='/profile/:id' render={props => <Profile {...props} setEditProfileModalRaised = {this.setEditProfileModalRaised} isEditProfileModalRaised = {this.state.isEditProfileModalRaised}/>} />
                 <Route path='/categories' render={() => <CategoriesView history={history} historyPush={this.props.history.push} setAddCatModalRaised={this.setAddCatModalRaised} isAddCatModalRaised={this.state.isAddCatModalRaised} />} />
                 <Route path='/teams' render={() => <TeamsView history={history} /> } />
                 <Route path='/team/discussions/:team_id' component={TeamBoard} />
