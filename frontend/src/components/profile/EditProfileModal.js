@@ -156,83 +156,113 @@ class EditProfileModal extends React.Component {
     linkedin: ""
   };
 
+  componentWillMount() {
+    // this.props.getProfile(this.props.match.params.id);
+    // this.setState({
+    //   bio: this.profilesData.singleProfileData.bio,
+    //   twitter: this.profilesData.singleProfileData.twitter,
+    //   github: this.profilesData.singleProfileData.github,
+    //   linkedin: this.profilesData.singleProfileData.linkedin
+    // });
+  }
+
+  componentWillUpdate(prevProps) {
+    if (prevProps.match.params.id !== this.props.match.params.id) {
+      // this line handles going from profile to profile.
+    //   this.props.getProfile(this.props.match.params.id);
+    //   this.setState({
+    //     bio: this.profilesData.singleProfileData.bio,
+    //     twitter: this.profilesData.singleProfileData.twitter,
+    //     github: this.profilesData.singleProfileData.github,
+    //     linkedin: this.profilesData.singleProfileData.linkedin
+    //   });
+    }
+  }
+
   handleChange = event => {
     event.preventDefault();
     this.setState({ [event.target.name]: event.target.value });
   };
 
-  handleSubmit = () => {
-    
-  }
+  handleSubmit = () => {};
 
   render() {
-    const {bio, twitter, github, linkedin} = this.state; 
-    return (
-    <ModalBackground>
-      <DivModalCloser />
-      <div>
-        <span
-        className = "back"
-        // onclick needed 
+    console.log(this.props);
+    const { setEditProfileModal } = this.props; 
 
-        ><i className="far fa-arrow-alt-circle-left"></i>
-        </span>
-      </div>
-      <FormContent onSubmit = {this.handleSubmit}>
-        <DivRight>
+    const { bio, twitter, github, linkedin } = this.state;
+    return (
+      <ModalBackground>
+        <DivModalCloser onClick = {(event) => setEditProfileModal(event, false)} />
+        <DivModal>
+          
+        
+        <div className = "above-input">
+          <span
+            className="back"
+            onClick = {(event) => setEditProfileModal(event, false)}
+          >
+            <i className="far fa-arrow-alt-circle-left" />
+          </span>
+        </div>
+        <FormContent onSubmit={this.handleSubmit}>
+          <DivRight>
             <DivName>
-                <input
-                 type = "text"
-                 placeholder = ""
-                 name = "bio"
-                 value = {bio}
-                 className = "body-input"
-                 onChange = {this.handleChange}
-                 />
-                <input
-                 type = "text"
-                 placeholder = ""
-                 name = "github"
-                 value = {github}
-                 className = "body-input"
-                 onChange = {this.handleChange}
-                />
-                <input
-                 type = "text"
-                 placeholder = ""
-                 name = "linkedin"
-                 value = {linkedin}
-                 className = "body-input"
-                 onChange = {this.handleChange}
-                />
-                <input
-                 type = "text"
-                 placeholder = ""
-                 name = "twitter"
-                 value = {twitter}
-                 className = "body-input"
-                 onChange = {this.handleChange}
-                />
+              <input
+                type="text"
+                placeholder=""
+                name="bio"
+                value={bio}
+                className="body-input"
+                onChange={this.handleChange}
+              />
+              <input
+                type="text"
+                placeholder=""
+                name="github"
+                value={github}
+                className="body-input"
+                onChange={this.handleChange}
+              />
+              <input
+                type="text"
+                placeholder=""
+                name="linkedin"
+                value={linkedin}
+                className="body-input"
+                onChange={this.handleChange}
+              />
+              <input
+                type="text"
+                placeholder=""
+                name="twitter"
+                value={twitter}
+                className="body-input"
+                onChange={this.handleChange}
+              />
             </DivName>
-        </DivRight>
-        <DivButtons>
-            <button className = "btn" type = "submit">Submit</button>
-        </DivButtons>
-      </FormContent>
-    </ModalBackground>
-    )
-    
+          </DivRight>
+          <DivButtons>
+            <button className="btn" type="submit">
+              Submit
+            </button>
+          </DivButtons>
+        </FormContent>
+        </DivModal>
+      </ModalBackground>
+    );
   }
 }
 EditProfileModal.propTypes = {
-    updateProfile : PropTypes.func, 
-    getProfile : PropTypes.func, 
-    
-}
-
+  updateProfile: PropTypes.func,
+  getProfile: PropTypes.func
+};
 
 const mapStateToProps = state => ({
-    profile: state.profilesData.singleProfileData
-})
+  profile: state.profilesData.singleProfileData
+});
 
-export default connect(mapStateToProps, {getProfile, updateProfile})(EditProfileModal);
+export default connect(
+  mapStateToProps,
+  { getProfile, updateProfile }
+)(EditProfileModal);

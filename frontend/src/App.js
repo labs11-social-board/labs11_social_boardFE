@@ -44,6 +44,7 @@ import {
 
 // action creators
 import { logBackIn, markNotificationsAsRead, toggleTheme } from './store/actions/index.js';
+import EditProfileModal from './components/profile/EditProfileModal.js';
 
 const GlobalStyle = createGlobalStyle`
   html,
@@ -243,6 +244,7 @@ class App extends Component {
               <DivPage>
                 {(this.state.isAddCatModalRaised) && <AddCategoryModal history={history} historyPush={this.props.history.push} pathname={location.pathname} isAuthenticated={this.isAuthenticated} setAddCatModalRaised={this.setAddCatModalRaised} />}
                 {(this.state.isAddTeamModalRaised) && <AddTeamModal history={history} historyPush={this.props.history.push} pathname={location.pathname} isAuthenticated={this.isAuthenticated} setAddTeamModalRaised={this.setAddTeamModalRaised} />}
+                {(this.state.isEditProfileModalRaised) && <EditProfileModal setEditProfileModalRaised = {this.setEditProfileModalRaised} isEditProfileModalRaised = {this.state.isEditProfileModalRaised}/>}
                 <Route exact path='/' component={NonUserLandingView} />
                 <Route exact path='/home' component={LandingView} />
                 <Route path='/profiles' component={Profiles} />

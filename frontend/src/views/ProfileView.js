@@ -294,6 +294,13 @@ class Profile extends Component {
     return false; //Invalid email 
   }
 
+  editProfile = event => {
+    console.log("Editing profile");
+    console.log(this.props);
+    this.props.setEditProfileModalRaised( event, !this.props.isEditProfileModalRaised);
+  }
+
+
 
   /* we use profileItems to manipulate what data is displayed. if the data received from our props is 0,
   profileItems displays our spinner component, however if our props contains a profile we display that profile
@@ -330,7 +337,6 @@ class Profile extends Component {
     }
 
     const followListLength = followList ? followList.length : 0; 
-    console.log(followList, followListLength);
 
     let profileItems;
     if (this.props.profile.length === 0) {
@@ -352,7 +358,7 @@ class Profile extends Component {
                 
                 <WrappedDiv className='username-style'>
                   <p className='property-content'> {profile.username ? profile.username : <Deleted />}</p>
-                  {profileId !== userId ? alreadyFollowing === false ? <button onClick = {this.handleAddFollower(userId, profileId)}>Follow</button> : <button onClick = {this.handleRemoveFollower(userId, profileId)}>UnFollow</button> : <button>Edit Profile</button>}
+                  {profileId !== userId ? alreadyFollowing === false ? <button onClick = {this.handleAddFollower(userId, profileId)}>Follow</button> : <button onClick = {this.handleRemoveFollower(userId, profileId)}>UnFollow</button> : <button onClick = {this.editProfile}>Edit Profile</button>}
                 </WrappedDiv>
               </HeaderStyle>
               {/* This section is for the bio and the links for a user account */}
