@@ -363,11 +363,11 @@ class Profile extends Component {
               </HeaderStyle>
               {/* This section is for the bio and the links for a user account */}
               <div>
-                  <p><span>Bio</span><span>{bio}</span></p>
+                  <p><span>Bio </span><span>{bio}</span></p>
                   <br/>
-                  <p><span>Github</span> <span>{github}</span></p>
-                  <p><span>LinkedIn</span> <span>{linkedin}</span></p>
-                  <p><span>Twitter</span> <span>{twitter}</span></p>
+                  <p><span>Github </span> <span>{github}</span></p>
+                  <p><span>LinkedIn </span> <span>{linkedin}</span></p>
+                  <p><span>Twitter </span> <span>{twitter}</span></p>
               </div>
               <br/>
               <div>
