@@ -246,7 +246,8 @@ class App extends Component {
                 <Route exact path='/' component={NonUserLandingView} />
                 <Route exact path='/home' component={LandingView} />
                 <Route path='/profiles' component={Profiles} />
-                <Route path='/profile/:id' component={Profile} />
+                {/* <Route path='/profile/:id' component={Profile} /> commented out instead of deleted incase I need to change it back J.H*/}
+                <Route path='/profile/:id' render={props => <Profile {...props} setEditProfileModalRaised = {this.state.setEditProfileModalRaised}/>} />
                 <Route path='/categories' render={() => <CategoriesView history={history} historyPush={this.props.history.push} setAddCatModalRaised={this.setAddCatModalRaised} isAddCatModalRaised={this.state.isAddCatModalRaised} />} />
                 <Route path='/teams' render={() => <TeamsView history={history} /> } />
                 <Route path='/team/discussions/:team_id' component={TeamBoard} />
