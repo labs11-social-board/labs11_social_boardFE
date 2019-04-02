@@ -41,6 +41,10 @@ export const GET_TEAM_MEMBERS_LOADING = 'GET_TEAM_MEMBERS_LOADING';
 export const GET_TEAM_MEMBERS_SUCCESS = 'GET_TEAM_MEMBERS_SUCCESS';
 export const GET_TEAM_MEMBERS_FAILURE = 'GET_TEAM_MEMBERS_FAILURE';
 
+export const DELETE_TEAM_LOADING = 'DELETE_TEAM_LOADING';
+export const DELETE_TEAM_SUCCESS = 'DELETE_TEAM_SUCCESS';
+export const DELETE_TEAM_FAILURE = 'DELETE_TEAM_FAILURE';
+
 
 /***************************************************************************************************
  ********************************************* Action Creators *************************************
@@ -134,6 +138,17 @@ export const updateTeam = (team_id, changes) => dispatch => {
     .put(`${backendUrl}/team/${user_id}/${team_id}`, changes, headers)
     .then(res => dispatch({ type: UPDATE_TEAM_SUCCESS, payload: res.data }))
     .catch(err => handleError(err, UPDATE_TEAM_FAILURE)(dispatch));
+};
+
+export const deleteTeam = team_id => dispatch => {
+  const user_id = localStorage.getItem('symposium_user_id');
+  const token = localStorage.getItem('symposium_token');
+  const headers = { headers: { Authorization: token } };
+  dispatch({ type: DELETE_TEAM_LOADING });
+  return axios 
+    .delete(`${backendUrl}/team/${user_id}/${team_id}`, headers)
+    .then(res => dispatch({ type: DELETE_TEAM_SUCCESS, payload: res.data }))
+    .catch(err => handleError(err, DELETE_TEAM_FAILURE)(dispatch));
 };
 
 export const addTeamMember = (team_member_id, team_id) => dispatch => {
