@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { scroller } from 'react-scroll';
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
+import Admin from './views/Admin';
 
 // globals
 import { dayTheme, nightTheme, sideNavWidth, topHeaderHeight } from './globals/globals.js';
@@ -44,6 +45,7 @@ import {
 
 // action creators
 import { logBackIn, markNotificationsAsRead, toggleTheme } from './store/actions/index.js';
+
 
 const GlobalStyle = createGlobalStyle`
   html,
@@ -239,6 +241,7 @@ class App extends Component {
                 {(this.state.isAddTeamModalRaised) && <AddTeamModal history={history} historyPush={this.props.history.push} pathname={location.pathname} isAuthenticated={this.isAuthenticated} setAddTeamModalRaised={this.setAddTeamModalRaised} />}
                 <Route exact path='/' component={NonUserLandingView} />
                 <Route exact path='/home' component={LandingView} />
+                <Route exact path='/admin' component={Admin} />
                 <Route path='/profiles' component={Profiles} />
                 <Route path='/profile/:id' component={Profile} />
                 <Route path='/categories' render={() => <CategoriesView history={history} historyPush={this.props.history.push} setAddCatModalRaised={this.setAddCatModalRaised} isAddCatModalRaised={this.state.isAddCatModalRaised} />} />
