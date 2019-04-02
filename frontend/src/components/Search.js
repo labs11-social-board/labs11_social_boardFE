@@ -172,7 +172,7 @@ const SearchBox = styled.div`
 		border-radius: 5px;
 		background-color: ${props => props.theme.appBgColor};
 		color: ${props => props.theme.defaultColor};
-		width: 350px;
+		width: 375px;
 		border: 1px solid #ddd;
 		padding: 10px;
 
@@ -193,6 +193,7 @@ const SearchBox = styled.div`
 
 // constants
 const categories = 'categories';
+const teams = 'teams';
 const posts = 'posts';
 const comments = 'comments';
 const all = 'all';
@@ -223,6 +224,21 @@ class Search extends Component {
 		const headers = { headers: { searchText, order, orderType } };
 		return this.setState({ loading: true }, () => {
 			return axios.get(`${ backendUrl }/categories/search`, headers)
+				.then(res => this.setState({ searchResults: res.data }))
+				.then(() => this.setState({ loading: false }))
+				.then(() => !this.props.showSearch && this.props.toggleSearch())
+				.catch(err => {
+					const errMsg = err.response ? err.response.data.error : err.toString();
+					return displayError(errMsg).then(() => this.setState({ loading: false }));
+				});
+		});
+	};
+	searchTeams = () => {
+		const { displayError } = this.props;
+		const { searchText, order, orderType } = this.state;
+		const headers = { headers: { searchText, order, orderType } };
+		return this.setState({ loading: true}, () => {
+			return axios.get(`${backendUrl}/team/search`, headers)
 				.then(res => this.setState({ searchResults: res.data }))
 				.then(() => this.setState({ loading: false }))
 				.then(() => !this.props.showSearch && this.props.toggleSearch())
@@ -282,6 +298,8 @@ class Search extends Component {
 		switch(searchBy) {
 			case categories:
 				return this.searchCategories();
+			case teams:
+				return this.searchTeams();
 			case posts:
 				return this.searchDiscussions();
 			case comments:
@@ -364,6 +382,17 @@ class Search extends Component {
 							<span className = 'checkmark' />
 						</label>
 
+						<label className = 'container'>Teams
+							<input
+								type = 'radio'
+								checked = { searchBy === teams }
+								name = 'searchBy'
+								value = { teams }
+								onChange = { this.handleInputChange }
+							/>
+							<span className = 'checkmark' />
+						</label>
+
 						<label className = 'container'>Posts
 							<input
 								type = 'radio'
@@ -435,6 +464,14 @@ class Search extends Component {
 										scrollTo = { scrollTo }
 										pathname = { pathname }
 									/>
+								}
+								if(searchBy === teams){
+									return <SearchTeamResult 
+											key = { i }
+											team = { result }
+											goTo = { this.goTo }
+											searchText = { searchText }
+										/>
 								}
 								if (searchBy === all) {
 									if (result.type === 'category') {
