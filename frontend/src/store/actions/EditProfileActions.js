@@ -24,24 +24,25 @@ export const UPDATE_PROFILE_FAILURE = "UPDATE_PROFILE_FAILURE";
  **************************************************************************************************/
 
  export  const updateProfile = (userId, bio, twitter, github, linkedin) => dispatch => {
+    console.log("updatingProfile");
     const token = localStorage.getItem("symposium_token");
     const headers = { headers: { Authorization: token } };
     dispatch({type: UPDATE_PROFILE});
     let body = { bio };
     return axios
-    .put(`${backendUrl}/users/bio${userId}`, body, headers)
+    .put(`${backendUrl}/users/bio/${userId}`, body, headers)
     .then (response => {
         body = { twitter }
         return axios 
-        .put(`${backendUrl}/users/twitter${userId}`, body, headers)
+        .put(`${backendUrl}/users/twitter/${userId}`, body, headers)
         .then(response => {
             body = { github }
             return axios 
-            .put(`${backendUrl}/users/github${userId}`, body, headers)
+            .put(`${backendUrl}/users/github/${userId}`, body, headers)
             .then (response => {
                 body = { linkedin }
                 return axios 
-                .put(`${backendUrl}/users/linkedin${userId}`, body, headers)
+                .put(`${backendUrl}/users/linkedin/${userId}`, body, headers)
                 .then (response => {
                     dispatch({UPDATE_PROFILE_SUCCESSFUL})
                 })

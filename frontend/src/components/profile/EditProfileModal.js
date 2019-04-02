@@ -198,7 +198,8 @@ class EditProfileModal extends React.Component {
     console.log(this.props);
   };
 
-  handleSubmit = () => {
+  handleSubmit = event => {
+    event.preventDefault();
     const { userId, bio, twitter, github, linkedin } = this.state;
     this.props.updateProfile(userId, bio, twitter, github, linkedin);
   };
