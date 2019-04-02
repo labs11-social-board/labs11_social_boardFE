@@ -194,11 +194,13 @@ const Post = ({
     .then(() => scrollTo());
 
   const handleReplyVoting = (reply_id, type) => handleReplyVote(reply_id, type)
-    .then(() => { if(team_id){
-      handleTeamFilter()
-    } else {
-      handleFilterChange()
-    }})
+    .then(() => { 
+      if(team_id){
+        handleTeamFilter()
+      } else {
+        handleFilterChange()
+      }
+    })
     .then(() => scrollTo());
 
   const handleAddReply = () => {

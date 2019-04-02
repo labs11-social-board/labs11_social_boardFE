@@ -51,6 +51,7 @@ const SearchDisResult = ({ discussion, goTo, searchText }) => {
   const {
     id,
     body,
+    team_id,
     // user_id,
     // username,
     created_at,
@@ -58,7 +59,13 @@ const SearchDisResult = ({ discussion, goTo, searchText }) => {
     // category_id,
     // category_name,
   } = discussion;
-  const handleDiscussionClick = () => goTo(`/discussion/${id}`);
+  const handleDiscussionClick = () => {
+    if(team_id){
+      goTo(`/team/posts/${id}`)
+    } else {
+      goTo(`/discussion/${id}`)
+    }
+  };
   searchText = searchText.toLowerCase();
   const lowerCaseBody = body.toLowerCase();
   return (
