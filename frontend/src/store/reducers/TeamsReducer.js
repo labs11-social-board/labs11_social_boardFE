@@ -9,7 +9,8 @@ import {
   GET_TEAM_MEMBERS_SUCCESS,
   LEAVE_TEAM_SUCCESS,
   UPDATE_TEAM_SUCCESS,
-  DELETE_TEAM_SUCCESS
+  DELETE_TEAM_SUCCESS,
+  GET_USERS_TEAMS_SUCCESS
 } from '../actions/index.js';
 
 const initialState = {
@@ -92,7 +93,12 @@ export const TeamsReducer = (state = initialState, action) => {
     return {
       ...state,
     };
-      
+    
+    case GET_USERS_TEAMS_SUCCESS: 
+      return {
+        ...state,
+        userTeams: action.payload
+      }
     default : 
       return state;
   };
