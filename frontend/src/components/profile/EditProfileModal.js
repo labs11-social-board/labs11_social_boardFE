@@ -1,9 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-
+import PropTypes from "prop-types";
 //action creator
-
+import { getProfile, updateProfile } from "../../store/actions/index.js";
 // components
 
 // globals
@@ -224,5 +224,15 @@ class EditProfileModal extends React.Component {
     
   }
 }
+EditProfileModal.propTypes = {
+    updateProfile : PropTypes.func, 
+    getProfile : PropTypes.func, 
+    
+}
 
-export default connect(null, {})(EditProfileModal);
+
+const mapStateToProps = state => ({
+    profile: state.profilesData.singleProfileData
+})
+
+export default connect(mapStateToProps, {getProfile, updateProfile})(EditProfileModal);
