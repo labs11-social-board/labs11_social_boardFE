@@ -200,8 +200,22 @@ class EditProfileModal extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    const { userId, bio, twitter, github, linkedin } = this.state;
+    let { userId, bio, twitter, github, linkedin } = this.state;
+    if (bio.length === 0){
+        bio = null; 
+    }
+    if (twitter.length === 0){
+        twitter = null; 
+    }
+    if (github.length === 0){
+        github = null; 
+    }
+    if (linkedin.length === 0){
+        linkedin = null; 
+    }
+    
     this.props.updateProfile(userId, bio, twitter, github, linkedin);
+    this.props.setEditProfileModalRaised(event, false) //closes modal affter submitting. 
   };
 
   render() {
