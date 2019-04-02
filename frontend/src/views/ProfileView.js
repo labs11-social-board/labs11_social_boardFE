@@ -522,7 +522,9 @@ Profile.propTypes = {
   getProfileFollowers: PropTypes.func,
   removeFollower : PropTypes.func, 
   addFollower : PropTypes.func,
-  inviteFriend : PropTypes.func,  
+  inviteFriend : PropTypes.func, 
+  setEditProfileModalraised : PropTypes.func.isRequired,
+  isEditProfileModalRaised : PropTypes.bool.isRequired, 
   profile: PropTypes.arrayOf(
     PropTypes.shape({
       status: PropTypes.string.isRequired,
@@ -535,7 +537,7 @@ Profile.propTypes = {
       following_id: PropTypes.number.isRequired,
       username: PropTypes.string.isRequired
     })
-  ) 
+  )
 };
 
 const mapStateToProps = state => ({

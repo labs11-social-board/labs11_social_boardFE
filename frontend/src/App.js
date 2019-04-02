@@ -149,7 +149,8 @@ class App extends Component {
       isChangeSubModalRaised: false,
       isAddCatModalRaised: false,
       showRegisterModal: false,
-      isAddTeamModalRaised: false
+      isAddTeamModalRaised: false,
+      isEditProfileModalRaised: false
     };
   }
 
@@ -198,6 +199,11 @@ class App extends Component {
     ev.stopPropagation();
     this.setState({ isAddTeamModalRaised: status });
   };
+
+  setEditProfileModalRaised = (ev, status) => {
+    ev.stopPropagation();
+    this.setState({ isEditProfileModalRaised : status});
+  }
 
   toggleSearch = () => this.setState({ showSearch: !this.state.showSearch });
 
@@ -288,76 +294,21 @@ class App extends Component {
                 />
               </DivSideNav>
               <DivPage>
-                {this.state.isAddCatModalRaised && (
-                  <AddCategoryModal
-                    history={history}
-                    historyPush={this.props.history.push}
-                    pathname={location.pathname}
-                    isAuthenticated={this.isAuthenticated}
-                    setAddCatModalRaised={this.setAddCatModalRaised}
-                  />
-                )}
-                {this.state.isAddTeamModalRaised && (
-                  <AddTeamModal
-                    history={history}
-                    historyPush={this.props.history.push}
-                    pathname={location.pathname}
-                    isAuthenticated={this.isAuthenticated}
-                    setAddTeamModalRaised={this.setAddTeamModalRaised}
-                  />
-                )}
-                <Route exact path="/" component={NonUserLandingView} />
-                <Route exact path="/home" component={LandingView} />
-                <Route path="/profiles" component={Profiles} />
-                <Route path="/profile/:id" component={Profile} />
-                <Route
-                  path="/categories"
-                  render={() => (
-                    <CategoriesView
-                      history={history}
-                      historyPush={this.props.history.push}
-                      setAddCatModalRaised={this.setAddCatModalRaised}
-                      isAddCatModalRaised={this.state.isAddCatModalRaised}
-                    />
-                  )}
-                />
-                <Route
-                  path="/teams"
-                  render={() => <TeamsView history={history} />}
-                />
-                <Route
-                  path="/team/discussions/:team_id"
-                  component={TeamBoard}
-                />
-                <Route
-                  path="/team/posts/:id"
-                  render={props => (
-                    <TeamDiscussionView {...props} scrollTo={this.scrollTo} />
-                  )}
-                />
-                <Route
-                  path="/discussion/:id"
-                  render={props => (
-                    <DiscussionView {...props} scrollTo={this.scrollTo} />
-                  )}
-                />
-                <Route
-                  path="/settings/:id"
-                  render={props => (
-                    <Settings
-                      {...props}
-                      setChangeSubModalRaised={this.setChangeSubModalRaised}
-                    />
-                  )}
-                />
-                <Route
-                  path="/discussions/category/:category_id"
-                  component={DiscussionsByCats}
-                />
-                <Route
-                  path="/confirm-email/:email_confirm_token"
-                  component={ConfirmEmail}
-                />
+                {(this.state.isAddCatModalRaised) && <AddCategoryModal history={history} historyPush={this.props.history.push} pathname={location.pathname} isAuthenticated={this.isAuthenticated} setAddCatModalRaised={this.setAddCatModalRaised} />}
+                {(this.state.isAddTeamModalRaised) && <AddTeamModal history={history} historyPush={this.props.history.push} pathname={location.pathname} isAuthenticated={this.isAuthenticated} setAddTeamModalRaised={this.setAddTeamModalRaised} />}
+                <Route exact path='/' component={NonUserLandingView} />
+                <Route exact path='/home' component={LandingView} />
+                <Route path='/profiles' component={Profiles} />
+                {/* <Route path='/profile/:id' component={Profile} /> commented out instead of deleted incase I need to change it back J.H*/}
+                <Route path='/profile/:id' render={props => <Profile {...props} setEditProfileModalRaised = {this.setEditProfileModalRaised} isEditProfileModalRaised = {this.state.isEditProfileModalRaised}/>} />
+                <Route path='/categories' render={() => <CategoriesView history={history} historyPush={this.props.history.push} setAddCatModalRaised={this.setAddCatModalRaised} isAddCatModalRaised={this.state.isAddCatModalRaised} />} />
+                <Route path='/teams' render={() => <TeamsView history={history} /> } />
+                <Route path='/team/discussions/:team_id' component={TeamBoard} />
+                <Route path='/team/posts/:id' render={props => <TeamDiscussionView {...props} scrollTo={this.scrollTo} />} />
+                <Route path='/discussion/:id' render={props => <DiscussionView {...props} scrollTo={this.scrollTo} />} />
+                <Route path='/settings/:id' render={props => <Settings {...props} setChangeSubModalRaised={this.setChangeSubModalRaised} />} />
+                <Route path='/discussions/category/:category_id' component={DiscussionsByCats} />
+                <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} />
               </DivPage>
             </DivBody>
             <Footer

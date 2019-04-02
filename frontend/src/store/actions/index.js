@@ -46,6 +46,9 @@ import {
   UPDATE_TEAM_FAILURE,
   ADD_TEAM_LOADING,
   ADD_TEAM_SUCCESS,
+  DELETE_TEAM_SUCCESS,
+  GET_USERS_TEAMS_LOADING,
+  GET_USERS_TEAMS_SUCCESS,
  
   //Action Creators
   getTeams,
@@ -56,7 +59,9 @@ import {
   leaveTeam,
   updateTeam,
   addTeam,
-  addTeamMember
+  addTeamMember,
+  deleteTeam,
+  getUsersTeams
 } from './TeamsActions.js';
 
 import {
@@ -342,6 +347,12 @@ import {
   
   } from '../actions/FollowersActions.js';
 
+  import {
+    UPDATE_PROFILE,
+    UPDATE_PROFILE_SUCCESSFUL,
+    UPDATE_PROFILE_FAILURE,
+    updateProfile
+  } from '../actions/EditProfileActions.js';
 
 
 //*************************************************************************************************
@@ -386,6 +397,9 @@ export {
   UPDATE_TEAM_FAILURE,
   ADD_TEAM_LOADING,
   ADD_TEAM_SUCCESS,
+  DELETE_TEAM_SUCCESS,
+  GET_USERS_TEAMS_LOADING,
+  GET_USERS_TEAMS_SUCCESS,
   
   // Discussion Actions
   GET_DISCUSSIONS_LOADING,
@@ -574,6 +588,8 @@ export {
   updateTeam,
   addTeam,
   addTeamMember,
+  deleteTeam,
+  getUsersTeams,
   
   // Discussion Action Creators
   getTopDiscussions,
@@ -659,6 +675,12 @@ export {
   SENDING_INVITE_FAILURE,
   SENDING_INVITE_SUCCESSFUL,
   inviteFriend,
+
+  //edit profile 
+  UPDATE_PROFILE,
+  UPDATE_PROFILE_SUCCESSFUL,
+  UPDATE_PROFILE_FAILURE,
+  updateProfile
 };
 
 
