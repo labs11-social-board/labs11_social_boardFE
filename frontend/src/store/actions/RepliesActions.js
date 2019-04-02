@@ -13,17 +13,17 @@ export const ADD_REPLY_FAILURE = 'ADD_REPLY_FAILURE';
 /***************************************************************************************************
 ********************************************** Actions ********************************************
 **************************************************************************************************/
+// .then(() => historyPush('/'))
+// .then(() => historyPush(`/discussion/${discussion_id}`))
 
 //Add Reply
-export const addReply = (post_id, discussion_id, replyBody, historyPush) => dispatch => {
+export const addReply = (post_id, team_id, replyBody) => dispatch => {
   const user_id = localStorage.getItem('symposium_user_id');
   const token = localStorage.getItem('symposium_token');
   const headers = { headers: { Authorization: token } };
-  const body = { post_id, replyBody };
+  const body = { post_id, replyBody, team_id };
   dispatch({ type: ADD_REPLY_LOADING });
   return axios.post(`${backendURL}/replies/${user_id}`, body, headers)
     .then(() => dispatch({ type: ADD_REPLY_SUCCESS }))
-    .then(() => historyPush('/'))
-    .then(() => historyPush(`/discussion/${discussion_id}`))
     .catch(err => handleError(err, ADD_REPLY_FAILURE)(dispatch));
 }
