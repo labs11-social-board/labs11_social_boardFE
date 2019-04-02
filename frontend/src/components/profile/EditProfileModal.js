@@ -192,6 +192,10 @@ class EditProfileModal extends React.Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+      
+  }
+
   handleChange = event => {
     event.preventDefault();
     this.setState({ [event.target.name]: event.target.value });
@@ -226,13 +230,14 @@ class EditProfileModal extends React.Component {
     }
 
     if (callTheFunction === true) {
-      console.log("do the thing")
       this.props.updateProfile(userId, bio, twitter, github, linkedin);
     }
     this.props.setEditProfileModalRaised(event, false); //closes modal affter submitting.
+    this.props.history.push("/home");
   };
 
   render() {
+    console.log(this.props);
     const { setEditProfileModalRaised } = this.props;
 
     const { bio, twitter, github, linkedin } = this.state;
@@ -305,7 +310,8 @@ class EditProfileModal extends React.Component {
 EditProfileModal.propTypes = {
   updateProfile: PropTypes.func.isRequired,
   getProfile: PropTypes.func.isRequired,
-  setEditProfileModalRaised: PropTypes.func.isRequired
+  setEditProfileModalRaised: PropTypes.func.isRequired,
+  history : PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({

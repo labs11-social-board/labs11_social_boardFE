@@ -55,59 +55,7 @@ export const UPDATE_GITHUB_FAILURE = "UPDATE_GITHUB_FAILURE";
  ********************************************* Action Creators *************************************
  **************************************************************************************************/
 
-//  export  const updateProfile = (userId, bio, twitter, github, linkedin) => dispatch => {
-//     const token = localStorage.getItem("symposium_token");
-//     const headers = { headers: { Authorization: token } };
-//     dispatch({type: UPDATE_PROFILE});
-//     let body = { bio };
-//     return axios
-//     .put(`${backendUrl}/users/bio/${userId}`, body, headers)
-//     .then (response => {
-//         body = { twitter }
-//         return axios
-//         .put(`${backendUrl}/users/twitter/${userId}`, body, headers)
-//         .then(response => {
-//             body = { github }
-//             return axios
-//             .put(`${backendUrl}/users/github/${userId}`, body, headers)
-//             .then (response => {
-//                 body = { linkedin }
-//                 return axios
-//                 .put(`${backendUrl}/users/linkedin/${userId}`, body, headers)
-//                 .then (response => {
-//                     dispatch({type: UPDATE_PROFILE_SUCCESSFUL})
-//                 })
-//                 .catch(err => handleError(err, UPDATE_PROFILE_FAILURE)(dispatch));
-//             })
-//             .catch(err => handleError(err, UPDATE_PROFILE_FAILURE)(dispatch));
-//         })
-//         .catch(err => handleError(err, UPDATE_PROFILE_FAILURE)(dispatch));
 
-//     })
-//     .catch(err => handleError(err, UPDATE_PROFILE_FAILURE)(dispatch));
-//  }
-
-/*Checks to make sure the paramater is not null if it is not calls the function associated with the paramater*/
-// export const updateProfile = (userId, bio, twitter, github, linkedin) => dispatch => {
-//   const token = localStorage.getItem("symposium_token");
-//   const headers = { headers: { Authorization: token } };
-//   console.log(bio, twitter, github, linkedin);
-//   dispatch({type: UPDATE_PROFILE})
-//   if(bio !== null){
-//     updateBio(headers, userId, bio);
-//   }
-//   if (twitter !== null){
-//     updateTwitter(headers, userId, twitter);
-//   }
-
-//   if (github !== null){
-//     updateGithub(headers, userId, github);
-//   }
-
-//   if (linkedin !== null){
-//     updateLinkedin(headers, userId, linkedin);
-//   }
-// }
 
 export const updateProfile = (
   userId,
