@@ -529,7 +529,7 @@ Profile.propTypes = {
   removeFollower : PropTypes.func, 
   addFollower : PropTypes.func,
   inviteFriend : PropTypes.func, 
-  setEditProfileModalraised : PropTypes.func.isRequired,
+  setEditProfileModalRaised : PropTypes.func.isRequired,
   isEditProfileModalRaised : PropTypes.bool.isRequired, 
   profile: PropTypes.arrayOf(
     PropTypes.shape({

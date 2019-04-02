@@ -153,41 +153,59 @@ class EditProfileModal extends React.Component {
     bio: "",
     twitter: "",
     github: "",
-    linkedin: ""
+    linkedin: "",
+    userId: ""
   };
 
   componentWillMount() {
-    this.props.getProfile(this.props.profile.id);
-    // this.setState({
-    //   bio: this.profilesData.singleProfileData.bio,
-    //   twitter: this.profilesData.singleProfileData.twitter,
-    //   github: this.profilesData.singleProfileData.github,
-    //   linkedin: this.profilesData.singleProfileData.linkedin
-    // });
+    this.props.getProfile(this.props.profile[0].id);
+    this.setState({
+      bio: this.props.profile[0].bio ? this.props.profile[0].bio : "",
+      twitter: this.props.profile[0].twitter
+        ? this.props.profile[0].twitter
+        : "",
+      github: this.props.profile[0].github ? this.props.profile[0].github : "",
+      linkedin: this.props.profile[0].linkedin
+        ? this.props.profile[0].linkedin
+        : "",
+      userId: this.props.profile[0].id
+    });
   }
 
   componentWillUpdate(prevProps) {
-    // if (prevProps.match.params.id !== this.props.match.params.id) {
-    //   // this line handles going from profile to profile.
-    //   this.props.getProfile(this.props.profile.id);
-    //   this.setState({
-    //     bio: this.profilesData.singleProfileData.bio,
-    //     twitter: this.profilesData.singleProfileData.twitter,
-    //     github: this.profilesData.singleProfileData.github,
-    //     linkedin: this.profilesData.singleProfileData.linkedin
-    //   });
-    // }
+    if (prevProps.profile[0].id !== this.props.profile[0].id) {
+      // this line handles going from profile to profile.
+      this.props.getProfile(this.props.profile[0].id);
+      this.setState({
+        bio: this.props.profile[0].bio ? this.props.profile[0].bio : "",
+        twitter: this.props.profile[0].twitter
+          ? this.props.profile[0].twitter
+          : "",
+        github: this.props.profile[0].github
+          ? this.props.profile[0].github
+          : "",
+        linkedin: this.props.profile[0].linkedin
+          ? this.props.profile[0].linkedin
+          : "",
+        userId: this.props.profile[0].id
+      });
+    }
   }
 
   handleChange = event => {
     event.preventDefault();
     this.setState({ [event.target.name]: event.target.value });
+    console.log(this.props);
   };
 
-  handleSubmit = () => {};
+  handleSubmit = () => {
+    const { userId, bio, twitter, github, linkedin } = this.state;
+    this.props.updateProfile(userId, bio, twitter, github, linkedin);
+  };
 
   render() {
     console.log(this.props);
+    console.log(this.state);
     const { setEditProfileModalRaised } = this.props;
 
     const { bio, twitter, github, linkedin } = this.state;
@@ -258,8 +276,9 @@ class EditProfileModal extends React.Component {
   }
 }
 EditProfileModal.propTypes = {
-  updateProfile: PropTypes.func,
-  getProfile: PropTypes.func
+  updateProfile: PropTypes.func.isRequired,
+  getProfile: PropTypes.func.isRequired,
+  setEditProfileModalRaised: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
