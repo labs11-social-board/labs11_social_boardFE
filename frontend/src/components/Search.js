@@ -10,7 +10,7 @@ import { backendUrl } from '../globals/globals.js';
 import { spinner2 } from '../assets/index.js';
 
 // components
-import { SearchCatResult, SearchDisResult, SearchPostResult } from './index.js';
+import { SearchCatResult, SearchDisResult, SearchPostResult, SearchTeamResult } from './index.js';
 
 // action creators
 import { getCategories, displayError } from '../store/actions/index.js';
@@ -463,6 +463,14 @@ class Search extends Component {
 											searchText = { searchText }
 											scrollTo = { scrollTo }
 											pathname = { pathname }
+										/>
+									}
+									if(result.type === 'team'){
+										return <SearchTeamResult 
+											key = { i }
+											team = { result.result}
+											goTo = { this.goTo }
+											searchText = { searchText }
 										/>
 									}
 								}
