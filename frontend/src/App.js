@@ -138,7 +138,8 @@ class App extends Component {
       isChangeSubModalRaised: false,
       isAddCatModalRaised: false,
       showRegisterModal: false,
-      isAddTeamModalRaised: false
+      isAddTeamModalRaised: false,
+      isEditProfileModalRaised: false
     };
   }
 
@@ -182,6 +183,11 @@ class App extends Component {
   setAddTeamModalRaised = (ev, status) => {
     ev.stopPropagation();
     this.setState({ isAddTeamModalRaised: status });
+  }
+
+  setEditProfileModalRaised = (ev, status) => {
+    ev.stopPropagation();
+    this.setState({ isEditProfileModalRaised : status});
   }
 
   toggleSearch = () => this.setState({ showSearch: !this.state.showSearch });
