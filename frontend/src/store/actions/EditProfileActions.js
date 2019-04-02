@@ -26,7 +26,7 @@ export const UPDATE_PROFILE_FAILURE = "UPDATE_PROFILE_FAILURE";
  export  const updateProfile = (userId, bio, twitter, github, linkedin) => dispatch => {
     const token = localStorage.getItem("symposium_token");
     const headers = { headers: { Authorization: token } };
-    dispatch({type: UPDATE_BIO});
+    dispatch({type: UPDATE_PROFILE});
     let body = { bio };
     return axios
     .put(`${backendUrl}/users/bio${userId}`, body, headers)
@@ -43,14 +43,14 @@ export const UPDATE_PROFILE_FAILURE = "UPDATE_PROFILE_FAILURE";
                 return axios 
                 .put(`${backendUrl}/users/linkedin${userId}`, body, headers)
                 .then (response => {
-                    dispatch({UPDATE_BIO_SUCCESSFUL})
+                    dispatch({UPDATE_PROFILE_SUCCESSFUL})
                 })
-                .catch(err => handleError(err, UPDATE_BIO_FAILURE)(dispatch));
+                .catch(err => handleError(err, UPDATE_PROFILE_FAILURE)(dispatch));
             })
-            .catch(err => handleError(err, UPDATE_BIO_FAILURE)(dispatch));
+            .catch(err => handleError(err, UPDATE_PROFILE_FAILURE)(dispatch));
         })
-        .catch(err => handleError(err, UPDATE_BIO_FAILURE)(dispatch));
+        .catch(err => handleError(err, UPDATE_PROFILE_FAILURE)(dispatch));
 
     })
-    .catch(err => handleError(err, UPDATE_BIO_FAILURE)(dispatch));
+    .catch(err => handleError(err, UPDATE_PROFILE_FAILURE)(dispatch));
  }
