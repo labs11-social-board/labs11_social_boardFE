@@ -29,7 +29,8 @@ import {
   Notifications,
   ChangeSubscriptionModal,
   RegisterDropdown,
-  TeamBoard
+  TeamBoard,
+  // Following
 } from './components/index.js';
 
 // views
@@ -252,6 +253,7 @@ class App extends Component {
                 <Route path='/settings/:id' render={props => <Settings {...props} setChangeSubModalRaised={this.setChangeSubModalRaised} />} />
                 <Route path='/discussions/category/:category_id' component={DiscussionsByCats} />
                 <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} />
+                {/* <Route path='/following' component={Following} /> */}
               </DivPage>
             </DivBody>
             <Footer toggleSearch={this.toggleSearch} switched={this.switchTheme} />
