@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 // action creators
-import { addTeam } from '../../store/actions/index.js';
+import { addTeam, getUsersTeams } from '../../store/actions/index.js';
 
 // components 
 import { ToggleSwitch } from '../index.js';
@@ -159,9 +159,9 @@ class AddTeamModal extends React.Component {
     e.preventDefault();
     const { team_name, wiki, isPrivate } = this.state;
     const newTeam = { team_name, isPrivate, wiki };
-    const { addTeam, historyPush, setAddTeamModalRaised } = this.props;
+    const { addTeam, historyPush, setAddTeamModalRaised, getUsersTeams } = this.props;
     return Promise.resolve(setAddTeamModalRaised(e, false))
-      .then(() => addTeam(newTeam, historyPush));
+      .then(() => addTeam(newTeam, historyPush).then(() => getUsersTeams()));
   }
 
   handleInput = e => {
@@ -219,4 +219,4 @@ class AddTeamModal extends React.Component {
   };
 };
 
-export default connect(null, { addTeam })(AddTeamModal);
+export default connect(null, { addTeam, getUsersTeams })(AddTeamModal);

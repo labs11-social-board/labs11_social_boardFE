@@ -374,19 +374,22 @@ class SideNav extends Component {
 
   componentDidMount = () => {
     this.props.getCategoriesFollowed().then(() => {
-      this.props.getUsersTeams().then(() => {
-        this.setState({ categories: this.props.categoriesFollowed, categoryFollows: this.props.categoryFollows,  userTeams: this.props.userTeams});
-      })
+        this.setState({ categories: this.props.categoriesFollowed, categoryFollows: this.props.categoryFollows});
+    });
+
+    this.props.getUsersTeams().then(() => {
+      this.setState({ userTeams: this.props.userTeams });
     });
   }
 
   componentDidUpdate = (prevProps) => {
     if (prevProps.categoryFollows !== this.props.categoryFollows) {
       this.props.getCategoriesFollowed().then(() => {
-        this.props.getUsersTeams().then(() => {
-          this.setState({ categories: this.props.categoriesFollowed, categoryFollows: this.props.categoryFollows,  userTeams: this.props.userTeams});
-        })
+        this.setState({ categories: this.props.categoriesFollowed, categoryFollows: this.props.categoryFollows });
       });
+    }
+    if(prevProps.userTeams !== this.props.userTeams){
+      this.setState({ userTeams: this.props.userTeams })
     }
   }
 
