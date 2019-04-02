@@ -308,6 +308,12 @@ const LiCategoryFollowed = styled.li`
   }
 `;
 
+const DropdownFollowing = styled.div`
+  display: flex;
+  text-align: center;
+  }
+`;
+
 const LinkSideNav = styled(Link)`
   text-decoration: none;
   // color: ${props => props.islinkselected === 'true' ? 'blue' : 'black'};
@@ -459,6 +465,9 @@ class SideNav extends Component {
               )))}
             </ul>
           </DivCatFollowItems>
+          <DivHeader>
+            <p>Followed Users</p>
+          </DivHeader>
         </DivCategoriesFollowed>
         <DivHeader>
           <LinkBrowseCategories to='/teams'>Teams</LinkBrowseCategories>
