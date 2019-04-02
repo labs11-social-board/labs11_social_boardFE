@@ -188,19 +188,19 @@ class EditProfileModal extends React.Component {
 
   render() {
     console.log(this.props);
-    const { setEditProfileModal } = this.props; 
+    const { setEditProfileModalRaised } = this.props; 
 
     const { bio, twitter, github, linkedin } = this.state;
     return (
       <ModalBackground>
-        <DivModalCloser onClick = {(event) => setEditProfileModal(event, false)} />
+        <DivModalCloser onClick = {(event) => setEditProfileModalRaised(event, false)} />
         <DivModal>
           
         
         <div className = "above-input">
           <span
             className="back"
-            onClick = {(event) => setEditProfileModal(event, false)}
+            onClick = {(event) => setEditProfileModalRaised(event, false)}
           >
             <i className="far fa-arrow-alt-circle-left" />
           </span>
