@@ -347,6 +347,12 @@ import {
   
   } from '../actions/FollowersActions.js';
 
+  import {
+    UPDATE_PROFILE,
+    UPDATE_PROFILE_SUCCESSFUL,
+    UPDATE_PROFILE_FAILURE,
+    updateProfile
+  } from '../actions/EditProfileActions.js';
 
 
 //*************************************************************************************************
@@ -669,6 +675,12 @@ export {
   SENDING_INVITE_FAILURE,
   SENDING_INVITE_SUCCESSFUL,
   inviteFriend,
+
+  //edit profile 
+  UPDATE_PROFILE,
+  UPDATE_PROFILE_SUCCESSFUL,
+  UPDATE_PROFILE_FAILURE,
+  updateProfile
 };
 
 
