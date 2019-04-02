@@ -89,9 +89,10 @@ export const UPDATE_GITHUB_FAILURE = "UPDATE_GITHUB_FAILURE";
 //  }
 
 /*Checks to make sure the paramater is not null if it is not calls the function associated with the paramater*/
-export const updateProfile = async (userId, bio, twitter, github, linkedin) => dispatch => {
+export const updateProfile = async (userId, bio, twitter, github, linkedin) => async dispatch => {
   const token = localStorage.getItem("symposium_token");
   const headers = { headers: { Authorization: token } };
+  dispatch({type: UPDATE_PROFILE})
   if(bio !== null){
     await updateBio(headers, userId, bio);
   }
@@ -106,6 +107,7 @@ export const updateProfile = async (userId, bio, twitter, github, linkedin) => d
   if (linkedin !== null){
     await updateLinkedin(headers, userId, linkedin);
   }
+  dispatch({type: UPDATE_PROFILE_SUCCESSFUL});
 }
 
  export const updateBio = (headers, userId, bio) => dispatch => {
