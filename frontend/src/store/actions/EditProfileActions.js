@@ -44,7 +44,7 @@ export const UPDATE_PROFILE_FAILURE = "UPDATE_PROFILE_FAILURE";
                 return axios 
                 .put(`${backendUrl}/users/linkedin/${userId}`, body, headers)
                 .then (response => {
-                    dispatch({UPDATE_PROFILE_SUCCESSFUL})
+                    dispatch({type: UPDATE_PROFILE_SUCCESSFUL})
                 })
                 .catch(err => handleError(err, UPDATE_PROFILE_FAILURE)(dispatch));
             })
