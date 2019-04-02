@@ -163,8 +163,10 @@ const Post = ({
   handlePostVote,
   toggleAddReplyForm,
   handleFilterChange,
+  handleTeamFilter,
   handleReplyVote,
   scrollTo,
+  team_id
 }) => {
 
   const {
@@ -184,11 +186,19 @@ const Post = ({
   } = post;
 
   const handleVote = (e, type) => handlePostVote(post.id, type)
-    .then(() => handleFilterChange())
+    .then(() => { if(team_id){
+      handleTeamFilter()
+    } else {
+      handleFilterChange()
+    }})
     .then(() => scrollTo());
 
   const handleReplyVoting = (reply_id, type) => handleReplyVote(reply_id, type)
-    .then(() => handleFilterChange())
+    .then(() => { if(team_id){
+      handleTeamFilter()
+    } else {
+      handleFilterChange()
+    }})
     .then(() => scrollTo());
 
   const handleAddReply = () => {
@@ -241,6 +251,9 @@ const Post = ({
           historyPush = { historyPush }
           discussion_id = { discussion_id }
           toggleAddReplyForm = { toggleAddReplyForm }
+          team_id = { team_id }
+          handleFilterChange = { handleFilterChange }
+          handleTeamFilter = { handleTeamFilter }
         />
       }
       <div>
@@ -253,6 +266,9 @@ const Post = ({
               toggleAddReplyForm = { toggleAddReplyForm }
               showAddReplyForm = { showAddReplyForm }
               handleReplyVote = { handleReplyVoting }
+              team_id = { team_id }
+              handleFilterChange = { handleFilterChange }
+              handleTeamFilter = { handleTeamFilter }
             />
           )
         }

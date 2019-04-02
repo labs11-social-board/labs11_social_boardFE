@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Spinner from '../assets/gif/spinner/Spinner'; //need to move to assets folder
 import { getProfile } from '../store/actions/index';
-import { getFollowers, getProfileFollowers, removeFollower, addFollower } from '../store/actions/index';
+import { getFollowers, getProfileFollowers, removeFollower, addFollower, inviteFriend } from '../store/actions/index';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { phoneP } from '../globals/globals';
@@ -265,6 +265,34 @@ class Profile extends Component {
   handleRemoveFollower = (userId, followingId) => () => {
     this.props.removeFollower(userId, followingId);
   }
+  goToUsersPage = (followingId) => () => {
+    this.props.history.push(`/profile/${followingId}`);
+  }
+  handleEmailInput = () => {
+    console.log("Where is the prompt")
+    const email = prompt("Please enter your friends email.", "example@gmail.com");
+    const validEmail = this.verifyEmail(email); 
+    /*if validEmail is false return some type of alert */
+    if(validEmail === false){
+      alert("Email must feature @ symbol and must end with .com  .net or .edu. Sorry all other emails are currently not supported");
+    }else {
+      alert(`Thank you we have invited your friend at ${email}`);
+      this.props.inviteFriend(email); 
+    }
+  }
+
+  /*should check for @ symbol and .com .net .edu endpoints more can be added in if neccessary */
+  verifyEmail = (email) => {
+    if(email.includes('@') === true){
+      const possibleEndOfEmail = {".com" : 0, ".net": 1, ".edu": 2} // O(1) for Object rather than O(n) for array 
+      const lastFourCharactersOfEmail = email.slice(-4);
+      if(lastFourCharactersOfEmail in possibleEndOfEmail){
+        return true; //Valid Email
+      }
+    }
+
+    return false; //Invalid email 
+  }
 
 
   /* we use profileItems to manipulate what data is displayed. if the data received from our props is 0,
@@ -338,12 +366,16 @@ class Profile extends Component {
               <br/>
               <div>
                 <input type="search" name = "friendSearch" placeholder = "find a new friend"></input>
-                <a href="#">Invite a friend</a>
+                <p style = {{cursor:"pointer", textDecoration: "underline"}} onClick = {this.handleEmailInput}>Invite a friend</p>
               </div>
               <div>
                 {followListLength > 0 ?  followList.map((user, id) => 
                   // user.following_id can be used to go to the users profile upon clicking on them currently not implemented. 
-                  <WrappedDiv key = {id}> 
+                  <WrappedDiv
+                    style = {{cursor:"pointer"}} 
+                    key = {id} 
+                    onClick = {this.goToUsersPage(user.following_id)}
+                    > 
                     <Avatar 
                       height = '50px'
                       width = '50px'
@@ -489,7 +521,8 @@ Profile.propTypes = {
   getFollowers: PropTypes.func,
   getProfileFollowers: PropTypes.func,
   removeFollower : PropTypes.func, 
-  addFollower : PropTypes.func, 
+  addFollower : PropTypes.func,
+  inviteFriend : PropTypes.func,  
   profile: PropTypes.arrayOf(
     PropTypes.shape({
       status: PropTypes.string.isRequired,
@@ -511,4 +544,4 @@ const mapStateToProps = state => ({
   profileFollowers : state.profileFollowers
 });
 
-export default connect(mapStateToProps, { getProfile,getFollowers, getProfileFollowers, removeFollower, addFollower })(Profile);
+export default connect(mapStateToProps, { getProfile,getFollowers, getProfileFollowers, removeFollower, addFollower, inviteFriend })(Profile);
