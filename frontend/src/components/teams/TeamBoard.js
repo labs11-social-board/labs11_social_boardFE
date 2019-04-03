@@ -381,7 +381,7 @@ class TeamBoard extends Component {
             })}
           </div>
           {isTeamOwner ? 
-            <TeamSettings team={team} getDiscussions={this.getDiscussions} /> : null
+            <TeamSettings team={team} getDiscussions={this.getDiscussions} history={history} /> : null
           }
           {
             showAddDiscussionForm &&

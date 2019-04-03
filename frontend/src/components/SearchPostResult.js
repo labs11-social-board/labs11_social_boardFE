@@ -53,6 +53,7 @@ const SearchPostResult = ({ post, goTo, searchText, scrollTo, pathname }) => {
     discussion_id,
     body,
     created_at,
+    team_id,
     // votes,
     // user_id,
     // username,
@@ -60,11 +61,21 @@ const SearchPostResult = ({ post, goTo, searchText, scrollTo, pathname }) => {
     // category_id,
     // category_name,
   } = post;
-  const handlePostBodyClick = () => goTo(`/discussion/${discussion_id}#${id}`).then(() => {
-    if (parseInt(pathname.slice(pathname.lastIndexOf('/') + 1)) === discussion_id) {
-      return scrollTo(id);
+  const handlePostBodyClick = () => {
+    if(team_id){
+      goTo(`/team/posts/${discussion_id}`).then(() => {
+        if (parseInt(pathname.slice(pathname.lastIndexOf('/') + 1)) === discussion_id) {
+          return scrollTo(id);
+        }
+      });
+    } else {
+      goTo(`/discussion/${discussion_id}#${id}`).then(() => {
+        if (parseInt(pathname.slice(pathname.lastIndexOf('/') + 1)) === discussion_id) {
+          return scrollTo(id);
+        }
+      });
     }
-  });
+  };
   searchText = searchText.toLowerCase();
   const lowerCaseBody = body.toLowerCase();
   return (
