@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import {BrowserRouter as Router, Route, Link, NavLink} from "react-router-dom";
 import styled from 'styled-components';
 import { connect } from "react-redux";
-import { getUsers } from './../store/actions/UsersActions';
+import { getUsers, getUsersNMods } from './../store/actions/UsersActions';
 
 const MainWrapper = styled.div`
   display: flex;
@@ -38,7 +38,7 @@ class Users extends React.Component {
     }
 
     componentDidMount() {
-        this.props.getUsers();
+        this.props.getUsersNMods();
     }
 
     render() {
@@ -58,7 +58,7 @@ class Users extends React.Component {
                             
                         )
                     })}
-                    {console.log(this.props.users.users)}
+                    {console.log(this.props)}
                     </h4>
                 </div>
             </div>
@@ -69,10 +69,10 @@ class Users extends React.Component {
 const mapStateToProps = state => {
     return {
         users: state.users,
-
+        usersNmods: state.usersNmods,
     };
   };
   
   export default connect(
-    mapStateToProps,{ getUsers } 
+    mapStateToProps,{ getUsers, getUsersNMods } 
   )(Users);
