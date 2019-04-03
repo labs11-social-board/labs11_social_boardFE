@@ -6,13 +6,14 @@ import { background } from '../assets/index.js';
 
 const Woah = styled.section`
   width: 100%;
-  height: 85vh;
+  height: 100vh;
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
   flex-direction: column;
   align-items: flex-end;
-  background: gray;
+  background: linear-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, .5)), url(${background});
+  background-size: cover;
   @media (max-width: 1240px) {
     background-image: none;
     background-color: white;
@@ -95,13 +96,12 @@ class NonUserLandingView extends Component {
     return (
 
       <Woah loggedIn={this.props.user_id !== 0}>
-        <TopFiller>
-          <LandingText loggedIn={this.props.user_id !== 0}>
+        <LandingText loggedIn={this.props.user_id !== 0}>
           <p className='blurb'>
             Welcome to Symposium. 
             </p>
-          </LandingText>
-        </TopFiller>
+        </LandingText>
+        
       </Woah>
     )
   }
