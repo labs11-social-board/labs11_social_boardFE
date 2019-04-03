@@ -198,14 +198,11 @@ class UserSearch extends Component {
         searchText: "",
         searchResults: [],
         loading: false,
-        searchBy: "username",
-
-
+        searchBy: all,
     }
 
     goTo = async url => {
         await this.props.goTo(url);
-
     }
 
     searchUsers = () => {
@@ -237,9 +234,34 @@ class UserSearch extends Component {
                  <label className="container">All
                     <input
                       type = "radio"
-                      checked = { searchBy ===}
+                      checked = { searchBy === all}
+                      name = "searchBy"
+                      value = {  all }
+                      onChange = {this.handleInputChange}
                     />
+                    <span className="checkmark"></span>
                  </label>
+                 <label className="container">Username
+                   <input 
+                     type = "radio"
+                     checked = { searchBy === byUsername}
+                     name = "searchBy"
+                     value = { byUsername }
+                     onChange = { this.handleInputChange }
+                   />
+                   <span className="checkmark"></span>
+                 </label>
+                 <label className="container">
+                   <input 
+                     type="radio"
+                     checked = { searchBy === byEmail}
+                     name = "searchBy"
+                     value = { byEmail }
+                     onChange = { this.handleInputChange }
+                    />
+                   <span className="checkmark"></span>
+                 </label>
+
                </div>
              </div>
             }
