@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 //globals
-import { phoneL, tabletP } from '../globals/globals.js'
+import { phoneL, tabletP } from '../globals/globals.js';
 
 // components
 import {
@@ -14,14 +14,19 @@ import {
   // PostCount,
   // VoteCount,
   // Deleted,
-  DiscussionByFollowedCats,
+  DiscussionByFollowedCats
 } from './index.js';
 
 // views
 import { PostsView } from '../views/index.js';
 
 // action creators
-import { getDiscussionById, removePost, removeDiscussion, handleDiscussionVote } from '../store/actions/index.js';
+import {
+  getDiscussionById,
+  removePost,
+  removeDiscussion,
+  handleDiscussionVote
+} from '../store/actions/index.js';
 
 /***************************************************************************************************
  ********************************************* Styles *********************************************
@@ -55,9 +60,9 @@ const Wrapper = styled.div`
       margin-top: 15px;
       color: ${props => props.theme.defaultColor};
 
-      &:hover{
+      &:hover {
         cursor: pointer;
-        color: #418DCF;
+        color: #418dcf;
       }
     }
   }
@@ -66,7 +71,7 @@ const Wrapper = styled.div`
 const DiscussionWrapper = styled.div`
   color: ${props => props.theme.discussionPostColor};
 
-  @media ${phoneL}{
+  @media ${phoneL} {
     flex-direction: column;
     width: 90%;
     margin: 0 auto;
@@ -78,14 +83,14 @@ const SubWrapper = styled.div`
 `;
 
 const CommentWrapper = styled.div`
-width: 100%;
-display: flex;
-flex-direction: column;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 
-  @media ${tabletP} { 
+  @media ${tabletP} {
   }
 
-  @media ${phoneL}{
+  @media ${phoneL} {
     text-align: left;
   }
 `;
@@ -125,19 +130,20 @@ const CommentSort = styled.div`
     padding: 10px 15px;
     border-radius: 5px;
     border: none;
-    background-color: #418DCF;
+    background-color: #418dcf;
     color: white;
-    border: 1px solid #418DCF;
+    border: 1px solid #418dcf;
 
     &:hover {
       cursor: pointer;
       background-color: white;
-      color: #418DCF;
-      border: 1px solid #418DCF;
+      color: #418dcf;
+      border: 1px solid #418dcf;
     }
   }
 
-  .tablet, .tablet-btn {
+  .tablet,
+  .tablet-btn {
     display: none;
   }
 
@@ -166,10 +172,10 @@ const CommentSort = styled.div`
         margin-right: 5px;
         color: ${props => props.theme.defaultColor};
       }
-      .filter-by{
+      .filter-by {
         color: ${props => props.theme.defaultColor};
       }
-  
+
       .filter {
         border: none;
         background-color: rgba(0, 0, 0, 0);
@@ -203,11 +209,15 @@ class Discussion extends Component {
     showEditDiscussionForm: false, // boolean
     showEditPostForm: null, // post_id
     showAddReplyForm: null, // post_id
-    filter: newest,
+    filter: newest
   };
-  handleSelectChange = e => this.setState({
-    [e.target.name]: e.target.value,
-  }, () => this.handleFilterChange());
+  handleSelectChange = e =>
+    this.setState(
+      {
+        [e.target.name]: e.target.value
+      },
+      () => this.handleFilterChange()
+    );
   handleFilterChange = () => {
     const { filter } = this.state;
     const { getDiscussionById, id } = this.props;
@@ -225,27 +235,27 @@ class Discussion extends Component {
         return;
     }
   };
-  toggleAddPostForm = () => this.setState({ showAddPostForm: !this.state.showAddPostForm });
-  toggleEditDiscussionForm = () => this.setState({ showEditDiscussionForm: !this.state.showEditDiscussionForm });
-  toggleAddReplyForm = (id) => this.setState({ showAddReplyForm: id || null });
+  toggleAddPostForm = () =>
+    this.setState({ showAddPostForm: !this.state.showAddPostForm });
+  toggleEditDiscussionForm = () =>
+    this.setState({
+      showEditDiscussionForm: !this.state.showEditDiscussionForm
+    });
+  toggleAddReplyForm = id => this.setState({ showAddReplyForm: id || null });
   updateEditPostForm = post_id => this.setState({ showEditPostForm: post_id });
   handleRemovePost = (user_id, post_id, historyPush, discussion_id) => {
     return this.props.removePost(user_id, post_id, historyPush, discussion_id);
   };
   handleRemoveDiscussion = () => {
-    const {
-      removeDiscussion,
-      id,
-      historyPush,
-      discussion,
-    } = this.props;
+    const { removeDiscussion, id, historyPush, discussion } = this.props;
     const { category_id } = discussion;
     return removeDiscussion(id, category_id, historyPush);
   };
   handleDiscussionVote = (discussion_id, type) => {
     const { handleDiscussionVote } = this.props;
-    return handleDiscussionVote(discussion_id, type)
-      .then(() => this.handleFilterChange());
+    return handleDiscussionVote(discussion_id, type).then(() =>
+      this.handleFilterChange()
+    );
   };
   componentDidMount = () => {
     const { scrollTo } = this.props;
@@ -253,18 +263,21 @@ class Discussion extends Component {
   };
   componentDidUpdate = prevProps => {
     const { id, scrollTo } = this.props;
-    if (prevProps.id !== id) return this.handleFilterChange().then(() => scrollTo());
+    if (prevProps.id !== id)
+      return this.handleFilterChange().then(() => scrollTo());
   };
   handleVote = (id, type) => {
     this.handleDiscussionVote(id, type);
   };
   render() {
+    const { showAddPostForm, showEditPostForm, showAddReplyForm } = this.state;
     const {
-      showAddPostForm,
-      showEditPostForm,
-      showAddReplyForm,
-    } = this.state;
-    const { discussion, history, historyPush, loggedInUserId, scrollTo } = this.props;
+      discussion,
+      history,
+      historyPush,
+      loggedInUserId,
+      scrollTo
+    } = this.props;
     const {
       // body,
       // created_at,
@@ -276,7 +289,7 @@ class Discussion extends Component {
       category_id,
       // category_icon,
       id,
-      posts,
+      posts
       // post_count,
       // user_id,
       // username,
@@ -284,12 +297,11 @@ class Discussion extends Component {
     } = discussion;
     return (
       <Wrapper>
-        <div className='back-follow-wrapper'>
-          <Link className='back' to={`/discussions/category/${category_id}`}><i className="far fa-arrow-alt-circle-left"></i></Link>
-          <Follow
-            discussion_id={id}
-            historyPush={historyPush}
-          />
+        <div className="back-follow-wrapper">
+          <Link className="back" to={`/discussions/category/${category_id}`}>
+            <i className="far fa-arrow-alt-circle-left" />
+          </Link>
+          <Follow discussion_id={id} historyPush={historyPush} />
         </div>
         <DiscussionWrapper>
           <SubWrapper>
@@ -301,21 +313,25 @@ class Discussion extends Component {
             />
             <CommentWrapper>
               <CommentSort>
-                <div className='comment-sort-wrapper'>
-                  <div className='title-add-wrapper'>
-                    <span className='title'>Comments</span>
-                    <button onClick={this.toggleAddPostForm} className='add-post-btn desktop'>
-                      <i className='fas fa-plus-circle' />&nbsp;Add Comment
+                <div className="comment-sort-wrapper">
+                  <div className="title-add-wrapper">
+                    <span className="title">Comments</span>
+                    <button
+                      onClick={this.toggleAddPostForm}
+                      className="add-post-btn desktop"
+                    >
+                      <i className="fas fa-plus-circle" />
+                      &nbsp;Add Comment
                     </button>
                   </div>
-                  <div className='sort'>
-                    <div className='filter-wrapper'>
-                      <i className='fab fa-mix' />
-                      <span className='filter-by'>Filter by &nbsp;</span>
+                  <div className="sort">
+                    <div className="filter-wrapper">
+                      <i className="fab fa-mix" />
+                      <span className="filter-by">Filter by &nbsp;</span>
                       <select
-                        className='filter'
+                        className="filter"
                         onChange={this.handleSelectChange}
-                        name='filter'
+                        name="filter"
                       >
                         <option value={newest}>{newest}</option>
                         <option value={oldest}>{oldest}</option>
@@ -324,8 +340,12 @@ class Discussion extends Component {
                     </div>
                   </div>
                 </div>
-                <button onClick={this.toggleAddPostForm} className='add-post-btn tablet-btn'>
-                  <i className='fas fa-plus-circle' />&nbsp;Add Comment
+                <button
+                  onClick={this.toggleAddPostForm}
+                  className="add-post-btn tablet-btn"
+                >
+                  <i className="fas fa-plus-circle" />
+                  &nbsp;Add Comment
                 </button>
               </CommentSort>
               {showAddPostForm && (
@@ -358,7 +378,7 @@ class Discussion extends Component {
       </Wrapper>
     );
   }
-};
+}
 
 const mapStateToProps = state => ({
   discussion: state.discussions.discussion,
