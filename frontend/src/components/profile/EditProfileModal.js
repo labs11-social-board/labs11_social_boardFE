@@ -153,86 +153,172 @@ class EditProfileModal extends React.Component {
     bio: "",
     twitter: "",
     github: "",
-    linkedin: ""
+    linkedin: "",
+    userId: ""
   };
+
+  componentWillMount() {
+    this.props.getProfile(this.props.profile[0].id);
+    this.setState({
+      bio: this.props.profile[0].bio ? this.props.profile[0].bio : "",
+      twitter: this.props.profile[0].twitter
+        ? this.props.profile[0].twitter
+        : "",
+      github: this.props.profile[0].github ? this.props.profile[0].github : "",
+      linkedin: this.props.profile[0].linkedin
+        ? this.props.profile[0].linkedin
+        : "",
+      userId: this.props.profile[0].id
+    });
+  }
+
+  componentWillUpdate(prevProps) {
+    if (prevProps.profile[0].id !== this.props.profile[0].id) {
+      // this line handles going from profile to profile.
+      this.props.getProfile(this.props.profile[0].id);
+      this.setState({
+        bio: this.props.profile[0].bio ? this.props.profile[0].bio : "",
+        twitter: this.props.profile[0].twitter
+          ? this.props.profile[0].twitter
+          : "",
+        github: this.props.profile[0].github
+          ? this.props.profile[0].github
+          : "",
+        linkedin: this.props.profile[0].linkedin
+          ? this.props.profile[0].linkedin
+          : "",
+        userId: this.props.profile[0].id
+      });
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+      
+  }
 
   handleChange = event => {
     event.preventDefault();
     this.setState({ [event.target.name]: event.target.value });
+    console.log(this.props);
   };
 
-  handleSubmit = () => {
-    
-  }
+  handleSubmit = event => {
+    /*Make the argument null needed for updateProfile if it is of zero length 
+      Or if it has not changed from its previous setting*/
+    event.preventDefault();
+    let callTheFunction = false;
+    let { userId, bio, twitter, github, linkedin } = this.state;
+    if (bio.length === 0 || bio === this.props.profile[0].bio) {
+      bio = null;
+    } else {
+      callTheFunction = true;
+    }
+    if (twitter.length === 0 || twitter === this.props.profile[0].twitter) {
+      twitter = null;
+    } else {
+      callTheFunction = true;
+    }
+    if (github.length === 0 || github === this.props.profile[0].github) {
+      github = null;
+    } else {
+      callTheFunction = true;
+    }
+    if (linkedin.length === 0 || linkedin === this.props.profile[0].linkedin) {
+      linkedin = null;
+    } else {
+      callTheFunction = true;
+    }
+
+    if (callTheFunction === true) {
+      this.props.updateProfile(userId, bio, twitter, github, linkedin);
+    }
+    this.props.setEditProfileModalRaised(event, false); //closes modal affter submitting.
+    this.props.history.push("/home");
+  };
 
   render() {
-    const {bio, twitter, github, linkedin} = this.state; 
-    return (
-    <ModalBackground>
-      <DivModalCloser />
-      <div>
-        <span
-        className = "back"
-        // onclick needed 
+    console.log(this.props);
+    const { setEditProfileModalRaised } = this.props;
 
-        ><i className="far fa-arrow-alt-circle-left"></i>
-        </span>
-      </div>
-      <FormContent onSubmit = {this.handleSubmit}>
-        <DivRight>
-            <DivName>
+    const { bio, twitter, github, linkedin } = this.state;
+    return (
+      <ModalBackground>
+        <DivModalCloser
+          onClick={event => setEditProfileModalRaised(event, false)}
+        />
+        <DivModal>
+          <div className="above-input">
+            <span
+              className="back"
+              onClick={event => setEditProfileModalRaised(event, false)}
+            >
+              <i className="far fa-arrow-alt-circle-left" />
+            </span>
+          </div>
+          <FormContent onSubmit={this.handleSubmit}>
+            <DivRight>
+              <DivName>
+                <h4>Bio</h4>
                 <input
-                 type = "text"
-                 placeholder = ""
-                 name = "bio"
-                 value = {bio}
-                 className = "body-input"
-                 onChange = {this.handleChange}
-                 />
-                <input
-                 type = "text"
-                 placeholder = ""
-                 name = "github"
-                 value = {github}
-                 className = "body-input"
-                 onChange = {this.handleChange}
+                  type="text"
+                  placeholder=""
+                  name="bio"
+                  value={bio}
+                  className="body-input"
+                  onChange={this.handleChange}
                 />
+                <h4>Github link</h4>
                 <input
-                 type = "text"
-                 placeholder = ""
-                 name = "linkedin"
-                 value = {linkedin}
-                 className = "body-input"
-                 onChange = {this.handleChange}
+                  type="text"
+                  placeholder=""
+                  name="github"
+                  value={github}
+                  className="body-input"
+                  onChange={this.handleChange}
                 />
+                <h4>Linkedin link</h4>
                 <input
-                 type = "text"
-                 placeholder = ""
-                 name = "twitter"
-                 value = {twitter}
-                 className = "body-input"
-                 onChange = {this.handleChange}
+                  type="text"
+                  placeholder=""
+                  name="linkedin"
+                  value={linkedin}
+                  className="body-input"
+                  onChange={this.handleChange}
                 />
-            </DivName>
-        </DivRight>
-        <DivButtons>
-            <button className = "btn" type = "submit">Submit</button>
-        </DivButtons>
-      </FormContent>
-    </ModalBackground>
-    )
-    
+                <h4>Twitter link</h4>
+                <input
+                  type="text"
+                  placeholder=""
+                  name="twitter"
+                  value={twitter}
+                  className="body-input"
+                  onChange={this.handleChange}
+                />
+              </DivName>
+            </DivRight>
+            <DivButtons>
+              <button className="btn" type="submit">
+                Submit
+              </button>
+            </DivButtons>
+          </FormContent>
+        </DivModal>
+      </ModalBackground>
+    );
   }
 }
 EditProfileModal.propTypes = {
-    updateProfile : PropTypes.func, 
-    getProfile : PropTypes.func, 
-    
-}
-
+  updateProfile: PropTypes.func.isRequired,
+  getProfile: PropTypes.func.isRequired,
+  setEditProfileModalRaised: PropTypes.func.isRequired,
+  history : PropTypes.func.isRequired
+};
 
 const mapStateToProps = state => ({
-    profile: state.profilesData.singleProfileData
-})
+  profile: state.profilesData.singleProfileData
+});
 
-export default connect(mapStateToProps, {getProfile, updateProfile})(EditProfileModal);
+export default connect(
+  mapStateToProps,
+  { getProfile, updateProfile }
+)(EditProfileModal);
