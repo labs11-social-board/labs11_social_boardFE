@@ -112,6 +112,7 @@ import {
   addTeamDiscussion,
   editDiscussion,
   removeDiscussion,
+  updateDiscussionWithImage
 } from './DiscussionsActions.js';
 
 import {
@@ -156,11 +157,16 @@ import {
   REMOVE_POST_LOADING,
   REMOVE_POST_SUCCESS,
   REMOVE_POST_FAILURE,
+  UPLOAD_IMAGE_LOADING,
+  UPLOAD_IMAGE_SUCCESS,
 
   // Action Creators
   addPost,
   editPost,
-  removePost
+  removePost,
+  uploadImage,
+  updatePostWithImage,
+  removeUpload
 } from './PostsActions.js';
 
 import {
@@ -171,6 +177,7 @@ import {
 
   //Action Creators
   addReply,
+  updateReplyWithImage
 } from './RepliesActions.js';
 
 import {
@@ -287,6 +294,9 @@ import {
   SENDING_INVITE_SUCCESSFUL,
   GET_USERS_LOADING,
   GET_USERS_SUCCESS,
+  GET_USERSnMODS_LOADING,
+  GET_USERSnMODS_SUCCESS,
+  GET_USERSnMODS_FAILURE,
 
   // Action Creators
   login,
@@ -315,7 +325,8 @@ import {
   editUser,
   toggleTheme,
   inviteFriend, 
-  getUsers
+  getUsers,
+  getUsersNMods,
 } from './UsersActions.js';
 
 /************************************************************
@@ -553,6 +564,10 @@ export {
   GET_PROFILE_LOADING,
   GET_PROFILE_SUCCESS,
   GET_PROFILE_FAILURE,
+  
+  GET_USERSnMODS_LOADING,
+  GET_USERSnMODS_SUCCESS,
+  GET_USERSnMODS_FAILURE,
 
   // Posts Actions
   ADD_POST_LOADING,
@@ -581,6 +596,8 @@ export {
   UPDATE_EMAIL_LOADING,
   UPDATE_EMAIL_SUCCESS,
   UPDATE_EMAIL_FAILURE,
+  UPLOAD_IMAGE_LOADING,
+  UPLOAD_IMAGE_SUCCESS,
 
   //Reply Actions
   ADD_REPLY_LOADING,
@@ -616,6 +633,7 @@ export {
   addTeamDiscussion,
   editDiscussion,
   removeDiscussion,
+  updateDiscussionWithImage,
 
   // Discussion Vote Action Creators
   handleDiscussionVote,
@@ -653,6 +671,8 @@ export {
   editUser,
   toggleTheme,
   getUsers,
+  getUsersNMods,
+  
 
   // Profile Action Creators
   getProfiles,
@@ -662,9 +682,13 @@ export {
   addPost,
   editPost,
   removePost,
+  uploadImage,
+  updatePostWithImage,
+  removeUpload,
 
   // Reply Action Creators
   addReply,
+  updateReplyWithImage,
   //followers actions
   GET_FOLLOWERS,
   GET_FOLLOWERS_SUCCESS,
