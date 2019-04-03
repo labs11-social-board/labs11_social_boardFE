@@ -92,11 +92,15 @@ import {
   SENDING_INVITE_SUCCESSFUL,
   inviteFriend,
   GET_USERS_LOADING,
-  GET_USERS_SUCCESS
+  GET_USERS_SUCCESS,
+  GET_USERSnMODS_LOADING,
+  GET_USERSnMODS_SUCCESS,
+  GET_USERSnMODS_FAILURE
 } from '../actions/index.js';
 
 const initialState = {
   users: [],
+  usersNmods: [],
   user_id: 0,
   avatar: null,
   username: '',
@@ -385,6 +389,26 @@ export const UsersReducer = (state = initialState, action) => {
         ...state,
         isGettingUsers: false,
         users: action.payload
+      };
+
+      case GET_USERSnMODS_LOADING:
+      return {
+        ...state,
+        isGettingUsers: true
+      };
+
+    case GET_USERSnMODS_SUCCESS: 
+      return {
+        ...state,
+        isGettingUsers: false,
+        usersNmods: action.payload
+      };
+
+    case GET_USERSnMODS_FAILURE: 
+      return {
+        ...state,
+        isGettingUsers: false,
+        
       };
 
     case CHANGE_USER_TYPE_LOADING:
