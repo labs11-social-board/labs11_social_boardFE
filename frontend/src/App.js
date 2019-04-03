@@ -206,6 +206,8 @@ class App extends Component {
 
   toggleSearch = () => this.setState({ showSearch: !this.state.showSearch });
 
+  userToggleSearch = () => this.setState({userShowSearch : !this.state.userShowSearch});
+
   isAuthenticated() {
     // check whether the current time is past the access token's expiry time
     const expiresAt = localStorage.getItem('symposium_auth0_expires_at');
@@ -215,6 +217,11 @@ class App extends Component {
     await this.setState({ showSearch: false }, () =>
       this.props.history.push(url)
     );
+
+  userGoTo = async url => {
+    await this.setState({userShowSearch : false}, () => this.props.history.push(url))
+  };
+
   scrollTo = id => {
     if (id || this.props.location.hash.substring(1)) {
       return scroller.scrollTo(id || this.props.location.hash.substring(1), {
@@ -300,7 +307,7 @@ class App extends Component {
                 <Route exact path='/home' component={LandingView} />
                 <Route path='/profiles' component={Profiles} />
                 {/* <Route path='/profile/:id' component={Profile} /> commented out instead of deleted incase I need to change it back J.H*/}
-                <Route path='/profile/:id' render={props => <Profile {...props} setEditProfileModalRaised = {this.setEditProfileModalRaised} isEditProfileModalRaised = {this.state.isEditProfileModalRaised}/>} />
+                <Route path='/profile/:id' render={props => <Profile {...props} setEditProfileModalRaised = {this.setEditProfileModalRaised} isEditProfileModalRaised = {this.state.isEditProfileModalRaised} />} />
                 <Route path='/categories' render={() => <CategoriesView history={history} historyPush={this.props.history.push} setAddCatModalRaised={this.setAddCatModalRaised} isAddCatModalRaised={this.state.isAddCatModalRaised} />} />
                 <Route path='/teams' render={() => <TeamsView history={history} /> } />
                 <Route path='/team/discussions/:team_id' component={TeamBoard} />
