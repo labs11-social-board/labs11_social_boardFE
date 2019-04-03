@@ -53,6 +53,7 @@ import Icon from './categories/Icon.js';
 import RegisterDropdown from './RegisterDropdown.js';
 import UsersListModal from './UsersListModal.js';
 import User from './User.js';
+import SearchTeamResult from './SearchTeamResult.js';
 
 // forms
 import AddPostForm from './forms/AddPostForm.js';
@@ -123,6 +124,7 @@ export {
   ToggleSwitch,
   UsersListModal,
   User,
+  SearchTeamResult,
 
   // forms
   AddPostForm,
