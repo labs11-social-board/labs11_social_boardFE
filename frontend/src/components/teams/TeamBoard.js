@@ -123,7 +123,7 @@ const DiscussionHeader = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    width: 31%;
+    width: 480px;
 
     @media (max-width: 500px) {
       width: 100%;
@@ -156,7 +156,7 @@ const DiscussionHeader = styled.div`
     }
   }
 
-  @media (max-width: 910px) {
+  @media (max-width: 1024px) {
     flex-direction: column;
   }
 
