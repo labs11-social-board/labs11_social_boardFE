@@ -17,7 +17,6 @@ import {
 
 import {
   handlePostVote,
-  deleteReply,
   handleReplyVote,
   removePost
 } from '../store/actions/index.js';
@@ -186,7 +185,8 @@ const Post = ({
     username,
     user_vote,
     avatar,
-    upvotes
+    upvotes,
+    image
     // signature,
   } = post;
 
@@ -239,7 +239,12 @@ const Post = ({
 
   return (
     <PostWrapper>
-      <BodyWrapper>{body}</BodyWrapper>
+      <div>
+        <BodyWrapper>{body}</BodyWrapper>
+        {image ? (
+          <img src={image} alt="uploaded image" height="42" width="42" />
+        ) : null}
+      </div>
       <InfoWrapper>
         <div className="user-info">
           <div className="user" onClick={handleUserClick}>
@@ -305,5 +310,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { handlePostVote, deleteReply, handleReplyVote, removePost }
+  { handlePostVote, handleReplyVote, removePost }
 )(Post);

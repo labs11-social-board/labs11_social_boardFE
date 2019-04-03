@@ -29,18 +29,17 @@ export const addReply = (post_id, team_id, replyBody) => dispatch => {
   dispatch({ type: ADD_REPLY_LOADING });
   return axios
     .post(`${backendURL}/replies/${user_id}`, body, headers)
-    .then(() => dispatch({ type: ADD_REPLY_SUCCESS }))
+    .then(res => dispatch({ type: ADD_REPLY_SUCCESS, payload: res.data }))
     .catch(err => handleError(err, ADD_REPLY_FAILURE)(dispatch));
 };
 
-export const deleteReply = reply_id => dispatch => {
-  console.log('deleting:', reply_id);
+export const updateReplyWithImage = (image_id, reply_id) => dispatch => {
   const user_id = localStorage.getItem('symposium_user_id');
   const token = localStorage.getItem('symposium_token');
-  const headers = { headers: { Authorization: token, reply_id: reply_id } };
-  dispatch({ type: HANDLE_DELETE_COMMENT_LOADING });
+  const headers = { headers: { Authorization: token } };
+  const post_image = { image_id, reply_id };
   return axios
-    .delete(`${backendURL}/replies/${user_id}`, headers)
-    .then(() => dispatch({ type: HANDLE_DELETE_COMMENT_SUCCESS }))
-    .catch(err => handleError(err, HANDLE_DELETE_COMMENT_FAILURE)(dispatch));
+    .put(`${backendURL}/posts/images/${user_id}`, post_image, headers)
+    .then(res => console.log(res.data))
+    .catch(err => handleError(err)(dispatch));
 };

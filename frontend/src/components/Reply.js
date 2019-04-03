@@ -155,7 +155,8 @@ const Reply = ({
     discussion_id,
     upvotes,
     downvotes,
-    user_vote
+    user_vote,
+    image
   } = reply;
 
   const handleAddReply = () => {
@@ -175,7 +176,12 @@ const Reply = ({
 
   return (
     <ReplyWrapper>
-      <BodyWrapper>{body}</BodyWrapper>
+      <div>
+        <BodyWrapper>{body}</BodyWrapper>
+        {image ? (
+          <img src={image} alt="uploaded image" height="42" width="42" />
+        ) : null}
+      </div>
       <InfoWrapper>
         <div className="user-info">
           <div className="user" onClick={handleUserClick}>
