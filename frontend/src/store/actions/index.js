@@ -156,11 +156,16 @@ import {
   REMOVE_POST_LOADING,
   REMOVE_POST_SUCCESS,
   REMOVE_POST_FAILURE,
+  UPLOAD_IMAGE_LOADING,
+  UPLOAD_IMAGE_SUCCESS,
 
   // Action Creators
   addPost,
   editPost,
-  removePost
+  removePost,
+  uploadImage,
+  updatePostWithImage,
+  removeUpload
 } from './PostsActions.js';
 
 import {
@@ -566,6 +571,8 @@ export {
   UPDATE_EMAIL_LOADING,
   UPDATE_EMAIL_SUCCESS,
   UPDATE_EMAIL_FAILURE,
+  UPLOAD_IMAGE_LOADING,
+  UPLOAD_IMAGE_SUCCESS,
 
   //Reply Actions
   ADD_REPLY_LOADING,
@@ -647,6 +654,9 @@ export {
   addPost,
   editPost,
   removePost,
+  uploadImage,
+  updatePostWithImage,
+  removeUpload,
 
   // Reply Action Creators
   addReply,

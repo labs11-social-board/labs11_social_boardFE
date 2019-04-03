@@ -182,6 +182,7 @@ const Post = ({
     user_vote,
     avatar,
     upvotes,
+    image
     // signature,
   } = post;
 
@@ -218,7 +219,10 @@ const Post = ({
 
   return (
     <PostWrapper>
+      <div>
+        {image ? <img src={image} alt="uploaded image" height="42" width="42" /> : null}
       <BodyWrapper>{ body }</BodyWrapper>
+      </div>
       <InfoWrapper>
         <div className = 'user-info'>
           <div className = 'user' onClick = { handleUserClick }>
