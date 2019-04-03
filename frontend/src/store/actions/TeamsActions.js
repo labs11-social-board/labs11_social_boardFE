@@ -82,7 +82,7 @@ export const addTeam = (team, historyPush)=> dispatch => {
   return axios
     .post(`${backendUrl}/team/${user_id}`, team, headers)
     .then(res => { 
-      dispatch({ type: ADD_TEAM_SUCCESS });
+      dispatch({ type: ADD_TEAM_SUCCESS, payload: res.data });
       historyPush(`/team/discussions/${res.data.teamBoard.id}`);
     })
     .catch(err => handleError(err, ADD_TEAM_FAILURE)(dispatch));

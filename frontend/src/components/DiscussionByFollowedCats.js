@@ -177,6 +177,7 @@ const DiscussionByFollowedCats = ({ discussion, history, voteOnDiscussion, singl
 		username,
 		user_id,
 		views,
+		image
 	} = discussion;
 	const handleDiscussionClick = () => {
 			if(isTeam){
@@ -200,9 +201,12 @@ const DiscussionByFollowedCats = ({ discussion, history, voteOnDiscussion, singl
 	};
 	return(
 		<DiscussionWrapper isDay = { isDay } singleDiscussion = { singleDiscussion } onClick = { handleDiscussionClick }>
+			<div>
 			<BodyWrapper>{
 				!singleDiscussion ? body.length > 183 ? body.substr(0, 183) + '...' : body : body
 			}</BodyWrapper>
+			{image ? <img src={image} alt="uploaded image" height="42" width="42" /> : null}
+			</div>
 			<div className = 'info-wrapper'>
 				<div className = 'user-info'>
 					<div className = 'user' onClick = { handleUserClick }>
