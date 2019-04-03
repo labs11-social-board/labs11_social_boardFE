@@ -404,13 +404,15 @@ class Profile extends Component {
                   <p><span>Twitter </span> <span>{twitter}</span></p>
               </div>
               <br/>
-              <div>
+              <WrappedDiv>
                 
                 <SearchContainer>
                   <UserSearch showSearch={this.props.showSearch} scrollTo={this.props.scrollTo} pathname={this.props.pathname} goTo={this.props.goTo} toggleSearch={this.props.toggleSearch} />
                 </SearchContainer>
                 <p style = {{cursor:"pointer", textDecoration: "underline"}} onClick = {this.handleEmailInput}>Invite a friend</p>
-              </div>
+              </WrappedDiv>
+              <br/>
+              <br/>
               <div>
                 {followListLength > 0 ?  followList.map((user, id) => 
                   // user.following_id can be used to go to the users profile upon clicking on them currently not implemented. 
