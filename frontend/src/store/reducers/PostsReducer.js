@@ -15,12 +15,24 @@ import {
 	HANDLE_POST_VOTE_SUCCESS,
 	HANDLE_POST_VOTE_FAILURE,
 
+	UPLOAD_IMAGE_LOADING,
+	UPLOAD_IMAGE_SUCCESS
+
 } from '../actions/index.js';
 
-export const PostsReducer = (state = {}, action) => {
+const initialState = {
+	images: {},
+	post_id: {}
+};
+
+export const PostsReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case ADD_POST_LOADING:
 		case ADD_POST_SUCCESS:
+			return {
+				...state,
+				post_id: action.payload
+			};
 		case ADD_POST_FAILURE:
 		case EDIT_POST_LOADING:
 		case EDIT_POST_SUCCESS:
@@ -31,6 +43,12 @@ export const PostsReducer = (state = {}, action) => {
 		case HANDLE_POST_VOTE_LOADING:
 		case HANDLE_POST_VOTE_SUCCESS:
 		case HANDLE_POST_VOTE_FAILURE:
+		case UPLOAD_IMAGE_LOADING:
+		case UPLOAD_IMAGE_SUCCESS:
+			return {
+				...state,
+				images: action.payload
+			};
 		default:
 		return state;
 	}

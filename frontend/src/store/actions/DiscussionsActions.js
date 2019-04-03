@@ -120,10 +120,7 @@ export const addDiscussion = (dBody, category_id) => dispatch => {
   const body = { dBody, category_id };
   dispatch({ type: ADD_DISCUSSION_LOADING });
   return axios.post(`${ backendURL }/discussions/${ user_id }`, body, headers)
-    .then(async res => {
-      dispatch({ type: ADD_DISCUSSION_SUCCESS });
-      await followDiscussion(res.data[0], user_id)(dispatch);
-    })
+    .then(res => dispatch({ type: ADD_DISCUSSION_SUCCESS, payload: res.data }))
     .catch(err => handleError(err, ADD_DISCUSSION_FAILURE)(dispatch));
 };
 
@@ -135,10 +132,7 @@ export const addTeamDiscussion = (dBody, team_id) => dispatch => {
   const body = { dBody, team_id };
   dispatch({ type: ADD_DISCUSSION_LOADING });
   return axios.post(`${ backendURL }/discussions/${ user_id }`, body, headers)
-    .then(async res => {
-      dispatch({ type: ADD_DISCUSSION_SUCCESS });
-      await followDiscussion(res.data[0], user_id)(dispatch);
-    })
+    .then(res => dispatch({ type: ADD_DISCUSSION_SUCCESS, payload: res.data }))
     .catch(err => handleError(err, ADD_DISCUSSION_FAILURE)(dispatch));
 }
 
@@ -165,4 +159,15 @@ export const removeDiscussion = (discussion_id, category_id, historyPush) => dis
     .then(() => historyPush('/'))
     .then(() => historyPush(`/discussions/category/${category_id}`))
     .catch(err => handleError(err, REMOVE_DISCUSSION_FAILURE)(dispatch));
+};
+
+export const updateDiscussionWithImage = (image_id, discussion_id) => dispatch => {
+  const user_id = localStorage.getItem('symposium_user_id');
+	const token = localStorage.getItem('symposium_token');
+	const headers = { headers: { Authorization: token } };
+	const post_image = { image_id, discussion_id  };
+	return axios
+		.put(`${backendURL}/posts/images/${user_id}`, post_image, headers)
+		.then(res => console.log(res.data))
+		.catch(err => handleError(err)(dispatch));
 };
