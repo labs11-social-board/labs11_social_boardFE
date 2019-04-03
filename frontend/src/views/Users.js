@@ -3,17 +3,18 @@ import React, { Component } from 'react';
 import {BrowserRouter as Router, Route, Link, NavLink} from "react-router-dom";
 import styled from 'styled-components';
 import { connect } from "react-redux";
-import { getUsers, getUsersNMods } from './../store/actions/UsersActions';
+import { getUsers, getUsersNMods, makeMod } from './../store/actions/UsersActions';
 
 const MainWrapper = styled.div`
   display: flex;
   flex-direction: row;
   width: 90%;
   font-size: 1.0rem;
-  justify-content: space-around;
-  justify-items: left;
-  align-items: left;
-  align-content: left;
+  justify-content: space-between;
+  justify-items: right;
+  align-items: right;
+  align-content: right;
+  padding-bottom: 5px;
 
   .title {
     margin-top: 30px;
@@ -23,23 +24,33 @@ const MainWrapper = styled.div`
 `;
 
 const InnerWrapper = styled.div`
-width: 30%;
+width: 23%;
 font-size: 1.1rem;
-justify-content: space-around;
-justify-items: center;
-align-items: center;
-align-content: center;
+
+
 `;
+
 
 class Users extends React.Component {
     constructor() {
         super()
 
+        
     }
+
+    
 
     componentDidMount() {
         this.props.getUsersNMods();
-        this.props.getUsers();
+        //this.props.getUsers();
+    }
+
+    buttony = (event, userNum) => {
+        event.preventDefault();
+        this.props.makeMod(userNum);
+        setTimeout(() => {
+            window.location.reload();
+            }, 800);
     }
 
     render() {
@@ -49,17 +60,44 @@ class Users extends React.Component {
             <div>
                 <div >
                     <h4>
-                    {this.props.users.users.map(user =>{
+                    <MainWrapper>
+                    <InnerWrapper>Name</InnerWrapper>
+                    <InnerWrapper>E-Mail</InnerWrapper>
+                    <InnerWrapper>Moderator</InnerWrapper>
+                    </MainWrapper>
+                    <hr></hr>
+
+                    {this.props.users.usersNmods.map(user =>{
                         return (
                             
                             <MainWrapper>
                                 <InnerWrapper>{user.username}</InnerWrapper>
                                 <InnerWrapper>{user.email}</InnerWrapper>
+                                
+                                <InnerWrapper>
+                                {
+                                    (user.user_permissions == 'moderator') &&
+                                    <input
+                                    name="isMod"
+                                    type="checkbox"
+                                    checked='true'
+                                    onChange={this.handleInputChange} />
+                                }
+                                {
+                                    (user.user_permissions == 'basic') &&
+                                    <input
+                                    name="notMod"
+                                    type="checkbox"
+                                    checked=''
+                                    onChange={e => {this.buttony(e, user.id)}} />
+                                }
+                                
+                                </InnerWrapper>
                             </MainWrapper>
-                            
+                                    
                         )
                     })}
-                    {console.log(this.props)}
+                    
                     </h4>
                 </div>
             </div>
@@ -70,10 +108,9 @@ class Users extends React.Component {
 const mapStateToProps = state => {
     return {
         users: state.users,
-        usersNmods: state.usersNmods,
     };
   };
   
   export default connect(
-    mapStateToProps,{ getUsers, getUsersNMods } 
+    mapStateToProps,{ getUsers, getUsersNMods, makeMod } 
   )(Users);

@@ -285,6 +285,9 @@ import {
   GET_USERSnMODS_LOADING,
   GET_USERSnMODS_SUCCESS,
   GET_USERSnMODS_FAILURE,
+  UPDATE_MODS_LOADING,
+  UPDATE_MODS_SUCCESS,
+  UPDATE_MODS_FAILURE,
 
   // Action Creators
   login,
@@ -315,6 +318,7 @@ import {
   inviteFriend, 
   getUsers,
   getUsersNMods,
+  makeMod,
 } from './UsersActions.js';
 
 /************************************************************
@@ -533,6 +537,10 @@ export {
   GET_USERSnMODS_SUCCESS,
   GET_USERSnMODS_FAILURE,
 
+  UPDATE_MODS_LOADING,
+  UPDATE_MODS_SUCCESS,
+  UPDATE_MODS_FAILURE,
+
   // Posts Actions
   ADD_POST_LOADING,
   ADD_POST_SUCCESS,
@@ -631,7 +639,8 @@ export {
   toggleTheme,
   getUsers,
   getUsersNMods,
-  
+  makeMod,
+
 
   // Profile Action Creators
   getProfiles,
