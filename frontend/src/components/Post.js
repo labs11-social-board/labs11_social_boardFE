@@ -220,8 +220,8 @@ const Post = ({
   return (
     <PostWrapper>
       <div>
+        <BodyWrapper>{ body }</BodyWrapper>
         {image ? <img src={image} alt="uploaded image" height="42" width="42" /> : null}
-      <BodyWrapper>{ body }</BodyWrapper>
       </div>
       <InfoWrapper>
         <div className = 'user-info'>
