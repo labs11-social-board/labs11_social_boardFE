@@ -138,14 +138,9 @@ export const getUsersNMods = () => dispatch => {
   dispatch({ type: GET_USERSnMODS_LOADING });
   return axios
     .get(`${backendUrl}/moderators`)
-    
-    .then(res => dispatch(
-      
-      {
+    .then(res => dispatch({
        type: GET_USERSnMODS_SUCCESS, payload: res.data
-       
       }))
-    
     .catch(err => handleError(err, GET_USERSnMODS_FAILURE)(dispatch));
 }
 

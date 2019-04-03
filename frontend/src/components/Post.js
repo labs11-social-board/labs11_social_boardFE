@@ -12,10 +12,14 @@ import {
   // Avatar,
   // Quote,
   Avatar,
-  Reply,
+  Reply
 } from './index.js';
 
-import { handlePostVote, handleReplyVote } from '../store/actions/index.js';
+import {
+  handlePostVote,
+  handleReplyVote,
+  removePost
+} from '../store/actions/index.js';
 
 const PostWrapper = styled.div`
   display: flex;
@@ -32,7 +36,6 @@ const PostWrapper = styled.div`
     margin-bottom: 16px;
     margin-top: 16px;
   }
-
 `;
 
 const BodyWrapper = styled.p`
@@ -77,7 +80,7 @@ const InfoWrapper = styled.div`
 
       &:hover {
         cursor: pointer;
-        color: #418DCF;
+        color: #418dcf;
       }
 
       @media (max-width: 530px) {
@@ -131,7 +134,8 @@ const InfoWrapper = styled.div`
   }
 
   @media (max-width: 630px) {
-    .tablet, .desktop {
+    .tablet,
+    .desktop {
       display: none;
     }
   }
@@ -147,9 +151,9 @@ const UsernameWrapper = styled.span`
   color: ${props => props.theme.discussionPostColor};
 
   &:hover {
-		cursor: pointer;
-		color: #418DCF;
-	}
+    cursor: pointer;
+    color: #418dcf;
+  }
 `;
 
 const Post = ({
@@ -158,17 +162,17 @@ const Post = ({
   historyPush,
   // showEditPostForm,
   // updateEditPostForm,
-  // handleRemovePost,
+  removePost,
   showAddReplyForm,
   handlePostVote,
   toggleAddReplyForm,
   handleFilterChange,
   handleTeamFilter,
   handleReplyVote,
+  //deleteReply,
   scrollTo,
   team_id
 }) => {
-
   const {
     body,
     created_at,
@@ -186,110 +190,125 @@ const Post = ({
     // signature,
   } = post;
 
-  const handleVote = (e, type) => handlePostVote(post.id, type)
-    .then(() => { if(team_id){
-      handleTeamFilter()
-    } else {
-      handleFilterChange()
-    }})
-    .then(() => scrollTo());
+  const handleVote = (e, type) =>
+    handlePostVote(post.id, type)
+      .then(() => {
+        if (team_id) {
+          handleTeamFilter();
+        } else {
+          handleFilterChange();
+        }
+      })
+      .then(() => scrollTo());
 
-  const handleReplyVoting = (reply_id, type) => handleReplyVote(reply_id, type)
-    .then(() => { 
-      if(team_id){
-        handleTeamFilter()
-      } else {
-        handleFilterChange()
-      }
-    })
-    .then(() => scrollTo());
+  const handleReplyVoting = (reply_id, type) =>
+    handleReplyVote(reply_id, type)
+      .then(() => {
+        if (team_id) {
+          handleTeamFilter();
+        } else {
+          handleFilterChange();
+        }
+      })
+      .then(() => scrollTo());
 
   const handleAddReply = () => {
-    if (showAddReplyForm === id){
-      return toggleAddReplyForm()
-    } else{
-      return toggleAddReplyForm(id)
+    if (showAddReplyForm === id) {
+      return toggleAddReplyForm();
+    } else {
+      return toggleAddReplyForm(id);
     }
   };
 
   const handleUserClick = e => {
     e.stopPropagation();
-    return historyPush(`/profile/${ user_id }`);
+    return historyPush(`/profile/${user_id}`);
+  };
+
+  const handleRemovePost = (e, id) => {
+    // e.preventDefault();
+    removePost(id);
+    console.log('run :D');
+
+    if (team_id) {
+      handleTeamFilter();
+    } else {
+      handleFilterChange();
+    }
   };
 
   return (
     <PostWrapper>
       <div>
-        <BodyWrapper>{ body }</BodyWrapper>
-        {image ? <img src={image} alt="uploaded image" height="42" width="42" /> : null}
+        <BodyWrapper>{body}</BodyWrapper>
+        {image ? (
+          <img src={image} alt="uploaded image" height="42" width="42" />
+        ) : null}
       </div>
       <InfoWrapper>
-        <div className = 'user-info'>
-          <div className = 'user' onClick = { handleUserClick }>
-            <Avatar
-              height = '20px'
-              width = '20px'
-              src = { avatar }
-            />
+        <div className="user-info">
+          <div className="user" onClick={handleUserClick}>
+            <Avatar height="20px" width="20px" src={avatar} />
             &nbsp;
-            <UsernameWrapper>{ username }</UsernameWrapper>
+            <UsernameWrapper>{username}</UsernameWrapper>
           </div>
         </div>
-        <div className = 'discussion-info'>
-          <span className = 'reply' onClick = { handleAddReply }>Reply</span>
-          <div className = 'votes-wrapper'>
+        <div className="discussion-info">
+          <span className="reply" onClick={handleAddReply}>
+            Reply
+          </span>
+          <div className="votes-wrapper">
             <VoteCount
-              upvotes = { upvotes }
-              downvotes = { downvotes }
-              user_vote = { user_vote }
-              handleVote = { handleVote }
+              upvotes={upvotes}
+              downvotes={downvotes}
+              user_vote={user_vote}
+              handleVote={handleVote}
             />
           </div>
-          <div className = 'date tablet'>
+          <div className="date tablet">
             <span>{moment(new Date(Number(created_at))).fromNow()}</span>
+          </div>
+          <div>
+            <a onClick={e => handleRemovePost(e, id)}>Delete comment</a>
           </div>
         </div>
       </InfoWrapper>
-      {
-        showAddReplyForm === id &&
+      {showAddReplyForm === id && (
         <AddReplyForm
-          post_id = { id }
-          historyPush = { historyPush }
-          discussion_id = { discussion_id }
-          toggleAddReplyForm = { toggleAddReplyForm }
-          team_id = { team_id }
-          handleFilterChange = { handleFilterChange }
-          handleTeamFilter = { handleTeamFilter }
+          post_id={id}
+          historyPush={historyPush}
+          discussion_id={discussion_id}
+          toggleAddReplyForm={toggleAddReplyForm}
+          team_id={team_id}
+          handleFilterChange={handleFilterChange}
+          handleTeamFilter={handleTeamFilter}
         />
-      }
+      )}
       <div>
-        {
-          replies.map((reply, i) =>
-            <Reply
-              key = { i }
-              reply = { reply }
-              historyPush = { historyPush }
-              toggleAddReplyForm = { toggleAddReplyForm }
-              showAddReplyForm = { showAddReplyForm }
-              handleReplyVote = { handleReplyVoting }
-              team_id = { team_id }
-              handleFilterChange = { handleFilterChange }
-              handleTeamFilter = { handleTeamFilter }
-            />
-          )
-        }
+        {replies.map((reply, i) => (
+          <Reply
+            key={i}
+            reply={reply}
+            historyPush={historyPush}
+            toggleAddReplyForm={toggleAddReplyForm}
+            showAddReplyForm={showAddReplyForm}
+            handleReplyVote={handleReplyVoting}
+            team_id={team_id}
+            handleFilterChange={handleFilterChange}
+            handleTeamFilter={handleTeamFilter}
+          />
+        ))}
       </div>
-  </PostWrapper>
+    </PostWrapper>
   );
 };
 
 const mapStateToProps = state => ({
   loggedInUserId: state.users.user_id,
-  avatar: state.users.avatar,
-
+  avatar: state.users.avatar
 });
 
 export default connect(
   mapStateToProps,
-  { handlePostVote, handleReplyVote }
+  { handlePostVote, handleReplyVote, removePost }
 )(Post);
