@@ -277,7 +277,7 @@ class UserSearch extends Component {
                    />
                    <span className="checkmark"></span>
                  </label>
-                 <label className="container">
+                 <label className="container">Email
                    <input 
                      type="radio"
                      checked = { searchBy === byEmail}
