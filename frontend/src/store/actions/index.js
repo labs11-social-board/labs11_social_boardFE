@@ -282,6 +282,9 @@ import {
   SENDING_INVITE_SUCCESSFUL,
   GET_USERS_LOADING,
   GET_USERS_SUCCESS,
+  GET_USERSnMODS_LOADING,
+  GET_USERSnMODS_SUCCESS,
+  GET_USERSnMODS_FAILURE,
 
   // Action Creators
   login,
@@ -310,7 +313,8 @@ import {
   editUser,
   toggleTheme,
   inviteFriend, 
-  getUsers
+  getUsers,
+  getUsersNMods,
 } from './UsersActions.js';
 
 /************************************************************
@@ -524,6 +528,10 @@ export {
   GET_PROFILE_LOADING,
   GET_PROFILE_SUCCESS,
   GET_PROFILE_FAILURE,
+  
+  GET_USERSnMODS_LOADING,
+  GET_USERSnMODS_SUCCESS,
+  GET_USERSnMODS_FAILURE,
 
   // Posts Actions
   ADD_POST_LOADING,
@@ -622,6 +630,8 @@ export {
   editUser,
   toggleTheme,
   getUsers,
+  getUsersNMods,
+  
 
   // Profile Action Creators
   getProfiles,
