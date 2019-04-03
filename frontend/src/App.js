@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { scroller } from 'react-scroll';
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
+import Admin from './views/Admin';
 
 // globals
 import {
@@ -53,6 +54,7 @@ import {
   markNotificationsAsRead,
   toggleTheme
 } from './store/actions/index.js';
+
 
 const GlobalStyle = createGlobalStyle`
   html,
@@ -298,6 +300,7 @@ class App extends Component {
                 {(this.state.isAddTeamModalRaised) && <AddTeamModal history={history} historyPush={this.props.history.push} pathname={location.pathname} isAuthenticated={this.isAuthenticated} setAddTeamModalRaised={this.setAddTeamModalRaised} />}
                 <Route exact path='/' component={NonUserLandingView} />
                 <Route exact path='/home' component={LandingView} />
+                <Route exact path='/admin' component={Admin} />
                 <Route path='/profiles' component={Profiles} />
                 {/* <Route path='/profile/:id' component={Profile} /> commented out instead of deleted incase I need to change it back J.H*/}
                 <Route path='/profile/:id' render={props => <Profile {...props} setEditProfileModalRaised = {this.setEditProfileModalRaised} isEditProfileModalRaised = {this.state.isEditProfileModalRaised}/>} />
