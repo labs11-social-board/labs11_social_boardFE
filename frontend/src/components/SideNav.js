@@ -355,6 +355,12 @@ const LinkSideNav = styled(Link)`
   }
 `;
 
+const DropdownFollowing = styled.div `
+  display: flex;
+  text-align: center;
+  }
+`;
+
 
 
 /***************************************************************************************************
@@ -449,6 +455,9 @@ class SideNav extends Component {
         <DivHeader>
           <LinkBrowseCategories to='/teams'>Teams</LinkBrowseCategories>
           <i className="fas fa-plus-circle" onClick={(ev) => this.props.setAddTeamModalRaised(ev, true)} />
+        </DivHeader>
+        <DivHeader>
+          <p>Followed Users</p>
         </DivHeader>
       </DivSideNav>
     );
