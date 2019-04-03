@@ -56,7 +56,7 @@ const SearchUserResults = ({user, id, searchText, goTo}) => {
 		  (<p>
 			  {
 				  //render a substring of all the chars to the left of the searchText
-				user.substr(0, username.indexOf(searchText))
+				// user.substr(0, username.indexOf(searchText))
 			  }
 			  <Highlight
 				//highlight the searchText 

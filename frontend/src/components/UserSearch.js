@@ -210,9 +210,11 @@ class UserSearch extends Component {
       console.log("Searching for users");
       await this.props.getUsers(); //will upload the state/props
 	  console.log(this.props);
-	  await this.props.toggleSearch();
       const searchResults = []; 
-      const { searchText, searchBy } = this.state; 
+	  const { searchText, searchBy } = this.state; 
+	  if(this.props.showSearch === false){
+		await this.props.toggleSearch();
+	  }
       if(this.props.searchForUser && searchText.length > 0){
           for(let user of this.props.searchForUser){
               const emailBrokenDown = user.email.split("@");// creates an array
