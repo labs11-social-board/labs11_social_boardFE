@@ -400,7 +400,6 @@ class SideNav extends Component {
   toggleFollowedCats = () => {
     this.setState({ isFollowedCatsOpen: !this.state.isFollowedCatsOpen })
   }
-
   render() {
     const { user_type } = this.props;
 
@@ -417,10 +416,24 @@ class SideNav extends Component {
               onClick={() => this.selectLink('BrowseCategories')}
               className='browse-categories'
             ><i className="fas fa-book-open" />Browse&nbsp;Categories&nbsp;</LinkBrowseCategories>
-          </H4BrowseCategories>
+          
           {(accountUserTypes.indexOf(user_type) >= subSilverStartIndex) &&
             <i className="fas fa-plus-circle" onClick={(ev) => this.props.setAddCatModalRaised(ev, true)} />
           }
+            {console.log(accountUserTypes)}
+            {
+            (user_type == 'admin') &&
+            <LinkBrowseCategories
+              to={`/admin`}
+              islinkselected={(this.state.linkSelected === 'Admin').toString()}
+              onClick={() => this.selectLink('Admin')}
+              className='browse-categories'
+            ><i className="fas fa-cogs" />Admin</LinkBrowseCategories>
+            }
+            
+          </H4BrowseCategories>
+
+
         </DivHeader>
         <DivCategoriesFollowed>
           <DivCatFollowItems>

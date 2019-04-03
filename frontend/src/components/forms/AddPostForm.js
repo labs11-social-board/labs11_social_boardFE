@@ -11,7 +11,10 @@ import { Avatar } from "../index.js";
 // import { appBgColor } from '../../globals/globals.js'
 
 // action creators
-import { addPost } from "../../store/actions/index.js";
+import { addPost, uploadImage, updatePostWithImage, removeUpload } from "../../store/actions/index.js";
+
+// components
+import { UploadImage } from '../index.js';
 
 const AddPostFormWrapper = styled.form`
   width: 80%;
@@ -76,6 +79,7 @@ const UserActions = styled.div`
 `;
 
 class AddPostForm extends Component {
+<<<<<<< HEAD
   state = { postBody: "", image: "" };
   handleChange = e => this.setState({ [e.target.name]: e.target.value });
   handleSubmit = e => {
@@ -112,16 +116,50 @@ class AddPostForm extends Component {
     return this.setState({ image: "" });
   };
 
+=======
+	state = { postBody: '', name: '' };
+	handleChange = e => this.setState({ [e.target.name]: e.target.value });
+	handleSubmit = e => {
+		e.preventDefault();
+		const { postBody } = this.state;
+		const { discussion_id, team_id, handleTeamFilter, handleFilterChange, toggleAddPostForm, image, updatePostWithImage } = this.props;
+    this.props.addPost(discussion_id, postBody, team_id).then((res) => {
+       if(this.state.name){
+        updatePostWithImage(image[0], res.payload[0])
+       }
+    });
+    
+		if(team_id){
+      toggleAddPostForm();
+      setTimeout(() => handleTeamFilter(), 200);
+    	} else {
+			toggleAddPostForm();
+			setTimeout(() => handleFilterChange(), 200);
+		}
+  };
+  handleFileChange = e => {
+		if (e.target.files.length) {
+      const { name } = e.target.files[0];
+			return this.setState({ name });
+		}
+		return this.setState({ name: '' });
+  };
+  handleExit = e => {
+    e.preventDefault();
+    this.props.toggleAddPostForm();
+    this.props.removeUpload(this.props.image[0])
+  }
+>>>>>>> 6871fca4e7ce7274a9f1026340de4810ec66c482
   render() {
     const { postBody } = this.state;
-    const { toggleAddPostForm, username, user_id, avatar } = this.props;
+    const { username, user_id, avatar } = this.props;
     return (
       <AddPostFormWrapper onSubmit={this.handleSubmit}>
         <AddCommentTitle>
           <p>Write a comment</p>
           <span
             className="exit"
-            onClick={toggleAddPostForm}
+            onClick={this.handleExit}
             type="button" // prevents form submission
           >
             <i className="far fa-times-circle" />
@@ -144,6 +182,7 @@ class AddPostForm extends Component {
           <button className="submit-btn" type="submit">
             Post comment
           </button>
+<<<<<<< HEAD
           <input
             type="file"
             name="image-file"
@@ -151,6 +190,9 @@ class AddPostForm extends Component {
             onChange={this.handleInputChange}
           />
           <button onClick={this.uploadHandler}>Upload</button>
+=======
+          <UploadImage handleFileChange={this.handleFileChange}/>
+>>>>>>> 6871fca4e7ce7274a9f1026340de4810ec66c482
         </UserActions>
       </AddPostFormWrapper>
     );
@@ -160,10 +202,11 @@ class AddPostForm extends Component {
 const mapStateToProps = state => ({
   username: state.users.username,
   user_id: state.users.user_id,
-  avatar: state.users.avatar
+  avatar: state.users.avatar,
+  image: state.posts.images,
 });
 
 export default connect(
   mapStateToProps,
-  { addPost }
+  { addPost, uploadImage, updatePostWithImage, removeUpload }
 )(AddPostForm);
