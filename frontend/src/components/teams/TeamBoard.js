@@ -287,12 +287,13 @@ class TeamBoard extends Component {
     this.props.getTeamMembers(this.props.match.params.team_id);
   };
   componentDidUpdate(prevProps) {
-    const { match, getTeamDiscussions } = this.props;
+    const { match, getTeamDiscussions, getTeamMembers } = this.props;
     const { team_id } = match.params;
     const { order, orderType } = this.state;
     
     if (prevProps.match.params.team_id !== team_id) {
-      return getTeamDiscussions(team_id, order, orderType);
+      getTeamDiscussions(team_id, order, orderType);
+      getTeamMembers(team_id);
     };
   };
   render() {
@@ -311,7 +312,7 @@ class TeamBoard extends Component {
         isTeamOwner=false;
       }
     }
-
+    console.log(isTeamOwner, member[0])
     if(!team){
       return (<h1>Loading..</h1>)
     } else {
