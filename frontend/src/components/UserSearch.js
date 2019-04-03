@@ -209,7 +209,8 @@ class UserSearch extends Component {
     searchUsers = async () => {
       console.log("Searching for users");
       await this.props.getUsers(); //will upload the state/props
-      console.log(this.props);
+	  console.log(this.props);
+	  await this.props.toggleSearch();
       const searchResults = []; 
       const { searchText, searchBy } = this.state; 
       if(this.props.searchForUser && searchText.length > 0){
@@ -241,6 +242,7 @@ class UserSearch extends Component {
         const {searchBy, searchText, searchResults, loading} = this.state;  
         return (
         <SearchBox>
+			<label className = "container">Search for a friend</label>
             <div className="search-input-wrapper">
               <span className="fa fa-search"></span>
                 <input 
@@ -249,11 +251,11 @@ class UserSearch extends Component {
                   className = "search-input"
                   value = { searchText }
                   onChange = {this.handleInputChange}
-                  placeHolder = "Find Friend"
+                  placeholder = "Find Friend"
                   />
             </div>
-            {(showSearch && searchText > 0) && 
-             <div className="search-results-w">
+            {(showSearch && searchText.length > 0) && 
+             <div className="search-results-wrapper">
                <div className="search-by-wrapper">
                  <label className="container">All
                     <input
