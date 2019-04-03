@@ -76,6 +76,15 @@ const UserActions = styled.div`
 		color: black;
 		text-decoration: none;
 	}
+
+	@media (max-width: 500px){
+    flex-direction: column;
+    height: 18vh;
+
+    input[type=file] {
+      margin-left: 25%;
+    }
+  }
 `;
 
 // //Original AddReplyForm
