@@ -206,7 +206,7 @@ class App extends Component {
 
   toggleSearch = () => this.setState({ showSearch: !this.state.showSearch });
 
-  userToggleSearch = () => this.setState({userShowSearch : !this.state.userShowSearch});
+  userToggleSearch = () => this.setState({showUsersSearch : !this.state.showUsersSearch});
 
   isAuthenticated() {
     // check whether the current time is past the access token's expiry time
@@ -219,7 +219,7 @@ class App extends Component {
     );
 
   userGoTo = async url => {
-    await this.setState({userShowSearch : false}, () => this.props.history.push(url))
+    await this.setState({showUsersSearch : false}, () => this.props.history.push(url))
   };
 
   scrollTo = id => {
@@ -307,7 +307,7 @@ class App extends Component {
                 <Route exact path='/home' component={LandingView} />
                 <Route path='/profiles' component={Profiles} />
                 {/* <Route path='/profile/:id' component={Profile} /> commented out instead of deleted incase I need to change it back J.H*/}
-                <Route path='/profile/:id' render={props => <Profile {...props} setEditProfileModalRaised = {this.setEditProfileModalRaised} isEditProfileModalRaised = {this.state.isEditProfileModalRaised} toggleSearch = {this.userToggleSearch} goTo = {this.userGoTo} history ={this.props.history}/>} />
+                <Route path='/profile/:id' render={props => <Profile {...props} setEditProfileModalRaised = {this.setEditProfileModalRaised} isEditProfileModalRaised = {this.state.isEditProfileModalRaised} toggleSearch = {this.userToggleSearch} goTo = {this.userGoTo} history ={this.props.history} showSearch = {this.state.showUsersSearch}/>} />
                 <Route path='/categories' render={() => <CategoriesView history={history} historyPush={this.props.history.push} setAddCatModalRaised={this.setAddCatModalRaised} isAddCatModalRaised={this.state.isAddCatModalRaised} />} />
                 <Route path='/teams' render={() => <TeamsView history={history} /> } />
                 <Route path='/team/discussions/:team_id' component={TeamBoard} />

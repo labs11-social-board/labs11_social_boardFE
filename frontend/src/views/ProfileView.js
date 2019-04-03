@@ -568,6 +568,9 @@ Profile.propTypes = {
   inviteFriend : PropTypes.func, 
   setEditProfileModalRaised : PropTypes.func.isRequired,
   isEditProfileModalRaised : PropTypes.bool.isRequired, 
+  toggleSearch : PropTypes.func.isRequired,
+  showSearch : PropTypes.bool.isRequired,
+
   profile: PropTypes.arrayOf(
     PropTypes.shape({
       status: PropTypes.string.isRequired,
