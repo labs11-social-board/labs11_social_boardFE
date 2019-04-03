@@ -81,7 +81,11 @@ const LandingText = styled.h1`
 //   padding-left: 0px;
 //   `;
 
-  const Foreground = styled.div`
+  const TopFiller = styled.div`
+  
+  `;
+
+  const BottomFiller = styled.div`
 
   `;
 
@@ -91,16 +95,13 @@ class NonUserLandingView extends Component {
     return (
 
       <Woah loggedIn={this.props.user_id !== 0}>
-
-        <LandingText loggedIn={this.props.user_id !== 0}>
+        <TopFiller>
+          <LandingText loggedIn={this.props.user_id !== 0}>
           <p className='blurb'>
             Welcome to Symposium. 
             </p>
-            <Foreground>
-
-            </Foreground>
-        </LandingText>
-        
+          </LandingText>
+        </TopFiller>
       </Woah>
     )
   }
