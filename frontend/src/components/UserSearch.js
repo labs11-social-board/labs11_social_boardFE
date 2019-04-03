@@ -200,10 +200,17 @@ class UserSearch extends Component {
         searchResults: [],
         loading: false,
         searchBy: all,
-    }
+	}
+	componentDidUpdate(prevProps) {
+		// if (prevProps.match.params.id !== this.props.match.params.id) {
+		//   this.setState({searchText : ""});
+		// }
+	  };
 
     goTo = async url => {
-        await this.props.goTo(url);
+		this.setState({searchText : ""}, async () =>{
+			await this.props.goTo(url);
+		})
     }
 
     searchUsers = async () => {
