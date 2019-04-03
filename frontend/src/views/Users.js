@@ -39,6 +39,7 @@ class Users extends React.Component {
 
     componentDidMount() {
         this.props.getUsersNMods();
+        this.props.getUsers();
     }
 
     render() {
