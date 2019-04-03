@@ -140,6 +140,7 @@ class App extends Component {
     this.state = {
       theme: dayTheme,
       showSearch: false,
+      showUsersSearch : false, 
       showNotifications: false,
       isLoginDropdownModalRaised: false,
       isAvatarModalRaised: false,

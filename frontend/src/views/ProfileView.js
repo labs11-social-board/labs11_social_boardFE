@@ -6,11 +6,12 @@ import { getProfile } from '../store/actions/index';
 import { getFollowers, getProfileFollowers, removeFollower, addFollower, inviteFriend } from '../store/actions/index';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { phoneP } from '../globals/globals';
+import { phoneP, phoneL, tabletP, tabletL } from '../globals/globals';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import moment from 'moment';
 import "react-tabs/style/react-tabs.css";
 
+import { Search } from '../components/index.js';
 // components
 import { Avatar, Deleted } from '../components/index.js';
 
@@ -246,6 +247,24 @@ const SubWrapper = styled.div`
   flex-direction: column;
 `;
 
+const SearchContainer = styled.div`
+  margin-left: 15px;
+  display: flex;
+  width: 30%;
+  justify-content: center;
+  align-items: center;
+
+  @media ${tabletP}{
+    width: 40%;
+    margin-left: 10px;
+    }
+    
+    @media ${phoneL}{
+      margin-left: 10px;
+      width: 45%;
+    }
+`;
+
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
@@ -386,6 +405,9 @@ class Profile extends Component {
               <br/>
               <div>
                 <input type="search" name = "friendSearch" placeholder = "find a new friend"></input>
+                <SearchContainer>
+                  <Search showSearch={this.props.showSearch} scrollTo={this.props.scrollTo} pathname={this.props.pathname} goTo={this.props.goTo} toggleSearch={this.props.toggleSearch} />
+                </SearchContainer>
                 <p style = {{cursor:"pointer", textDecoration: "underline"}} onClick = {this.handleEmailInput}>Invite a friend</p>
               </div>
               <div>
