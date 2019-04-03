@@ -100,7 +100,7 @@ export const updatePostWithImage = (image_id, post_id) => dispatch => {
 	const user_id = localStorage.getItem('symposium_user_id');
 	const token = localStorage.getItem('symposium_token');
 	const headers = { headers: { Authorization: token } };
-	const post_image = {image_id, post_id};
+	const post_image = { image_id, post_id };
 	return axios
 		.put(`${backendURL}/posts/images/${user_id}`, post_image, headers)
 		.then(res => console.log(res.data))

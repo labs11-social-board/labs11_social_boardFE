@@ -176,6 +176,7 @@ import {
 
   //Action Creators
   addReply,
+  updateReplyWithImage
 } from './RepliesActions.js';
 
 import {
@@ -660,6 +661,7 @@ export {
 
   // Reply Action Creators
   addReply,
+  updateReplyWithImage,
   //followers actions
   GET_FOLLOWERS,
   GET_FOLLOWERS_SUCCESS,
