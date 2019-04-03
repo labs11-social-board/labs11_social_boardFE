@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios'; 
 import { connect } from 'react-redux';
 import styled from 'styled-components'; 
-
+import PropTypes from 'prop-types'; 
 //assets 
 import { spinner2 } from '../assets/index.js';
 
@@ -206,8 +206,28 @@ class UserSearch extends Component {
         await this.props.goTo(url);
     }
 
-    searchUsers = () => {
+    searchUsers = async () => {
       console.log("Searching for users");
+      await this.props.getUsers(); //will upload the state/props
+      console.log(this.props);
+      const searchResults = []; 
+      const { searchText, searchBy } = this.state; 
+      if(this.props.searchForUser){
+          for(let user of this.props.searchForUser){
+              const emailBrokenDown = user.email.split("@");// creates an array
+              const email = emailBrokenDown[0]; //grab first out the array
+              const username = user.username;
+              if (searchBy === all && (email.includes(searchText) === true || username.includes(searchText) === true)){
+                //If the searchText is included in the email or the username push it to searchResults
+                searchResults.push(user);
+              } else if ( searchBy === byUsername && username.includes(searchText) === true){
+                searchResults.push(user);
+              } else if (searchBy === byEmail && username.includes(searchText) === true){
+                searchResults.push(user); 
+              }
+          }
+          this.setState({ searchResults }, () => console.log(this.state.searchResults));
+      }
     }
 
     handleInputChange = (event) => {
@@ -278,7 +298,7 @@ class UserSearch extends Component {
                      searchResults.map((result, i) => {
                         return <SearchCatResult 
                             key = { i } 
-                            user = {result}
+                            user = {result.username}
                          />
                      }) : null
                  }
@@ -290,4 +310,12 @@ class UserSearch extends Component {
     }
 }
 
-export default connect(null, {getUsers, displayError})(UserSearch);
+// UserSearch.PropTypes = {
+  
+// }
+
+const mapStateToProps = state => ({
+    searchForUser : state.users.users,
+});
+
+export default connect(mapStateToProps, {getUsers, displayError})(UserSearch);
