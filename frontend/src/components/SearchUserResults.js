@@ -48,7 +48,7 @@ const SearchUserResults = ({user, id, searchText, goTo}) => {
   searchText = searchText.toLowerCase(); 
   const username = user.toLowerCase();
   return (
-      <SearchUserResultWrapper>
+      <SearchUserResultWrapper onClick = {handleUserClick}>
         <div className = "user-wrapper">
 		 {
 		  // if it includes the searchText 
