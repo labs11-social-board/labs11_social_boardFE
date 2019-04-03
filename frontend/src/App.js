@@ -293,6 +293,7 @@ class App extends Component {
                 <SideNav
                   setAddCatModalRaised={this.setAddCatModalRaised}
                   setAddTeamModalRaised={this.setAddTeamModalRaised}
+                  history={history}
                 />
               </DivSideNav>
               <DivPage>
