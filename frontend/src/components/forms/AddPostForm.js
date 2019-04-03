@@ -76,23 +76,42 @@ const UserActions = styled.div`
 `;
 
 class AddPostForm extends Component {
-	state = { postBody: '' };
-	handleChange = e => this.setState({ [e.target.name]: e.target.value });
-	handleSubmit = e => {
-		e.preventDefault();
-		const { postBody } = this.state;
-		const { discussion_id, team_id, handleTeamFilter, handleFilterChange, toggleAddPostForm } = this.props;
-		this.props.addPost(discussion_id, postBody, team_id);
-		
-		if(team_id){
+  state = { postBody: "", image: "" };
+  handleChange = e => this.setState({ [e.target.name]: e.target.value });
+  handleSubmit = e => {
+    e.preventDefault();
+    const { postBody } = this.state;
+    const {
+      discussion_id,
+      team_id,
+      handleTeamFilter,
+      handleFilterChange,
+      toggleAddPostForm
+    } = this.props;
+   const imageFile = e.target[2].files[0];
+    const imageData = new FormData();
+    imageData.append("imageFile", imageFile);
+    
+    this.props.addPost(discussion_id, postBody, team_id, imageData);
+    console.log("image", imageData)
+    if (team_id) {
       toggleAddPostForm();
       setTimeout(() => handleTeamFilter(), 200);
-    	} else {
-			toggleAddPostForm();
-			setTimeout(() => handleFilterChange(), 200);
-		}
-	};
-	
+    } else {
+      toggleAddPostForm();
+      setTimeout(() => handleFilterChange(), 200);
+    }
+  };
+
+  handleInputChange = e => {
+    if (e.target.files.length) {
+      const { name } = e.target.files[0];
+      console.log("image",name);
+      return this.setState({ image: name });
+    }
+    return this.setState({ image: "" });
+  };
+
   render() {
     const { postBody } = this.state;
     const { toggleAddPostForm, username, user_id, avatar } = this.props;
@@ -125,9 +144,13 @@ class AddPostForm extends Component {
           <button className="submit-btn" type="submit">
             Post comment
           </button>
-		<input type="file" onChange={this.fileChangedHandler} />
-		<button onClick={this.uploadHandler}>Upload</button>
-
+          <input
+            type="file"
+            name="image-file"
+            id="image-file"
+            onChange={this.handleInputChange}
+          />
+          <button onClick={this.uploadHandler}>Upload</button>
         </UserActions>
       </AddPostFormWrapper>
     );

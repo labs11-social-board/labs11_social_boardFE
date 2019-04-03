@@ -28,11 +28,26 @@ export const REMOVE_POST_FAILURE = 'REMOVE_POST_FAILURE';
 // .then(() => historyPush(`/discussion/${ discussion_id }`))
 
 // add a post
-export const addPost = (discussion_id, postBody, team_id, repliedPostID) => dispatch => {
+export const addPost = (discussion_id, postBody, team_id, imageData, repliedPostID) => dispatch => {
 	const user_id = localStorage.getItem('symposium_user_id');
 	const token = localStorage.getItem('symposium_token');
-	const headers = { headers: { Authorization: token } };
-	const body = { discussion_id, postBody, repliedPostID, team_id };
+	let headers = { headers: { Authorization: token } };
+	const body = { discussion_id, postBody, repliedPostID, team_id, image: imageData };
+	
+	// if (imageData) {
+	// 	// avatar will be updated with given image
+	// 	headers = {
+	// 		headers: {
+	// 			'Content-Type': 'multipart/form-data',
+	// 			Authorization: token,
+	// 		}
+	// 	};
+	// } else {
+	// 	// avatar will be reset to default
+	// 	headers = { headers: { Authorization: token } };
+	// 	imageData = { imageData };
+	// }
+
 	dispatch({ type: ADD_POST_LOADING });
 	return axios.post(`${ backendURL }/posts/${ user_id }`, body, headers)
 		.then(() => dispatch({ type: ADD_POST_SUCCESS }))
