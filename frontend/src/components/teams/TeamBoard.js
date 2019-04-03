@@ -125,12 +125,24 @@ const DiscussionHeader = styled.div`
     justify-content: space-evenly;
     width: 31%;
 
+    @media (max-width: 500px) {
+      width: 100%;
+      flex-direction: column;
+      margin-bottom: 15px;
+    }
+
     .tab {
       border: 1px solid black;
       padding: 6px 15px;
       border-radius: 3px;
       box-shadow: 1px 1px 1px 1px black;
       cursor:pointer;
+
+      @media (max-width: 500px){
+        width: 92%;
+        text-align:center;
+        margin: 0;
+      }
 
       &:hover {
         background: lightskyblue;
