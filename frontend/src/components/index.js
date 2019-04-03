@@ -71,6 +71,7 @@ import EditSignatureForm from './forms/EditSignatureForm.js';
 
 
 import UserSearch from './UserSearch.js'; 
+import SearchUserResults from './SearchUserResults.js';
 
 export {
   Reply,
@@ -144,4 +145,5 @@ export {
   EditSignatureForm,
 
   UserSearch,
+  SearchUserResults,
 };

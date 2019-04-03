@@ -8,7 +8,7 @@ import { spinner2 } from '../assets/index.js';
 
 //action creators 
 import { getUsers, displayError } from '../store/actions/index.js'; 
-import { SearchCatResult } from './index.js';
+import { SearchUserResults } from './index.js';
 
 /*Styled Components*/
 
@@ -296,7 +296,7 @@ class UserSearch extends Component {
                      <img src = { spinner2 } alt = "spinner" /> : 
                      searchResults.length ? 
                      searchResults.map((result, i) => {
-                        return <SearchCatResult 
+                        return <SearchUserResults 
                             key = { i } 
                             searchText = { searchText }
                             id = {result.id}
