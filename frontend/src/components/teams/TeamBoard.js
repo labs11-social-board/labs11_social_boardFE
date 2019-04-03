@@ -78,6 +78,10 @@ const DiscussionsWrapper = styled.div`
       margin-bottom: 2%;
       cursor: pointer;
 
+      @media (max-width: 1024px){
+        width: 95%;
+      }
+
       &:hover {
         background: lightgrey;
         border-radius: 3px;
@@ -86,6 +90,10 @@ const DiscussionsWrapper = styled.div`
       h2 {
         margin: 0% 5% 0% 5%;
         width: 60%;
+        
+        @media (max-width: 500px){
+          width: 50%;
+        }
       }
       .member_role {
         margin-right: 5%;
@@ -123,7 +131,7 @@ const DiscussionHeader = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    width: 480px;
+    width: 380px;
 
     @media (max-width: 500px) {
       width: 100%;
@@ -386,7 +394,7 @@ class TeamBoard extends Component {
             {team_members.map( (member, i)=> {
               return (
                 <div key={i} className='member-wrapper' onClick={e => this.handleUserClick(e, member.user_id)}>
-                  <Avatar height='70px' width='70px' src={ member.avatar }/>
+                  <Avatar height='60px' width='65px' src={ member.avatar }/>
                   <h2>{member.username}</h2>
                   <p className='member_role'>{member.role}</p>
                 </div>
