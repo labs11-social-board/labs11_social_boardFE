@@ -8,12 +8,12 @@ import { AddReplyForm, Avatar, VoteCount } from './index.js';
 
 //styles
 const ReplyWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    width: 90%;
-    margin-left: 50px;
-    border-left: 1px solid #ccc;
-    padding-left: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  margin-left: 50px;
+  border-left: 1px solid #ccc;
+  padding-left: 10px;
 `;
 
 const BodyWrapper = styled.p`
@@ -58,7 +58,7 @@ const InfoWrapper = styled.div`
 
       &:hover {
         cursor: pointer;
-        color: #418DCF;
+        color: #418dcf;
       }
     }
 
@@ -111,7 +111,8 @@ const InfoWrapper = styled.div`
   }
 
   @media (max-width: 630px) {
-    .tablet, .desktop {
+    .tablet,
+    .desktop {
       display: none;
     }
   }
@@ -125,110 +126,111 @@ const InfoWrapper = styled.div`
 
 const UsernameWrapper = styled.span`
   color: ${props => props.theme.discussionPostColor};
-  
+
   &:hover {
-		cursor: pointer;
-		color: #418DCF;
-	}
+    cursor: pointer;
+    color: #418dcf;
+  }
 `;
 
 const Reply = ({
-    reply,
-    loggedInUserId,
-    historyPush,
-    toggleAddReplyForm,
-    showAddReplyForm,
-    handleReplyVote,
-    team_id,
-    handleFilterChange,
-    handleTeamFilter
-    
+  reply,
+  loggedInUserId,
+  historyPush,
+  toggleAddReplyForm,
+  showAddReplyForm,
+  handleReplyVote,
+  team_id,
+  handleFilterChange,
+  handleTeamFilter
 }) => {
-    const {
-        body, 
-        created_at,
-        post_id,
-        avatar,
-        username,
-        user_id,
-        id,
-        discussion_id,
-        upvotes,
-        downvotes,
-        user_vote,
-        image
-    } = reply;
+  const {
+    body,
+    created_at,
+    post_id,
+    avatar,
+    username,
+    user_id,
+    id,
+    discussion_id,
+    upvotes,
+    downvotes,
+    user_vote,
+    image
+  } = reply;
 
-    const handleAddReply = () => {
-       if (showAddReplyForm === id){
-         return toggleAddReplyForm()
-       } else{
-         return toggleAddReplyForm(id)
-       }
-    };
+  const handleAddReply = () => {
+    if (showAddReplyForm === id) {
+      return toggleAddReplyForm();
+    } else {
+      return toggleAddReplyForm(id);
+    }
+  };
 
-    const replyVote = (e, type) => handleReplyVote(id, type);
+  const replyVote = (e, type) => handleReplyVote(id, type);
 
-    const handleUserClick = e => {
-      e.stopPropagation();
-      return historyPush(`/profile/${ user_id }`);
-    };
+  const handleUserClick = e => {
+    e.stopPropagation();
+    return historyPush(`/profile/${user_id}`);
+  };
 
-    return(
-        <ReplyWrapper>
-          <div>
-          <BodyWrapper>{ body }</BodyWrapper>
-          {image ? <img src={image} alt="uploaded image" height="42" width="42" /> : null}
+  return (
+    <ReplyWrapper>
+      <div>
+        <BodyWrapper>{body}</BodyWrapper>
+        {image ? (
+          <img src={image} alt="uploaded image" height="42" width="42" />
+        ) : null}
+      </div>
+      <InfoWrapper>
+        <div className="user-info">
+          <div className="user" onClick={handleUserClick}>
+            <Avatar height="20px" width="20px" src={avatar} />
+            &nbsp;
+            <UsernameWrapper>{username}</UsernameWrapper>
           </div>
-          <InfoWrapper>
-            <div className = 'user-info'>
-              <div className = 'user' onClick = { handleUserClick }>
-                <Avatar
-                  height = '20px'
-                  width = '20px'
-                  src = { avatar }
-                />
-                &nbsp;
-                <UsernameWrapper>{ username }</UsernameWrapper>
-              </div>
-            </div>
-            <div className = 'discussion-info'>
-              <span className = 'reply' onClick = { handleAddReply }>Reply</span>
-              <div className = 'votes-wrapper'>
-                <VoteCount
-                  upvotes = { upvotes }
-                  downvotes = { downvotes }
-                  user_vote = { user_vote }
-                  handleVote = { replyVote }
-                />
-              </div>
-              <div className = 'date tablet'>
-                <span>{moment(new Date(Number(created_at))).fromNow()}</span>
-              </div>
-            </div>
-          </InfoWrapper>
-            {  
-              showAddReplyForm === id &&
-              <AddReplyForm
-                  user_id={loggedInUserId}
-                  toggleAddReplyForm={toggleAddReplyForm}
-                  discussion_id = {discussion_id}
-                  post_id={post_id}
-                  historyPush={historyPush}
-                  team_id = { team_id }
-                  handleFilterChange = { handleFilterChange }
-                  handleTeamFilter = { handleTeamFilter }
-              />
-            }
-        </ReplyWrapper>
-    );
+        </div>
+        <div className="discussion-info">
+          <span className="reply" onClick={handleAddReply}>
+            Reply
+          </span>
+          <div className="votes-wrapper">
+            <VoteCount
+              upvotes={upvotes}
+              downvotes={downvotes}
+              user_vote={user_vote}
+              handleVote={replyVote}
+            />
+          </div>
+          <div className="date tablet">
+            <span>{moment(new Date(Number(created_at))).fromNow()}</span>
+          </div>
+        </div>
+      </InfoWrapper>
+      {showAddReplyForm === id && (
+        <AddReplyForm
+          user_id={loggedInUserId}
+          toggleAddReplyForm={toggleAddReplyForm}
+          discussion_id={discussion_id}
+          post_id={post_id}
+          historyPush={historyPush}
+          team_id={team_id}
+          handleFilterChange={handleFilterChange}
+          handleTeamFilter={handleTeamFilter}
+        />
+      )}
+    </ReplyWrapper>
+  );
 };
 
 const mapStateToProps = state => ({
-    loggedInUserId: state.users.user_id,
-    avatar: state.users.avatar,
-    username: state.users.username,
-    user_id: state.users.user_id
-  });
+  loggedInUserId: state.users.user_id,
+  avatar: state.users.avatar,
+  username: state.users.username,
+  user_id: state.users.user_id
+});
 
-  export default connect(mapStateToProps,{})(Reply);
+export default connect(
+  mapStateToProps,
+  {}
+)(Reply);
