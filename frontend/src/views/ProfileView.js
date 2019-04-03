@@ -6,11 +6,12 @@ import { getProfile } from '../store/actions/index';
 import { getFollowers, getProfileFollowers, removeFollower, addFollower, inviteFriend } from '../store/actions/index';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { phoneP } from '../globals/globals';
+import { phoneP, phoneL, tabletP, tabletL } from '../globals/globals';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import moment from 'moment';
 import "react-tabs/style/react-tabs.css";
 
+import { Search, UserSearch } from '../components/index.js';
 // components
 import { Avatar, Deleted } from '../components/index.js';
 
@@ -122,6 +123,20 @@ color: ${props => props.theme.defaultColor};
   }
 }
 `;
+const Button = styled.button`
+  margin-left: 10px;
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: 1px solid #418DCF;
+  background-color: #418DCF;
+  color: white;
+
+  &:hover {
+    cursor: pointer;
+    background-color: white;
+    color: #418DCF;
+  }
+`;
 
 const ContentDiv = styled.div`
   margin: 20px 0px 10px 0px;
@@ -232,6 +247,24 @@ const SubWrapper = styled.div`
   flex-direction: column;
 `;
 
+const SearchContainer = styled.div`
+  margin-left: 15px;
+  display: flex;
+  width: 30%;
+  justify-content: center;
+  align-items: center;
+
+  @media ${tabletP}{
+    width: 40%;
+    margin-left: 10px;
+    }
+    
+    @media ${phoneL}{
+      margin-left: 10px;
+      width: 45%;
+    }
+`;
+
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
@@ -294,12 +327,20 @@ class Profile extends Component {
     return false; //Invalid email 
   }
 
+  editProfile = event => {
+    console.log("Editing profile");
+    console.log(this.props);
+    this.props.setEditProfileModalRaised( event, !this.props.isEditProfileModalRaised);
+  }
+
+
 
   /* we use profileItems to manipulate what data is displayed. if the data received from our props is 0,
   profileItems displays our spinner component, however if our props contains a profile we display that profile
   by mapping through our data received and choosing what properties we want to display with our profile parameter*/
   render() {
     /*Profile data for user profile*/
+    console.log(this.props)
     const usernameForProfile = this.props.profile[0].username; 
     const bio  = this.props.profile[0].bio ?  this.props.profile[0].bio : ""; 
     const twitter = this.props.profile[0].twitter ? this.props.profile[0].twitter : ""; 
@@ -330,7 +371,6 @@ class Profile extends Component {
     }
 
     const followListLength = followList ? followList.length : 0; 
-    console.log(followList, followListLength);
 
     let profileItems;
     if (this.props.profile.length === 0) {
@@ -352,22 +392,27 @@ class Profile extends Component {
                 
                 <WrappedDiv className='username-style'>
                   <p className='property-content'> {profile.username ? profile.username : <Deleted />}</p>
-                  {profileId !== userId ? alreadyFollowing === false ? <button onClick = {this.handleAddFollower(userId, profileId)}>Follow</button> : <button onClick = {this.handleRemoveFollower(userId, profileId)}>UnFollow</button> : <button>Edit Profile</button>}
+                  {profileId !== userId ? alreadyFollowing === false ? <Button className='add-post-btn' onClick = {this.handleAddFollower(userId, profileId)}>Follow</Button> : <Button className='add-post-btn' onClick = {this.handleRemoveFollower(userId, profileId)}>UnFollow</Button> : <Button className='add-post-btn' onClick = {this.editProfile}>Edit Profile</Button>}
                 </WrappedDiv>
               </HeaderStyle>
               {/* This section is for the bio and the links for a user account */}
               <div>
-                  <p><span>Bio</span><span>{bio}</span></p>
+                  <p><span>Bio </span><span>{bio}</span></p>
                   <br/>
-                  <p><span>Github</span> <span>{github}</span></p>
-                  <p><span>LinkedIn</span> <span>{linkedin}</span></p>
-                  <p><span>Twitter</span> <span>{twitter}</span></p>
+                  <p><span>Github </span> <span>{github}</span></p>
+                  <p><span>LinkedIn </span> <span>{linkedin}</span></p>
+                  <p><span>Twitter </span> <span>{twitter}</span></p>
               </div>
               <br/>
-              <div>
-                <input type="search" name = "friendSearch" placeholder = "find a new friend"></input>
+              <WrappedDiv>
+                
+                <SearchContainer>
+                  <UserSearch showSearch={this.props.showSearch} scrollTo={this.props.scrollTo} pathname={this.props.pathname} goTo={this.props.goTo} toggleSearch={this.props.toggleSearch} />
+                </SearchContainer>
                 <p style = {{cursor:"pointer", textDecoration: "underline"}} onClick = {this.handleEmailInput}>Invite a friend</p>
-              </div>
+              </WrappedDiv>
+              <br/>
+              <br/>
               <div>
                 {followListLength > 0 ?  followList.map((user, id) => 
                   // user.following_id can be used to go to the users profile upon clicking on them currently not implemented. 
@@ -522,7 +567,12 @@ Profile.propTypes = {
   getProfileFollowers: PropTypes.func,
   removeFollower : PropTypes.func, 
   addFollower : PropTypes.func,
-  inviteFriend : PropTypes.func,  
+  inviteFriend : PropTypes.func, 
+  setEditProfileModalRaised : PropTypes.func.isRequired,
+  isEditProfileModalRaised : PropTypes.bool.isRequired, 
+  toggleSearch : PropTypes.func.isRequired,
+  showSearch : PropTypes.bool.isRequired,
+
   profile: PropTypes.arrayOf(
     PropTypes.shape({
       status: PropTypes.string.isRequired,
@@ -535,7 +585,7 @@ Profile.propTypes = {
       following_id: PropTypes.number.isRequired,
       username: PropTypes.string.isRequired
     })
-  ) 
+  )
 };
 
 const mapStateToProps = state => ({

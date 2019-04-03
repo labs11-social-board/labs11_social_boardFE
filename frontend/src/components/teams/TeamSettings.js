@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 // action creators
-import { updateTeam } from '../../store/actions/index.js';
+import { updateTeam, deleteTeam, displayMessage } from '../../store/actions/index.js';
 
 // components
 import { ToggleSwitch } from '../index.js';
@@ -24,8 +24,15 @@ class TeamSettings extends React.Component{
   updateTeam = e => {
     e.preventDefault();
     const changes = { ...this.state };
-    this.props.updateTeam(this.props.team.id, changes).then(() => alert('Team Settings Updated!'));
+    this.props.updateTeam(this.props.team.id, changes).then(() => this.props.displayMessage('Team Settings Updated!'));
     setTimeout(() => this.props.getDiscussions(), 150);
+  };
+  deleteTeam = e => {
+    e.preventDefault();
+    this.props.deleteTeam(this.props.team.id).then(() => {
+      this.props.displayMessage('Team Deleted!');
+      this.props.history.push('/teams');
+    });
   };
   componentDidUpdate(prevProps){
     if( prevProps.team.team_name !== this.props.team.team_name){
@@ -41,6 +48,7 @@ class TeamSettings extends React.Component{
           <label htmlFor='team_name'>Team Name: </label>
           <input id='team_name' type='text' name='team_name' value={this.state.team_name} onChange={this.handleInput} />
           <button onClick={this.updateTeam}>Update Team</button>
+          <button onClick={this.deleteTeam}>Delete Team</button>
         </form>
       </div>
     );
@@ -49,4 +57,4 @@ class TeamSettings extends React.Component{
 
 const mapStateToProps = state => ({ });
 
-export default connect(mapStateToProps, { updateTeam })(TeamSettings);
+export default connect(mapStateToProps, { updateTeam, deleteTeam, displayMessage })(TeamSettings);
