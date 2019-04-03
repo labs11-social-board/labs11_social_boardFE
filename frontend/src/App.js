@@ -337,7 +337,6 @@ class App extends Component {
                 <Route exact path="/admin" component={Admin} />
                 <Route path="/profiles" component={Profiles} />
                 {/* <Route path='/profile/:id' component={Profile} /> commented out instead of deleted incase I need to change it back J.H*/}
-<<<<<<< HEAD
                 <Route path='/profile/:id' render={props => <Profile {...props} setEditProfileModalRaised = {this.setEditProfileModalRaised} isEditProfileModalRaised = {this.state.isEditProfileModalRaised} toggleSearch = {this.userToggleSearch} goTo = {this.userGoTo} history ={this.props.history} showSearch = {this.state.showUsersSearch}/>} />
                 <Route path='/categories' render={() => <CategoriesView history={history} historyPush={this.props.history.push} setAddCatModalRaised={this.setAddCatModalRaised} isAddCatModalRaised={this.state.isAddCatModalRaised} />} />
                 <Route path='/teams' render={() => <TeamsView history={history} /> } />
@@ -347,7 +346,6 @@ class App extends Component {
                 <Route path='/settings/:id' render={props => <Settings {...props} setChangeSubModalRaised={this.setChangeSubModalRaised} />} />
                 <Route path='/discussions/category/:category_id' component={DiscussionsByCats} />
                 <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} />
-=======
                 <Route
                   path="/profile/:id"
                   render={props => (
@@ -408,7 +406,6 @@ class App extends Component {
                   path="/confirm-email/:email_confirm_token"
                   component={ConfirmEmail}
                 />
->>>>>>> bb5ac3d7a0086ab4ce10f19eb7c0713edb224e33
               </DivPage>
             </DivBody>
             <Footer
