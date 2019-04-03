@@ -297,12 +297,8 @@ import {
   toggleTheme,
   inviteFriend,
   getUsers,
-<<<<<<< HEAD
   getUsersNMods,
   makeMod,
-=======
-  getUsersNMods
->>>>>>> 55a7586cb841cdecbb9ad1c46dfad609da58dbdb
 } from './UsersActions.js';
 
 /************************************************************
@@ -596,6 +592,7 @@ export {
   toggleTheme,
   getUsers,
   getUsersNMods,
+  makeMod,
   // Profile Action Creators
   getProfiles,
   getProfile,
