@@ -340,6 +340,7 @@ class Profile extends Component {
   by mapping through our data received and choosing what properties we want to display with our profile parameter*/
   render() {
     /*Profile data for user profile*/
+    console.log(this.props)
     const usernameForProfile = this.props.profile[0].username; 
     const bio  = this.props.profile[0].bio ?  this.props.profile[0].bio : ""; 
     const twitter = this.props.profile[0].twitter ? this.props.profile[0].twitter : ""; 
@@ -404,7 +405,7 @@ class Profile extends Component {
               </div>
               <br/>
               <div>
-                <input type="search" name = "friendSearch" placeholder = "find a new friend"></input>
+                
                 <SearchContainer>
                   <Search showSearch={this.props.showSearch} scrollTo={this.props.scrollTo} pathname={this.props.pathname} goTo={this.props.goTo} toggleSearch={this.props.toggleSearch} />
                 </SearchContainer>
