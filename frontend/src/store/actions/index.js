@@ -112,6 +112,7 @@ import {
   addTeamDiscussion,
   editDiscussion,
   removeDiscussion,
+  updateDiscussionWithImage
 } from './DiscussionsActions.js';
 
 import {
@@ -609,6 +610,7 @@ export {
   addTeamDiscussion,
   editDiscussion,
   removeDiscussion,
+  updateDiscussionWithImage,
 
   // Discussion Vote Action Creators
   handleDiscussionVote,

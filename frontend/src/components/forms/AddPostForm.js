@@ -13,6 +13,9 @@ import { Avatar } from "../index.js";
 // action creators
 import { addPost, uploadImage, updatePostWithImage, removeUpload } from "../../store/actions/index.js";
 
+// components
+import { UploadImage } from '../index.js';
+
 const AddPostFormWrapper = styled.form`
   width: 80%;
   padding: 10px;
@@ -96,17 +99,7 @@ class AddPostForm extends Component {
 			setTimeout(() => handleFilterChange(), 200);
 		}
   };
-
-  handleImageSubmit = e => {
-		e.preventDefault();
-		const { uploadImage } = this.props;
-		const imageFile = e.target.previousSibling.files[0];
-		const imageData = new FormData();
-    imageData.append('imageFile', imageFile);
-    
-    return uploadImage(imageData);
-	};
-	handleInputChange = e => {
+  handleFileChange = e => {
 		if (e.target.files.length) {
       const { name } = e.target.files[0];
 			return this.setState({ name });
@@ -150,13 +143,7 @@ class AddPostForm extends Component {
           <button className="submit-btn" type="submit">
             Post comment
           </button>
-          <input
-            type = 'file'
-            name = 'image-file'
-            id = 'image-file'
-            onChange = { this.handleInputChange }
-          />
-          <button onClick={ this.handleImageSubmit }>Upload</button>
+          <UploadImage handleFileChange={this.handleFileChange}/>
         </UserActions>
       </AddPostFormWrapper>
     );

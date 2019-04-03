@@ -7,6 +7,9 @@ import { Avatar } from '../index.js';
 // action creators
 import { addReply, uploadImage, updateReplyWithImage, removeUpload } from '../../store/actions/index.js';
 
+// components 
+import { UploadImage } from '../index.js';
+
 //Style
 const AddReplyFormWrapper = styled.form`
 	width: 80%;
@@ -171,16 +174,7 @@ class AddReplyForm extends Component {
 			setTimeout(() => handleFilterChange(), 200);
 		}
 	};
-	handleImageSubmit = e => {
-		e.preventDefault();
-		const { uploadImage } = this.props;
-		const imageFile = e.target.previousSibling.files[0];
-		const imageData = new FormData();
-    imageData.append('imageFile', imageFile);
-    
-    return uploadImage(imageData);
-	};
-	handleInputChange = e => {
+	handleFileChange = e => {
 		if (e.target.files.length) {
       const { name } = e.target.files[0];
 			return this.setState({ name });
@@ -220,13 +214,7 @@ class AddReplyForm extends Component {
 						</Link>
 					</div>
 					<button type = 'submit'>Post Reply</button>	
-					<input
-            type = 'file'
-            name = 'image-file'
-            id = 'image-file'
-            onChange = { this.handleInputChange }
-          />
-          <button onClick={ this.handleImageSubmit }>Upload</button>
+					<UploadImage handleFileChange={this.handleFileChange}/>
 				</UserActions>
 			</AddReplyFormWrapper>
 		)
