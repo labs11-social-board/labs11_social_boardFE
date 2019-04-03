@@ -8,6 +8,7 @@ import { spinner2 } from '../assets/index.js';
 
 //action creators 
 import { getUsers, displayError } from '../store/actions/index.js'; 
+import { SearchCatResult } from './index.js';
 
 /*Styled Components*/
 
@@ -206,16 +207,19 @@ class UserSearch extends Component {
     }
 
     searchUsers = () => {
-
+      console.log("Searching for users");
     }
 
-    handleInputChange = () => {
-
+    handleInputChange = (event) => {
+      this.setState({[event.target.name] : event.target.value, searchResults : []}, () => {
+        this.searchUsers()
+      });
     }
 
     render() {
         const { showSearch, pathname, scrollTo } = this.props;
         const {searchBy, searchText, searchResults, loading} = this.state;  
+        return (
         <SearchBox>
             <div className="search-input-wrapper">
               <span className="fa fa-search"></span>
@@ -263,8 +267,27 @@ class UserSearch extends Component {
                  </label>
 
                </div>
-             </div>
-            }
-        </SearchBox>
+               <p className = "results-length">
+               {searchResults.length} result{searchResults.length > 1 && 's'}
+               </p>
+               <div className="results">
+                 {
+                     loading ? 
+                     <img src = { spinner2 } alt = "spinner" /> : 
+                     searchResults.length ? 
+                     searchResults.map((result, i) => {
+                        return <SearchCatResult 
+                            key = { i } 
+                            user = {result}
+                         />
+                     }) : null
+                 }
+               </div>
+
+
+             </div>}
+        </SearchBox>)
     }
 }
+
+export default connect(null, {getUsers, displayError})(UserSearch);

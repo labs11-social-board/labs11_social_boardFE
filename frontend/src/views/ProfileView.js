@@ -11,7 +11,7 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import moment from 'moment';
 import "react-tabs/style/react-tabs.css";
 
-import { Search } from '../components/index.js';
+import { Search, UserSearch } from '../components/index.js';
 // components
 import { Avatar, Deleted } from '../components/index.js';
 
@@ -407,7 +407,7 @@ class Profile extends Component {
               <div>
                 
                 <SearchContainer>
-                  <Search showSearch={this.props.showSearch} scrollTo={this.props.scrollTo} pathname={this.props.pathname} goTo={this.props.goTo} toggleSearch={this.props.toggleSearch} />
+                  <UserSearch showSearch={this.props.showSearch} scrollTo={this.props.scrollTo} pathname={this.props.pathname} goTo={this.props.goTo} toggleSearch={this.props.toggleSearch} />
                 </SearchContainer>
                 <p style = {{cursor:"pointer", textDecoration: "underline"}} onClick = {this.handleEmailInput}>Invite a friend</p>
               </div>
