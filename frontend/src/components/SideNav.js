@@ -400,7 +400,6 @@ class SideNav extends Component {
   toggleFollowedCats = () => {
     this.setState({ isFollowedCatsOpen: !this.state.isFollowedCatsOpen })
   }
-
   render() {
     const { user_type } = this.props;
 
