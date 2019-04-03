@@ -119,9 +119,44 @@ export const EDIT_USER_FAILURE = 'EDIT_USER_FAILURE';
 
 export const TOGGLE_THEME = 'TOGGLE_THEME';
 
+export const SENDING_INVITE = 'SENDING_INVITE'; 
+export const SENDING_INVITE_SUCCESSFUL = 'SENDING_INVITE_SUCCESSFUL';
+export const SENDING_INVITE_FAILURE = 'SENDING_INVITE_FAILURE'; 
+export const GET_USERS_LOADING = 'GET_USERS_LOADING';
+export const GET_USERS_SUCCESS = 'GET_USERS_SUCCESS';
+export const GET_USERS_FAILURE = 'GET_USERS_FAILURE';
+
+export const GET_USERSnMODS_LOADING = 'GET_USERSnMODS_LOADING';
+export const GET_USERSnMODS_SUCCESS = 'GET_USERSnMODS_SUCCESS';
+export const GET_USERSnMODS_FAILURE = 'GET_USERSnMODS_FAILURE';
+
 /***************************************************************************************************
  ****************************************** Action Creators ****************************************
  **************************************************************************************************/
+
+export const getUsersNMods = () => dispatch => {
+  dispatch({ type: GET_USERSnMODS_LOADING });
+  return axios
+    .get(`${backendUrl}/moderators`)
+    
+    .then(res => dispatch(
+      
+      {
+       type: GET_USERSnMODS_SUCCESS, payload: res.data
+       
+      }))
+    
+    .catch(err => handleError(err, GET_USERSnMODS_FAILURE)(dispatch));
+}
+
+export const getUsers = () => dispatch => {
+  dispatch({ type: GET_USERS_LOADING });
+  return axios
+    .get(`${backendUrl}/users`)
+    .then(res => dispatch({ type: GET_USERS_SUCCESS, payload: res.data }))
+    .catch(err => handleError(err, GET_USERS_FAILURE)(dispatch));
+}
+
 export const login = creds => dispatch => {
   dispatch({ type: USER_LOGIN_LOADING });
   return axios
@@ -409,6 +444,23 @@ export const resetPassword = (password, token) => dispatch => {
     })
     .catch(err => handleError(err, RESET_PASSWORD_FAILURE)(dispatch));
 };
+
+export const inviteFriend = (email) => dispatch => {
+  const token = localStorage.getItem("symposium_token");
+  const headers = { headers : { Authorization: token } };
+  dispatch({type : SENDING_INVITE});
+  const body = { email }; 
+  return axios 
+    .post(`${backendUrl}/users/invite`, body, headers)
+    .then(response => {
+      return dispatch({
+        type: SENDING_INVITE_SUCCESSFUL
+      });
+    })
+    .catch(err => handleError(err, SENDING_INVITE_FAILURE)(dispatch));
+}
+
+
 
 export const deleteAccount = () => dispatch => {
   const user_id = localStorage.getItem('symposium_user_id');

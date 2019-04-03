@@ -81,15 +81,15 @@ class AddPostForm extends Component {
 	handleSubmit = e => {
 		e.preventDefault();
 		const { postBody } = this.state;
-		const { discussion_id, historyPush, team_id,handleTeamFilter, handleFilterChange, toggleAddPostForm } = this.props;
-		this.props.addPost(discussion_id, postBody, historyPush);
+		const { discussion_id, team_id, handleTeamFilter, handleFilterChange, toggleAddPostForm } = this.props;
+		this.props.addPost(discussion_id, postBody, team_id);
 		
 		if(team_id){
-			handleTeamFilter();
+      toggleAddPostForm();
+      setTimeout(() => handleTeamFilter(), 200);
+    	} else {
 			toggleAddPostForm();
-		} else {
-			handleFilterChange();
-			toggleAddPostForm();
+			setTimeout(() => handleFilterChange(), 200);
 		}
 	};
 	

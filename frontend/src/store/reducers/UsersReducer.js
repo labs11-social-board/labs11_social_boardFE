@@ -86,9 +86,21 @@ import {
   EDIT_SIGNATURE_FAILURE,
 
   TOGGLE_THEME,
+  //invites
+  SENDING_INVITE,
+  SENDING_INVITE_FAILURE,
+  SENDING_INVITE_SUCCESSFUL,
+  inviteFriend,
+  GET_USERS_LOADING,
+  GET_USERS_SUCCESS,
+  GET_USERSnMODS_LOADING,
+  GET_USERSnMODS_SUCCESS,
+  GET_USERSnMODS_FAILURE
 } from '../actions/index.js';
 
 const initialState = {
+  users: [],
+  usersNmods: [],
   user_id: 0,
   avatar: null,
   username: '',
@@ -115,6 +127,7 @@ const initialState = {
   signature: null,
   stripePaymentInfo: [],
   isDay: true,
+  isGettingUsers: false
 };
 
 export const UsersReducer = (state = initialState, action) => {
@@ -364,6 +377,39 @@ export const UsersReducer = (state = initialState, action) => {
         ...state,
         signature: action.payload.signature,
       };
+    
+    case GET_USERS_LOADING:
+      return {
+        ...state,
+        isGettingUsers: true
+      };
+
+    case GET_USERS_SUCCESS: 
+      return {
+        ...state,
+        isGettingUsers: false,
+        users: action.payload
+      };
+
+      case GET_USERSnMODS_LOADING:
+      return {
+        ...state,
+        isGettingUsers: true
+      };
+
+    case GET_USERSnMODS_SUCCESS: 
+      return {
+        ...state,
+        isGettingUsers: false,
+        usersNmods: action.payload
+      };
+
+    case GET_USERSnMODS_FAILURE: 
+      return {
+        ...state,
+        isGettingUsers: false,
+        
+      };
 
     case CHANGE_USER_TYPE_LOADING:
     case CHANGE_USER_TYPE_FAILURE:
@@ -396,6 +442,10 @@ export const UsersReducer = (state = initialState, action) => {
     case EDIT_USER_LOADING:
     case EDIT_USER_SUCCESS:
     case EDIT_USER_FAILURE:
+    case SENDING_INVITE:
+    case SENDING_INVITE_FAILURE:
+    case SENDING_INVITE_SUCCESSFUL:
+  
     default:
       return state;
   }

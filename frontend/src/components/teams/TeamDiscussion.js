@@ -350,6 +350,7 @@ class TeamDiscussion extends Component {
                   historyPush={historyPush}
                   repliedPost={posts.find(post => post.id === showAddReplyForm)}
                   handleTeamFilter={this.handleTeamFilter}
+                  team_id = { team_id }
                   scrollTo={scrollTo}
                 />
               </Posts> : null}

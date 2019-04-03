@@ -3,16 +3,20 @@ import {
   GET_TEAMS_SUCCESS,
   GET_TEAM_DISCUSSIONS_LOADING,
   GET_TEAM_DISCUSSIONS_SUCCESS,
-  IS_TEAM,
-  RESET_IS_TEAM,
   GET_TEAM_DISCUSSION_POSTS_LOADING,
-  GET_TEAM_DISCUSSION_POSTS_SUCCESS
+  GET_TEAM_DISCUSSION_POSTS_SUCCESS,
+  JOIN_TEAM_SUCCESS,
+  GET_TEAM_MEMBERS_SUCCESS,
+  LEAVE_TEAM_SUCCESS,
+  UPDATE_TEAM_SUCCESS
 } from '../actions/index.js';
 
 const initialState = {
   teams: [],
   teamDiscussions: [],
   posts: [],
+  userTeams: [],
+  team_members: [],
   isGettingTeams: false,
   isGettingTeamDiscussions: false,
   isGettingPosts: false,
@@ -47,18 +51,6 @@ export const TeamsReducer = (state = initialState, action) => {
         teamDiscussions: action.payload
       };
     
-    case IS_TEAM: 
-      return {
-        ...state,
-        isTeam: true
-      };
-    
-    case RESET_IS_TEAM:
-      return {
-        ...state,
-        isTeam: false
-      };
-    
     case GET_TEAM_DISCUSSION_POSTS_LOADING: 
       return {
         ...state,
@@ -70,7 +62,31 @@ export const TeamsReducer = (state = initialState, action) => {
         ...state,
         isGettingPosts: false,
         posts: action.payload
-      }
+      };
+    
+    case JOIN_TEAM_SUCCESS: 
+      return {
+        ...state,
+        team_members: action.payload
+      };
+
+    case GET_TEAM_MEMBERS_SUCCESS:
+      return {
+        ...state,
+        team_members: action.payload
+      };
+    
+    case LEAVE_TEAM_SUCCESS: 
+      return {
+        ...state,
+        team_members: action.payload.team_members
+      };
+    
+    case UPDATE_TEAM_SUCCESS:
+      return {
+        ...state,
+      };
+      
     default : 
       return state;
   };

@@ -167,7 +167,7 @@ const DivTeamInfo = styled.div`
  ********************************************* Component *******************************************
  **************************************************************************************************/
 const Team = ({ team, history }) => {
-  const { id, team_name, created_at} = team;
+  const { id, team_name, created_at, discussion_count, post_count} = team;
   // const latestPostBodyElipsis = (latest_post_body) ? `${latest_post_body.slice(0, 25)}...` : 'none';
   const goToTeam = (ev) => {
     ev.preventDefault();
@@ -201,9 +201,9 @@ const Team = ({ team, history }) => {
             /> */}
           </div>
           <DivTeamInfo>
-            <p><span>Created:</span>&nbsp;{moment(new Date(Number(created_at))).fromNow()}</p>
-            {/* <p><span>Discussions:</span>&nbsp;{discussion_count || 0}</p> */}
-            {/* {(post_count) ? <p><span>Posts:</span>&nbsp;{post_count}</p> : <p><span>Posts:</span>&nbsp;0</p>} */}
+            <p><span>Created:</span>&nbsp;{moment(new Date(created_at)).fromNow()}</p>
+            <p><span>Discussions:</span>&nbsp;{discussion_count || 0}</p>
+            {(post_count) ? <p><span>Posts:</span>&nbsp;{post_count}</p> : <p><span>Posts:</span>&nbsp;0</p>}
             {/* <p className = 'moderator-wrapper'><span>Moderator:</span>&nbsp;<span className = 'moderator black-on-hover' onClick={(ev) => profileSuperModerator(ev)}>{user_username}</span></p> */}
             {/* {(latest_post_body) ? <p className = 'latest-wrapper'><span>Latest post:</span>&nbsp;(<span className='span-moment'>{moment(new Date(Number(latest_post_created_at))).fromNow()}</span>)&nbsp;<span className = 'latest black-on-hover' onClick={(ev) => lastPost(ev)}>{latestPostBodyElipsis}</span></p> : <p className = 'latest-wrapper'><span>Latest post:</span>&nbsp;None</p>} */}
           </DivTeamInfo>
