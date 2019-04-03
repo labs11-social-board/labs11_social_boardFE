@@ -5,7 +5,12 @@ import { scroller } from 'react-scroll';
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
 
 // globals
-import { dayTheme, nightTheme, sideNavWidth, topHeaderHeight } from './globals/globals.js';
+import {
+  dayTheme,
+  nightTheme,
+  sideNavWidth,
+  topHeaderHeight
+} from './globals/globals.js';
 
 // components
 import {
@@ -43,7 +48,11 @@ import {
 } from './views/index.js';
 
 // action creators
-import { logBackIn, markNotificationsAsRead, toggleTheme } from './store/actions/index.js';
+import {
+  logBackIn,
+  markNotificationsAsRead,
+  toggleTheme
+} from './store/actions/index.js';
 
 const GlobalStyle = createGlobalStyle`
   html,
@@ -77,14 +86,16 @@ const AppWrapper = styled.div`
 const DivBody = styled.div`
   display: flex;
   flex-direction: row;
-  width: ${props => props.isLoggedIn ? 'calc(100% - ' + sideNavWidth + ')' : '100%'};
+  width: ${props =>
+    props.isLoggedIn ? 'calc(100% - ' + sideNavWidth + ')' : '100%'};
   min-height: 100%;
   flex-grow: 1;
   justify-content: center;
   align-items: flex-start;
-  margin: ${props => props.isLoggedIn ? '0 0 40px ' + sideNavWidth : '0 0 40px 0'}  ;
+  margin: ${props =>
+    props.isLoggedIn ? '0 0 40px ' + sideNavWidth : '0 0 40px 0'};
 
-  @media(max-width: 800px) {
+  @media (max-width: 800px) {
     width: 100%;
     margin: 0 0 40px 0;
     flex-direction: column;
@@ -93,7 +104,7 @@ const DivBody = styled.div`
 `;
 
 const DivSideNav = styled.div`
-  display: ${props => props.isLoggedIn ? 'flex' : 'none'};
+  display: ${props => (props.isLoggedIn ? 'flex' : 'none')};
   width: ${sideNavWidth};
   min-height: 100%;
   position: fixed;
@@ -104,7 +115,7 @@ const DivSideNav = styled.div`
   border-right: 2px solid rgb(243, 245, 248);
   height: 100%;
 
-  @media(max-width: 800px) {
+  @media (max-width: 800px) {
     position: relative;
     height: auto;
     width: 99.9%;
@@ -146,44 +157,48 @@ class App extends Component {
   switchTheme = () => {
     // Toggle day / night on click
     const { toggleTheme } = this.props;
-    return toggleTheme().then(() => this.setState({ theme: this.props.isDay ? dayTheme : nightTheme }));
-  }
+    return toggleTheme().then(() =>
+      this.setState({ theme: this.props.isDay ? dayTheme : nightTheme })
+    );
+  };
 
   setLoginDropdownModalRaised = (ev, status) => {
     ev.stopPropagation();
     this.setState({ isLoginDropdownModalRaised: status });
-  }
+  };
 
   toggleRegisterModal = ev => {
     ev.stopPropagation();
     this.setState({ showRegisterModal: !this.state.showRegisterModal });
-  }
+  };
 
   setAvatarModalRaised = (ev, status) => {
     ev.stopPropagation();
     this.setState({ isAvatarModalRaised: status });
-  }
+  };
 
   setNotificationsModalRaised = (ev, status) => {
     ev.stopPropagation();
-    this.setState({ isNotificationsModalRaised: status },
-      () => this.props.newNotifications && this.props.markNotificationsAsRead());
-  }
+    this.setState(
+      { isNotificationsModalRaised: status },
+      () => this.props.newNotifications && this.props.markNotificationsAsRead()
+    );
+  };
 
   setChangeSubModalRaised = (ev, status) => {
-    (ev) && ev.stopPropagation();
+    ev && ev.stopPropagation();
     this.setState({ isChangeSubModalRaised: status });
-  }
+  };
 
   setAddCatModalRaised = (ev, status) => {
     ev.stopPropagation();
     this.setState({ isAddCatModalRaised: status });
-  }
+  };
 
   setAddTeamModalRaised = (ev, status) => {
     ev.stopPropagation();
     this.setState({ isAddTeamModalRaised: status });
-  }
+  };
 
   setEditProfileModalRaised = (ev, status) => {
     ev.stopPropagation();
@@ -191,12 +206,16 @@ class App extends Component {
   }
 
   toggleSearch = () => this.setState({ showSearch: !this.state.showSearch });
+
   isAuthenticated() {
     // check whether the current time is past the access token's expiry time
     const expiresAt = localStorage.getItem('symposium_auth0_expires_at');
     return new Date().getTime() < expiresAt;
-  };
-  goTo = async url => await this.setState({ showSearch: false }, () => this.props.history.push(url));
+  }
+  goTo = async url =>
+    await this.setState({ showSearch: false }, () =>
+      this.props.history.push(url)
+    );
   scrollTo = id => {
     if (id || this.props.location.hash.substring(1)) {
       return scroller.scrollTo(id || this.props.location.hash.substring(1), {
@@ -212,33 +231,67 @@ class App extends Component {
     const token = localStorage.getItem('symposium_token');
     window.addEventListener('hashchange', this.handleHashChange, false);
     if (user_id && token) return this.props.logBackIn(user_id, token);
-  };
+  }
   componentDidUpdate(prevProps) {
-    if (prevProps.location.hash.substring(1) !== this.props.location.hash.substring(1)) {
+    if (this.props.error.includes('expired')) {
+      localStorage.clear();
+    }
+    if (
+      prevProps.location.hash.substring(1) !==
+      this.props.location.hash.substring(1)
+    ) {
       return this.scrollTo();
     }
-  };
+  }
   componentWillUnmount() {
     window.removeEventListener('hashchange', this.handleHashChange, false);
-  };
+  }
 
   render() {
     const { showSearch } = this.state;
     const { error, history, message, location, isDay } = this.props;
     if (this.isAuthenticated() || localStorage.getItem('symposium_user_id')) {
-      if ((this.isAuthenticated() || localStorage.getItem('symposium_user_id'))) {
-      }
       return (
         <ThemeProvider theme={this.state.theme}>
           <AppWrapper isDay={isDay}>
             <GlobalStyle />
-            <Header showSearch={showSearch} scrollTo={this.scrollTo} pathname={location.pathname} goTo={this.goTo} isDay={isDay} history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch} switched={this.switchTheme} isLoginDropdownModalRaised={this.state.isLoginDropdownModalRaised} setLoginDropdownModalRaised={this.setLoginDropdownModalRaised} isAvatarModalRaised={this.state.isAvatarModalRaised} setAvatarModalRaised={this.setAvatarModalRaised} isNotificationsModalRaised={this.state.isNotificationsModalRaised} setNotificationsModalRaised={this.setNotificationsModalRaised} />
-            <AvatarDropdown history={history} isAvatarModalRaised={this.state.isAvatarModalRaised} setAvatarModalRaised={this.setAvatarModalRaised} />
-            <Notifications history={history} isNotificationsModalRaised={this.state.isNotificationsModalRaised} setNotificationsModalRaised={this.setNotificationsModalRaised} />
-            <ChangeSubscriptionModal isChangeSubModalRaised={this.state.isChangeSubModalRaised} setChangeSubModalRaised={this.setChangeSubModalRaised} />
+            <Header
+              showSearch={showSearch}
+              scrollTo={this.scrollTo}
+              pathname={location.pathname}
+              goTo={this.goTo}
+              isDay={isDay}
+              history={history}
+              isAuthenticated={this.isAuthenticated}
+              toggleSearch={this.toggleSearch}
+              switched={this.switchTheme}
+              isLoginDropdownModalRaised={this.state.isLoginDropdownModalRaised}
+              setLoginDropdownModalRaised={this.setLoginDropdownModalRaised}
+              isAvatarModalRaised={this.state.isAvatarModalRaised}
+              setAvatarModalRaised={this.setAvatarModalRaised}
+              isNotificationsModalRaised={this.state.isNotificationsModalRaised}
+              setNotificationsModalRaised={this.setNotificationsModalRaised}
+            />
+            <AvatarDropdown
+              history={history}
+              isAvatarModalRaised={this.state.isAvatarModalRaised}
+              setAvatarModalRaised={this.setAvatarModalRaised}
+            />
+            <Notifications
+              history={history}
+              isNotificationsModalRaised={this.state.isNotificationsModalRaised}
+              setNotificationsModalRaised={this.setNotificationsModalRaised}
+            />
+            <ChangeSubscriptionModal
+              isChangeSubModalRaised={this.state.isChangeSubModalRaised}
+              setChangeSubModalRaised={this.setChangeSubModalRaised}
+            />
             <DivBody isLoggedIn>
               <DivSideNav isLoggedIn>
-                <SideNav setAddCatModalRaised={this.setAddCatModalRaised} setAddTeamModalRaised={this.setAddTeamModalRaised}/>
+                <SideNav
+                  setAddCatModalRaised={this.setAddCatModalRaised}
+                  setAddTeamModalRaised={this.setAddTeamModalRaised}
+                />
               </DivSideNav>
               <DivPage>
                 {(this.state.isAddCatModalRaised) && <AddCategoryModal history={history} historyPush={this.props.history.push} pathname={location.pathname} isAuthenticated={this.isAuthenticated} setAddCatModalRaised={this.setAddCatModalRaised} />}
@@ -258,7 +311,10 @@ class App extends Component {
                 <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} />
               </DivPage>
             </DivBody>
-            <Footer toggleSearch={this.toggleSearch} switched={this.switchTheme} />
+            <Footer
+              toggleSearch={this.toggleSearch}
+              switched={this.switchTheme}
+            />
             {error && <Error error={error} />}
             {message && <Message message={message} />}
           </AppWrapper>
@@ -295,13 +351,13 @@ class App extends Component {
       );
     }
   }
-};
+}
 
 const mapStateToProps = state => ({
   error: state.users.error,
   message: state.users.message,
   newNotifications: state.users.newNotifications,
-  isDay: state.users.isDay,
+  isDay: state.users.isDay
 });
 
 export default connect(
