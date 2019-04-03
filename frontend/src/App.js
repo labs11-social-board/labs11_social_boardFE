@@ -50,11 +50,7 @@ import {
 // action creators
 import { logBackIn, markNotificationsAsRead, toggleTheme } from './store/actions/index.js';
 import EditProfileModal from './components/profile/EditProfileModal.js';
-import {
-  logBackIn,
-  markNotificationsAsRead,
-  toggleTheme
-} from './store/actions/index.js';
+
 
 const GlobalStyle = createGlobalStyle`
   html,
