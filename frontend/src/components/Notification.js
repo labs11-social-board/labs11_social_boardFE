@@ -51,6 +51,8 @@ const Notification = ({ notification, goTo, removeNotification }) => {
     discussion_id,
     post_id,
     reply_id,
+    team_id,
+    team_name
     // created_at
   } = notification;
   let {
@@ -69,23 +71,30 @@ const Notification = ({ notification, goTo, removeNotification }) => {
     reply_body = reply_body.slice(0, maxLengthInNotifications) + '...';
   }
   const handleClick = (ev) => {
-    if (category_id) {
-     return goTo(ev, `/discussion/${discussion_id}`)
+    if(team_id){
+      console.log('running')
+      return goTo(ev, `/team/posts/${discussion_id}`)
     } else {
-      return goTo(ev, `/discussion/${discussion_id}#${post_id}`)
+      if (category_id) {
+        return goTo(ev, `/discussion/${discussion_id}`)
+       } else {
+         return goTo(ev, `/discussion/${discussion_id}#${post_id}`)
+       }
     }
   }
   return (
     <NotificationWrapper onClick = {handleClick}> 
       <i onClick={handleRemove} className='far fa-times-circle remove-btn' />
       {/* <p>New {category_id ? 'post' : reply_id ? 'reply' : 'comment'} added {moment(new Date(Number(created_at))).fromNow()} in</p> */}
-      <p>{category_id ? `/d/${category_name}` : reply_id ? `${post_body}` : `${discussion_body}`}:</p>
+      <p>{team_id ? `/t/${team_name}` : category_id ? `/d/${category_name}` : reply_id ? `${post_body}` : `${discussion_body}`}:</p>
       {
+        team_id ? 
+        <p className='links' >{discussion_body}</p> :
         category_id ?
-          <p className='links' onClick={(ev) => goTo(ev, `/discussion/${discussion_id}`)}>{discussion_body}</p> :
+          <p className='links' >{discussion_body}</p> :
           reply_id ?
-            <p className='links' onClick={(ev) => goTo(ev, `/discussion/${discussion_id}#${post_id}`)}>{reply_body}</p> :
-            <p className='links' onClick={(ev) => goTo(ev, `/discussion/${discussion_id}#${post_id}`)}>{post_body}</p>
+            <p className='links' >{reply_body}</p> :
+            <p className='links' >{post_body}</p>
       }
     </NotificationWrapper>
   );

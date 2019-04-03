@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { followCategory, joinTeam, leaveTeam } from '../store/actions/index.js';
+import { followCategory, joinTeam, leaveTeam, getUsersTeams } from '../store/actions/index.js';
 
 // action creators
 import { displayError } from '../store/actions/index.js';
@@ -51,14 +51,14 @@ class FollowCat extends Component {
         return displayError('You must be logged in to follow a category.');
       }
       if(team_id){
-        return joinTeam(team_id);
+        return joinTeam(team_id).then(() => this.props.getUsersTeams());
       } else {
         return followCategory(category_id, user_id, historyPush, onCategoriesPage);
       }
 	  };
     handleLeaveTeam = e => {
       e.preventDefault();
-      this.props.leaveTeam(this.props.team_id);
+      this.props.leaveTeam(this.props.team_id).then(() => this.props.getUsersTeams());
     }
     conditionalRender = () => {
       const { onCategoriesPage, team_id } = this.props;
@@ -143,5 +143,5 @@ const mapStateToProps = state => ({
     user_id: state.users.user_id
 });
 
-export default connect(mapStateToProps, { followCategory, displayError, joinTeam, leaveTeam })(FollowCat);
+export default connect(mapStateToProps, { followCategory, displayError, joinTeam, leaveTeam, getUsersTeams })(FollowCat);
 
