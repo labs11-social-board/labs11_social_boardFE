@@ -10,11 +10,6 @@ const AvatarWrapper = styled.div`
   background-repeat: no-repeat;
   background-position: center;
   border-radius: 50%;
-
-  @media (max-width: 500px){
-    height: 55px;
-    width: 60px;
-  }
 `;
 
 const Avatar = ({ height, width, src }) => {
