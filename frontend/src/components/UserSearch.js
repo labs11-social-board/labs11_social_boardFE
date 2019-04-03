@@ -212,7 +212,7 @@ class UserSearch extends Component {
       console.log(this.props);
       const searchResults = []; 
       const { searchText, searchBy } = this.state; 
-      if(this.props.searchForUser){
+      if(this.props.searchForUser && searchText.length > 0){
           for(let user of this.props.searchForUser){
               const emailBrokenDown = user.email.split("@");// creates an array
               const email = emailBrokenDown[0]; //grab first out the array
@@ -298,6 +298,9 @@ class UserSearch extends Component {
                      searchResults.map((result, i) => {
                         return <SearchCatResult 
                             key = { i } 
+                            searchText = { searchText }
+                            id = {result.id}
+                            goTo = { this.goTo }
                             user = {result.username}
                          />
                      }) : null
