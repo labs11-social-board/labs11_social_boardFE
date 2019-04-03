@@ -126,9 +126,23 @@ export const GET_USERS_LOADING = 'GET_USERS_LOADING';
 export const GET_USERS_SUCCESS = 'GET_USERS_SUCCESS';
 export const GET_USERS_FAILURE = 'GET_USERS_FAILURE';
 
+export const GET_USERSnMODS_LOADING = 'GET_USERSnMODS_LOADING';
+export const GET_USERSnMODS_SUCCESS = 'GET_USERSnMODS_SUCCESS';
+export const GET_USERSnMODS_FAILURE = 'GET_USERSnMODS_FAILURE';
+
 /***************************************************************************************************
  ****************************************** Action Creators ****************************************
  **************************************************************************************************/
+
+export const getUsersNMods = () => dispatch => {
+  dispatch({ type: GET_USERSnMODS_LOADING });
+  return axios
+    .get(`${backendUrl}/moderators`)
+    .then(res => dispatch({
+       type: GET_USERSnMODS_SUCCESS, payload: res.data
+      }))
+    .catch(err => handleError(err, GET_USERSnMODS_FAILURE)(dispatch));
+}
 
 export const getUsers = () => dispatch => {
   dispatch({ type: GET_USERS_LOADING });
@@ -137,6 +151,7 @@ export const getUsers = () => dispatch => {
     .then(res => dispatch({ type: GET_USERS_SUCCESS, payload: res.data }))
     .catch(err => handleError(err, GET_USERS_FAILURE)(dispatch));
 }
+
 export const login = creds => dispatch => {
   dispatch({ type: USER_LOGIN_LOADING });
   return axios
