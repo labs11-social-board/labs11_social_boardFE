@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import { connect } from "react-redux";
 import Users from './Users';
 
+import ApproveEmailForm from '../components/forms/ApproveEmailForm';
+
 const MainWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -70,11 +72,7 @@ class Admin extends React.Component {
 
                         <InnerWrapper>
                             <Boxed>
-                            <h4>Add Emails</h4>
-                            <p>Welcome to the admin page. Welcome to the admin page. Welcome to the admin page. Welcome to the admin page. 
-                            Welcome to the admin page. Welcome to the admin page. Welcome to the admin page. Welcome to the admin page. 
-                            Welcome to the admin page. Welcome to the admin page. Welcome to the admin page. Welcome to the admin page. 
-                            </p>
+                                <ApproveEmailForm/>
                             </Boxed>
                             <Boxed>
                             <h4>Allowed E-Mails List</h4>
