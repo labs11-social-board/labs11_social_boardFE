@@ -44,6 +44,12 @@ const DivModal = styled.div`
   box-sizing: border-box;
   width: 590px;
 
+  @media (max-width: 500px){
+    width: 95%;
+    height: 76%;
+    flex-direction: row;
+  }
+
   .btn {
     margin-left: 10px;
     padding: 10px 15px;
@@ -99,6 +105,7 @@ const FormContent = styled.form`
     align-items: center;
     flex-direction: column;
     margin-bottom: ${topHeaderHeight};
+    flex-wrap: nowrap;
   }
 `;
 
@@ -118,7 +125,6 @@ const DivRight = styled.div`
 
   @media ${phoneL} {
     width: 100%;
-    height: 60%;
     justify-content: center;
     align-items: center;
   }
@@ -138,6 +144,10 @@ const DivName = styled.div`
 
   input[type=text]{
     margin: 0 24% 0 2%;
+
+    @media (max-width: 500px){
+      margin: 0 14% 0 2%;
+    }
   }
 
   textarea {
@@ -149,8 +159,7 @@ const DivName = styled.div`
 
   @media ${phoneL} {
     display: flex;
-    height: 20%;
-    width: 80%;
+    width: 100%;
   }
 `;
 
