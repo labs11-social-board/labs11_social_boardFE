@@ -26,6 +26,7 @@ const PostWrapper = styled.div`
   flex-direction: column;
   width: 100%;
   font-size: 16px;
+  overflow-wrap: break-word;
 
   .title {
     margin-top: 30px;

@@ -8,7 +8,8 @@ import { Link } from "react-router-dom";
 // import Parser from 'html-react-parser';
 import { Avatar } from "../index.js";
 
-// import { appBgColor } from '../../globals/globals.js'
+// globals
+import { phoneP } from '../../globals/globals.js';
 
 // action creators
 import { addPost, uploadImage, updatePostWithImage, removeUpload } from "../../store/actions/index.js";
@@ -21,7 +22,7 @@ const AddPostFormWrapper = styled.form`
   padding: 10px;
   color: ${props => props.theme.discussionPostColor};
 
-  @media (max-width: 500px){
+  @media ${phoneP}{
     margin-left: 6%;
   }
 
@@ -57,7 +58,7 @@ const UserActions = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  @media (max-width: 500px){
+  @media ${phoneP}{
     flex-direction: column;
     height: 18vh;
 
@@ -97,19 +98,17 @@ class AddPostForm extends Component {
   handleSubmit = e => {
     e.preventDefault();
     const { postBody } = this.state;
-    const {
-      discussion_id,
-      team_id,
-      handleTeamFilter,
-      handleFilterChange,
-      toggleAddPostForm
-    } = this.props;
-   const imageFile = e.target[2].files[0];
+    const { discussion_id, team_id, handleTeamFilter, handleFilterChange, toggleAddPostForm, updatePostWithImage, image } = this.props;
+
+    const imageFile = e.target[2].files[0];
     const imageData = new FormData();
     imageData.append("imageFile", imageFile);
     
-    this.props.addPost(discussion_id, postBody, team_id, imageData);
-    console.log("image", imageData)
+    this.props.addPost(discussion_id, postBody, team_id, imageData).then( res => {
+      if(this.state.name){
+        updatePostWithImage(image[0], res.payload[0])
+       }
+    });
     if (team_id) {
       toggleAddPostForm();
       setTimeout(() => handleTeamFilter(), 200);
@@ -127,6 +126,23 @@ class AddPostForm extends Component {
     }
     return this.setState({ image: "" });
   };
+
+  handleExit = e => {
+    e.preventDefault();
+    this.props.toggleAddPostForm();
+    if(this.state.name){
+			this.props.removeUpload(this.props.image[0])
+		}
+  }
+
+  handleFileChange = e => {
+		if (e.target.files.length) {
+      const { name } = e.target.files[0];
+			return this.setState({ name });
+		}
+		return this.setState({ name: '' });
+  };
+
   render() {
     const { postBody } = this.state;
     const { username, user_id, avatar } = this.props;
@@ -159,13 +175,7 @@ class AddPostForm extends Component {
           <button className="submit-btn" type="submit">
             Post comment
           </button>
-          <input
-            type="file"
-            name="image-file"
-            id="image-file"
-            onChange={this.handleInputChange}
-          />
-          <button onClick={this.uploadHandler}>Upload</button>
+          <UploadImage handleFileChange={this.handleFileChange}/>
         </UserActions>
       </AddPostFormWrapper>
     );

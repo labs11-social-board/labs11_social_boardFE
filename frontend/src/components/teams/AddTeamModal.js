@@ -8,7 +8,7 @@ import { addTeam, getUsersTeams } from '../../store/actions/index.js';
 // components 
 import { ToggleSwitch } from '../index.js';
 // globals
-import { phoneL, topHeaderHeight } from '../../globals/globals.js';
+import { topHeaderHeight, phoneP } from '../../globals/globals.js';
 
 const ModalBackground = styled.div`
   display: flex;
@@ -44,7 +44,7 @@ const DivModal = styled.div`
   box-sizing: border-box;
   width: 590px;
 
-  @media (max-width: 500px){
+  @media ${phoneP}{
     width: 95%;
     height: 73%;
     flex-direction: row;
@@ -98,7 +98,7 @@ const FormContent = styled.form`
   flex-wrap: wrap;
   flex-direction: column;
 
-  @media ${phoneL} {
+  @media ${phoneP} {
     height: 90%;
     width: 100%;
     justify-content: center;
@@ -123,7 +123,7 @@ const DivRight = styled.div`
   justify-content: center;
   align-items: center;
 
-  @media ${phoneL} {
+  @media ${phoneP} {
     width: 100%;
     justify-content: center;
     align-items: center;
@@ -145,7 +145,7 @@ const DivName = styled.div`
   input[type=text]{
     margin: 0 24% 0 2%;
 
-    @media (max-width: 500px){
+    @media ${phoneP}{
       margin: 0 14% 0 2%;
     }
   }
@@ -157,7 +157,7 @@ const DivName = styled.div`
     margin: 2% 0;
   }
 
-  @media ${phoneL} {
+  @media ${phoneP} {
     display: flex;
     width: 100%;
   }
