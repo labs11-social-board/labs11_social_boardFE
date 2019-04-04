@@ -37,7 +37,7 @@ class ApproveEmailForm extends Component {
 
         return ( 
             <div>
-                <h1>Emails</h1>
+                <h2>Emails</h2>
 
                 <input
                     placeholder = 'First Name'
