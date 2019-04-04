@@ -27,6 +27,7 @@ const SearchUserResultWrapper = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    align-content: center;
 
     i {
       margin-top: 19px;
@@ -41,6 +42,8 @@ const SearchUserResultWrapper = styled.div`
     text-align: center;
     margin-bottom: 5px;
   }
+
+  
 `;
 
 const SearchUserResults = ({ user, id, searchText, goTo }) => {
