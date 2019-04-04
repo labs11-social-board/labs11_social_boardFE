@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
 import {connect} from 'react-redux';
-import {background} from '../assets/index.js';
+import {background, computericon } from '../assets/index.js';
 
 const Woah = styled.section `
   width: 100%;
@@ -40,7 +40,7 @@ const Woah = styled.section `
   display: flex;
   justify-content: center;
   align-text: center;
-  color: lightgtr;
+  color: lightgray;
   @media (max-width: 1240px) {
     width: 100%;
     background-color: white;
@@ -73,10 +73,11 @@ const Woah = styled.section `
   `;
 
     const BottomFiller = styled.section `
+    margin-top: 30px;
     display: flex;
     justify-content: space-evenly
     width: 100%;
-    border-top: 1px solid gray;
+    margin-top: 40px;
     postion: fixed;
     height: 45vh;
   `;
@@ -86,7 +87,6 @@ const Woah = styled.section `
     overflow-wrap: break-word;
     text-align: center;
     width: 100%;
-    border: 1px solid black;
   `;
 
     class NonUserLandingView extends Component {
@@ -103,6 +103,7 @@ const Woah = styled.section `
             </BackgroundBox>
             <BottomFiller>
               <TextBlurb>
+                <img src={computericon} />
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
                   tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis
                   nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
@@ -111,6 +112,7 @@ const Woah = styled.section `
                   sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
               </TextBlurb>
               <TextBlurb>
+                <img src={computericon} />
                 <p>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
                   incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis
@@ -121,6 +123,7 @@ const Woah = styled.section `
                 </p>
               </TextBlurb>
               <TextBlurb>
+                <img src={computericon} />
                 <p>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
                   incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis
