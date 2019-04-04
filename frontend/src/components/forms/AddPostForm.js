@@ -8,7 +8,8 @@ import { Link } from "react-router-dom";
 // import Parser from 'html-react-parser';
 import { Avatar } from "../index.js";
 
-// import { appBgColor } from '../../globals/globals.js'
+// globals
+import { phoneP } from '../../globals/globals.js';
 
 // action creators
 import { addPost, uploadImage, updatePostWithImage, removeUpload } from "../../store/actions/index.js";
@@ -21,7 +22,7 @@ const AddPostFormWrapper = styled.form`
   padding: 10px;
   color: ${props => props.theme.discussionPostColor};
 
-  @media (max-width: 500px){
+  @media ${phoneP}{
     margin-left: 6%;
   }
 
@@ -57,7 +58,7 @@ const UserActions = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  @media (max-width: 500px){
+  @media ${phoneP}{
     flex-direction: column;
     height: 18vh;
 
@@ -127,6 +128,15 @@ class AddPostForm extends Component {
     }
     return this.setState({ image: "" });
   };
+
+  handleExit = e => {
+    e.preventDefault();
+    this.props.toggleAddPostForm();
+    if(this.state.name){
+			this.props.removeUpload(this.props.image[0])
+		}
+  }
+
   render() {
     const { postBody } = this.state;
     const { username, user_id, avatar } = this.props;
