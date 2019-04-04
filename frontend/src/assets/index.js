@@ -13,4 +13,5 @@ export {
 	socrates,
 	landingPageImage1,
 	background,
+	computericon
 };
