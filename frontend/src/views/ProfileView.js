@@ -305,7 +305,9 @@ class Profile extends Component {
     this.props.setEditProfileModalRaised( event, !this.props.isEditProfileModalRaised);
   }
 
-
+  handleEmailInput = event => {
+    this.props.setInviteFriendModalRaised(event, !this.props.isInviteFriendModalRaised);
+  }
 
   /* we use profileItems to manipulate what data is displayed. if the data received from our props is 0,
   profileItems displays our spinner component, however if our props contains a profile we display that profile
@@ -544,6 +546,8 @@ Profile.propTypes = {
   isEditProfileModalRaised : PropTypes.bool.isRequired, 
   toggleSearch : PropTypes.func.isRequired,
   showSearch : PropTypes.bool.isRequired,
+  setInviteFriendModalRaised : PropTypes.func.isRequired, 
+  isInviteFriendModalRaised : PropTypes.bool.isRequired, 
 
   profile: PropTypes.arrayOf(
     PropTypes.shape({

@@ -55,6 +55,7 @@ import {
   toggleTheme
 } from './store/actions/index.js';
 import EditProfileModal from './components/profile/EditProfileModal.js';
+import InviteFriendModal from './components/profile/InviteFriendModal.js';
 
 const GlobalStyle = createGlobalStyle`
   html,
@@ -154,7 +155,8 @@ class App extends Component {
       isAddCatModalRaised: false,
       showRegisterModal: false,
       isAddTeamModalRaised: false,
-      isEditProfileModalRaised: false
+      isEditProfileModalRaised: false,
+      isInviteFriendModalRaised: false,
     };
   }
 
@@ -208,6 +210,10 @@ class App extends Component {
     ev.stopPropagation();
     this.setState({ isEditProfileModalRaised: status });
   };
+  setInviteFriendModalRaised = (ev, status) => {
+    ev.stopPropagation(); 
+    this.setState({ isInviteFriendModalRaised : status});
+  }
 
   toggleSearch = () => this.setState({ showSearch: !this.state.showSearch });
 
@@ -333,12 +339,21 @@ class App extends Component {
                     history={this.props.history}
                   />
                 )}
+                {
+                  this.state.isInviteFriendModalRaised && (
+                    <InviteFriendModal 
+                      setInviteFriendModalRaised = {this.setInviteFriendModalRaised} 
+                      isInviteFriendModalRaised ={this.state.isInviteFriendModalRaised}
+                      history = {this.props.history}
+                    />
+                  )
+                }
                 <Route exact path="/" component={NonUserLandingView} />
                 <Route exact path="/home" component={LandingView} />
                 <Route exact path="/admin" component={Admin} />
                 <Route path="/profiles" component={Profiles} />
                 {/* <Route path='/profile/:id' component={Profile} /> commented out instead of deleted incase I need to change it back J.H*/}
-                <Route path='/profile/:id' render={props => <Profile {...props} setEditProfileModalRaised = {this.setEditProfileModalRaised} isEditProfileModalRaised = {this.state.isEditProfileModalRaised} toggleSearch = {this.userToggleSearch} goTo = {this.userGoTo} history ={this.props.history} showSearch = {this.state.showUsersSearch}/>} />
+                <Route path='/profile/:id' render={props => <Profile {...props} setEditProfileModalRaised = {this.setEditProfileModalRaised} isEditProfileModalRaised = {this.state.isEditProfileModalRaised} toggleSearch = {this.userToggleSearch} goTo = {this.userGoTo} history ={this.props.history} showSearch = {this.state.showUsersSearch} setInviteFriendModalRaised = {this.setInviteFriendModalRaised} isInviteFriendModalRaised ={this.state.isInviteFriendModalRaise}/>} />
                 <Route path='/categories' render={() => <CategoriesView history={history} historyPush={this.props.history.push} setAddCatModalRaised={this.setAddCatModalRaised} isAddCatModalRaised={this.state.isAddCatModalRaised} />} />
                 <Route path='/teams' render={() => <TeamsView history={history} /> } />
                 <Route path='/team/discussions/:team_id' component={TeamBoard} />

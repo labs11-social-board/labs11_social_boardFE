@@ -146,10 +146,11 @@ const DivButtons = styled.div`
     align-self: center;
   }
 `;
-
+//isInviteFriendModalRaised   setInviteFriendModalRaised
 class InviteFriendModal extends React.Component {
     state = {
         email : "",
+        error : "",
     }
 
     handleChange = event => {
@@ -157,12 +158,14 @@ class InviteFriendModal extends React.Component {
         this.setState({ [event.target.name] : event.target.value });
     }
 
-    handleSubmit = event => {
-        event.preventDefault(); 
-
+    handleSubmit =  async (event) => {
+        event.preventDefault();
+        await this.handleEmailInput(); 
+        await this.props.setInviteFriendModalRaised(event, false);
     }
 
     handleEmailInput = () => {
+        this.setState({error : ""});
         const email = this.state.email.slice();
         //If email was not entered return out of function. 
         if (email.length === 0){
@@ -172,10 +175,10 @@ class InviteFriendModal extends React.Component {
         /*if validEmail is false return some type of alert */
         
         if(validEmail === false){
-          alert("Email must feature @ symbol and must end with .com  .net or .edu. Sorry all other emails are currently not supported");
+          this.setState({error : "Email must feature @ symbol and must end with .com  .net or .edu. Sorry all other emails are currently not supported"});
         } else {
-          alert(`Thank you we have invited your friend at ${email}`);
-          inviteFriend(email); 
+          this.props.inviteFriend(email);
+          
         }
       }
     
@@ -191,4 +194,51 @@ class InviteFriendModal extends React.Component {
     
         return false; //Invalid email 
       }
+      render(){
+          const { setInviteFriendModalRaised } = this.props; 
+          const { email, error } = this.state; 
+          return (
+              <ModalBackground>
+                  <DivModalCloser
+                  onClick = {event => setInviteFriendModalRaised(event, false)}
+                  />
+                  <DivModal>
+                      <div className="above-input">
+                        <span className = "back"
+                        onClick = {event => setInviteFriendModalRaised(event, false)}
+                        >
+                          <i className="far fa-arrow-alt-circle-left" />
+                        </span>
+                      </div>
+                      <FormContent onSubmit = {this.handleSubmit}>
+                        <DivRight>
+                            <DivName>
+                                <h4>What's your friends email?</h4>
+                                <h4>{error}</h4>
+                                <input 
+                                  type= "text"
+                                  placeholder= ""
+                                  name = "email"
+                                  value = {email}
+                                  className = "body-input"
+                                  onChange = {this.handleChange}
+                                /> 
+                            </DivName>
+                        </DivRight>
+                        <DivButtons>
+                            <button className="btn" type ="submit">Submit
+                            </button>
+                        </DivButtons>
+                      </FormContent>
+                  </DivModal>
+              </ModalBackground>
+          )
+      }
 }
+
+InviteFriendModal.propTypes = {
+    setInviteFriendModalRaised: PropTypes.func.isRequired,
+    inviteFriend : PropTypes.func.isRequired, 
+}
+
+export default connect(null, { inviteFriend })(InviteFriendModal);
