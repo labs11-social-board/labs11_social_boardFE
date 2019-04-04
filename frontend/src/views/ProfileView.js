@@ -275,8 +275,6 @@ class Profile extends Component {
   componentDidMount() {
     this.props.getProfile(this.props.match.params.id);
     this.handleInitializeFollowList();
-    
-
   };
   componentDidUpdate(prevProps) {
     if (prevProps.match.params.id !== this.props.match.params.id) {
@@ -302,13 +300,17 @@ class Profile extends Component {
     this.props.history.push(`/profile/${followingId}`);
   }
   handleEmailInput = () => {
-    console.log("Where is the prompt")
     const email = prompt("Please enter your friends email.", "example@gmail.com");
+    //If email was not entered return out of function. 
+    if (!email){
+      return;
+    }
     const validEmail = this.verifyEmail(email); 
     /*if validEmail is false return some type of alert */
+    
     if(validEmail === false){
       alert("Email must feature @ symbol and must end with .com  .net or .edu. Sorry all other emails are currently not supported");
-    }else {
+    } else {
       alert(`Thank you we have invited your friend at ${email}`);
       this.props.inviteFriend(email); 
     }
@@ -328,8 +330,6 @@ class Profile extends Component {
   }
 
   editProfile = event => {
-    console.log("Editing profile");
-    console.log(this.props);
     this.props.setEditProfileModalRaised( event, !this.props.isEditProfileModalRaised);
   }
 
