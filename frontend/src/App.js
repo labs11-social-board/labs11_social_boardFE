@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { scroller } from 'react-scroll';
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
 import Admin from './views/Admin';
+import Upload from './views/Upload';
 
 // globals
 import {
@@ -187,6 +188,7 @@ class App extends Component {
       { isNotificationsModalRaised: status },
       () => this.props.newNotifications && this.props.markNotificationsAsRead()
     );
+    console.log(this.state.isNotificationsModalRaised)
   };
 
   setChangeSubModalRaised = (ev, status) => {
@@ -336,6 +338,7 @@ class App extends Component {
                 <Route exact path="/" component={NonUserLandingView} />
                 <Route exact path="/home" component={LandingView} />
                 <Route exact path="/admin" component={Admin} />
+                <Route exact path="/upload" component={Upload}/>
                 <Route path="/profiles" component={Profiles} />
                 {/* <Route path='/profile/:id' component={Profile} /> commented out instead of deleted incase I need to change it back J.H*/}
                 <Route path='/profile/:id' render={props => <Profile {...props} setEditProfileModalRaised = {this.setEditProfileModalRaised} isEditProfileModalRaised = {this.state.isEditProfileModalRaised} toggleSearch = {this.userToggleSearch} goTo = {this.userGoTo} history ={this.props.history} showSearch = {this.state.showUsersSearch}/>} />
@@ -347,66 +350,6 @@ class App extends Component {
                 <Route path='/settings/:id' render={props => <Settings {...props} setChangeSubModalRaised={this.setChangeSubModalRaised} />} />
                 <Route path='/discussions/category/:category_id' component={DiscussionsByCats} />
                 <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} />
-                <Route
-                  path="/profile/:id"
-                  render={props => (
-                    <Profile
-                      {...props}
-                      setEditProfileModalRaised={this.setEditProfileModalRaised}
-                      isEditProfileModalRaised={
-                        this.state.isEditProfileModalRaised
-                      }
-                    />
-                  )}
-                />
-                <Route
-                  path="/categories"
-                  render={() => (
-                    <CategoriesView
-                      history={history}
-                      historyPush={this.props.history.push}
-                      setAddCatModalRaised={this.setAddCatModalRaised}
-                      isAddCatModalRaised={this.state.isAddCatModalRaised}
-                    />
-                  )}
-                />
-                <Route
-                  path="/teams"
-                  render={() => <TeamsView history={history} />}
-                />
-                <Route
-                  path="/team/discussions/:team_id"
-                  component={TeamBoard}
-                />
-                <Route
-                  path="/team/posts/:id"
-                  render={props => (
-                    <TeamDiscussionView {...props} scrollTo={this.scrollTo} />
-                  )}
-                />
-                <Route
-                  path="/discussion/:id"
-                  render={props => (
-                    <DiscussionView {...props} scrollTo={this.scrollTo} />
-                  )}
-                />
-                <Route
-                  path="/settings/:id"
-                  render={props => (
-                    <Settings
-                      {...props}
-                      setChangeSubModalRaised={this.setChangeSubModalRaised}
-                    />
-                  )}
-                />
-                <Route
-                  path="/discussions/category/:category_id"
-                  component={DiscussionsByCats}
-                />
-                <Route
-                  path="/confirm-email/:email_confirm_token"
-                  component={ConfirmEmail}
-                />
               </DivPage>
             </DivBody>
             <Footer

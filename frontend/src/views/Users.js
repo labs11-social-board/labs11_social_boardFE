@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link, NavLink } from "react-router-dom";
 import styled from 'styled-components';
 import { connect } from "react-redux";
-import { getUsers, getUsersNMods, makeMod } from './../store/actions/UsersActions';
+import { getUsers, getUsersNMods, makeMod, makeBas } from './../store/actions/UsersActions';
 
 const MainWrapper = styled.div`
   display: flex;
@@ -53,6 +53,17 @@ class Users extends React.Component {
         }, 800);
     }
 
+<<<<<<< HEAD
+=======
+    buttony2 = (event, userNum) => {
+        event.preventDefault();
+        this.props.makeBas(userNum);
+        setTimeout(() => {
+            window.location.reload();
+            }, 800);
+    }
+    
+>>>>>>> f0045c44d62b6ba12628f747209effa6cc816270
     render() {
 
 
@@ -60,6 +71,7 @@ class Users extends React.Component {
             <div>
                 <div >
                     <h4>
+<<<<<<< HEAD
                         <MainWrapper>
                             <InnerWrapper>Name</InnerWrapper>
                             <InnerWrapper>E-Mail</InnerWrapper>
@@ -98,6 +110,46 @@ class Users extends React.Component {
                             )
                         })}
 
+=======
+                    <MainWrapper>
+                    <InnerWrapper>Name</InnerWrapper>
+                    <InnerWrapper>E-Mail</InnerWrapper>
+                    <InnerWrapper>Moderator</InnerWrapper>
+                    </MainWrapper>
+                    <hr></hr>
+
+                    {this.props.users.usersNmods.map(user =>{
+                        return (
+                            
+                            <MainWrapper>
+                                <InnerWrapper>{user.username}</InnerWrapper>
+                                <InnerWrapper>{user.email}</InnerWrapper>
+                                
+                                <InnerWrapper>
+                                {
+                                    (user.user_permissions == 'moderator') &&
+                                    <input
+                                    name="isMod"
+                                    type="checkbox"
+                                    checked='true'
+                                    onChange={e => {this.buttony2(e, user.id)}} />
+                                }
+                                {
+                                    (user.user_permissions == 'basic') &&
+                                    <input
+                                    name="notMod"
+                                    type="checkbox"
+                                    checked=''
+                                    onChange={e => {this.buttony(e, user.id)}} />
+                                }
+                                
+                                </InnerWrapper>
+                            </MainWrapper>
+                                    
+                        )
+                    })}
+                    
+>>>>>>> f0045c44d62b6ba12628f747209effa6cc816270
                     </h4>
                 </div>
             </div>
@@ -119,6 +171,11 @@ export default connect(
   };
 
   export default connect(
+<<<<<<< HEAD
     mapStateToProps,{ getUsers, getUsersNMods, makeMod }
   )(Users);
 >>>>>>> 11a2f825ffb0a832eba920ce934d563a7bb2040f
+=======
+    mapStateToProps,{ getUsers, getUsersNMods, makeMod, makeBas } 
+  )(Users);
+>>>>>>> f0045c44d62b6ba12628f747209effa6cc816270

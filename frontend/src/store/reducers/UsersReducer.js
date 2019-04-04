@@ -102,6 +102,10 @@ import {
   UPDATE_MODS_LOADING,
   UPDATE_MODS_SUCCESS,
   UPDATE_MODS_FAILURE,
+
+  UPLOAD_LIST_LOADING,
+  UPLOAD_LIST_SUCCESS,
+  UPLOAD_LIST_FAILURE,
 } from '../actions/index.js';
 
 const initialState = {
@@ -134,7 +138,8 @@ const initialState = {
   stripePaymentInfo: [],
   isDay: true,
   isGettingUsers: false,
-  isFetchingNewMods: false
+  isFetchingNewMods: false,
+  isListUploading: false,
 };
 
 export const UsersReducer = (state = initialState, action) => {
@@ -174,6 +179,24 @@ export const UsersReducer = (state = initialState, action) => {
         
       };
 
+      case UPLOAD_LIST_LOADING:
+      return {
+        ...state,
+        isListUploading: true
+      };
+
+    case UPLOAD_LIST_SUCCESS: 
+      return {
+        ...state,
+        isListUploading: false
+      };
+
+    case UPLOAD_LIST_FAILURE: 
+      return {
+        ...state,
+        isListUploading: false
+      };
+     
 
     case GET_USERSnMODS_LOADING:
       return {

@@ -134,6 +134,10 @@ export const UPDATE_MODS_LOADING = 'UPDATE_MODS_LOADING';
 export const UPDATE_MODS_SUCCESS = 'UPDATE_MODS_SUCCESS';
 export const UPDATE_MODS_FAILURE = 'UPDATE_MODS_FAILURE';
 
+export const UPLOAD_LIST_LOADING = 'UPLOAD_LIST_LOADING';
+export const UPLOAD_LIST_SUCCESS = 'UPLOAD_LIST_SUCCESS';
+export const UPLOAD_LIST_FAILURE = 'UPLOAD_LIST_FAILURE';
+
 /***************************************************************************************************
  ****************************************** Action Creators ****************************************
  **************************************************************************************************/
@@ -154,13 +158,40 @@ export const makeMod = newMod => dispatch => {
   console.log(newMod)
   return axios
     
-    .put(`${backendUrl}/moderators/changeToMod/${newMod}`)
+    .get(`${backendUrl}/moderators/changeToMod/${newMod}`)
     
     .then(res => dispatch({
        type: UPDATE_MODS_SUCCESS, payload: res.data
       }))
     
     .catch(err => handleError(err, UPDATE_MODS_FAILURE)(dispatch));
+}
+
+export const makeBas = newMod => dispatch => {
+  dispatch({ type: UPDATE_MODS_LOADING });
+  console.log(newMod)
+  return axios
+    
+    .get(`${backendUrl}/moderators/changeToBasic/${newMod}`)
+    
+    .then(res => dispatch({
+       type: UPDATE_MODS_SUCCESS, payload: res.data
+      }))
+    
+    .catch(err => handleError(err, UPDATE_MODS_FAILURE)(dispatch));
+}
+
+export const emailCSV = newbies => dispatch => {
+  dispatch({ type: UPLOAD_LIST_LOADING });
+  return axios
+    
+    .post(`${backendUrl}/emails/`, newbies)
+    
+    .then(res => dispatch({
+       type: UPLOAD_LIST_SUCCESS, payload: res.data
+      }))
+    
+    .catch(err => handleError(err, UPLOAD_LIST_FAILURE)(dispatch));
 }
 
 export const getUsers = () => dispatch => {
