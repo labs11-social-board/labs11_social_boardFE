@@ -3,6 +3,10 @@ import {
     connect
 } from 'react-redux';
 import {
+    NavLink
+} from 'react-router-dom';
+
+import {
     approveEmail,
     getEmails
 } from '../../store/actions';
@@ -73,6 +77,13 @@ class ApproveEmailForm extends Component {
                 onClick={
                     this.handleSubmit
                 }>Add</button>
+
+                <button>
+                    <NavLink to='/upload'>
+                        Import CSV
+                    </NavLink>
+                </button>
+
             </div>
         );
     }
