@@ -348,66 +348,6 @@ class App extends Component {
                 <Route path='/settings/:id' render={props => <Settings {...props} setChangeSubModalRaised={this.setChangeSubModalRaised} />} />
                 <Route path='/discussions/category/:category_id' component={DiscussionsByCats} />
                 <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} />
-                <Route
-                  path="/profile/:id"
-                  render={props => (
-                    <Profile
-                      {...props}
-                      setEditProfileModalRaised={this.setEditProfileModalRaised}
-                      isEditProfileModalRaised={
-                        this.state.isEditProfileModalRaised
-                      }
-                    />
-                  )}
-                />
-                <Route
-                  path="/categories"
-                  render={() => (
-                    <CategoriesView
-                      history={history}
-                      historyPush={this.props.history.push}
-                      setAddCatModalRaised={this.setAddCatModalRaised}
-                      isAddCatModalRaised={this.state.isAddCatModalRaised}
-                    />
-                  )}
-                />
-                <Route
-                  path="/teams"
-                  render={() => <TeamsView history={history} />}
-                />
-                <Route
-                  path="/team/discussions/:team_id"
-                  component={TeamBoard}
-                />
-                <Route
-                  path="/team/posts/:id"
-                  render={props => (
-                    <TeamDiscussionView {...props} scrollTo={this.scrollTo} />
-                  )}
-                />
-                <Route
-                  path="/discussion/:id"
-                  render={props => (
-                    <DiscussionView {...props} scrollTo={this.scrollTo} />
-                  )}
-                />
-                <Route
-                  path="/settings/:id"
-                  render={props => (
-                    <Settings
-                      {...props}
-                      setChangeSubModalRaised={this.setChangeSubModalRaised}
-                    />
-                  )}
-                />
-                <Route
-                  path="/discussions/category/:category_id"
-                  component={DiscussionsByCats}
-                />
-                <Route
-                  path="/confirm-email/:email_confirm_token"
-                  component={ConfirmEmail}
-                />
               </DivPage>
             </DivBody>
             <Footer
