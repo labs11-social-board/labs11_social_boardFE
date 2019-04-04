@@ -51,6 +51,7 @@ const DiscussionsWrapper = styled.div`
     flex-direction: column;
     width: 95%;
     margin-top: 5%;
+    overflow-wrap: break-word;
 
     .edit-wiki{
       display: flex;
@@ -61,6 +62,7 @@ const DiscussionsWrapper = styled.div`
         padding: 13px 25px;
       }
     }
+    
   }
 
   .team-members {
