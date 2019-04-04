@@ -352,6 +352,26 @@ import {
   updateProfile
 } from '../actions/EditProfileActions.js';
 
+
+/************************************************************
+ *****************************************************************
+*****************************************************************
+*************************EMAILS*******************************/
+
+import {
+  // actions
+  EMAIL_APPROVAL_SUBMITTED,
+  EMAIL_APPROVAL_SUCCESS,
+  EMAIL_APPROVAL_FAIL,
+  GET_EMAILS,
+  GET_EMAILS_SUCCESS,
+  GET_EMAILS_FAIL,
+
+  // Action Creators
+  approveEmail,
+  getEmails
+} from '../actions/EmailActions';
+
 //*************************************************************************************************
 //*************************************************************************************************
 //*************************************************************************************************
@@ -653,5 +673,17 @@ export {
   UPDATE_TWITTER,
   UPDATE_TWITTER_SUCCESSFUL,
   UPDATE_TWITTER_FAILURE,
-  updateProfile
+  updateProfile,
+  // Emails
+  // actions
+  EMAIL_APPROVAL_SUBMITTED,
+  EMAIL_APPROVAL_SUCCESS,
+  EMAIL_APPROVAL_FAIL,
+  GET_EMAILS,
+  GET_EMAILS_SUCCESS,
+  GET_EMAILS_FAIL,
+  // Action Creators
+  approveEmail,
+  getEmails
 };
+
