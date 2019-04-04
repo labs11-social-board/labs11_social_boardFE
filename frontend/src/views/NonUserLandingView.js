@@ -95,9 +95,12 @@ const LandingText = styled.h1`
 
   const BottomFiller = styled.section`
     width: 100%;
-    border: 10px solid black;
+    border-top: 1px solid gray;
     postion: fixed;
+    height: 45vh;
   `;
+
+  
 
 
 class NonUserLandingView extends Component {
