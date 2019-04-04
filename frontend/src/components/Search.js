@@ -187,7 +187,6 @@ const SearchBox = styled.div`
 
     @media(max-width: 480px) {
       
-      
       background-color: lavender;
       width: auto;
       margin-right: -72px;
