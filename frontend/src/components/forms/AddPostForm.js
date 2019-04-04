@@ -21,6 +21,10 @@ const AddPostFormWrapper = styled.form`
   padding: 10px;
   color: ${props => props.theme.discussionPostColor};
 
+  @media (max-width: 500px){
+    margin-left: 6%;
+  }
+
   textarea {
     width: 100%;
     height: 150px;
@@ -52,6 +56,15 @@ const UserActions = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+
+  @media (max-width: 500px){
+    flex-direction: column;
+    height: 18vh;
+
+    input[type=file] {
+      margin-left: 25%;
+    }
+  }
 
   .submit-btn {
     color: steelblue;
@@ -114,7 +127,6 @@ class AddPostForm extends Component {
     }
     return this.setState({ image: "" });
   };
-
   render() {
     const { postBody } = this.state;
     const { username, user_id, avatar } = this.props;

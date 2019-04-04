@@ -1,4 +1,4 @@
-import axios	from 'axios';
+import axios from 'axios';
 
 // helpers
 import { handleError } from '../../helpers/index.js';
@@ -23,7 +23,6 @@ export const REMOVE_POST_FAILURE = 'REMOVE_POST_FAILURE';
 export const UPLOAD_IMAGE_LOADING = 'UPLOAD_IMAGE_FAILURE';
 export const UPLOAD_IMAGE_SUCCESS = 'UPLOAD_IMAGE_SUCCESS';
 export const UPLOAD_IMAGE_FAILURE = 'UPLOAD_IMAGE_FAILURE';
-
 
 /***************************************************************************************************
  ********************************************** Actions ********************************************
@@ -60,33 +59,41 @@ export const addPost = (discussion_id, postBody, team_id, imageData, repliedPost
 };
 
 // edit a post
-export const editPost = (user_id, post_id, postBody, historyPush, discussion_id) => dispatch => {
-	const token = localStorage.getItem('symposium_token');
-	const headers = { headers: { Authorization: token } };
-	const body = { post_id, postBody };
-	dispatch({ type: EDIT_POST_LOADING });
-	return axios.put(`${ backendURL }/posts/${ user_id }`, body, headers)
-		.then(() => dispatch({ type: EDIT_POST_SUCCESS }))
-		.then(() => historyPush('/'))
-		.then(() => historyPush(`/discussion/${ discussion_id }`))
-		.catch(err => handleError(err, EDIT_POST_FAILURE)(dispatch));
+export const editPost = (
+  user_id,
+  post_id,
+  postBody,
+  historyPush,
+  discussion_id
+) => dispatch => {
+  const token = localStorage.getItem('symposium_token');
+  const headers = { headers: { Authorization: token } };
+  const body = { post_id, postBody };
+  dispatch({ type: EDIT_POST_LOADING });
+  return axios
+    .put(`${backendURL}/posts/${user_id}`, body, headers)
+    .then(() => dispatch({ type: EDIT_POST_SUCCESS }))
+    .then(() => historyPush('/'))
+    .then(() => historyPush(`/discussion/${discussion_id}`))
+    .catch(err => handleError(err, EDIT_POST_FAILURE)(dispatch));
 };
 
 // remove a post
-export const removePost = (user_id, post_id, historyPush, discussion_id) => dispatch => {
-	const token = localStorage.getItem('symposium_token');
-	const headers = { headers: { Authorization: token, post_id } };
-	dispatch({ type: REMOVE_POST_LOADING });
-	return axios.delete(`${ backendURL }/posts/${ user_id }`, headers)
-		.then(() => dispatch({ type: REMOVE_POST_SUCCESS }))
-		.then(() => historyPush('/'))
-		.then(() => historyPush(`/discussion/${ discussion_id }`))
-		.catch(err => handleError(err, REMOVE_POST_FAILURE)(dispatch));
+export const removePost = post_id => dispatch => {
+  const user_id = localStorage.getItem('symposium_user_id');
+  const token = localStorage.getItem('symposium_token');
+  const headers = { headers: { Authorization: token } };
+  dispatch({ type: REMOVE_POST_LOADING });
+  return axios
+    .delete(`${backendURL}/posts/${user_id}/${post_id}`, headers)
+    .then(() => dispatch({ type: REMOVE_POST_SUCCESS }))
+
+    .catch(err => handleError(err, REMOVE_POST_FAILURE)(dispatch));
 };
 
 export const uploadImage = imageData => dispatch => {
-	const user_id = localStorage.getItem('symposium_user_id');
-	const token = localStorage.getItem('symposium_token');
+  const user_id = localStorage.getItem('symposium_user_id');
+  const token = localStorage.getItem('symposium_token');
   let headers;
 
   if (imageData) {
@@ -94,7 +101,7 @@ export const uploadImage = imageData => dispatch => {
     headers = {
       headers: {
         'Content-Type': 'multipart/form-data',
-        Authorization: token,
+        Authorization: token
       }
     };
   } else {
@@ -112,22 +119,22 @@ export const uploadImage = imageData => dispatch => {
 };
 
 export const updatePostWithImage = (image_id, post_id) => dispatch => {
-	const user_id = localStorage.getItem('symposium_user_id');
-	const token = localStorage.getItem('symposium_token');
-	const headers = { headers: { Authorization: token } };
-	const post_image = { image_id, post_id };
-	return axios
-		.put(`${backendURL}/posts/images/${user_id}`, post_image, headers)
-		.then(res => console.log(res.data))
-		.catch(err => handleError(err)(dispatch));
-}
+  const user_id = localStorage.getItem('symposium_user_id');
+  const token = localStorage.getItem('symposium_token');
+  const headers = { headers: { Authorization: token } };
+  const post_image = { image_id, post_id };
+  return axios
+    .put(`${backendURL}/posts/images/${user_id}`, post_image, headers)
+    .then(res => console.log(res.data))
+    .catch(err => handleError(err)(dispatch));
+};
 
 export const removeUpload = image_id => dispatch => {
-	const user_id = localStorage.getItem('symposium_user_id');
-	const token = localStorage.getItem('symposium_token');
-	const headers = { headers: { Authorization: token } };
-	return axios
-		.delete(`${backendURL}/posts/images/${user_id}/${image_id}`, headers)
-		.then(res => console.log(res.data))
-		.catch(err => handleError(err)(dispatch));
-}
+  const user_id = localStorage.getItem('symposium_user_id');
+  const token = localStorage.getItem('symposium_token');
+  const headers = { headers: { Authorization: token } };
+  return axios
+    .delete(`${backendURL}/posts/images/${user_id}/${image_id}`, headers)
+    .then(res => console.log(res.data))
+    .catch(err => handleError(err)(dispatch));
+};
