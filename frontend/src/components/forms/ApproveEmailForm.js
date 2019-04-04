@@ -21,6 +21,7 @@ class ApproveEmailForm extends Component {
         } = this.state;
 
         // handle submit logic
+        alert('Email is being submitted');
     };
 
     render() {
@@ -61,18 +62,23 @@ class ApproveEmailForm extends Component {
                 />
 
                 <input
-                    placeholder = 'Last Name'
-                    name = 'last_name'
+                    placeholder = 'E-Mail'
+                    name = 'email'
                     value = {
-                        last_name
+                        email
                     }
                     onChange = {
                         this.handleChange
                     }
                 />
 
-                <button type='submit'>Add</button>
+                <button type='submit'
+                onClick={
+                    this.handleSubmit
+                }>Add</button>
             </div>
         );
     }
 }
+
+export default ApproveEmailForm;
