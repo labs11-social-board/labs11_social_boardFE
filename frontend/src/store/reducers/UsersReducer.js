@@ -93,9 +93,19 @@ import {
   inviteFriend,
   GET_USERS_LOADING,
   GET_USERS_SUCCESS,
+
+  //admin funcs
   GET_USERSnMODS_LOADING,
   GET_USERSnMODS_SUCCESS,
-  GET_USERSnMODS_FAILURE
+  GET_USERSnMODS_FAILURE,
+
+  UPDATE_MODS_LOADING,
+  UPDATE_MODS_SUCCESS,
+  UPDATE_MODS_FAILURE,
+
+  UPLOAD_LIST_LOADING,
+  UPLOAD_LIST_SUCCESS,
+  UPLOAD_LIST_FAILURE,
 } from '../actions/index.js';
 
 const initialState = {
@@ -127,7 +137,9 @@ const initialState = {
   signature: null,
   stripePaymentInfo: [],
   isDay: true,
-  isGettingUsers: false
+  isGettingUsers: false,
+  isFetchingNewMods: false,
+  isListUploading: false,
 };
 
 export const UsersReducer = (state = initialState, action) => {
@@ -144,6 +156,66 @@ export const UsersReducer = (state = initialState, action) => {
       return {
         ...state,
         isDay: !state.isDay,
+      };
+
+
+    case UPDATE_MODS_LOADING:
+      return {
+        ...state,
+        isFetchingNewMods:true
+      };
+
+    case UPDATE_MODS_SUCCESS: 
+      return {
+        ...state,
+        isFetchingNewMods:false
+        
+      };
+
+    case UPDATE_MODS_FAILURE: 
+      return {
+        ...state,
+        isFetchingNewMods:false
+        
+      };
+
+      case UPLOAD_LIST_LOADING:
+      return {
+        ...state,
+        isListUploading: true
+      };
+
+    case UPLOAD_LIST_SUCCESS: 
+      return {
+        ...state,
+        isListUploading: false
+      };
+
+    case UPLOAD_LIST_FAILURE: 
+      return {
+        ...state,
+        isListUploading: false
+      };
+     
+
+    case GET_USERSnMODS_LOADING:
+      return {
+        ...state,
+        isGettingUsers: true
+      };
+
+    case GET_USERSnMODS_SUCCESS: 
+      return {
+        ...state,
+        isGettingUsers: false,
+        usersNmods: action.payload
+      };
+
+    case GET_USERSnMODS_FAILURE: 
+      return {
+        ...state,
+        isGettingUsers: false,
+        
       };
 
     case RESET_PASSWORD_SUCCESS:
@@ -391,25 +463,7 @@ export const UsersReducer = (state = initialState, action) => {
         users: action.payload
       };
 
-      case GET_USERSnMODS_LOADING:
-      return {
-        ...state,
-        isGettingUsers: true
-      };
-
-    case GET_USERSnMODS_SUCCESS: 
-      return {
-        ...state,
-        isGettingUsers: false,
-        usersNmods: action.payload
-      };
-
-    case GET_USERSnMODS_FAILURE: 
-      return {
-        ...state,
-        isGettingUsers: false,
-        
-      };
+      
 
     case CHANGE_USER_TYPE_LOADING:
     case CHANGE_USER_TYPE_FAILURE:
