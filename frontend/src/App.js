@@ -94,8 +94,9 @@ const DivBody = styled.div`
   flex-grow: 1;
   justify-content: center;
   align-items: flex-start;
-  margin: ${props =>
-    props.isLoggedIn ? '0 0 40px ' + sideNavWidth : '0 0 40px 0'};
+
+  margin: ${props => props.isLoggedIn ? '0 0 0 0' + sideNavWidth : '0 0 0 0'}  ;
+
 
   @media (max-width: 800px) {
     width: 100%;
