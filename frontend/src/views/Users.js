@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import {BrowserRouter as Router, Route, Link, NavLink} from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, NavLink } from "react-router-dom";
 import styled from 'styled-components';
 import { connect } from "react-redux";
 import { getUsers, getUsersNMods } from './../store/actions/UsersActions';
@@ -45,21 +45,21 @@ class Users extends React.Component {
     render() {
 
 
-        return(
+        return (
             <div>
                 <div >
                     <h4>
-                    {this.props.users.users.map(user =>{
-                        return (
-                            
-                            <MainWrapper>
-                                <InnerWrapper>{user.username}</InnerWrapper>
-                                <InnerWrapper>{user.email}</InnerWrapper>
-                            </MainWrapper>
-                            
-                        )
-                    })}
-                    {console.log(this.props)}
+                        {this.props.users.users.map(user => {
+                            return (
+
+                                <MainWrapper>
+                                    <InnerWrapper>{user.username}</InnerWrapper>
+                                    <InnerWrapper>{user.email}</InnerWrapper>
+                                </MainWrapper>
+
+                            )
+                        })}
+                        {console.log(this.props)}
                     </h4>
                 </div>
             </div>
@@ -72,8 +72,8 @@ const mapStateToProps = state => {
         users: state.users,
         usersNmods: state.usersNmods,
     };
-  };
-  
-  export default connect(
-    mapStateToProps,{ getUsers, getUsersNMods } 
-  )(Users);
+};
+
+export default connect(
+    mapStateToProps, { getUsers, getUsersNMods }
+)(Users);
