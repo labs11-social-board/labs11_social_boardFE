@@ -13,7 +13,7 @@ import { phoneL, accountUserTypes, subSilverStartIndex } from '../globals/global
  ********************************************** Styles *********************************************
  **************************************************************************************************/
 const DivSideNav = styled.div`
-  display: flex;
+
   flex-direction: column;
   width: 100%;
   user-select:none;
@@ -21,11 +21,10 @@ const DivSideNav = styled.div`
   height: calc(100% - 170px);
   min-height: 10%;
 
-  @media(max-width: 800px) {
-    flex-direction: row;
-    overflow-x: auto;
-    overflow-y: hidden;
+  @media (max-width: 800px) {
+    display: ${props => props.isOpen === 'true' ? 'flex' : 'none'};
   }
+
 `;
 
 const DivHeader = styled.div`
@@ -45,20 +44,6 @@ const DivHeader = styled.div`
       color: ${ props => props.theme.defaultColorOnHover};
     }
 
-    @media(max-width: 800px) {
-      align-self: flex-start;
-      margin: 0;
-      padding: 0;
-      position: absolute;
-      top: 29px;
-      left: 17px;
-    }
-  }
-
-  @media(max-width: 800px) {
-    flex-direction: column-reverse;
-    margin: 0 20px 20px 20px;
-    position: relative;
   }
 `;
 
@@ -66,16 +51,6 @@ const H4BrowseCategories = styled.h4`
     width: 95%;
     border-left: ${props => props.islinkselected === 'true' ? '1px solid #418DCF' : '1px solid transparent'};
     margin-bottom: 57px;
-
-    @media(max-width: 800px) {
-      display: flex;
-      width: auto;
-      border: none;
-      margin: 0 20px;
-      margin-top: 18px;
-      margin-left: 60px;
-      margin-right: 0px;
-    }
 
     .browse-categories {
       font-size: 0.9rem;
@@ -92,24 +67,11 @@ const LinkBrowseCategories = styled(Link)`
     padding: 10px 8px 10px 0;
     color: inherit;
     margin-left: 12px;
-
-    @media(max-width: 800px) {
-      padding: 10px 8px 6px 0;
-      margin: 0;
-    }
   }
 
   &:hover {
     color: ${ props => props.theme.defaultColorOnHover};
   }
-
-  @media(max-width: 800px) {
-    display: flex;
-    align-items: center;
-    padding: 4px 10px;
-    border: ${props => props.islinkselected === 'true' ? `1px solid ${props.theme.defaultColor}` : '1px solid #aaa'};
-    color: ${props => props.islinkselected === 'true' ? `${props.theme.defaultColor}` : '#aaa'};
-    border-radius: 10px;
 
     &:hover {
       border: 1px solid ${props => props.theme.defaultColorOnHover};
@@ -120,15 +82,6 @@ const LinkBrowseCategories = styled(Link)`
 const DivCategoriesFollowed = styled.div`
   display: flex;
   flex-direction: column;
-
-  @media (max-width: 800px) {
-    padding-top: 8px;
-    margin-left: -10px;
-  }
-
-  @media (max-width: 600px) {
-    padding-top: 24px;
-  }
 `;
 
 const DivCatFollowItems = styled.div`
@@ -137,25 +90,6 @@ const DivCatFollowItems = styled.div`
     padding-left: 0;
     margin-left: -50px;
     margin-top: -25px;
-
-    @media(max-width: 800px) {
-      display: flex;
-      margin: 0 20px 0 0;
-      margin-bottom: -53px;
-    }
-
-    @media ${phoneL} {
-      margin: 0 10px 0 0;
-      margin-bottom: -53px;
-    }
-  }
-
-  @media(max-width: 800px) {
-    display: flex;
-  }
-
-  @media ${phoneL} {
-    margin-top: -15px;
   }
 `;
 
@@ -176,17 +110,6 @@ const H4AllPosts = styled.h4`
       opacity: 1;
     }
 
-    @media(max-width: 800px) {
-      display: none;
-    }
-  }
-
-  @media(max-width: 800px) {
-    border: none;
-    margin-right: 0px;
-    padding: 10px;
-    margin: 0;
-    padding-right: 0;
   }
 `;
 
@@ -209,29 +132,6 @@ const LinkAllPosts = styled(Link)`
 
   .div-window {
     background-color: ${props => props.islinkselected === 'true' ? `${props.theme.defaultColorOnHover}` : `${props.theme.defaultColor}`};
-
-    @media(max-width: 800px) {
-      background-color: ${props => props.islinkselected === 'true' ? `${props.theme.defaultColorOnHover}` : '#aaa'};
-    }
-  }
-
-  @media(max-width: 800px) {
-    color: ${props => props.islinkselected === 'true' ? `${props.theme.defaultColorOnHover}` : '#aaa'};
-    border: ${props => props.islinkselected === 'true' ? `1px solid ${props.theme.defaultColorOnHover}` : '1px solid #aaa'};
-    border-radius: 10px;
-    padding: 5px 10px;
-    margin-right: 20px;
-    height: 0px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    margin-bottom: -115px;
-
-    &:hover {
-      border: 1px solid ${props => props.theme.defaultColorOnHover};
-      color: ${props => props.theme.defaultColorOnHover}
-    }
   }
 `;
 
@@ -248,11 +148,7 @@ const DivWindows = styled.div`
   margin-left: 12px;
   margin-right: 13px;
   margin-bottom: 0px;
-  @media (max-width: 800px) {
-    margin-left: 0px;
-    justify-content: center;
-    align-items: center
-  }
+
   div {
     background-color: ${props => props.theme.defaultColor};
     border-radius: 2px;
@@ -269,9 +165,6 @@ const PNoCatFollowMessage = styled.p`
   color: ${props => props.theme.defaultColor};
   justify-content: center;
 
-  @media(max-width: 800px) {
-    margin: 20px 0 0 60px;
-  }
 `;
 
 const LiCategoryFollowed = styled.li`
@@ -289,22 +182,6 @@ const LiCategoryFollowed = styled.li`
     border-radius: 50%;
     margin-right: 16px;
     margin-bottom: 3px;
-
-    @media(max-width: 800px) {
-      display: none;
-    }
-  }
-
-  @media(max-width: 800px) {
-    display: flex;
-    margin: 0;
-    padding: 0;
-    border: none;
-    align-items: center;
-
-    &:not(:last-child) {
-      margin-right: 20px;
-    }
   }
 `;
 
@@ -322,36 +199,14 @@ const LinkSideNav = styled(Link)`
       padding: 10px 10px 10px 0;
       color: inherit;
       margin-left: 15px;
-
-      @media(max-width: 800px) {
-        margin-left: 0;
-      }
     }
 
-    @media(max-width: 800px) {
-      width: auto;
-    }
-  }
 
-  @media(max-width: 800px) {
-    display: flex;
-    white-space: pre;
-    justify-content: center;
-    align-items: center;
-    height: 38px;
-    border: ${props => props.islinkselected === 'true' ? `1px solid ${props.theme.defaultColorOnHover}` : '1px solid #aaa'};
-    padding-left: 10px;
-    padding-right: 10px;
-    border-radius: 10px;
-    color: ${props => props.islinkselected === 'true' ? `${props.theme.defaultColorOnHover}` : '#aaa'};
   }
 
   &:hover {
     color: ${props => props.theme.defaultColorOnHover};
 
-    @media(max-width: 800px) {
-      border: 1px solid ${props => props.theme.defaultColorOnHover};
-    }
   }
 `;
 
@@ -368,13 +223,13 @@ class SideNav extends Component {
       categories: [],
       categoryFollows: [],
       userTeams: [],
-      isFollowedCatsOpen: true
+      isFollowedCatsOpen: true,
     }
   }
 
   componentDidMount = () => {
     this.props.getCategoriesFollowed().then(() => {
-        this.setState({ categories: this.props.categoriesFollowed, categoryFollows: this.props.categoryFollows});
+      this.setState({ categories: this.props.categoriesFollowed, categoryFollows: this.props.categoryFollows });
     });
 
     this.props.getUsersTeams().then(() => {
@@ -388,7 +243,7 @@ class SideNav extends Component {
         this.setState({ categories: this.props.categoriesFollowed, categoryFollows: this.props.categoryFollows });
       });
     }
-    if(prevProps.userTeams !== this.props.userTeams){
+    if (prevProps.userTeams !== this.props.userTeams) {
       this.setState({ userTeams: this.props.userTeams })
     }
   }
@@ -400,11 +255,12 @@ class SideNav extends Component {
   toggleFollowedCats = () => {
     this.setState({ isFollowedCatsOpen: !this.state.isFollowedCatsOpen })
   }
+
   render() {
     const { user_type } = this.props;
 
     return (
-      <DivSideNav>
+      <DivSideNav isOpen={`${this.props.isOpen}`}>
         <DivHeader>
           <H4BrowseCategories
             islinkselected={(this.state.linkSelected === 'BrowseCategories').toString()}
@@ -416,21 +272,21 @@ class SideNav extends Component {
               onClick={() => this.selectLink('BrowseCategories')}
               className='browse-categories'
             ><i className="fas fa-book-open" />Browse&nbsp;Categories&nbsp;</LinkBrowseCategories>
-          
-          {(accountUserTypes.indexOf(user_type) >= subSilverStartIndex) &&
-            <i className="fas fa-plus-circle" onClick={(ev) => this.props.setAddCatModalRaised(ev, true)} />
-          }
+
+            {(accountUserTypes.indexOf(user_type) >= subSilverStartIndex) &&
+              <i className="fas fa-plus-circle" onClick={(ev) => this.props.setAddCatModalRaised(ev, true)} />
+            }
             {console.log(accountUserTypes)}
             {
-            (user_type == 'admin') &&
-            <LinkBrowseCategories
-              to={`/admin`}
-              islinkselected={(this.state.linkSelected === 'Admin').toString()}
-              onClick={() => this.selectLink('Admin')}
-              className='browse-categories'
-            ><i className="fas fa-cogs" />Admin</LinkBrowseCategories>
+              (user_type == 'admin') &&
+              <LinkBrowseCategories
+                to={`/admin`}
+                islinkselected={(this.state.linkSelected === 'Admin').toString()}
+                onClick={() => this.selectLink('Admin')}
+                className='browse-categories'
+              ><i className="fas fa-cogs" />Admin</LinkBrowseCategories>
             }
-            
+
           </H4BrowseCategories>
 
 
@@ -468,28 +324,28 @@ class SideNav extends Component {
           </DivCatFollowItems>
         </DivCategoriesFollowed>
         <DivHeader>
-          <LinkBrowseCategories 
-            to='/teams' 
+          <LinkBrowseCategories
+            to='/teams'
             islinkselected={(this.state.linkSelected === 'Teams').toString()}
             onClick={() => this.selectLink('Teams')}
-            >
-              Teams
+          >
+            Teams
             </LinkBrowseCategories>
           <i className="fas fa-plus-circle" onClick={(ev) => this.props.setAddTeamModalRaised(ev, true)} />
         </DivHeader>
         <ul>
-            {this.state.userTeams.length === 0 ? <div>No teams yet!</div> : (this.state.userTeams.map(team => (
-              <LiCategoryFollowed key={team.team_id} 
-                isfollowedcatsopen={(this.state.isFollowedCatsOpen).toString()}
-                islinkselected={(this.state.linkSelected === team.team_name).toString()}>
-                <LinkSideNav onClick={() => this.selectLink(team.team_name)} 
-                  islinkselected={(this.state.linkSelected === team.team_name).toString()}
-                  to={`/team/discussions/${team.team_id}`}>
-                  {team.team_name}
-                </LinkSideNav>
-              </LiCategoryFollowed>
-            )))}
-          </ul>
+          {this.state.userTeams.length === 0 ? <div>No teams yet!</div> : (this.state.userTeams.map(team => (
+            <LiCategoryFollowed key={team.team_id}
+              isfollowedcatsopen={(this.state.isFollowedCatsOpen).toString()}
+              islinkselected={(this.state.linkSelected === team.team_name).toString()}>
+              <LinkSideNav onClick={() => this.selectLink(team.team_name)}
+                islinkselected={(this.state.linkSelected === team.team_name).toString()}
+                to={`/team/discussions/${team.team_id}`}>
+                {team.team_name}
+              </LinkSideNav>
+            </LiCategoryFollowed>
+          )))}
+        </ul>
       </DivSideNav>
     );
   }

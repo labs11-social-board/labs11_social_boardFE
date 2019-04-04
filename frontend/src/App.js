@@ -126,6 +126,14 @@ const DivSideNav = styled.div`
   }
 `;
 
+const StyledNavButton = styled.button`
+position: absolute;
+
+@media (min-width: 800px) {
+  display: none
+}
+`
+
 const DivPage = styled.div`
   display: flex;
   align-items: center;
@@ -152,7 +160,8 @@ class App extends Component {
       isAddCatModalRaised: false,
       showRegisterModal: false,
       isAddTeamModalRaised: false,
-      isEditProfileModalRaised: false
+      isEditProfileModalRaised: false,
+      isSideNavOpen: false
     };
   }
 
@@ -249,6 +258,10 @@ class App extends Component {
     window.removeEventListener('hashchange', this.handleHashChange, false);
   }
 
+  toggleSideNav = () => {
+    this.setState({ isSideNavOpen: !this.state.isSideNavOpen })
+  }
+
   render() {
     const { showSearch } = this.state;
     const { error, history, message, location, isDay } = this.props;
@@ -290,7 +303,9 @@ class App extends Component {
             />
             <DivBody isLoggedIn>
               <DivSideNav isLoggedIn>
+                {this.state.isSideNavOpen === true ? <StyledNavButton className="fas fa-times" onClick={this.toggleSideNav}></StyledNavButton> : <StyledNavButton className="fas fa-bars" onClick={this.toggleSideNav}></StyledNavButton>}
                 <SideNav
+                  isOpen={this.state.isSideNavOpen}
                   setAddCatModalRaised={this.setAddCatModalRaised}
                   setAddTeamModalRaised={this.setAddTeamModalRaised}
                   history={history}
