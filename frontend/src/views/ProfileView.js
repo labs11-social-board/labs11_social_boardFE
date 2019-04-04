@@ -299,41 +299,15 @@ class Profile extends Component {
   goToUsersPage = (followingId) => () => {
     this.props.history.push(`/profile/${followingId}`);
   }
-  handleEmailInput = () => {
-    const email = prompt("Please enter your friends email.", "example@gmail.com");
-    //If email was not entered return out of function. 
-    if (!email){
-      return;
-    }
-    const validEmail = this.verifyEmail(email); 
-    /*if validEmail is false return some type of alert */
-    
-    if(validEmail === false){
-      alert("Email must feature @ symbol and must end with .com  .net or .edu. Sorry all other emails are currently not supported");
-    } else {
-      alert(`Thank you we have invited your friend at ${email}`);
-      this.props.inviteFriend(email); 
-    }
-  }
-
-  /*should check for @ symbol and .com .net .edu endpoints more can be added in if neccessary */
-  verifyEmail = (email) => {
-    if(email.includes('@') === true){
-      const possibleEndOfEmail = {".com" : 0, ".net": 1, ".edu": 2} // O(1) for Object rather than O(n) for array 
-      const lastFourCharactersOfEmail = email.slice(-4);
-      if(lastFourCharactersOfEmail in possibleEndOfEmail){
-        return true; //Valid Email
-      }
-    }
-
-    return false; //Invalid email 
-  }
+  
 
   editProfile = event => {
     this.props.setEditProfileModalRaised( event, !this.props.isEditProfileModalRaised);
   }
 
-
+  handleEmailInput = event => {
+    this.props.setInviteFriendModalRaised(event, !this.props.isInviteFriendModalRaised);
+  }
 
   /* we use profileItems to manipulate what data is displayed. if the data received from our props is 0,
   profileItems displays our spinner component, however if our props contains a profile we display that profile
@@ -572,6 +546,8 @@ Profile.propTypes = {
   isEditProfileModalRaised : PropTypes.bool.isRequired, 
   toggleSearch : PropTypes.func.isRequired,
   showSearch : PropTypes.bool.isRequired,
+  setInviteFriendModalRaised : PropTypes.func.isRequired, 
+  isInviteFriendModalRaised : PropTypes.bool.isRequired, 
 
   profile: PropTypes.arrayOf(
     PropTypes.shape({

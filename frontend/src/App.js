@@ -56,6 +56,7 @@ import {
   toggleTheme
 } from './store/actions/index.js';
 import EditProfileModal from './components/profile/EditProfileModal.js';
+import InviteFriendModal from './components/profile/InviteFriendModal.js';
 
 const GlobalStyle = createGlobalStyle`
   html,
@@ -128,6 +129,14 @@ const DivSideNav = styled.div`
   }
 `;
 
+const StyledNavButton = styled.button`
+position: absolute;
+
+@media (min-width: 800px) {
+  display: none
+}
+`
+
 const DivPage = styled.div`
   display: flex;
   align-items: center;
@@ -146,7 +155,7 @@ class App extends Component {
     this.state = {
       theme: dayTheme,
       showSearch: false,
-      showUsersSearch : false, 
+      showUsersSearch: false,
       showNotifications: false,
       isLoginDropdownModalRaised: false,
       isAvatarModalRaised: false,
@@ -155,7 +164,9 @@ class App extends Component {
       isAddCatModalRaised: false,
       showRegisterModal: false,
       isAddTeamModalRaised: false,
-      isEditProfileModalRaised: false
+      isEditProfileModalRaised: false,
+      isSideNavOpen: false,
+      isInviteFriendModalRaised: false,
     };
   }
 
@@ -210,10 +221,14 @@ class App extends Component {
     ev.stopPropagation();
     this.setState({ isEditProfileModalRaised: status });
   };
+  setInviteFriendModalRaised = (ev, status) => {
+    ev.stopPropagation();
+    this.setState({ isInviteFriendModalRaised: status });
+  }
 
   toggleSearch = () => this.setState({ showSearch: !this.state.showSearch });
 
-  userToggleSearch = () => this.setState({showUsersSearch : !this.state.showUsersSearch});
+  userToggleSearch = () => this.setState({ showUsersSearch: !this.state.showUsersSearch });
 
   isAuthenticated() {
     // check whether the current time is past the access token's expiry time
@@ -226,7 +241,7 @@ class App extends Component {
     );
 
   userGoTo = async url => {
-    await this.setState({showUsersSearch : false}, () => this.props.history.push(url))
+    await this.setState({ showUsersSearch: false }, () => this.props.history.push(url))
   };
 
   scrollTo = id => {
@@ -258,6 +273,10 @@ class App extends Component {
   }
   componentWillUnmount() {
     window.removeEventListener('hashchange', this.handleHashChange, false);
+  }
+
+  toggleSideNav = () => {
+    this.setState({ isSideNavOpen: !this.state.isSideNavOpen })
   }
 
   render() {
@@ -301,7 +320,9 @@ class App extends Component {
             />
             <DivBody isLoggedIn>
               <DivSideNav isLoggedIn>
+                {this.state.isSideNavOpen === true ? <StyledNavButton className="fas fa-times" onClick={this.toggleSideNav}></StyledNavButton> : <StyledNavButton className="fas fa-bars" onClick={this.toggleSideNav}></StyledNavButton>}
                 <SideNav
+                  isOpen={this.state.isSideNavOpen}
                   setAddCatModalRaised={this.setAddCatModalRaised}
                   setAddTeamModalRaised={this.setAddTeamModalRaised}
                   history={history}
@@ -335,15 +356,24 @@ class App extends Component {
                     history={this.props.history}
                   />
                 )}
+                {
+                  this.state.isInviteFriendModalRaised && (
+                    <InviteFriendModal
+                      setInviteFriendModalRaised={this.setInviteFriendModalRaised}
+                      isInviteFriendModalRaised={this.state.isInviteFriendModalRaised}
+                      history={this.props.history}
+                    />
+                  )
+                }
                 <Route exact path="/" component={NonUserLandingView} />
                 <Route exact path="/home" component={LandingView} />
                 <Route exact path="/admin" component={Admin} />
-                <Route exact path="/upload" component={Upload}/>
+                <Route exact path="/upload" component={Upload} />
                 <Route path="/profiles" component={Profiles} />
                 {/* <Route path='/profile/:id' component={Profile} /> commented out instead of deleted incase I need to change it back J.H*/}
-                <Route path='/profile/:id' render={props => <Profile {...props} setEditProfileModalRaised = {this.setEditProfileModalRaised} isEditProfileModalRaised = {this.state.isEditProfileModalRaised} toggleSearch = {this.userToggleSearch} goTo = {this.userGoTo} history ={this.props.history} showSearch = {this.state.showUsersSearch}/>} />
+                <Route path='/profile/:id' render={props => <Profile {...props} setEditProfileModalRaised={this.setEditProfileModalRaised} isEditProfileModalRaised={this.state.isEditProfileModalRaised} toggleSearch={this.userToggleSearch} goTo={this.userGoTo} history={this.props.history} showSearch={this.state.showUsersSearch} setInviteFriendModalRaised={this.setInviteFriendModalRaised} isInviteFriendModalRaised={this.state.isInviteFriendModalRaise} />} />
                 <Route path='/categories' render={() => <CategoriesView history={history} historyPush={this.props.history.push} setAddCatModalRaised={this.setAddCatModalRaised} isAddCatModalRaised={this.state.isAddCatModalRaised} />} />
-                <Route path='/teams' render={() => <TeamsView history={history} /> } />
+                <Route path='/teams' render={() => <TeamsView history={history} />} />
                 <Route path='/team/discussions/:team_id' component={TeamBoard} />
                 <Route path='/team/posts/:id' render={props => <TeamDiscussionView {...props} scrollTo={this.scrollTo} />} />
                 <Route path='/discussion/:id' render={props => <DiscussionView {...props} scrollTo={this.scrollTo} />} />
