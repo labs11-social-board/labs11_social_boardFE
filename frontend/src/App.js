@@ -185,6 +185,7 @@ class App extends Component {
       { isNotificationsModalRaised: status },
       () => this.props.newNotifications && this.props.markNotificationsAsRead()
     );
+    console.log(this.state.isNotificationsModalRaised)
   };
 
   setChangeSubModalRaised = (ev, status) => {
