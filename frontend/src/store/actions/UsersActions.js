@@ -158,7 +158,21 @@ export const makeMod = newMod => dispatch => {
   console.log(newMod)
   return axios
     
-    .put(`${backendUrl}/moderators/changeToMod/${newMod}`)
+    .get(`${backendUrl}/moderators/changeToMod/${newMod}`)
+    
+    .then(res => dispatch({
+       type: UPDATE_MODS_SUCCESS, payload: res.data
+      }))
+    
+    .catch(err => handleError(err, UPDATE_MODS_FAILURE)(dispatch));
+}
+
+export const makeBas = newMod => dispatch => {
+  dispatch({ type: UPDATE_MODS_LOADING });
+  console.log(newMod)
+  return axios
+    
+    .get(`${backendUrl}/moderators/changeToBasic/${newMod}`)
     
     .then(res => dispatch({
        type: UPDATE_MODS_SUCCESS, payload: res.data
@@ -171,7 +185,7 @@ export const emailCSV = newbies => dispatch => {
   dispatch({ type: UPLOAD_LIST_LOADING });
   return axios
     
-    .post(`${backendUrl}/emails/csv/`, newbies)
+    .post(`${backendUrl}/emails/`, newbies)
     
     .then(res => dispatch({
        type: UPLOAD_LIST_SUCCESS, payload: res.data
