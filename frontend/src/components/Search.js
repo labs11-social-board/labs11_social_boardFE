@@ -171,7 +171,7 @@ const SearchBox = styled.div`
     max-height: 80vh;
     overflow: auto;
     position: absolute;
-    ${'' /* right: -50px; */}
+    right: -50px;
     top: 44px;
     z-index: 9001;
     border-radius: 5px;
@@ -182,15 +182,17 @@ const SearchBox = styled.div`
     padding: 15px;
 
     @media (max-width: 1024px) {
-      right: -93px;
+      
+      width: auto;
+      margin-right: -80px;
+      display: inline-block;
     }
 
-    @media(max-width: 480px) {
-      
+    @media (max-width: 480px) {
       background-color: lavender;
       width: auto;
-      margin-right: -72px;
-      
+      margin-right: -80px;
+      display: inline-block;
     }
 
     .results-length {
