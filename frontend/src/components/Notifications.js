@@ -22,10 +22,6 @@ const DivModalCloser = styled.div`
   top: 0;
   right: 0;
   z-index: 9997;
-
-  @media ${phoneL} {
-    display: none;
-  }
 `;
 
 const NotificationsWrapper = styled.div`

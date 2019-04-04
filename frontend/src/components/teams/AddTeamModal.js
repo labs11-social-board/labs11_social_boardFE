@@ -44,6 +44,12 @@ const DivModal = styled.div`
   box-sizing: border-box;
   width: 590px;
 
+  @media (max-width: 500px){
+    width: 95%;
+    height: 73%;
+    flex-direction: row;
+  }
+
   .btn {
     margin-left: 10px;
     padding: 10px 15px;
@@ -99,6 +105,7 @@ const FormContent = styled.form`
     align-items: center;
     flex-direction: column;
     margin-bottom: ${topHeaderHeight};
+    flex-wrap: nowrap;
   }
 `;
 
@@ -118,25 +125,41 @@ const DivRight = styled.div`
 
   @media ${phoneL} {
     width: 100%;
-    height: 60%;
     justify-content: center;
     align-items: center;
   }
 `;
 
 const DivName = styled.div`
-  .body-input, .categories-select {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap:wrap;
+
+  .body-input {
     border-radius: 5px;
     padding: 5px 10px;
   }
 
+  input[type=text]{
+    margin: 0 24% 0 2%;
+
+    @media (max-width: 500px){
+      margin: 0 14% 0 2%;
+    }
+  }
+
+  textarea {
+    resize: none;
+    width: 500px;
+    height: 200px;
+    margin: 2% 0;
+  }
+
   @media ${phoneL} {
     display: flex;
-    height: 20%;
-    width: 80%;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    width: 100%;
   }
 `;
 
@@ -188,8 +211,10 @@ class AddTeamModal extends React.Component {
           <FormContent onSubmit={this.handleSubmit}>
             <DivRight>
               <DivName>
+                <label htmlFor='team_name'>Team Name</label>
                 <input
                   type='text'
+                  id='team_name'
                   placeholder='Team Name'
                   name='team_name'
                   value={team_name}
@@ -197,16 +222,16 @@ class AddTeamModal extends React.Component {
                   onChange={this.handleInput}
                   autoComplete='off'
                 />
-                <input 
-                  type='text'
-                  placeholder='Wiki'
+                <ToggleSwitch isPrivate={this.state.isPrivate} handleToggle={this.handleToggle} />
+                <label htmlFor='wiki'>Team Wiki/Description</label>
+                <textarea 
+                  id='wiki'
+                  placeholder='Wiki/Description for your Team'
                   name='wiki'
                   value={wiki}
                   className= 'body-input'
                   onChange={this.handleInput}
-                  autoComplete='off'
                 />
-                <ToggleSwitch isPrivate={this.state.isPrivate} handleToggle={this.handleToggle} />
               </DivName>
             </DivRight>
             <DivButtons>

@@ -21,6 +21,10 @@ const AddPostFormWrapper = styled.form`
   padding: 10px;
   color: ${props => props.theme.discussionPostColor};
 
+  @media (max-width: 500px){
+    margin-left: 6%;
+  }
+
   textarea {
     width: 100%;
     height: 150px;
@@ -53,6 +57,15 @@ const UserActions = styled.div`
   justify-content: space-between;
   align-items: center;
 
+  @media (max-width: 500px){
+    flex-direction: column;
+    height: 18vh;
+
+    input[type=file] {
+      margin-left: 25%;
+    }
+  }
+
   .submit-btn {
     color: steelblue;
     background: none;
@@ -79,38 +92,41 @@ const UserActions = styled.div`
 `;
 
 class AddPostForm extends Component {
-	state = { postBody: '', name: '' };
-	handleChange = e => this.setState({ [e.target.name]: e.target.value });
-	handleSubmit = e => {
-		e.preventDefault();
-		const { postBody } = this.state;
-		const { discussion_id, team_id, handleTeamFilter, handleFilterChange, toggleAddPostForm, image, updatePostWithImage } = this.props;
-    this.props.addPost(discussion_id, postBody, team_id).then((res) => {
-       if(this.state.name){
-        updatePostWithImage(image[0], res.payload[0])
-       }
-    });
+  state = { postBody: "", image: "" };
+  handleChange = e => this.setState({ [e.target.name]: e.target.value });
+  handleSubmit = e => {
+    e.preventDefault();
+    const { postBody } = this.state;
+    const {
+      discussion_id,
+      team_id,
+      handleTeamFilter,
+      handleFilterChange,
+      toggleAddPostForm
+    } = this.props;
+   const imageFile = e.target[2].files[0];
+    const imageData = new FormData();
+    imageData.append("imageFile", imageFile);
     
-		if(team_id){
+    this.props.addPost(discussion_id, postBody, team_id, imageData);
+    console.log("image", imageData)
+    if (team_id) {
       toggleAddPostForm();
       setTimeout(() => handleTeamFilter(), 200);
-    	} else {
-			toggleAddPostForm();
-			setTimeout(() => handleFilterChange(), 200);
-		}
+    } else {
+      toggleAddPostForm();
+      setTimeout(() => handleFilterChange(), 200);
+    }
   };
-  handleFileChange = e => {
-		if (e.target.files.length) {
+
+  handleInputChange = e => {
+    if (e.target.files.length) {
       const { name } = e.target.files[0];
-			return this.setState({ name });
-		}
-		return this.setState({ name: '' });
+      console.log("image",name);
+      return this.setState({ image: name });
+    }
+    return this.setState({ image: "" });
   };
-  handleExit = e => {
-    e.preventDefault();
-    this.props.toggleAddPostForm();
-    this.props.removeUpload(this.props.image[0])
-  }
   render() {
     const { postBody } = this.state;
     const { username, user_id, avatar } = this.props;
@@ -143,7 +159,13 @@ class AddPostForm extends Component {
           <button className="submit-btn" type="submit">
             Post comment
           </button>
-          <UploadImage handleFileChange={this.handleFileChange}/>
+          <input
+            type="file"
+            name="image-file"
+            id="image-file"
+            onChange={this.handleInputChange}
+          />
+          <button onClick={this.uploadHandler}>Upload</button>
         </UserActions>
       </AddPostFormWrapper>
     );

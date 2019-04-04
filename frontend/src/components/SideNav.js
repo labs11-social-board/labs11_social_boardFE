@@ -210,6 +210,12 @@ const LinkSideNav = styled(Link)`
   }
 `;
 
+const DropdownFollowing = styled.div `
+  display: flex;
+  text-align: center;
+  }
+`;
+
 
 
 /***************************************************************************************************

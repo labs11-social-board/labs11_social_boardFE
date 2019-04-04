@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { scroller } from 'react-scroll';
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
 import Admin from './views/Admin';
+import Upload from './views/Upload';
 
 // globals
 import {
@@ -55,6 +56,7 @@ import {
   toggleTheme
 } from './store/actions/index.js';
 import EditProfileModal from './components/profile/EditProfileModal.js';
+import InviteFriendModal from './components/profile/InviteFriendModal.js';
 
 const GlobalStyle = createGlobalStyle`
   html,
@@ -94,8 +96,9 @@ const DivBody = styled.div`
   flex-grow: 1;
   justify-content: center;
   align-items: flex-start;
-  margin: ${props =>
-    props.isLoggedIn ? '0 0 40px ' + sideNavWidth : '0 0 40px 0'};
+
+  margin: ${props => props.isLoggedIn ? '0 0 0 0' + sideNavWidth : '0 0 0 0'}  ;
+
 
   @media (max-width: 800px) {
     width: 100%;
@@ -152,6 +155,7 @@ class App extends Component {
     this.state = {
       theme: dayTheme,
       showSearch: false,
+      showUsersSearch: false,
       showNotifications: false,
       isLoginDropdownModalRaised: false,
       isAvatarModalRaised: false,
@@ -161,7 +165,8 @@ class App extends Component {
       showRegisterModal: false,
       isAddTeamModalRaised: false,
       isEditProfileModalRaised: false,
-      isSideNavOpen: false
+      isSideNavOpen: false,
+      isInviteFriendModalRaised: false,
     };
   }
 
@@ -194,6 +199,7 @@ class App extends Component {
       { isNotificationsModalRaised: status },
       () => this.props.newNotifications && this.props.markNotificationsAsRead()
     );
+    console.log(this.state.isNotificationsModalRaised)
   };
 
   setChangeSubModalRaised = (ev, status) => {
@@ -215,8 +221,14 @@ class App extends Component {
     ev.stopPropagation();
     this.setState({ isEditProfileModalRaised: status });
   };
+  setInviteFriendModalRaised = (ev, status) => {
+    ev.stopPropagation();
+    this.setState({ isInviteFriendModalRaised: status });
+  }
 
   toggleSearch = () => this.setState({ showSearch: !this.state.showSearch });
+
+  userToggleSearch = () => this.setState({ showUsersSearch: !this.state.showUsersSearch });
 
   isAuthenticated() {
     // check whether the current time is past the access token's expiry time
@@ -227,6 +239,11 @@ class App extends Component {
     await this.setState({ showSearch: false }, () =>
       this.props.history.push(url)
     );
+
+  userGoTo = async url => {
+    await this.setState({ showUsersSearch: false }, () => this.props.history.push(url))
+  };
+
   scrollTo = id => {
     if (id || this.props.location.hash.substring(1)) {
       return scroller.scrollTo(id || this.props.location.hash.substring(1), {
@@ -339,71 +356,30 @@ class App extends Component {
                     history={this.props.history}
                   />
                 )}
+                {
+                  this.state.isInviteFriendModalRaised && (
+                    <InviteFriendModal
+                      setInviteFriendModalRaised={this.setInviteFriendModalRaised}
+                      isInviteFriendModalRaised={this.state.isInviteFriendModalRaised}
+                      history={this.props.history}
+                    />
+                  )
+                }
                 <Route exact path="/" component={NonUserLandingView} />
                 <Route exact path="/home" component={LandingView} />
                 <Route exact path="/admin" component={Admin} />
+                <Route exact path="/upload" component={Upload} />
                 <Route path="/profiles" component={Profiles} />
                 {/* <Route path='/profile/:id' component={Profile} /> commented out instead of deleted incase I need to change it back J.H*/}
-                <Route
-                  path="/profile/:id"
-                  render={props => (
-                    <Profile
-                      {...props}
-                      setEditProfileModalRaised={this.setEditProfileModalRaised}
-                      isEditProfileModalRaised={
-                        this.state.isEditProfileModalRaised
-                      }
-                    />
-                  )}
-                />
-                <Route
-                  path="/categories"
-                  render={() => (
-                    <CategoriesView
-                      history={history}
-                      historyPush={this.props.history.push}
-                      setAddCatModalRaised={this.setAddCatModalRaised}
-                      isAddCatModalRaised={this.state.isAddCatModalRaised}
-                    />
-                  )}
-                />
-                <Route
-                  path="/teams"
-                  render={() => <TeamsView history={history} />}
-                />
-                <Route
-                  path="/team/discussions/:team_id"
-                  component={TeamBoard}
-                />
-                <Route
-                  path="/team/posts/:id"
-                  render={props => (
-                    <TeamDiscussionView {...props} scrollTo={this.scrollTo} />
-                  )}
-                />
-                <Route
-                  path="/discussion/:id"
-                  render={props => (
-                    <DiscussionView {...props} scrollTo={this.scrollTo} />
-                  )}
-                />
-                <Route
-                  path="/settings/:id"
-                  render={props => (
-                    <Settings
-                      {...props}
-                      setChangeSubModalRaised={this.setChangeSubModalRaised}
-                    />
-                  )}
-                />
-                <Route
-                  path="/discussions/category/:category_id"
-                  component={DiscussionsByCats}
-                />
-                <Route
-                  path="/confirm-email/:email_confirm_token"
-                  component={ConfirmEmail}
-                />
+                <Route path='/profile/:id' render={props => <Profile {...props} setEditProfileModalRaised={this.setEditProfileModalRaised} isEditProfileModalRaised={this.state.isEditProfileModalRaised} toggleSearch={this.userToggleSearch} goTo={this.userGoTo} history={this.props.history} showSearch={this.state.showUsersSearch} setInviteFriendModalRaised={this.setInviteFriendModalRaised} isInviteFriendModalRaised={this.state.isInviteFriendModalRaise} />} />
+                <Route path='/categories' render={() => <CategoriesView history={history} historyPush={this.props.history.push} setAddCatModalRaised={this.setAddCatModalRaised} isAddCatModalRaised={this.state.isAddCatModalRaised} />} />
+                <Route path='/teams' render={() => <TeamsView history={history} />} />
+                <Route path='/team/discussions/:team_id' component={TeamBoard} />
+                <Route path='/team/posts/:id' render={props => <TeamDiscussionView {...props} scrollTo={this.scrollTo} />} />
+                <Route path='/discussion/:id' render={props => <DiscussionView {...props} scrollTo={this.scrollTo} />} />
+                <Route path='/settings/:id' render={props => <Settings {...props} setChangeSubModalRaised={this.setChangeSubModalRaised} />} />
+                <Route path='/discussions/category/:category_id' component={DiscussionsByCats} />
+                <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} />
               </DivPage>
             </DivBody>
             <Footer

@@ -199,7 +199,6 @@ class EditProfileModal extends React.Component {
   handleChange = event => {
     event.preventDefault();
     this.setState({ [event.target.name]: event.target.value });
-    console.log(this.props);
   };
 
   handleSubmit = event => {
@@ -237,7 +236,6 @@ class EditProfileModal extends React.Component {
   };
 
   render() {
-    console.log(this.props);
     const { setEditProfileModalRaised } = this.props;
 
     const { bio, twitter, github, linkedin } = this.state;

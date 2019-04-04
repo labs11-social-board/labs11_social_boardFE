@@ -4,15 +4,16 @@ import { connect } from 'react-redux';
 import { background } from '../assets/index.js';
 
 
-const Woah = styled.div`
+const Woah = styled.section`
   width: 100%;
-  height: 67vh;
+  height: 115vh;
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
   flex-direction: column;
   align-items: flex-end;
-
+  background: linear-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, .5)), url(${background});
+  background-size: cover;
   @media (max-width: 1240px) {
     background-image: none;
     background-color: white;
@@ -21,7 +22,7 @@ const Woah = styled.div`
   ${ ({ loggedIn }) => loggedIn && '@media (max-width: 980px) {background-image: none;background-color: white;}'}
 `;
 
-const LandingText = styled.div`
+const LandingText = styled.h1`
   height: 40%;
   width: 50%;
   margin-right: 30px;
@@ -81,19 +82,24 @@ const LandingText = styled.div`
 //   padding-left: 0px;
 //   `;
 
+  const TopFiller = styled.div`
+  
+  `;
+
+  const BottomFiller = styled.div`
+  `;
+
 
 class NonUserLandingView extends Component {
   render() {
     return (
 
       <Woah loggedIn={this.props.user_id !== 0}>
-
         <LandingText loggedIn={this.props.user_id !== 0}>
           <p className='blurb'>
             Welcome to Symposium. 
             </p>
         </LandingText>
-
       </Woah>
     )
   }
