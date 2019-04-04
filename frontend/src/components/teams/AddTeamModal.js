@@ -46,7 +46,7 @@ const DivModal = styled.div`
 
   @media (max-width: 500px){
     width: 95%;
-    height: 76%;
+    height: 73%;
     flex-direction: row;
   }
 
@@ -154,7 +154,7 @@ const DivName = styled.div`
     resize: none;
     width: 500px;
     height: 200px;
-    margin: 5% 0;
+    margin: 2% 0;
   }
 
   @media ${phoneL} {
