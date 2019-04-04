@@ -5,7 +5,10 @@ import { Link } from 'react-router-dom';
 import { Avatar } from '../index.js';
 
 // action creators
-import { addReply } from '../../store/actions/index.js';
+import { addReply, uploadImage, updateReplyWithImage, removeUpload } from '../../store/actions/index.js';
+
+// components 
+import { UploadImage } from '../index.js';
 
 //Style
 const AddReplyFormWrapper = styled.form`
@@ -73,6 +76,15 @@ const UserActions = styled.div`
 		color: black;
 		text-decoration: none;
 	}
+
+	@media (max-width: 500px){
+    flex-direction: column;
+    height: 18vh;
+
+    input[type=file] {
+      margin-left: 25%;
+    }
+  }
 `;
 
 // //Original AddReplyForm
@@ -151,13 +163,17 @@ const UserActions = styled.div`
 // };
 
 class AddReplyForm extends Component {
-	state = { replyBody: '' };
+	state = { replyBody: '', name: '' };
 	handleChange = e => this.setState({ [e.target.name]: e.target.value });
 	handleSubmit = e => {
 		e.preventDefault();
 		const { replyBody } = this.state;
-		const { post_id, team_id, handleFilterChange, handleTeamFilter, toggleAddReplyForm } = this.props;
-		this.props.addReply(post_id, team_id, replyBody);
+		const { post_id, team_id, handleFilterChange, handleTeamFilter, toggleAddReplyForm, updateReplyWithImage, image } = this.props;
+		this.props.addReply(post_id, team_id, replyBody).then((res) => {
+			if(this.state.name){
+        updateReplyWithImage(image[0], res.payload[0])
+       }
+		});
 
 		if(team_id){
       toggleAddReplyForm();
@@ -167,7 +183,20 @@ class AddReplyForm extends Component {
 			setTimeout(() => handleFilterChange(), 200);
 		}
 	};
-	handleToggle = () => this.props.toggleAddReplyForm();
+	handleFileChange = e => {
+		if (e.target.files.length) {
+      const { name } = e.target.files[0];
+			return this.setState({ name });
+		}
+		return this.setState({ name: '' });
+  };
+  handleExit = e => {
+    e.preventDefault();
+    this.props.toggleAddReplyForm();
+    if(this.state.name){
+			this.props.removeUpload(this.props.image[0])
+		}
+  }
 	render() {
 		const { replyBody } = this.state;
 		const{ username, user_id, avatar } = this.props;
@@ -177,7 +206,7 @@ class AddReplyForm extends Component {
 					<p>Write a Reply</p>
 					<span
 						className = 'exit'
-						onClick = { this.handleToggle }
+						onClick = { this.handleExit }
 						type = 'button' // prevents form submission
 					><i className="far fa-times-circle"></i></span>
 				</AddReplyTitle>
@@ -196,6 +225,7 @@ class AddReplyForm extends Component {
 						</Link>
 					</div>
 					<button type = 'submit'>Post Reply</button>	
+					<UploadImage handleFileChange={this.handleFileChange}/>
 				</UserActions>
 			</AddReplyFormWrapper>
 		)
@@ -207,6 +237,7 @@ const mapStateToProps = state => ({
 	username: state.users.username,
 	user_id: state.users.user_id,
 	avatar: state.users.avatar,
+	image: state.posts.images
 });
 
-export default connect(mapStateToProps, { addReply })(AddReplyForm);
+export default connect(mapStateToProps, { addReply, uploadImage, updateReplyWithImage, removeUpload })(AddReplyForm);

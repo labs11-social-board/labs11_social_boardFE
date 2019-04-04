@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 // actions
-import { getCategoriesFollowed } from '../store/actions/index.js';
+import { getCategoriesFollowed, getUsersTeams } from '../store/actions/index.js';
 
 // globals
 import { phoneL, accountUserTypes, subSilverStartIndex } from '../globals/globals.js';
@@ -355,6 +355,12 @@ const LinkSideNav = styled(Link)`
   }
 `;
 
+const DropdownFollowing = styled.div `
+  display: flex;
+  text-align: center;
+  }
+`;
+
 
 
 /***************************************************************************************************
@@ -367,13 +373,18 @@ class SideNav extends Component {
       linkSelected: '',
       categories: [],
       categoryFollows: [],
+      userTeams: [],
       isFollowedCatsOpen: true
     }
   }
 
   componentDidMount = () => {
     this.props.getCategoriesFollowed().then(() => {
-      this.setState({ categories: this.props.categoriesFollowed, categoryFollows: this.props.categoryFollows });
+        this.setState({ categories: this.props.categoriesFollowed, categoryFollows: this.props.categoryFollows});
+    });
+
+    this.props.getUsersTeams().then(() => {
+      this.setState({ userTeams: this.props.userTeams });
     });
   }
 
@@ -382,6 +393,9 @@ class SideNav extends Component {
       this.props.getCategoriesFollowed().then(() => {
         this.setState({ categories: this.props.categoriesFollowed, categoryFollows: this.props.categoryFollows });
       });
+    }
+    if(prevProps.userTeams !== this.props.userTeams){
+      this.setState({ userTeams: this.props.userTeams })
     }
   }
 
@@ -392,7 +406,6 @@ class SideNav extends Component {
   toggleFollowedCats = () => {
     this.setState({ isFollowedCatsOpen: !this.state.isFollowedCatsOpen })
   }
-
   render() {
     const { user_type } = this.props;
 
@@ -461,9 +474,28 @@ class SideNav extends Component {
           </DivCatFollowItems>
         </DivCategoriesFollowed>
         <DivHeader>
-          <LinkBrowseCategories to='/teams'>Teams</LinkBrowseCategories>
+          <LinkBrowseCategories 
+            to='/teams' 
+            islinkselected={(this.state.linkSelected === 'Teams').toString()}
+            onClick={() => this.selectLink('Teams')}
+            >
+              Teams
+            </LinkBrowseCategories>
           <i className="fas fa-plus-circle" onClick={(ev) => this.props.setAddTeamModalRaised(ev, true)} />
         </DivHeader>
+        <ul>
+            {this.state.userTeams.length === 0 ? <div>No teams yet!</div> : (this.state.userTeams.map(team => (
+              <LiCategoryFollowed key={team.team_id} 
+                isfollowedcatsopen={(this.state.isFollowedCatsOpen).toString()}
+                islinkselected={(this.state.linkSelected === team.team_name).toString()}>
+                <LinkSideNav onClick={() => this.selectLink(team.team_name)} 
+                  islinkselected={(this.state.linkSelected === team.team_name).toString()}
+                  to={`/team/discussions/${team.team_id}`}>
+                  {team.team_name}
+                </LinkSideNav>
+              </LiCategoryFollowed>
+            )))}
+          </ul>
       </DivSideNav>
     );
   }
@@ -473,12 +505,13 @@ const mapStateToProps = state => ({
   user_id: state.users.user_id,
   categoryFollows: state.users.categoryFollows,
   user_type: state.users.user_type,
-  categoriesFollowed: state.categories.categoriesFollowed
+  categoriesFollowed: state.categories.categoriesFollowed,
+  userTeams: state.teams.userTeams
 });
 
 export default connect(
   mapStateToProps,
-  { getCategoriesFollowed }
+  { getCategoriesFollowed, getUsersTeams }
 )(SideNav);
 
 
