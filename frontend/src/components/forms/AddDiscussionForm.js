@@ -105,12 +105,16 @@ const AddDiscussionFormBox = styled.form`
 			margin: 5px 0;
 		}
 
-		@media (max-width: 900px) {
+		@media (max-width: 1024px) {
 			flex-direction: column;
 			justify-content: center;
 
 			.categories-select, .submit-btn {
 				width: 44%;
+			}
+
+			input[type=file]{
+				margin-left: 17%;
 			}
 		}
 
@@ -126,6 +130,10 @@ const AddDiscussionFormBox = styled.form`
 
 			.categories-select, .submit-btn {
 				width: 80%;
+			}
+
+			input[type=file] {
+				margin-left: 35%;
 			}
 		}
 

@@ -6,11 +6,12 @@ import { getProfile } from '../store/actions/index';
 import { getFollowers, getProfileFollowers, removeFollower, addFollower, inviteFriend } from '../store/actions/index';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { phoneP } from '../globals/globals';
+import { phoneP, phoneL, tabletP, tabletL } from '../globals/globals';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import moment from 'moment';
 import "react-tabs/style/react-tabs.css";
 
+import { Search, UserSearch } from '../components/index.js';
 // components
 import { Avatar, Deleted } from '../components/index.js';
 
@@ -246,6 +247,24 @@ const SubWrapper = styled.div`
   flex-direction: column;
 `;
 
+const SearchContainer = styled.div`
+  margin-left: 15px;
+  display: flex;
+  width: 30%;
+  justify-content: center;
+  align-items: center;
+
+  @media ${tabletP}{
+    width: 40%;
+    margin-left: 10px;
+    }
+    
+    @media ${phoneL}{
+      margin-left: 10px;
+      width: 45%;
+    }
+`;
+
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
@@ -321,6 +340,7 @@ class Profile extends Component {
   by mapping through our data received and choosing what properties we want to display with our profile parameter*/
   render() {
     /*Profile data for user profile*/
+    console.log(this.props)
     const usernameForProfile = this.props.profile[0].username; 
     const bio  = this.props.profile[0].bio ?  this.props.profile[0].bio : ""; 
     const twitter = this.props.profile[0].twitter ? this.props.profile[0].twitter : ""; 
@@ -384,10 +404,15 @@ class Profile extends Component {
                   <p><span>Twitter </span> <span>{twitter}</span></p>
               </div>
               <br/>
-              <div>
-                <input type="search" name = "friendSearch" placeholder = "find a new friend"></input>
+              <WrappedDiv>
+                
+                <SearchContainer>
+                  <UserSearch showSearch={this.props.showSearch} scrollTo={this.props.scrollTo} pathname={this.props.pathname} goTo={this.props.goTo} toggleSearch={this.props.toggleSearch} />
+                </SearchContainer>
                 <p style = {{cursor:"pointer", textDecoration: "underline"}} onClick = {this.handleEmailInput}>Invite a friend</p>
-              </div>
+              </WrappedDiv>
+              <br/>
+              <br/>
               <div>
                 {followListLength > 0 ?  followList.map((user, id) => 
                   // user.following_id can be used to go to the users profile upon clicking on them currently not implemented. 
@@ -545,6 +570,9 @@ Profile.propTypes = {
   inviteFriend : PropTypes.func, 
   setEditProfileModalRaised : PropTypes.func.isRequired,
   isEditProfileModalRaised : PropTypes.bool.isRequired, 
+  toggleSearch : PropTypes.func.isRequired,
+  showSearch : PropTypes.bool.isRequired,
+
   profile: PropTypes.arrayOf(
     PropTypes.shape({
       status: PropTypes.string.isRequired,
