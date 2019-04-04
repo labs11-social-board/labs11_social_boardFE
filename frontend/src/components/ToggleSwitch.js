@@ -1,7 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 
+// globals
+import { phoneP } from '../globals/globals.js';
+
 const Toggle = styled.div `
+
+  margin-bottom: 5%;
+
+  @media ${phoneP}{
+    margin: 0 50% 4% 21%;
+  }
 
   input {
     opacity: 0;

@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Avatar } from '../index.js';
 
+// globals
+import { topHeaderHeight, phoneP } from '../../globals/globals.js';
 // action creators
 import { addReply, uploadImage, updateReplyWithImage, removeUpload } from '../../store/actions/index.js';
 
@@ -77,7 +79,7 @@ const UserActions = styled.div`
 		text-decoration: none;
 	}
 
-	@media (max-width: 500px){
+	@media ${phoneP}{
     flex-direction: column;
     height: 18vh;
 

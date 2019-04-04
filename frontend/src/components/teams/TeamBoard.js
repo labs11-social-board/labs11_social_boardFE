@@ -9,7 +9,7 @@ import { DiscussionByFollowedCats, AddDiscussionForm, FollowCat, Avatar, TeamWik
 import { getTeamDiscussions, handleDiscussionVote, getTeamMembers } from '../../store/actions/index.js';
 
 // globals
-import { tabletP } from '../../globals/globals.js';
+import { tabletP, phoneP } from '../../globals/globals.js';
 import TeamSettings from './TeamSettings.js';
 
 /***************************************************************************************************
@@ -51,6 +51,7 @@ const DiscussionsWrapper = styled.div`
     flex-direction: column;
     width: 95%;
     margin-top: 5%;
+    overflow-wrap: break-word;
 
     .edit-wiki{
       display: flex;
@@ -61,6 +62,7 @@ const DiscussionsWrapper = styled.div`
         padding: 13px 25px;
       }
     }
+    
   }
 
   .team-members {
@@ -91,7 +93,7 @@ const DiscussionsWrapper = styled.div`
         margin: 0% 5% 0% 5%;
         width: 60%;
         
-        @media (max-width: 500px){
+        @media ${phoneP}{
           width: 50%;
         }
       }
@@ -133,7 +135,7 @@ const DiscussionHeader = styled.div`
     justify-content: space-evenly;
     width: 480px;
 
-    @media (max-width: 500px) {
+    @media ${phoneP} {
       width: 100%;
       flex-direction: column;
       margin-bottom: 15px;
