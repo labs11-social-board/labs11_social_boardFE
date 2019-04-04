@@ -75,6 +75,7 @@ const SearchContainer = styled.div`
     @media ${phoneL}{
       margin-left: 10px;
       width: 45%;
+      
     }
 `;
 
