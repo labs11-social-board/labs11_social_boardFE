@@ -8,13 +8,13 @@ import { Avatar, VoteCount } from './index.js';
 
 const DiscussionWrapper = styled.div`
 	display: flex;
-	flex-wrap: wrap;
 	flex-direction: column;
 	justify-content: flex-start;
 	width: 98%;
 	margin-bottom: 20px;
 	padding: 5px;
 	border-radius: 5px;
+	overflow-wrap: break-word;
 
 	.info-wrapper {
 		width: 100%;
