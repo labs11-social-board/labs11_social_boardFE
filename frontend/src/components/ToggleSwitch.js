@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 // globals
-import { phoneP } from '../../globals/globals.js';
+import { phoneP } from '../globals/globals.js';
+
 const Toggle = styled.div `
 
   margin-bottom: 5%;
