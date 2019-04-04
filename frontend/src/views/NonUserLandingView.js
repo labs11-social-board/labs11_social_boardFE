@@ -13,7 +13,6 @@ const Woah = styled.section `
   align-items: center;
   @media (max-width: 1240px) {
     background-image: none;
-    background-color: gray;
   }
 
   ${ ({
@@ -29,7 +28,6 @@ const Woah = styled.section `
 
   @media(max-width: 1240px) {
     background-image: none;
-    background-color: gray;
   }
 `;
 
@@ -43,7 +41,7 @@ const Woah = styled.section `
   color: lightgray;
   @media (max-width: 1240px) {
     width: 100%;
-    background-color: white;
+    color: black;
   }
 
   ${ ({
@@ -80,6 +78,9 @@ const Woah = styled.section `
     margin-top: 40px;
     postion: fixed;
     height: 45vh;
+    @media(max-width: 1240px) {
+        display: none;
+      }
   `;
 
     const TextBlurb = styled.div `
