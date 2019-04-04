@@ -303,6 +303,7 @@ import {
   getUsersNMods,
   makeMod,
   emailCSV,
+  makeBas,
 } from './UsersActions.js';
 
 /************************************************************
@@ -619,6 +620,7 @@ export {
   getUsersNMods,
   makeMod,
   emailCSV,
+  makeBas,
   // Profile Action Creators
   getProfiles,
   getProfile,
