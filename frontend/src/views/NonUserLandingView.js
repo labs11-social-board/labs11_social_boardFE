@@ -6,7 +6,7 @@ import { background } from '../assets/index.js';
 
 const Woah = styled.section`
   width: 100%;
-  height: 100vh;
+  height: 115vh;
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
@@ -87,7 +87,8 @@ const LandingText = styled.h1`
   `;
 
   const BottomFiller = styled.div`
-
+    width: 100%;
+    border: 10px solid black;
   `;
 
 
@@ -101,7 +102,9 @@ class NonUserLandingView extends Component {
             Welcome to Symposium. 
             </p>
         </LandingText>
-        
+        <BottomFiller>
+          <p>yeet</p>
+          </BottomFiller>
       </Woah>
     )
   }
