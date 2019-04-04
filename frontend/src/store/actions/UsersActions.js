@@ -185,7 +185,7 @@ export const emailCSV = newbies => dispatch => {
   dispatch({ type: UPLOAD_LIST_LOADING });
   return axios
     
-    .post(`${backendUrl}/emails/csv/`, newbies)
+    .post(`${backendUrl}/emails/`, newbies)
     
     .then(res => dispatch({
        type: UPLOAD_LIST_SUCCESS, payload: res.data

@@ -68,9 +68,7 @@ class Upload extends React.Component {
 
 
     handleUppy = data => {
-        //event.preventDefault();
-        console.log(data);
-        console.log(data[0][0]);
+        
         for( let i =0; i < data.length; i++) {
             let fname = data[i][0];
             let lname = data[i][1];
@@ -85,7 +83,9 @@ class Upload extends React.Component {
                 }
             })
 
-            console.log(this.state.newEmail)
+            this.props.emailCSV(this.state.newEmail)
+            
+            console.log(this.state.newEmails);
 
             
         }
