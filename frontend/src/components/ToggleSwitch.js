@@ -3,6 +3,12 @@ import styled from 'styled-components';
 
 const Toggle = styled.div `
 
+  margin-bottom: 5%;
+
+  @media (max-width: 500px){
+    margin: 0 50% 4% 21%;
+  }
+  
   input {
     opacity: 0;
     width: 0;

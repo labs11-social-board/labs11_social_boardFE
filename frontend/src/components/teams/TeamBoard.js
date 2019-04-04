@@ -51,6 +51,7 @@ const DiscussionsWrapper = styled.div`
     flex-direction: column;
     width: 95%;
     margin-top: 5%;
+    overflow-wrap: break-word;
 
     .edit-wiki{
       display: flex;
@@ -61,6 +62,7 @@ const DiscussionsWrapper = styled.div`
         padding: 13px 25px;
       }
     }
+    
   }
 
   .team-members {
@@ -79,7 +81,7 @@ const DiscussionsWrapper = styled.div`
       cursor: pointer;
 
       @media (max-width: 1024px){
-        width: 95%;
+        width: 100%;
       }
 
       &:hover {
@@ -131,7 +133,7 @@ const DiscussionHeader = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    width: 380px;
+    width: 480px;
 
     @media (max-width: 500px) {
       width: 100%;
@@ -332,7 +334,6 @@ class TeamBoard extends Component {
         isTeamOwner=false;
       }
     }
-    console.log(isTeamOwner, member[0])
     if(!team){
       return (<h1>Loading..</h1>)
     } else {
