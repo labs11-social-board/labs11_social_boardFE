@@ -8,10 +8,10 @@ const Woah = styled.section`
   width: 100%;
   height: 100%;
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   flex-wrap: wrap;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: center;
   @media (max-width: 1240px) {
     background-image: none;
     background-color: gray;
@@ -29,10 +29,11 @@ const BackgroundBox = styled.div`
 `;
 
 const LandingText = styled.h1`
-  height: 40%;
-  width: 50%;
-  margin-right: 30px;
+  // height: 40%;
+  // width: 50%;
+  // margin-right: 30px;
   display: flex;
+  justify-content: center;
   align-text: center;
   color: lightgtr;
   @media (max-width: 1240px) {
