@@ -94,8 +94,9 @@ const DivBody = styled.div`
   flex-grow: 1;
   justify-content: center;
   align-items: flex-start;
-  margin: ${props =>
-    props.isLoggedIn ? '0 0 40px ' + sideNavWidth : '0 0 40px 0'};
+
+  margin: ${props => props.isLoggedIn ? '0 0 0 0' + sideNavWidth : '0 0 0 0'}  ;
+
 
   @media (max-width: 800px) {
     width: 100%;
@@ -144,6 +145,7 @@ class App extends Component {
     this.state = {
       theme: dayTheme,
       showSearch: false,
+      showUsersSearch : false, 
       showNotifications: false,
       isLoginDropdownModalRaised: false,
       isAvatarModalRaised: false,
@@ -209,6 +211,8 @@ class App extends Component {
 
   toggleSearch = () => this.setState({ showSearch: !this.state.showSearch });
 
+  userToggleSearch = () => this.setState({showUsersSearch : !this.state.showUsersSearch});
+
   isAuthenticated() {
     // check whether the current time is past the access token's expiry time
     const expiresAt = localStorage.getItem('symposium_auth0_expires_at');
@@ -218,6 +222,11 @@ class App extends Component {
     await this.setState({ showSearch: false }, () =>
       this.props.history.push(url)
     );
+
+  userGoTo = async url => {
+    await this.setState({showUsersSearch : false}, () => this.props.history.push(url))
+  };
+
   scrollTo = id => {
     if (id || this.props.location.hash.substring(1)) {
       return scroller.scrollTo(id || this.props.location.hash.substring(1), {
@@ -329,6 +338,15 @@ class App extends Component {
                 <Route exact path="/admin" component={Admin} />
                 <Route path="/profiles" component={Profiles} />
                 {/* <Route path='/profile/:id' component={Profile} /> commented out instead of deleted incase I need to change it back J.H*/}
+                <Route path='/profile/:id' render={props => <Profile {...props} setEditProfileModalRaised = {this.setEditProfileModalRaised} isEditProfileModalRaised = {this.state.isEditProfileModalRaised} toggleSearch = {this.userToggleSearch} goTo = {this.userGoTo} history ={this.props.history} showSearch = {this.state.showUsersSearch}/>} />
+                <Route path='/categories' render={() => <CategoriesView history={history} historyPush={this.props.history.push} setAddCatModalRaised={this.setAddCatModalRaised} isAddCatModalRaised={this.state.isAddCatModalRaised} />} />
+                <Route path='/teams' render={() => <TeamsView history={history} /> } />
+                <Route path='/team/discussions/:team_id' component={TeamBoard} />
+                <Route path='/team/posts/:id' render={props => <TeamDiscussionView {...props} scrollTo={this.scrollTo} />} />
+                <Route path='/discussion/:id' render={props => <DiscussionView {...props} scrollTo={this.scrollTo} />} />
+                <Route path='/settings/:id' render={props => <Settings {...props} setChangeSubModalRaised={this.setChangeSubModalRaised} />} />
+                <Route path='/discussions/category/:category_id' component={DiscussionsByCats} />
+                <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} />
                 <Route
                   path="/profile/:id"
                   render={props => (
