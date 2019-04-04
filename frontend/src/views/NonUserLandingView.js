@@ -26,6 +26,11 @@ const Woah = styled.section `
   background-size: cover;
   background-position: center center;
   height: 85vh;
+
+  @media(max-width: 1240px) {
+    background-image: none;
+    background-color: gray;
+  }
 `;
 
   const LandingText = styled.h1 `
