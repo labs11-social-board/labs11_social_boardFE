@@ -79,7 +79,6 @@ const UserActions = styled.div`
 `;
 
 class AddPostForm extends Component {
-<<<<<<< HEAD
   state = { postBody: "", image: "" };
   handleChange = e => this.setState({ [e.target.name]: e.target.value });
   handleSubmit = e => {
@@ -116,40 +115,6 @@ class AddPostForm extends Component {
     return this.setState({ image: "" });
   };
 
-=======
-	state = { postBody: '', name: '' };
-	handleChange = e => this.setState({ [e.target.name]: e.target.value });
-	handleSubmit = e => {
-		e.preventDefault();
-		const { postBody } = this.state;
-		const { discussion_id, team_id, handleTeamFilter, handleFilterChange, toggleAddPostForm, image, updatePostWithImage } = this.props;
-    this.props.addPost(discussion_id, postBody, team_id).then((res) => {
-       if(this.state.name){
-        updatePostWithImage(image[0], res.payload[0])
-       }
-    });
-    
-		if(team_id){
-      toggleAddPostForm();
-      setTimeout(() => handleTeamFilter(), 200);
-    	} else {
-			toggleAddPostForm();
-			setTimeout(() => handleFilterChange(), 200);
-		}
-  };
-  handleFileChange = e => {
-		if (e.target.files.length) {
-      const { name } = e.target.files[0];
-			return this.setState({ name });
-		}
-		return this.setState({ name: '' });
-  };
-  handleExit = e => {
-    e.preventDefault();
-    this.props.toggleAddPostForm();
-    this.props.removeUpload(this.props.image[0])
-  }
->>>>>>> 6871fca4e7ce7274a9f1026340de4810ec66c482
   render() {
     const { postBody } = this.state;
     const { username, user_id, avatar } = this.props;
@@ -182,7 +147,6 @@ class AddPostForm extends Component {
           <button className="submit-btn" type="submit">
             Post comment
           </button>
-<<<<<<< HEAD
           <input
             type="file"
             name="image-file"
@@ -190,9 +154,6 @@ class AddPostForm extends Component {
             onChange={this.handleInputChange}
           />
           <button onClick={this.uploadHandler}>Upload</button>
-=======
-          <UploadImage handleFileChange={this.handleFileChange}/>
->>>>>>> 6871fca4e7ce7274a9f1026340de4810ec66c482
         </UserActions>
       </AddPostFormWrapper>
     );
