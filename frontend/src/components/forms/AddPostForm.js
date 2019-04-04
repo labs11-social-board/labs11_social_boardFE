@@ -21,6 +21,10 @@ const AddPostFormWrapper = styled.form`
   padding: 10px;
   color: ${props => props.theme.discussionPostColor};
 
+  @media (max-width: 500px){
+    margin-left: 6%;
+  }
+
   textarea {
     width: 100%;
     height: 150px;
@@ -52,6 +56,15 @@ const UserActions = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+
+  @media (max-width: 500px){
+    flex-direction: column;
+    height: 18vh;
+
+    input[type=file] {
+      margin-left: 25%;
+    }
+  }
 
   .submit-btn {
     color: steelblue;
@@ -109,7 +122,9 @@ class AddPostForm extends Component {
   handleExit = e => {
     e.preventDefault();
     this.props.toggleAddPostForm();
-    this.props.removeUpload(this.props.image[0])
+    if(this.state.name){
+      this.props.removeUpload(this.props.image[0])
+    }
   }
   render() {
     const { postBody } = this.state;
