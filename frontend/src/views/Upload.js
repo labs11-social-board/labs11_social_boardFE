@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import Users from './Users';
 import CSVReader from "react-csv-reader";
 import { emailCSV } from './../store/actions/UsersActions';
+import { approveEmail } from './../store/actions/EmailActions';
 
 const MainWrapper = styled.div`
   display: flex;
@@ -48,15 +49,46 @@ margin-bottom: 10px;
 
 
 
-const handleUppy = data => {
-    this.props.emailCSV(data);
-  };
+
   
   
 class Upload extends React.Component {
     constructor() {
         super()
 
+        this.state ={
+            newEmail: {
+                first_name:"",
+                last_name:"",
+                email:""
+            }
+        }
+
+    }
+
+
+    handleUppy = data => {
+        //event.preventDefault();
+        console.log(data);
+        console.log(data[0][0]);
+        for( let i =0; i < data.length; i++) {
+            let fname = data[i][0];
+            let lname = data[i][1];
+            let mail = data[i][2];
+
+            this.setState({
+                ...this.state,
+                newEmail: {
+                    first_name: fname,
+                    last_name: lname,
+                    email: mail
+                }
+            })
+
+            console.log(this.state.newEmail)
+
+            
+        }
     }
 
     // componentDidMount() {
@@ -84,7 +116,7 @@ class Upload extends React.Component {
                             <CSVReader
                                 cssClass="react-csv-input"
                                 label="Upload a CSV file full of Authorized E-Mails!"
-                                onFileLoaded={handleUppy}
+                                onFileLoaded={this.handleUppy}
                             />
                             <p>and then open the console</p>
                             </div>

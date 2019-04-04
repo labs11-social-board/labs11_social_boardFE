@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import {BrowserRouter as Router, Route, Link, NavLink} from "react-router-dom";
 import styled from 'styled-components';
 import { connect } from "react-redux";
-import { getUsers, getUsersNMods, makeMod } from './../store/actions/UsersActions';
+import { getUsers, getUsersNMods, makeMod, makeBas } from './../store/actions/UsersActions';
 
 const MainWrapper = styled.div`
   display: flex;
@@ -52,6 +52,14 @@ class Users extends React.Component {
             window.location.reload();
             }, 800);
     }
+
+    buttony2 = (event, userNum) => {
+        event.preventDefault();
+        this.props.makeBas(userNum);
+        setTimeout(() => {
+            window.location.reload();
+            }, 800);
+    }
     
     render() {
 
@@ -81,7 +89,7 @@ class Users extends React.Component {
                                     name="isMod"
                                     type="checkbox"
                                     checked='true'
-                                    onChange={this.handleInputChange} />
+                                    onChange={e => {this.buttony2(e, user.id)}} />
                                 }
                                 {
                                     (user.user_permissions == 'basic') &&
@@ -112,5 +120,5 @@ const mapStateToProps = state => {
   };
   
   export default connect(
-    mapStateToProps,{ getUsers, getUsersNMods, makeMod } 
+    mapStateToProps,{ getUsers, getUsersNMods, makeMod, makeBas } 
   )(Users);

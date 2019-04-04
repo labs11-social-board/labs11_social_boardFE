@@ -167,6 +167,20 @@ export const makeMod = newMod => dispatch => {
     .catch(err => handleError(err, UPDATE_MODS_FAILURE)(dispatch));
 }
 
+export const makeBas = newMod => dispatch => {
+  dispatch({ type: UPDATE_MODS_LOADING });
+  console.log(newMod)
+  return axios
+    
+    .get(`${backendUrl}/moderators/changeToBasic/${newMod}`)
+    
+    .then(res => dispatch({
+       type: UPDATE_MODS_SUCCESS, payload: res.data
+      }))
+    
+    .catch(err => handleError(err, UPDATE_MODS_FAILURE)(dispatch));
+}
+
 export const emailCSV = newbies => dispatch => {
   dispatch({ type: UPLOAD_LIST_LOADING });
   return axios
