@@ -35,10 +35,10 @@ class Users extends React.Component {
     constructor() {
         super()
 
-        
+
     }
 
-    
+
 
     componentDidMount() {
         this.props.getUsersNMods();
@@ -50,9 +50,9 @@ class Users extends React.Component {
         this.props.makeMod(userNum);
         setTimeout(() => {
             window.location.reload();
-            }, 800);
+        }, 800);
     }
-    
+
     render() {
 
 
@@ -60,58 +60,44 @@ class Users extends React.Component {
             <div>
                 <div >
                     <h4>
-<<<<<<< HEAD
-                        {this.props.users.users.map(user => {
+                        <MainWrapper>
+                            <InnerWrapper>Name</InnerWrapper>
+                            <InnerWrapper>E-Mail</InnerWrapper>
+                            <InnerWrapper>Moderator</InnerWrapper>
+                        </MainWrapper>
+                        <hr></hr>
+
+                        {this.props.users.usersNmods.map(user => {
                             return (
 
                                 <MainWrapper>
                                     <InnerWrapper>{user.username}</InnerWrapper>
                                     <InnerWrapper>{user.email}</InnerWrapper>
+
+                                    <InnerWrapper>
+                                        {
+                                            (user.user_permissions == 'moderator') &&
+                                            <input
+                                                name="isMod"
+                                                type="checkbox"
+                                                checked='true'
+                                                onChange={this.handleInputChange} />
+                                        }
+                                        {
+                                            (user.user_permissions == 'basic') &&
+                                            <input
+                                                name="notMod"
+                                                type="checkbox"
+                                                checked=''
+                                                onChange={e => { this.buttony(e, user.id) }} />
+                                        }
+
+                                    </InnerWrapper>
                                 </MainWrapper>
 
                             )
                         })}
-                        {console.log(this.props)}
-=======
-                    <MainWrapper>
-                    <InnerWrapper>Name</InnerWrapper>
-                    <InnerWrapper>E-Mail</InnerWrapper>
-                    <InnerWrapper>Moderator</InnerWrapper>
-                    </MainWrapper>
-                    <hr></hr>
 
-                    {this.props.users.usersNmods.map(user =>{
-                        return (
-                            
-                            <MainWrapper>
-                                <InnerWrapper>{user.username}</InnerWrapper>
-                                <InnerWrapper>{user.email}</InnerWrapper>
-                                
-                                <InnerWrapper>
-                                {
-                                    (user.user_permissions == 'moderator') &&
-                                    <input
-                                    name="isMod"
-                                    type="checkbox"
-                                    checked='true'
-                                    onChange={this.handleInputChange} />
-                                }
-                                {
-                                    (user.user_permissions == 'basic') &&
-                                    <input
-                                    name="notMod"
-                                    type="checkbox"
-                                    checked=''
-                                    onChange={e => {this.buttony(e, user.id)}} />
-                                }
-                                
-                                </InnerWrapper>
-                            </MainWrapper>
-                                    
-                        )
-                    })}
-                    
->>>>>>> 11a2f825ffb0a832eba920ce934d563a7bb2040f
                     </h4>
                 </div>
             </div>
@@ -131,8 +117,8 @@ export default connect(
 )(Users);
 =======
   };
-  
+
   export default connect(
-    mapStateToProps,{ getUsers, getUsersNMods, makeMod } 
+    mapStateToProps,{ getUsers, getUsersNMods, makeMod }
   )(Users);
 >>>>>>> 11a2f825ffb0a832eba920ce934d563a7bb2040f
