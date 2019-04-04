@@ -87,8 +87,6 @@ const LandingText = styled.h1`
   `;
 
   const BottomFiller = styled.div`
-    width: 100%;
-    border: 10px solid black;
   `;
 
 
@@ -102,9 +100,6 @@ class NonUserLandingView extends Component {
             Welcome to Symposium. 
             </p>
         </LandingText>
-        <BottomFiller>
-          <p>yeet</p>
-          </BottomFiller>
       </Woah>
     )
   }
