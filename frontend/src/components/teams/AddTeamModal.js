@@ -8,7 +8,7 @@ import { addTeam, getUsersTeams } from '../../store/actions/index.js';
 // components 
 import { ToggleSwitch } from '../index.js';
 // globals
-import { phoneL, topHeaderHeight } from '../../globals/globals.js';
+import { topHeaderHeight, phoneP } from '../../globals/globals.js';
 
 const ModalBackground = styled.div`
   display: flex;
@@ -43,6 +43,12 @@ const DivModal = styled.div`
   border-radius: 5px;
   box-sizing: border-box;
   width: 590px;
+
+  @media ${phoneP}{
+    width: 95%;
+    height: 73%;
+    flex-direction: row;
+  }
 
   .btn {
     margin-left: 10px;
@@ -92,13 +98,14 @@ const FormContent = styled.form`
   flex-wrap: wrap;
   flex-direction: column;
 
-  @media ${phoneL} {
+  @media ${phoneP} {
     height: 90%;
     width: 100%;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     margin-bottom: ${topHeaderHeight};
+    flex-wrap: nowrap;
   }
 `;
 
@@ -116,27 +123,43 @@ const DivRight = styled.div`
   justify-content: center;
   align-items: center;
 
-  @media ${phoneL} {
+  @media ${phoneP} {
     width: 100%;
-    height: 60%;
     justify-content: center;
     align-items: center;
   }
 `;
 
 const DivName = styled.div`
-  .body-input, .categories-select {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap:wrap;
+
+  .body-input {
     border-radius: 5px;
     padding: 5px 10px;
   }
 
-  @media ${phoneL} {
+  input[type=text]{
+    margin: 0 24% 0 2%;
+
+    @media ${phoneP}{
+      margin: 0 14% 0 2%;
+    }
+  }
+
+  textarea {
+    resize: none;
+    width: 500px;
+    height: 200px;
+    margin: 2% 0;
+  }
+
+  @media ${phoneP} {
     display: flex;
-    height: 20%;
-    width: 80%;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    width: 100%;
   }
 `;
 
@@ -188,8 +211,10 @@ class AddTeamModal extends React.Component {
           <FormContent onSubmit={this.handleSubmit}>
             <DivRight>
               <DivName>
+                <label htmlFor='team_name'>Team Name</label>
                 <input
                   type='text'
+                  id='team_name'
                   placeholder='Team Name'
                   name='team_name'
                   value={team_name}
@@ -197,16 +222,16 @@ class AddTeamModal extends React.Component {
                   onChange={this.handleInput}
                   autoComplete='off'
                 />
-                <input 
-                  type='text'
-                  placeholder='Wiki'
+                <ToggleSwitch isPrivate={this.state.isPrivate} handleToggle={this.handleToggle} />
+                <label htmlFor='wiki'>Team Wiki/Description</label>
+                <textarea 
+                  id='wiki'
+                  placeholder='Wiki/Description for your Team'
                   name='wiki'
                   value={wiki}
                   className= 'body-input'
                   onChange={this.handleInput}
-                  autoComplete='off'
                 />
-                <ToggleSwitch isPrivate={this.state.isPrivate} handleToggle={this.handleToggle} />
               </DivName>
             </DivRight>
             <DivButtons>
