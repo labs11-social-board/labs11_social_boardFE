@@ -158,7 +158,7 @@ export const makeMod = newMod => dispatch => {
   console.log(newMod)
   return axios
     
-    .put(`${backendUrl}/moderators/changeToMod/${newMod}`)
+    .get(`${backendUrl}/moderators/changeToMod/${newMod}`)
     
     .then(res => dispatch({
        type: UPDATE_MODS_SUCCESS, payload: res.data
