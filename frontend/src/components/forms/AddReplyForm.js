@@ -76,6 +76,15 @@ const UserActions = styled.div`
 		color: black;
 		text-decoration: none;
 	}
+
+	@media (max-width: 500px){
+    flex-direction: column;
+    height: 18vh;
+
+    input[type=file] {
+      margin-left: 25%;
+    }
+  }
 `;
 
 // //Original AddReplyForm
@@ -184,7 +193,9 @@ class AddReplyForm extends Component {
   handleExit = e => {
     e.preventDefault();
     this.props.toggleAddReplyForm();
-    this.props.removeUpload(this.props.image[0])
+    if(this.state.name){
+			this.props.removeUpload(this.props.image[0])
+		}
   }
 	render() {
 		const { replyBody } = this.state;
@@ -195,7 +206,7 @@ class AddReplyForm extends Component {
 					<p>Write a Reply</p>
 					<span
 						className = 'exit'
-						onClick = { this.handleToggle }
+						onClick = { this.handleExit }
 						type = 'button' // prevents form submission
 					><i className="far fa-times-circle"></i></span>
 				</AddReplyTitle>
