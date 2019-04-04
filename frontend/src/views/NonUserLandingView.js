@@ -5,11 +5,7 @@ import {background} from '../assets/index.js';
 
 const Woah = styled.section `
   width: 100%;
-<<<<<<< HEAD
   height: 100%;
-=======
-  height: 115vh;
->>>>>>> aa696a9f80e9d9097b65c030b8bb9341bc37fa24
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
