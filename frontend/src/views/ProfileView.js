@@ -302,10 +302,14 @@ class Profile extends Component {
     this.props.history.push(`/profile/${followingId}`);
   }
   handleEmailInput = () => {
-    console.log("Where is the prompt")
     const email = prompt("Please enter your friends email.", "example@gmail.com");
+    //If email was not entered return out of function. 
+    if (!email){
+      return;
+    }
     const validEmail = this.verifyEmail(email); 
     /*if validEmail is false return some type of alert */
+    
     if(validEmail === false){
       alert("Email must feature @ symbol and must end with .com  .net or .edu. Sorry all other emails are currently not supported");
     }else {
