@@ -7,4 +7,6 @@ import { UsersReducer }         from './UsersReducer.js'
 import { RepliesReducer }       from './RepliesReducer.js';
 import { FollowersReducer }     from './FollowersReducer.js';
 import { editProfileReducer }   from './editProfileReducer.js';
-export { CategoriesReducer, TeamsReducer, DiscussionsReducer, RepliesReducer, UsersReducer, PostsReducer, ProfilesReducer, FollowersReducer, editProfileReducer};
+import {EmailReducer} from './EmailReducer.js';
+
+export { CategoriesReducer, TeamsReducer, DiscussionsReducer, RepliesReducer, UsersReducer, PostsReducer, ProfilesReducer, FollowersReducer, editProfileReducer, EmailReducer};

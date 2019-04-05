@@ -69,6 +69,8 @@ import RequestResetPWForm from './forms/RequestResetPWForm';
 import ResetPWForm from './forms/ResetPWForm.js';
 import AddReplyForm from './forms/AddReplyForm.js';
 import EditSignatureForm from './forms/EditSignatureForm.js';
+import ApproveEmailForm from './forms/ApproveEmailForm.js';
+import ApprovedEmails from './ApprovedEmails.js'
 
 
 import UserSearch from './UserSearch.js'; 
@@ -145,7 +147,9 @@ export {
   ResetPWForm,
   AddReplyForm,
   EditSignatureForm,
+  ApproveEmailForm,
 
   UserSearch,
   SearchUserResults,
+  ApprovedEmails
 };
