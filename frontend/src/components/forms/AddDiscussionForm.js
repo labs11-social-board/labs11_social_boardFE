@@ -208,6 +208,7 @@ class AddDiscussionForm extends Component {
 				followDiscussion(res.payload[0], user_id)
 				if(this.state.name){
 					updateDiscussionWithImage(image[0], res.payload[0]);
+					this.props.resetImageState();
 				}
 			})
       .then(() => getDiscussions());
@@ -233,7 +234,10 @@ class AddDiscussionForm extends Component {
   handleExit = e => {
     e.preventDefault();
     this.props.toggleAddDiscussionForm();
-    this.props.removeUpload(this.props.image[0])
+    if(this.props.image.length > 0){
+			this.props.removeUpload(this.props.image[0]);
+			this.props.resetImageState();
+		}
   }
   getCategoryNames = () => this.setState({ categoryNames: this.props.categoriesFollowed, category_id: this.props.category_id || this.props.categoriesFollowed[0].id });
   componentDidMount = () => this.getCategoryNames();
