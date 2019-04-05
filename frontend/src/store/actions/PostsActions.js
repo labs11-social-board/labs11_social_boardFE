@@ -24,6 +24,11 @@ export const UPLOAD_IMAGE_LOADING = 'UPLOAD_IMAGE_FAILURE';
 export const UPLOAD_IMAGE_SUCCESS = 'UPLOAD_IMAGE_SUCCESS';
 export const UPLOAD_IMAGE_FAILURE = 'UPLOAD_IMAGE_FAILURE';
 
+export const UPDATING_POST_WITH_IMAGE_LOADING = 'UPDATING_POST_WITH_IMAGE_LOADING';
+export const UPDATING_POST_WITH_IMAGE_SUCCESS = 'UPDATING_POST_WITH_IMAGE_SUCCESS';
+
+export const RESET_IMAGE_STATE = 'RESET_IMAGE_STATE';
+
 /***************************************************************************************************
  ********************************************** Actions ********************************************
  **************************************************************************************************/
@@ -32,26 +37,12 @@ export const UPLOAD_IMAGE_FAILURE = 'UPLOAD_IMAGE_FAILURE';
 // .then(() => historyPush(`/discussion/${ discussion_id }`))
 
 // add a post
-export const addPost = (discussion_id, postBody, team_id, imageData, repliedPostID) => dispatch => {
+export const addPost = (discussion_id, postBody, team_id, repliedPostID) => dispatch => {
 	const user_id = localStorage.getItem('symposium_user_id');
 	const token = localStorage.getItem('symposium_token');
 	let headers = { headers: { Authorization: token } };
-	const body = { discussion_id, postBody, repliedPostID, team_id, image: imageData };
+	const body = { discussion_id, postBody, repliedPostID, team_id };
 	
-	// if (imageData) {
-	// 	// avatar will be updated with given image
-	// 	headers = {
-	// 		headers: {
-	// 			'Content-Type': 'multipart/form-data',
-	// 			Authorization: token,
-	// 		}
-	// 	};
-	// } else {
-	// 	// avatar will be reset to default
-	// 	headers = { headers: { Authorization: token } };
-	// 	imageData = { imageData };
-	// }
-
 	dispatch({ type: ADD_POST_LOADING });
 	return axios.post(`${ backendURL }/posts/${ user_id }`, body, headers)
 		.then(res => dispatch({ type: ADD_POST_SUCCESS, payload: res.data }))
@@ -123,9 +114,10 @@ export const updatePostWithImage = (image_id, post_id) => dispatch => {
   const token = localStorage.getItem('symposium_token');
   const headers = { headers: { Authorization: token } };
   const post_image = { image_id, post_id };
+  dispatch({ type: UPDATING_POST_WITH_IMAGE_LOADING });
   return axios
     .put(`${backendURL}/posts/images/${user_id}`, post_image, headers)
-    .then(res => console.log(res.data))
+    .then(res => dispatch({ type: UPDATING_POST_WITH_IMAGE_SUCCESS }))
     .catch(err => handleError(err)(dispatch));
 };
 
@@ -138,3 +130,7 @@ export const removeUpload = image_id => dispatch => {
     .then(res => console.log(res.data))
     .catch(err => handleError(err)(dispatch));
 };
+
+export const resetImageState = () => dispatch => {
+  dispatch({ type: RESET_IMAGE_STATE });
+}

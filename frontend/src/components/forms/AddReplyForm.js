@@ -173,7 +173,8 @@ class AddReplyForm extends Component {
 		const { post_id, team_id, handleFilterChange, handleTeamFilter, toggleAddReplyForm, updateReplyWithImage, image } = this.props;
 		this.props.addReply(post_id, team_id, replyBody).then((res) => {
 			if(this.state.name){
-        updateReplyWithImage(image[0], res.payload[0])
+				updateReplyWithImage(image[0], res.payload[0]);
+				this.props.resetImageState();
        }
 		});
 
@@ -195,8 +196,9 @@ class AddReplyForm extends Component {
   handleExit = e => {
     e.preventDefault();
     this.props.toggleAddReplyForm();
-    if(this.state.name){
-			this.props.removeUpload(this.props.image[0])
+    if(this.props.image.length > 0){
+			this.props.removeUpload(this.props.image[0]);
+			this.props.resetImageState();
 		}
   }
 	render() {
@@ -227,7 +229,7 @@ class AddReplyForm extends Component {
 						</Link>
 					</div>
 					<button type = 'submit'>Post Reply</button>	
-					<UploadImage handleFileChange={this.handleFileChange}/>
+					<UploadImage handleFileChange={this.handleFileChange} name={this.state.name}/>
 				</UserActions>
 			</AddReplyFormWrapper>
 		)
