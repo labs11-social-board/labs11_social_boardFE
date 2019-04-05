@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { addTeam, getUsersTeams } from '../../store/actions/index.js';
 
 // components 
-import { ToggleSwitch } from '../index.js';
+import { ToggleSwitch, UploadImage } from '../index.js';
 // globals
 import { topHeaderHeight, phoneP } from '../../globals/globals.js';
 
@@ -15,7 +15,7 @@ const ModalBackground = styled.div`
   justify-content: center;
   align-items: center;
   position: fixed;
-  z-index: 8001;
+  z-index: 10000;
   top: 0;
   left: 0;
   width: 100%;
@@ -46,7 +46,7 @@ const DivModal = styled.div`
 
   @media ${phoneP}{
     width: 95%;
-    height: 73%;
+    height: 95%;
     flex-direction: row;
   }
 
@@ -161,6 +161,15 @@ const DivName = styled.div`
     display: flex;
     width: 100%;
   }
+
+  .image-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    
+  }
 `;
 
 const DivButtons = styled.div`
@@ -176,6 +185,8 @@ class AddTeamModal extends React.Component {
     team_name: '',
     isPrivate: false,
     wiki: '',
+    name: '',
+    imagePreviewUrl: ''
   };
 
   handleSubmit = e => {
@@ -194,9 +205,26 @@ class AddTeamModal extends React.Component {
   handleToggle = e => {
     this.setState({ isPrivate: !this.state.isPrivate });
   };
+  handleFileChange = (e) => {
+    e.preventDefault();
+
+    let reader = new FileReader();
+    let file = e.target.files[0];
+    
+    reader.onloadend = () => {
+      this.setState({
+        name: file,
+        imagePreviewUrl: reader.result
+      });
+    }
+
+    if(file){
+      reader.readAsDataURL(file)
+    }
+  }
   render() {
     const { setAddTeamModalRaised } = this.props;
-    const { team_name, wiki, isPrivate } = this.state;
+    const { team_name, wiki, isPrivate, imagePreviewUrl } = this.state;
     return (
       <ModalBackground>
         <DivModalCloser onClick={(e) => setAddTeamModalRaised(e, false)} />
@@ -211,6 +239,9 @@ class AddTeamModal extends React.Component {
           <FormContent onSubmit={this.handleSubmit}>
             <DivRight>
               <DivName>
+                <div className='image-wrapper'>
+                  <UploadImage handleFileChange={this.handleFileChange} name={this.state.name} imagePreviewUrl={this.state.imagePreviewUrl}/>
+                </div>
                 <label htmlFor='team_name'>Team Name</label>
                 <input
                   type='text'
