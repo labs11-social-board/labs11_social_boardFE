@@ -152,6 +152,7 @@ import {
   REMOVE_POST_FAILURE,
   UPLOAD_IMAGE_LOADING,
   UPLOAD_IMAGE_SUCCESS,
+  RESET_IMAGE_STATE,
 
   // Action Creators
   addPost,
@@ -159,7 +160,8 @@ import {
   removePost,
   uploadImage,
   updatePostWithImage,
-  removeUpload
+  removeUpload,
+  resetImageState
 } from './PostsActions.js';
 
 import {
@@ -352,6 +354,26 @@ import {
   updateProfile
 } from '../actions/EditProfileActions.js';
 
+
+/************************************************************
+ *****************************************************************
+*****************************************************************
+*************************EMAILS*******************************/
+
+import {
+  // actions
+  EMAIL_APPROVAL_SUBMITTED,
+  EMAIL_APPROVAL_SUCCESS,
+  EMAIL_APPROVAL_FAIL,
+  GET_EMAILS,
+  GET_EMAILS_SUCCESS,
+  GET_EMAILS_FAIL,
+
+  // Action Creators
+  approveEmail,
+  getEmails
+} from '../actions/EmailActions';
+
 //*************************************************************************************************
 //*************************************************************************************************
 //*************************************************************************************************
@@ -532,6 +554,7 @@ export {
   UPDATE_EMAIL_FAILURE,
   UPLOAD_IMAGE_LOADING,
   UPLOAD_IMAGE_SUCCESS,
+  RESET_IMAGE_STATE, 
   //Reply Actions
   ADD_REPLY_LOADING,
   ADD_REPLY_SUCCESS,
@@ -611,6 +634,7 @@ export {
   uploadImage,
   updatePostWithImage,
   removeUpload,
+  resetImageState,
   // Reply Action Creators
   addReply,
   updateReplyWithImage,
@@ -653,5 +677,17 @@ export {
   UPDATE_TWITTER,
   UPDATE_TWITTER_SUCCESSFUL,
   UPDATE_TWITTER_FAILURE,
-  updateProfile
+  updateProfile,
+  // Emails
+  // actions
+  EMAIL_APPROVAL_SUBMITTED,
+  EMAIL_APPROVAL_SUCCESS,
+  EMAIL_APPROVAL_FAIL,
+  GET_EMAILS,
+  GET_EMAILS_SUCCESS,
+  GET_EMAILS_FAIL,
+  // Action Creators
+  approveEmail,
+  getEmails
 };
+

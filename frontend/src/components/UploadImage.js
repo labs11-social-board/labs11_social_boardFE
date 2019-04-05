@@ -16,17 +16,21 @@ const UploadImage = props => {
     return(
       <>
         <input
-              type = 'file'
-              name = 'image-file'
-              id = 'image-file'
-              onChange = { props.handleFileChange }
-            />
-        <button onClick={ handleImageSubmit }>Upload</button>
+          type = 'file'
+          name = 'image-file'
+          id = 'image-file'
+          onChange = { props.handleFileChange }
+        />
+        <button onClick={ handleImageSubmit } disabled={!props.name}>Upload</button>
+        {props.image.length > 0 ? props.isUploadingImage ? <p>Uploading...</p> : <p>Image Uploaded!</p> : null}
       </>
     );
 };
 
-const mapStateToProps = state => ({ });
+const mapStateToProps = state => ({
+  isUploadingImage: state.posts.isUploadingImage,
+  image: state.posts.images
+ });
 
 export default connect(
   mapStateToProps,

@@ -12,7 +12,7 @@ import { Avatar } from "../index.js";
 import { phoneP } from '../../globals/globals.js';
 
 // action creators
-import { addPost, uploadImage, updatePostWithImage, removeUpload } from "../../store/actions/index.js";
+import { addPost, uploadImage, updatePostWithImage, removeUpload, resetImageState } from "../../store/actions/index.js";
 
 // components
 import { UploadImage } from '../index.js';
@@ -93,20 +93,17 @@ const UserActions = styled.div`
 `;
 
 class AddPostForm extends Component {
-  state = { postBody: "", image: "" };
+  state = { postBody: "", name: "" };
   handleChange = e => this.setState({ [e.target.name]: e.target.value });
   handleSubmit = e => {
     e.preventDefault();
     const { postBody } = this.state;
     const { discussion_id, team_id, handleTeamFilter, handleFilterChange, toggleAddPostForm, updatePostWithImage, image } = this.props;
-
-    const imageFile = e.target[2].files[0];
-    const imageData = new FormData();
-    imageData.append("imageFile", imageFile);
     
-    this.props.addPost(discussion_id, postBody, team_id, imageData).then( res => {
+    this.props.addPost(discussion_id, postBody, team_id).then( res => {
       if(this.state.name){
-        updatePostWithImage(image[0], res.payload[0])
+        updatePostWithImage(image[0], res.payload[0]);
+        this.props.resetImageState();
        }
     });
     if (team_id) {
@@ -118,29 +115,22 @@ class AddPostForm extends Component {
     }
   };
 
-  handleInputChange = e => {
-    if (e.target.files.length) {
-      const { name } = e.target.files[0];
-      console.log("image",name);
-      return this.setState({ image: name });
-    }
-    return this.setState({ image: "" });
-  };
-
   handleExit = e => {
     e.preventDefault();
     this.props.toggleAddPostForm();
-    if(this.state.name){
-			this.props.removeUpload(this.props.image[0])
+    if(this.props.image.length > 0){
+      this.props.removeUpload(this.props.image[0]);
+      this.props.resetImageState();
 		}
   }
 
   handleFileChange = e => {
 		if (e.target.files.length) {
       const { name } = e.target.files[0];
-			return this.setState({ name });
-		}
-		return this.setState({ name: '' });
+      this.setState({ name });
+		} else {
+      this.setState({ name: '' });
+    }
   };
 
   render() {
@@ -175,7 +165,7 @@ class AddPostForm extends Component {
           <button className="submit-btn" type="submit">
             Post comment
           </button>
-          <UploadImage handleFileChange={this.handleFileChange}/>
+          <UploadImage handleFileChange={this.handleFileChange} name={this.state.name}/>
         </UserActions>
       </AddPostFormWrapper>
     );
@@ -187,9 +177,10 @@ const mapStateToProps = state => ({
   user_id: state.users.user_id,
   avatar: state.users.avatar,
   image: state.posts.images,
+  isUploadingImage: state.posts.isUploadingImage
 });
 
 export default connect(
   mapStateToProps,
-  { addPost, uploadImage, updatePostWithImage, removeUpload }
+  { addPost, uploadImage, updatePostWithImage, removeUpload, resetImageState }
 )(AddPostForm);
