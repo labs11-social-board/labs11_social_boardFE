@@ -22,7 +22,8 @@ import {
 
 const initialState = {
 	images: {},
-	post_id: {}
+	post_id: {},
+	isUploadingImage: false
 };
 
 export const PostsReducer = (state = initialState, action) => {
@@ -44,10 +45,16 @@ export const PostsReducer = (state = initialState, action) => {
 		case HANDLE_POST_VOTE_SUCCESS:
 		case HANDLE_POST_VOTE_FAILURE:
 		case UPLOAD_IMAGE_LOADING:
+			return {
+				...state,
+				isUploadingImage: true
+			};
+
 		case UPLOAD_IMAGE_SUCCESS:
 			return {
 				...state,
-				images: action.payload
+				images: action.payload,
+				isUploadingImage: false
 			};
 		default:
 		return state;

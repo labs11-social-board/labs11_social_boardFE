@@ -195,8 +195,8 @@ class AddReplyForm extends Component {
   handleExit = e => {
     e.preventDefault();
     this.props.toggleAddReplyForm();
-    if(this.state.name){
-			this.props.removeUpload(this.props.image[0])
+    if(this.props.image.length > 0){
+      this.props.removeUpload(this.props.image[0])
 		}
   }
 	render() {
@@ -227,7 +227,7 @@ class AddReplyForm extends Component {
 						</Link>
 					</div>
 					<button type = 'submit'>Post Reply</button>	
-					<UploadImage handleFileChange={this.handleFileChange}/>
+					<UploadImage handleFileChange={this.handleFileChange} name={this.state.name}/>
 				</UserActions>
 			</AddReplyFormWrapper>
 		)

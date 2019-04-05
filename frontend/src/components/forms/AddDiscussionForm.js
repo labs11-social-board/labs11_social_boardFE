@@ -233,7 +233,9 @@ class AddDiscussionForm extends Component {
   handleExit = e => {
     e.preventDefault();
     this.props.toggleAddDiscussionForm();
-    this.props.removeUpload(this.props.image[0])
+    if(this.props.image.length > 0){
+      this.props.removeUpload(this.props.image[0])
+		}
   }
   getCategoryNames = () => this.setState({ categoryNames: this.props.categoriesFollowed, category_id: this.props.category_id || this.props.categoriesFollowed[0].id });
   componentDidMount = () => this.getCategoryNames();

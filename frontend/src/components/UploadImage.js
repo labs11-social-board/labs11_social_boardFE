@@ -16,12 +16,12 @@ const UploadImage = props => {
     return(
       <>
         <input
-              type = 'file'
-              name = 'image-file'
-              id = 'image-file'
-              onChange = { props.handleFileChange }
-            />
-        <button onClick={ handleImageSubmit }>Upload</button>
+          type = 'file'
+          name = 'image-file'
+          id = 'image-file'
+          onChange = { props.handleFileChange }
+        />
+        <button onClick={ handleImageSubmit } disabled={!props.name}>Upload</button>
       </>
     );
 };
