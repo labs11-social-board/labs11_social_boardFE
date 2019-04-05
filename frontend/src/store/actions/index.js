@@ -152,6 +152,7 @@ import {
   REMOVE_POST_FAILURE,
   UPLOAD_IMAGE_LOADING,
   UPLOAD_IMAGE_SUCCESS,
+  RESET_IMAGE_STATE,
 
   // Action Creators
   addPost,
@@ -159,7 +160,8 @@ import {
   removePost,
   uploadImage,
   updatePostWithImage,
-  removeUpload
+  removeUpload,
+  resetImageState
 } from './PostsActions.js';
 
 import {
@@ -552,6 +554,7 @@ export {
   UPDATE_EMAIL_FAILURE,
   UPLOAD_IMAGE_LOADING,
   UPLOAD_IMAGE_SUCCESS,
+  RESET_IMAGE_STATE, 
   //Reply Actions
   ADD_REPLY_LOADING,
   ADD_REPLY_SUCCESS,
@@ -631,6 +634,7 @@ export {
   uploadImage,
   updatePostWithImage,
   removeUpload,
+  resetImageState,
   // Reply Action Creators
   addReply,
   updateReplyWithImage,

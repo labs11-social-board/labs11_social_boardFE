@@ -12,7 +12,7 @@ import { Avatar } from "../index.js";
 import { phoneP } from '../../globals/globals.js';
 
 // action creators
-import { addPost, uploadImage, updatePostWithImage, removeUpload } from "../../store/actions/index.js";
+import { addPost, uploadImage, updatePostWithImage, removeUpload, resetImageState } from "../../store/actions/index.js";
 
 // components
 import { UploadImage } from '../index.js';
@@ -102,7 +102,8 @@ class AddPostForm extends Component {
     
     this.props.addPost(discussion_id, postBody, team_id).then( res => {
       if(this.state.name){
-        updatePostWithImage(image[0], res.payload[0])
+        updatePostWithImage(image[0], res.payload[0]);
+        this.props.resetImageState();
        }
     });
     if (team_id) {
@@ -118,7 +119,8 @@ class AddPostForm extends Component {
     e.preventDefault();
     this.props.toggleAddPostForm();
     if(this.props.image.length > 0){
-      this.props.removeUpload(this.props.image[0])
+      this.props.removeUpload(this.props.image[0]);
+      this.props.resetImageState();
 		}
   }
 
@@ -180,5 +182,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { addPost, uploadImage, updatePostWithImage, removeUpload }
+  { addPost, uploadImage, updatePostWithImage, removeUpload, resetImageState }
 )(AddPostForm);

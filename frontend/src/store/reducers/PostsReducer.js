@@ -16,7 +16,9 @@ import {
 	HANDLE_POST_VOTE_FAILURE,
 
 	UPLOAD_IMAGE_LOADING,
-	UPLOAD_IMAGE_SUCCESS
+	UPLOAD_IMAGE_SUCCESS,
+
+	RESET_IMAGE_STATE
 
 } from '../actions/index.js';
 
@@ -56,6 +58,13 @@ export const PostsReducer = (state = initialState, action) => {
 				images: action.payload,
 				isUploadingImage: false
 			};
+		
+		case RESET_IMAGE_STATE: 
+			return {
+				...state,
+				images: {}
+			};
+			
 		default:
 		return state;
 	}

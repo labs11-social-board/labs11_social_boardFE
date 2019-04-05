@@ -173,7 +173,8 @@ class AddReplyForm extends Component {
 		const { post_id, team_id, handleFilterChange, handleTeamFilter, toggleAddReplyForm, updateReplyWithImage, image } = this.props;
 		this.props.addReply(post_id, team_id, replyBody).then((res) => {
 			if(this.state.name){
-        updateReplyWithImage(image[0], res.payload[0])
+				updateReplyWithImage(image[0], res.payload[0]);
+				this.props.resetImageState();
        }
 		});
 
@@ -196,7 +197,8 @@ class AddReplyForm extends Component {
     e.preventDefault();
     this.props.toggleAddReplyForm();
     if(this.props.image.length > 0){
-      this.props.removeUpload(this.props.image[0])
+			this.props.removeUpload(this.props.image[0]);
+			this.props.resetImageState();
 		}
   }
 	render() {
