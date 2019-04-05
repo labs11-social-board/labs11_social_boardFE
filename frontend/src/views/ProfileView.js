@@ -123,6 +123,29 @@ color: ${props => props.theme.defaultColor};
   }
 }
 `;
+
+const WrappedDiv2 = styled.div`
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+width: 90%;
+margin: 0 auto;
+margin-bottom : 15px; 
+margin-right : 20px;
+color: ${props => props.theme.defaultColor};
+.back {
+  margin-right: 5px;
+  width: 7%;
+  height: 50px;
+  font-size: 1rem;
+  color: ${props => props.theme.defaultColor};
+  
+  &:hover{
+    cursor: pointer;
+  }
+}
+`;
+
 const Button = styled.button`
   margin-left: 10px;
   padding: 10px 15px;
@@ -250,7 +273,7 @@ const SubWrapper = styled.div`
 const SearchContainer = styled.div`
   margin-left: 15px;
   display: flex;
-  width: 30%;
+  width: 100%;
   justify-content: center;
   align-items: center;
 
@@ -263,6 +286,15 @@ const SearchContainer = styled.div`
       margin-left: 10px;
       width: 45%;
     }
+`;
+
+const InviteFriendLink = styled.p`
+  cursor: pointer;
+  textDecoration: underline;
+
+  &:hover {
+
+  }
 `;
 
 /***************************************************************************************************
@@ -314,7 +346,6 @@ class Profile extends Component {
   by mapping through our data received and choosing what properties we want to display with our profile parameter*/
   render() {
     /*Profile data for user profile*/
-    console.log(this.props)
     const usernameForProfile = this.props.profile[0].username; 
     const bio  = this.props.profile[0].bio ?  this.props.profile[0].bio : ""; 
     const twitter = this.props.profile[0].twitter ? this.props.profile[0].twitter : ""; 
@@ -380,10 +411,13 @@ class Profile extends Component {
               <br/>
               <WrappedDiv>
                 
+                {/* <label className="container">Search for a friend</label> */}
                 <SearchContainer>
+                
                   <UserSearch showSearch={this.props.showSearch} scrollTo={this.props.scrollTo} pathname={this.props.pathname} goTo={this.props.goTo} toggleSearch={this.props.toggleSearch} />
                 </SearchContainer>
-                <p style = {{cursor:"pointer", textDecoration: "underline"}} onClick = {this.handleEmailInput}>Invite a friend</p>
+                <br/>
+                <Button className= "add-post-btn" onClick = {this.handleEmailInput}>Invite a friend</Button>
               </WrappedDiv>
               <br/>
               <br/>

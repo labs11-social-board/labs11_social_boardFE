@@ -34,6 +34,7 @@ const SearchBox = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    align-content: center;
 
     /* The container */
     .container {
@@ -147,7 +148,7 @@ const SearchBox = styled.div`
     }
 
     .search-input {
-      width: 80%;
+      width: 100%;
       border: none;
       border-radius: 55px;
       padding: 5px 10px;
@@ -163,7 +164,6 @@ const SearchBox = styled.div`
     max-height: 80vh;
     overflow: auto;
     position: absolute;
-    right: -50px;
     top: 44px;
     z-index: 9001;
     border-radius: 5px;
@@ -173,13 +173,9 @@ const SearchBox = styled.div`
     border: 1px solid #ddd;
     padding: 10px;
 
-    @media (max-width: 1000px) {
-      right: -93px;
-    }
-
-    @media (max-width: 450px) {
-      right: 0;
-      left: -186px;
+    @media (max-width: 450px) { 
+      position: relative;
+      padding: 3px;
     }
 
     .results-length {
@@ -256,7 +252,7 @@ class UserSearch extends Component {
     const { searchBy, searchText, searchResults, loading } = this.state;
     return (
       <SearchBox>
-        <label className="container">Search for a friend</label>
+        {/* <label className="container">Search for a friend</label> */}
         <div className="search-input-wrapper">
           <span className="fa fa-search" />
           <input
