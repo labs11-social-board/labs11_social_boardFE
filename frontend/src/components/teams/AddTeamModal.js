@@ -146,7 +146,7 @@ const DivName = styled.div`
     margin: 0 24% 0 2%;
 
     @media ${phoneP}{
-      margin: 0 14% 0 2%;
+      margin: 10% 14% 0 2%;
     }
   }
 
@@ -160,6 +160,7 @@ const DivName = styled.div`
   @media ${phoneP} {
     display: flex;
     width: 100%;
+    align-items: baseline;
   }
 
   .image-wrapper {
@@ -222,12 +223,20 @@ class AddTeamModal extends React.Component {
       reader.readAsDataURL(file)
     }
   }
+  handleExit = e => {
+    e.preventDefault();
+    this.props.setAddTeamModalRaised(e, false);
+    if(this.props.image.length > 0){
+      this.props.removeUpload(this.props.image[0]);
+      this.props.resetImageState();
+		}
+  }
   render() {
     const { setAddTeamModalRaised } = this.props;
     const { team_name, wiki, isPrivate, imagePreviewUrl } = this.state;
     return (
       <ModalBackground>
-        <DivModalCloser onClick={(e) => setAddTeamModalRaised(e, false)} />
+        <DivModalCloser onClick={this.handleExit} />
         <DivModal>
           <div className='above-input'>
               <span
@@ -240,7 +249,7 @@ class AddTeamModal extends React.Component {
             <DivRight>
               <DivName>
                 <div className='image-wrapper'>
-                  <UploadImage handleFileChange={this.handleFileChange} name={this.state.name} imagePreviewUrl={this.state.imagePreviewUrl}/>
+                  <UploadImage/>
                 </div>
                 <label htmlFor='team_name'>Team Name</label>
                 <input
