@@ -308,6 +308,7 @@ const ProfileLink = styled.a`
   &:hover {
     text-decoration: underline;
     cursor: pointer; 
+    color : ${props => props.theme.defaultColorOnHover};
   }
 `;
 
