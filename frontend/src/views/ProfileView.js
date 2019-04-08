@@ -426,31 +426,13 @@ class Profile extends Component {
               </WrappedDiv>
               <br/>
               <br/>
-              <div>
-                {followListLength > 0 ?  followList.map((user, id) => 
-                  // user.following_id can be used to go to the users profile upon clicking on them currently not implemented. 
-                  <WrappedDiv
-                    style = {{cursor:"pointer"}} 
-                    key = {id} 
-                    onClick = {this.goToUsersPage(user.following_id)}
-                    > 
-                    <Avatar 
-                      height = '50px'
-                      width = '50px'
-                      src= {user.avatar}
-                    >
-                      
-                    </Avatar>
-                    <span>{user.username}</span>
-                  
-                  </WrappedDiv>
-                ) : <div>{profileId !== userId ? `${usernameForProfile} currently doesn't follow any users.` :  "You are not currently following any users."}</div>}
-              </div>
+              <h4>Below lists what you are following click a tab to check it out.</h4>
               <Tabs>
                 <TabList>
                   <Tab> Followed Posts</Tab>
                   <Tab>Comments</Tab>
                   <Tab>Replies</Tab>
+                  <Tab>Followers</Tab>
                 </TabList>
                 <TabPanel>
                   <WrappedDiv>
@@ -554,6 +536,32 @@ class Profile extends Component {
                             </PostHeader>
                           </Link>
                         </ContentDiv>)}
+                    </SubWrapper>
+                  </WrappedDiv>
+                </TabPanel>
+                <TabPanel>
+                  <WrappedDiv>
+                    <SubWrapper>
+                    <div>
+                {followListLength > 0 ?  followList.map((user, id) => 
+                  // user.following_id can be used to go to the users profile upon clicking on them currently not implemented. 
+                  <WrappedDiv
+                    style = {{cursor:"pointer"}} 
+                    key = {id} 
+                    onClick = {this.goToUsersPage(user.following_id)}
+                    > 
+                    <Avatar 
+                      height = '50px'
+                      width = '50px'
+                      src= {user.avatar}
+                    >
+                      
+                    </Avatar>
+                    <span>{user.username}</span>
+                  
+                  </WrappedDiv>
+                ) : <div>{profileId !== userId ? `${usernameForProfile} currently doesn't follow any users.` :  "You are not currently following any users."}</div>}
+              </div>
                     </SubWrapper>
                   </WrappedDiv>
                 </TabPanel>
