@@ -2,8 +2,24 @@ import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
+
+
 // action creators
 import { updateTeam } from '../../store/actions/index.js';
+
+
+/***************************************************************************************************
+ ********************************************** Styles *********************************************
+ **************************************************************************************************/
+
+// const TextContainer = styled `
+ 
+ 
+//  `;
+
+const WikiEditButton = styled.button`
+border: 1px solid #418DCF;
+`;
 
 class TeamWiki extends React.Component {
   state = {
@@ -49,7 +65,7 @@ class TeamWiki extends React.Component {
       return (
         <div id='wiki' className='wiki tab-content'>
           <div className='edit-wiki'>
-            {isTeamOwner ? <button onClick={this.toggleEditting}>Edit</button> : null}
+            {isTeamOwner ? <WikiEditButton onClick={this.toggleEditting}>Edit</WikiEditButton> : null}
           </div>
           <div className='wiki-content'>
             <p>{this.props.wiki}</p>
