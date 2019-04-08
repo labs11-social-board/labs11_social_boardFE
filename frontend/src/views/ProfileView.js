@@ -271,7 +271,7 @@ const SubWrapper = styled.div`
 `;
 
 const SearchContainer = styled.div`
-  margin-left: 15px;
+  margin-right: 15px;
   display: flex;
   width: 100%;
   justify-content: center;

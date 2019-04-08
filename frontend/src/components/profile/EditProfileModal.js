@@ -7,7 +7,7 @@ import { getProfile, updateProfile } from "../../store/actions/index.js";
 // components
 
 // globals
-import { phoneL, topHeaderHeight } from "../../globals/globals.js";
+import { phoneL, topHeaderHeight, phoneP } from "../../globals/globals.js";
 
 const ModalBackground = styled.div`
   display: flex;
@@ -138,6 +138,18 @@ const DivName = styled.div`
     align-items: center;
     flex-direction: column;
   }
+
+  textarea {
+    resize: none; 
+    width: 500px;
+    height: 200px;
+    margin: 2% 0;
+  }
+
+  @media ${phoneP} {
+    display: flex; 
+    width: 100%;
+  }
 `;
 
 const DivButtons = styled.div`
@@ -256,15 +268,16 @@ class EditProfileModal extends React.Component {
           <FormContent onSubmit={this.handleSubmit}>
             <DivRight>
               <DivName>
-                <h4>Bio</h4>
-                <input
+                <h4>Bio - Tell us about yourself...</h4>
+                <textarea
                   type="text"
                   placeholder=""
                   name="bio"
                   value={bio}
                   className="body-input"
                   onChange={this.handleChange}
-                />
+                  >
+                  </textarea>
                 <h4>Github link</h4>
                 <input
                   type="text"
