@@ -144,6 +144,11 @@ const DivName = styled.div`
     width: 500px;
     height: 200px;
     margin: 2% 0;
+    
+    @media ${phoneP}{
+      display: flex; 
+      width: 100%;
+    }
   }
 
   @media ${phoneP} {
