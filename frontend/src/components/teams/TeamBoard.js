@@ -120,6 +120,13 @@ const DiscussionHeader = styled.div`
 	justify-content: space-between;
 	align-items: center;
   width: 100%;
+
+  img {
+    width: 100px;
+    height: 90px;
+    border-radius: 50%;
+    margin-right: 10%;
+  }
   
   .name-follow-wrapper {
     display: flex;
@@ -342,6 +349,7 @@ class TeamBoard extends Component {
           {isAddTeamMemberModalRaised && <UsersListModal setTeamMemberModal={this.setTeamMemberModal} team_id={team.id}/> }
           <DiscussionHeader>
             <div className='name-follow-wrapper'>
+              {team.logo ? <img src={team.logo} /> : null}
               <h2 className='name'>{team.team_name}</h2>
               <FollowCat
                 team_id={match.params.team_id}
