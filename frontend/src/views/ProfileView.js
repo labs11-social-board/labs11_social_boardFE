@@ -271,7 +271,7 @@ const SubWrapper = styled.div`
 `;
 
 const SearchContainer = styled.div`
-  margin-left: 15px;
+  margin-right: 15px;
   display: flex;
   width: 100%;
   justify-content: center;
@@ -352,7 +352,7 @@ class Profile extends Component {
     const github = this.props.profile[0].github ? this.props.profile[0].github : ""; 
     const linkedin = this.props.profile[0].linkedin ? this.props.profile[0].linkedin : "";
     //add in location here once created on backend.  
-    
+    const location = this.props.profile[0].location ? this.props.profile[0].location : "";
     //Follow list variables 
     const userId = localStorage.getItem("symposium_user_id");
     
@@ -404,6 +404,7 @@ class Profile extends Component {
               <div>
                   <p><span>Bio </span><span>{bio}</span></p>
                   <br/>
+                  <p><span>Location </span>{location}</p>
                   <p><span>Github </span> <span>{github}</span></p>
                   <p><span>LinkedIn </span> <span>{linkedin}</span></p>
                   <p><span>Twitter </span> <span>{twitter}</span></p>
