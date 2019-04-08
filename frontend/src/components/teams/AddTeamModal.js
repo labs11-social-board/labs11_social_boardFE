@@ -146,7 +146,7 @@ const DivName = styled.div`
     margin: 0 24% 0 2%;
 
     @media ${phoneP}{
-      margin: 10% 14% 0 2%;
+      margin: 0 14% 0 2%;
     }
   }
 

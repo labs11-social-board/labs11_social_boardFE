@@ -13,6 +13,11 @@ const FileUpload = styled.div `
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom:30px;
+  
+  @media ${phoneP}{
+    
+  }
 
   img {
     width: 100%;
@@ -36,10 +41,18 @@ const FileUpload = styled.div `
     text-align: center;
     border: 1px solid;
     line-height: 10;
+    margin: 0 25% 0 9%;
     cursor:pointer;
+
+    @media (max-width: 1440px){
+      width: 25%;
+      line-height: 8;
+      margin: 0 23% 0 9%;
+    }
 
     @media ${phoneP} {
       line-height: 7;
+      width: 30%;
     }
   }
 
@@ -83,6 +96,7 @@ class UploadImage extends React.Component {
     render() {
       return(
         <FileUpload>
+          <label htmlFor='image-file'>Team Logo</label>
           <input
             type = 'file'
             name = 'image-file'
