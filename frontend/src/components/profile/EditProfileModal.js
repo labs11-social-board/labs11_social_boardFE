@@ -142,7 +142,7 @@ const DivName = styled.div`
   textarea {
     resize: none; 
     width: 500px;
-    height: 200px;
+    height: 100px;
     margin: 2% 0;
     
     @media ${phoneP}{
@@ -295,7 +295,7 @@ class EditProfileModal extends React.Component {
                   className = "body-input"
                   onChange = {this.handleChange}
                 />
-                <h4>Github link</h4>
+                <h4>Add Your Github profile link</h4>
                 <input
                   type="text"
                   placeholder=""
@@ -304,7 +304,7 @@ class EditProfileModal extends React.Component {
                   className="body-input"
                   onChange={this.handleChange}
                 />
-                <h4>Linkedin link</h4>
+                <h4>Add Your Linkedin profile link</h4>
                 <input
                   type="text"
                   placeholder=""
@@ -313,7 +313,7 @@ class EditProfileModal extends React.Component {
                   className="body-input"
                   onChange={this.handleChange}
                 />
-                <h4>Twitter link</h4>
+                <h4>Add your Twitter profile link</h4>
                 <input
                   type="text"
                   placeholder=""
