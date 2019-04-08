@@ -9,7 +9,6 @@ import { uploadImage, removeUpload, resetImageState } from "../store/actions/ind
 import { phoneP } from '../globals/globals.js';
 
 const FileUpload = styled.div `
-  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -71,23 +70,17 @@ const FileUpload = styled.div `
 
   .image-upload + label {
     padding: 10px 0;
-    width: 135px;
+    width: 140px;
     text-align: center;
     border: 1px solid;
-    margin: 0 25% 0 9%;
     cursor: pointer;
     border-radius: 5px;
     background-color: #418DCF;
     color: white;
 
-    @media(max-width: 1024px) {
-      width: 43%;
-      margin: 0 25%;
-    }
-
     @media ${phoneP} {
-      width: 80%;
-      margin: 0;
+      width: 100%;
+      padding: 7% 25%;
     }
   }
 

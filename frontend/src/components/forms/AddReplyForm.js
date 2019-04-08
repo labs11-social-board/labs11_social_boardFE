@@ -229,7 +229,7 @@ class AddReplyForm extends Component {
 						</Link>
 					</div>
 					<button type = 'submit'>Post Reply</button>	
-					<UploadImage handleFileChange={this.handleFileChange} name={this.state.name}/>
+					<UploadImage />
 				</UserActions>
 			</AddReplyFormWrapper>
 		)

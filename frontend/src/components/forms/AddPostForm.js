@@ -106,7 +106,7 @@ class AddPostForm extends Component {
         this.props.resetImageState();
       }
     });
-    
+
     if (team_id) {
       toggleAddPostForm();
       setTimeout(() => handleTeamFilter(), 200);
@@ -166,7 +166,7 @@ class AddPostForm extends Component {
           <button className="submit-btn" type="submit">
             Post comment
           </button>
-          <UploadImage handleFileChange={this.handleFileChange} name={this.state.name}/>
+          <UploadImage />
         </UserActions>
       </AddPostFormWrapper>
     );
