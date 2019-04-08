@@ -1,14 +1,12 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import styled from "styled-components";
+import { connect } from "react-redux";
 
 // actions
-import { getTeams } from '../store/actions/index.js';
+import { getTeams } from "../store/actions/index.js";
 
 // components
-import {
-  Teams,
-} from '../components/index.js';
+import { Teams } from "../components/index.js";
 
 const TeamsWrapper = styled.div`
   width: 95%;
@@ -29,7 +27,8 @@ const TeamsHeader = styled.div`
   align-items: center;
   width: 100%;
   color: ${props => props.theme.discussionPostColor};
-  
+
+
   .name-wrapper {
     display: flex;
     align-items: center;
@@ -60,7 +59,7 @@ const TeamsHeader = styled.div`
         outline: none;
       }
     }
-  
+
     // .add-post-btn {
     //   margin-left: 10px;
     //   padding: 10px 15px;
@@ -79,63 +78,66 @@ const TeamsHeader = styled.div`
   }
 `;
 
-const name = 'name';
-const newest = 'newest';
-const oldest = 'oldest';
+const name = "name";
+const newest = "newest";
+const oldest = "oldest";
 
 class TeamsView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      order: 'team_name', // possible values: 'name', 'discussion_count', 'created_at'
-      orderType: '', // possible values: 'asc', 'desc'
+      order: "team_name", // possible values: 'name', 'discussion_count', 'created_at'
+      orderType: "" // possible values: 'asc', 'desc'
     };
-  };
+  }
 
   handleSelectChange = e => {
-    let order = 'created_at';
+    let order = "created_at";
     let orderType;
     switch (e.target.value) {
       case name:
-        order = 'team_name';
-        orderType = 'asc';
+        order = "team_name";
+        orderType = "asc";
         break;
       case newest:
-        order = 'created_at';
-        orderType = 'desc';
+        order = "created_at";
+        orderType = "desc";
         break;
       case oldest:
-        order = 'created_at';
-        orderType = 'asc';
+        order = "created_at";
+        orderType = "asc";
         break;
       default:
         break;
-    };
+    }
     return this.setState({ order, orderType }, () => {
       return this.props.getTeams(this.state.order, this.state.orderType);
     });
   };
   sortHandler = ev => {
     ev.preventDefault();
-    return Promise.resolve(this.setState({ [ev.target.name]: ev.target.value })).then(() => {
+    return Promise.resolve(
+      this.setState({ [ev.target.name]: ev.target.value })
+    ).then(() => {
       this.props.getTeams(this.state.order, this.state.orderType);
     });
   };
-  componentDidMount = () => this.props.getTeams(this.state.order, this.state.orderType);
+  componentDidMount = () =>
+    this.props.getTeams(this.state.order, this.state.orderType);
   render() {
     return (
       <TeamsWrapper>
         <TeamsHeader>
-          <div className = 'name-wrapper'>
-            <h2 className='name'>Teams</h2>
+          <div className="name-wrapper">
+            <h2 className="name">Teams</h2>
           </div>
-          <div className='filter-wrapper'>
-            <i className='fab fa-mix' />
+          <div className="filter-wrapper">
+            <i className="fab fa-mix" />
             <span>Filter by</span>
             <select
-              className='filter'
+              className="filter"
               onChange={this.handleSelectChange}
-              name='filter'
+              name="filter"
             >
               <option value={name}>{name}</option>
               <option value={newest}>{newest}</option>
@@ -152,7 +154,7 @@ class TeamsView extends Component {
 }
 
 const mapStateToProps = state => ({
-  teams: state.teams.teams,
+  teams: state.teams.teams
 });
 
 export default connect(
