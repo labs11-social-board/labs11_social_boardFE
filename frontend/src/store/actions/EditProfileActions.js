@@ -29,6 +29,10 @@ export const UPDATE_GITHUB = "UPDATE_GITHUB";
 export const UPDATE_GITHUB_SUCCESSFUL = "UPDATE_GITHUB_SUCCESSFUL";
 export const UPDATE_GITHUB_FAILURE = "UPDATE_GITHUB_FAILURE";
 
+export const UPDATE_LOCATION = "UPDATE_LOCATION";
+export const UPDATE_LOCATION_SUCCESSFUL = "UPDATE_LOCATION_SUCCESSFUL";
+export const UPDATE_LOCATION_FAILURE = "UPDATE_LOCATION_FAILURE";
+
 // UPDATE_PROFILE,
 // UPDATE_PROFILE_SUCCESSFUL,
 // UPDATE_PROFILE_FAILURE,
@@ -50,6 +54,9 @@ export const UPDATE_GITHUB_FAILURE = "UPDATE_GITHUB_FAILURE";
 // UPDATE_TWITTER_FAILURE,
 
 // updateProfile
+// UPDATE_LOCATION,
+// UPDATE_LOCATION_SUCCESSFUL,
+// UPDATE_LOCATION_FAILURE,
 
 /***************************************************************************************************
  ********************************************* Action Creators *************************************
@@ -62,7 +69,8 @@ export const updateProfile = (
   bio,
   twitter,
   github,
-  linkedin
+  linkedin, 
+  location,
 ) => dispatch => {
   const token = localStorage.getItem("symposium_token");
   const headers = { headers: { Authorization: token } };
@@ -103,13 +111,24 @@ export const updateProfile = (
 
   if (linkedin !== null) {
     const body = { linkedin };
-    dispatch({ type: UPDATE_LINKEDIN_SUCCESSFUL });
+    dispatch({ type: UPDATE_LINKEDIN });
     axios
       .put(`${backendUrl}/users/linkedin/${userId}`, body, headers)
       .then(response => {
         dispatch({ type: UPDATE_LINKEDIN_SUCCESSFUL });
       })
       .catch(err => handleError(err, UPDATE_LINKEDIN_FAILURE)(dispatch));
+  }
+
+  if (location !== null) {
+    const body = { location };
+    dispatch({ type : UPDATE_LOCATION});
+    axios
+      .put(`${backendUrl}/users/location/${userId}`, body, headers)
+      .then(response => {
+        dispatch({ type: UPDATE_LOCATION_SUCCESSFUL})
+      })
+      .catch(err => handleError(err, UPDATE_LOCATION_FAILURE)(dispatch))
   }
 };
 
