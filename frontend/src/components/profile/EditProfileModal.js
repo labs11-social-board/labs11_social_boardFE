@@ -257,18 +257,8 @@ class EditProfileModal extends React.Component {
     }
 
     if (callTheFunction === true) {
-      // this.props.updateProfile(userId, bio, twitter, github, linkedin, location, this.props.history);
-      // return Promise.resolve(this.props.setEditProfileModalRaised(event, false))
-        // .then(() => this.props.updateProfile(userId, bio, twitter, github, linkedin, location, this.props.history).then(() => getProfile(userId, this.props.history)));
-        // .then(() => this.props.updateProfile(userId, bio, twitter, github, linkedin, location, this.props.history))
-
         return Promise.resolve(this.props.updateProfile(userId, bio, twitter, github, linkedin, location, this.props.history))
-        .then(() => this.props.setEditProfileModalRaised(event, false))
-
-        
-    
-    
-        
+        .then(() => this.props.getProfile(userId, this.props.history) ).then( () => this.props.setEditProfileModalRaised(event, false))
     };
   }
 

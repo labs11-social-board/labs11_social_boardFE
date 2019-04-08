@@ -79,7 +79,6 @@ export const updateProfile = (
 ) => dispatch => {
   const token = localStorage.getItem("symposium_token");
   const headers = { headers: { Authorization: token } };
-  console.log(getProfile)
   dispatch({ type: UPDATE_PROFILE });
   if (bio !== null) {
     const body = { bio };
@@ -135,10 +134,6 @@ export const updateProfile = (
       })
       .catch(err => handleError(err, UPDATE_LOCATION_FAILURE)(dispatch))
   }
-
-    getProfile(userId, history);
-
-
 
 };
 
