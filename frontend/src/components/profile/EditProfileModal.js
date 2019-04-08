@@ -226,7 +226,7 @@ class EditProfileModal extends React.Component {
       Or if it has not changed from its previous setting*/
     event.preventDefault();
     let callTheFunction = false;
-    let { userId, bio, twitter, github, linkedin } = this.state;
+    let { userId, bio, twitter, github, linkedin, location } = this.state;
     if (bio.length === 0 || bio === this.props.profile[0].bio) {
       bio = null;
     } else {
@@ -248,8 +248,14 @@ class EditProfileModal extends React.Component {
       callTheFunction = true;
     }
 
+    if (location.length === 0 || location === this.props.profile[0].location){
+      location = null; 
+    } else {
+      callTheFunction = true; 
+    }
+
     if (callTheFunction === true) {
-      this.props.updateProfile(userId, bio, twitter, github, linkedin);
+      this.props.updateProfile(userId, bio, twitter, github, linkedin, location);
     }
     this.props.setEditProfileModalRaised(event, false); //closes modal affter submitting.
     this.props.history.push("/home");
