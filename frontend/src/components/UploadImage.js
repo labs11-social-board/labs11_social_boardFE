@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import styled from 'styled-components';
 
 // components
-import { uploadImage } from "../store/actions/index.js";
+import { uploadImage, removeUpload, resetImageState } from "../store/actions/index.js";
 
 // globals
 import { phoneP } from '../globals/globals.js';
@@ -16,7 +16,7 @@ const FileUpload = styled.div `
   margin-bottom:30px;
   
   @media ${phoneP}{
-    
+    flex-direction: column;
   }
 
   img {
@@ -103,11 +103,17 @@ class UploadImage extends React.Component {
   }
   handleFileChange = (e) => {
     e.preventDefault();
-    const { uploadImage } = this.props;
+    const { uploadImage, removeUpload, image } = this.props;
     const imageData = new FormData();
     let reader = new FileReader();
     let file = e.target.files[0];
     
+    if(image.length > 0 && file !== this.state.name) {
+      removeUpload(image[0]);
+      this.props.resetImageState();
+      this.setState({ name: '' });  
+    }
+
     imageData.append('imageFile', file);
 
     reader.onloadend = () => {
@@ -128,8 +134,16 @@ class UploadImage extends React.Component {
 		const imageData = new FormData();
     imageData.append('imageFile', file);
     return uploadImage(imageData);
-	};
+  };
+  checkStringLength = str => {
+    let newStr;
+    if(str.length > 8 ){
+      newStr = str.slice(0, 8) + '...';
+    }
+    return newStr;
+  }
     render() {
+      const { name, imagePreviewUrl } = this.state;
       return(
         <FileUpload>
           {this.props.isTeam ? 
@@ -142,7 +156,7 @@ class UploadImage extends React.Component {
                 className = 'fileinput'
                 onChange = { this.handleFileChange }
               />
-              <label htmlFor='image-file'>{this.state.imagePreviewUrl ? <img src={this.state.imagePreviewUrl}/> : 'Upload a File'}</label> 
+              <label htmlFor='image-file'>{imagePreviewUrl ? <img src={imagePreviewUrl}/> : 'Upload a File'}</label> 
             </>
             : 
             <>
@@ -153,8 +167,8 @@ class UploadImage extends React.Component {
                 className = 'image-upload'
                 onChange = { this.handleFileChange }
               />
-              <label htmlFor='image-upload'>{this.state.name ? this.state.name : 'Upload an Image'}</label>
-              {this.props.image.length > 0 ? this.props.isUploadingImage ? <p>Uploading...</p> : <p>Image Uploaded!</p> : null}
+              <label htmlFor='image-upload'>{name ? this.checkStringLength(name.name) : 'Upload an Image'}</label>
+              {this.state.name ? this.props.isUploadingImage ? <p>Uploading...</p> : <p>Image Uploaded!</p> : null}
             </>
           }
         </FileUpload>
@@ -169,5 +183,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { uploadImage }
+  { uploadImage, removeUpload, resetImageState }
 )(UploadImage);
