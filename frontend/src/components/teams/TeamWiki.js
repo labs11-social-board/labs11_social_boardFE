@@ -13,9 +13,12 @@ import { updateTeam } from '../../store/actions/index.js';
  **************************************************************************************************/
 
 const TextContainer = styled.textarea`
-    border: 10px solid black;
     height: 450px;
-    width: 100%;
+    width: 85%;
+
+    @media(max-width: 800px) {
+      width: 100%;
+    }
  `;
 
 const WikiEditButton = styled.button`
