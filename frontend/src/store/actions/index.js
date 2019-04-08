@@ -60,7 +60,8 @@ import {
   addTeam,
   addTeamMember,
   deleteTeam,
-  getUsersTeams
+  getUsersTeams,
+  updateTeamWithLogo
 } from './TeamsActions.js';
 
 import {
@@ -576,6 +577,7 @@ export {
   addTeamMember,
   deleteTeam,
   getUsersTeams,
+  updateTeamWithLogo,
   // Discussion Action Creators
   getTopDiscussions,
   getDiscussionsByCat,

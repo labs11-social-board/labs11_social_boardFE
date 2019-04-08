@@ -83,14 +83,14 @@ class UploadImage extends React.Component {
 
     if(file){
       reader.readAsDataURL(file)
+      this.handleImageSubmit(file);
     }
   }
-  handleImageSubmit = e => {
-		e.preventDefault();
+  handleImageSubmit = file => {
 		const { uploadImage } = this.props;
-		const imageFile = e.target.previousSibling.files[0];
+		// const imageFile = e.target.previousSibling.files[0];
 		const imageData = new FormData();
-    imageData.append('imageFile', imageFile);
+    imageData.append('imageFile', file);
     return uploadImage(imageData);
 	};
     render() {

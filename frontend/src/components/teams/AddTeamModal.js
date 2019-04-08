@@ -3,10 +3,11 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 // action creators
-import { addTeam, getUsersTeams } from '../../store/actions/index.js';
+import { addTeam, getUsersTeams, updateTeamWithLogo } from '../../store/actions/index.js';
 
 // components 
 import { ToggleSwitch, UploadImage } from '../index.js';
+
 // globals
 import { topHeaderHeight, phoneP } from '../../globals/globals.js';
 
@@ -194,9 +195,14 @@ class AddTeamModal extends React.Component {
     e.preventDefault();
     const { team_name, wiki, isPrivate } = this.state;
     const newTeam = { team_name, isPrivate, wiki };
-    const { addTeam, historyPush, setAddTeamModalRaised, getUsersTeams } = this.props;
+    const { addTeam, historyPush, setAddTeamModalRaised, getUsersTeams, updateTeamWithLogo, image } = this.props;
     return Promise.resolve(setAddTeamModalRaised(e, false))
-      .then(() => addTeam(newTeam, historyPush).then(() => getUsersTeams()));
+      .then(() => addTeam(newTeam).then((res) => {
+          updateTeamWithLogo( image[0],res.payload.teamBoard.id);
+          getUsersTeams();
+          historyPush(`/team/discussions/${res.payload.teamBoard.id}`)
+        }
+      ));
   }
 
   handleInput = e => {
@@ -206,23 +212,6 @@ class AddTeamModal extends React.Component {
   handleToggle = e => {
     this.setState({ isPrivate: !this.state.isPrivate });
   };
-  handleFileChange = (e) => {
-    e.preventDefault();
-
-    let reader = new FileReader();
-    let file = e.target.files[0];
-    
-    reader.onloadend = () => {
-      this.setState({
-        name: file,
-        imagePreviewUrl: reader.result
-      });
-    }
-
-    if(file){
-      reader.readAsDataURL(file)
-    }
-  }
   handleExit = e => {
     e.preventDefault();
     this.props.setAddTeamModalRaised(e, false);
@@ -284,4 +273,8 @@ class AddTeamModal extends React.Component {
   };
 };
 
-export default connect(null, { addTeam, getUsersTeams })(AddTeamModal);
+const mapStateToProps = state => ({
+  image: state.posts.images
+});
+
+export default connect(mapStateToProps, { addTeam, getUsersTeams, updateTeamWithLogo })(AddTeamModal);
