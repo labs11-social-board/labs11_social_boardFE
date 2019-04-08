@@ -57,7 +57,9 @@ const FileUpload = styled.div `
   }
 
   .fileinput + label:hover {
-    background-color: lightgrey;
+    color: #418DCF;
+    border: 1px solid #418DCF;
+    background-color: white;
   }
 
   .image-upload {
@@ -86,7 +88,9 @@ const FileUpload = styled.div `
   }
 
   .image-upload + label:hover {
-    background-color: lightgrey;
+    color: #418DCF;
+    border: 1px solid #418DCF;
+    background-color: white;
   }
 `;
 
@@ -150,7 +154,7 @@ class UploadImage extends React.Component {
                 className = 'fileinput'
                 onChange = { this.handleFileChange }
               />
-              <label htmlFor='image-file'>{imagePreviewUrl ? <img src={imagePreviewUrl}/> : 'Upload a File'}</label> 
+              <label htmlFor='image-file'>{imagePreviewUrl ? <img src={imagePreviewUrl}/> : 'Upload a Image'}</label> 
             </>
             : 
             <>
