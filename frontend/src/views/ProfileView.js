@@ -297,6 +297,10 @@ const InviteFriendLink = styled.p`
   }
 `;
 
+const SpanLabel = styled.span`
+  font-weight: 900;
+`;
+
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
@@ -406,12 +410,12 @@ class Profile extends Component {
               </HeaderStyle>
               {/* This section is for the bio and the links for a user account */}
               <div>
-                  <p><span>Bio </span><span>{bio}</span></p>
+                  <p><SpanLabel>Bio </SpanLabel><span>{bio}</span></p>
                   <br/>
-                  <p><span>Location </span>{location}</p>
-                  <p><span>Github </span> <span>{github}</span></p>
-                  <p><span>LinkedIn </span> <span>{linkedin}</span></p>
-                  <p><span>Twitter </span> <span>{twitter}</span></p>
+                  <p><SpanLabel>Location </SpanLabel>{location}</p>
+                  <p><SpanLabel>Github </SpanLabel> <span>{github}</span></p>
+                  <p><SpanLabel>LinkedIn </SpanLabel> <span>{linkedin}</span></p>
+                  <p><SpanLabel>Twitter </SpanLabel> <span>{twitter}</span></p>
               </div>
               <br/>
               <WrappedDiv>
