@@ -305,7 +305,6 @@ class TeamBoard extends Component {
   getDiscussions = () => {
     const { order, orderType } = this.state;
     const { getTeamDiscussions, match } = this.props;
-    console.log('params', match.params.team_id)
     return getTeamDiscussions(match.params.team_id, order, orderType);
   };
   setTeamMemberModal = (e, status) => {
@@ -342,7 +341,6 @@ class TeamBoard extends Component {
         isTeamOwner=false;
       }
     }
-    console.log(team)
     if(!team){
       return (<h1>Loading..</h1>)
     } else {

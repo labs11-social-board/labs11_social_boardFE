@@ -101,11 +101,12 @@ class AddPostForm extends Component {
     const { discussion_id, team_id, handleTeamFilter, handleFilterChange, toggleAddPostForm, updatePostWithImage, image } = this.props;
     
     this.props.addPost(discussion_id, postBody, team_id).then( res => {
-      if(this.state.name){
+      if(image){
         updatePostWithImage(image[0], res.payload[0]);
         this.props.resetImageState();
-       }
+      }
     });
+    
     if (team_id) {
       toggleAddPostForm();
       setTimeout(() => handleTeamFilter(), 200);
