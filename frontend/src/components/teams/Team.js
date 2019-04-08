@@ -37,19 +37,15 @@ const DivIcon = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 45px;
-  height: 45px;
+  width: 100px;
+  height: 80px;
   margin: 15px;
-
-  i {
-    display: block;
-    font-size: 26px;
-  }
 
   img {
     display: block;
-    max-width: 38px;
-    max-height: 38px;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
   }
 `;
 
@@ -174,11 +170,6 @@ const Team = ({ team, history }) => {
     ev.stopPropagation();
     history.push(`/team/discussions/${id}`);
   }
-  // const profileSuperModerator = (ev) => {
-  //   ev.preventDefault();
-  //   ev.stopPropagation();
-  //   history.push(`/profile/${user_id}`);
-  // }
   // const lastPost = (ev) => {
   //   ev.preventDefault();
   //   ev.stopPropagation();
@@ -188,9 +179,9 @@ const Team = ({ team, history }) => {
   return (
     <DivRow onClick={() => history.push(`/team/discussions/${id}`)}>
       <DivTeamContainer>
-        {/* <DivIcon>
-          {(Team.icon) ? <i className={Team.icon} /> : <img src={require('../../assets/img/TeamBook2.png')} alt='Emoji' />}
-        </DivIcon> */}
+        <DivIcon>
+          {(team.logo) ? <img className='team-logo' src={team.logo}/> : <img src={require('../../assets/img/CategoryBook2.png')} alt='Emoji' />}
+        </DivIcon>
         <DivTeam>
           <div className = 'Team-name-follow-wrapper' onClick = {stopPropagation}>
             <SpanTeam className='link' onClick={(ev) => goToTeam(ev)}>{team_name}</SpanTeam>

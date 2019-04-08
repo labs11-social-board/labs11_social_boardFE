@@ -38,7 +38,7 @@ const DivHeader = styled.div`
     padding: 10px;
     color: ${ props => props.theme.defaultColor};
     margin: 10px;
-    margin-bottom: 45px;
+    margin-bottom: 10px;
 
     &:hover {
       color: ${ props => props.theme.defaultColorOnHover};
