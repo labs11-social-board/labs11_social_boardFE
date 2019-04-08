@@ -301,6 +301,16 @@ const SpanLabel = styled.span`
   font-weight: 900;
 `;
 
+const ProfileLink = styled.a`
+  text-decoration: none; 
+  color: black; 
+
+  &:hover {
+    text-decoration: underline;
+    cursor: pointer; 
+  }
+`;
+
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
@@ -412,10 +422,10 @@ class Profile extends Component {
               <div>
                   <p><SpanLabel>Bio </SpanLabel><span>{bio}</span></p>
                   <br/>
-                  <p><SpanLabel>Location </SpanLabel>{location}</p>
-                  <p><SpanLabel>Github </SpanLabel> <span>{github}</span></p>
-                  <p><SpanLabel>LinkedIn </SpanLabel> <span>{linkedin}</span></p>
-                  <p><SpanLabel>Twitter </SpanLabel> <span>{twitter}</span></p>
+                  <p><SpanLabel>Location </SpanLabel> <span>{location}</span></p>
+                  <p><SpanLabel>Github </SpanLabel> <span><ProfileLink href={`${github}`}>{github}</ProfileLink></span></p>
+                  <p><SpanLabel>LinkedIn </SpanLabel> <span><ProfileLink href={`${linkedin}`}>{linkedin}</ProfileLink></span></p>
+                  <p><SpanLabel>Twitter </SpanLabel> <span><ProfileLink href={`${twitter}`}>{twitter}</ProfileLink></span></p>
               </div>
               <br/>
               <WrappedDiv>
