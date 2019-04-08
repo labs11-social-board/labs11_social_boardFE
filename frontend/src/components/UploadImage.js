@@ -34,7 +34,7 @@ const FileUpload = styled.div `
   }
 
   .fileinput + label {
-    width: 30%;
+    width: 230px;
     height: 16vh;
     border-radius: 50%;
     text-align: center;
@@ -44,14 +44,15 @@ const FileUpload = styled.div `
     cursor:pointer;
 
     @media (max-width: 1440px){
-      width: 25%;
+      width: 200px;
       line-height: 8;
       margin: 0 23% 0 9%;
     }
 
     @media ${phoneP} {
       line-height: 7;
-      width: 30%;
+      width: 117px;
+      margin: 14px 9% 0 9%;
     }
   }
 
