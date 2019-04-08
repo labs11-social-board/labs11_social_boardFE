@@ -12,10 +12,11 @@ import { updateTeam } from '../../store/actions/index.js';
  ********************************************** Styles *********************************************
  **************************************************************************************************/
 
-// const TextContainer = styled `
- 
- 
-//  `;
+const TextContainer = styled.textarea`
+    border: 10px solid black;
+    height: 450px;
+    width: 100%;
+ `;
 
 const WikiEditButton = styled.button`
     border: 1px solid #418DCF;
@@ -58,7 +59,7 @@ class TeamWiki extends React.Component {
       return (
        <div id='wiki' className='wiki tab-content'>
           <form onSubmit={this.updateWiki}>
-            <textarea value={this.state.updatedWiki} onChange={this.handleInput}></textarea>
+            <TextContainer value={this.state.updatedWiki} onChange={this.handleInput}></TextContainer>
             <button>Update Wiki</button>
             <button onClick={this.toggleEditting}>Back</button>
           </form>
