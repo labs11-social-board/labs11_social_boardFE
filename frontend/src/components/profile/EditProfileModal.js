@@ -171,7 +171,8 @@ class EditProfileModal extends React.Component {
     twitter: "",
     github: "",
     linkedin: "",
-    userId: ""
+    userId: "", 
+    location : "",
   };
 
   componentWillMount() {
@@ -185,7 +186,8 @@ class EditProfileModal extends React.Component {
       linkedin: this.props.profile[0].linkedin
         ? this.props.profile[0].linkedin
         : "",
-      userId: this.props.profile[0].id
+      userId: this.props.profile[0].id, 
+      location : this.props.profile[0].location ? this.props.profile[0].location : "",
     });
   }
 
@@ -204,7 +206,8 @@ class EditProfileModal extends React.Component {
         linkedin: this.props.profile[0].linkedin
           ? this.props.profile[0].linkedin
           : "",
-        userId: this.props.profile[0].id
+        userId: this.props.profile[0].id,
+        location : this.props.profile[0].location ? this.props.profile[0].location : "",
       });
     }
   }
@@ -255,7 +258,7 @@ class EditProfileModal extends React.Component {
   render() {
     const { setEditProfileModalRaised } = this.props;
 
-    const { bio, twitter, github, linkedin } = this.state;
+    const { bio, twitter, github, linkedin, location } = this.state;
     return (
       <ModalBackground>
         <DivModalCloser
@@ -283,6 +286,15 @@ class EditProfileModal extends React.Component {
                   onChange={this.handleChange}
                   >
                   </textarea>
+                <h4>Location - Where are you?</h4>
+                <input 
+                  type = "text"
+                  placeholder = ""
+                  name = "location"
+                  value = {location}
+                  className = "body-input"
+                  onChange = {this.handleChange}
+                />
                 <h4>Github link</h4>
                 <input
                   type="text"
