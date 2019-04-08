@@ -18,7 +18,10 @@ import { updateTeam } from '../../store/actions/index.js';
 //  `;
 
 const WikiEditButton = styled.button`
-border: 1px solid #418DCF;
+    border: 1px solid #418DCF;
+    border-radius: 5px;
+    color: white;
+    background-color: #418DCF;
 `;
 
 class TeamWiki extends React.Component {
