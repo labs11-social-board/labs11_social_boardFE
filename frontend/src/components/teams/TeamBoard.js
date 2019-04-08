@@ -106,6 +106,8 @@ const DiscussionsWrapper = styled.div`
   .team-settings {
     display:none;
     flex-direction: column;
+    width: 95%;
+    align-items: center;
   }
     
   .selected {

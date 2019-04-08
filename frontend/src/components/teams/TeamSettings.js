@@ -6,8 +6,35 @@ import styled from 'styled-components';
 import { updateTeam, deleteTeam, displayMessage, getUsersTeams } from '../../store/actions/index.js';
 
 // components
-import { ToggleSwitch } from '../index.js';
+import { ToggleSwitch, UploadImage } from '../index.js';
 
+const Settings = styled.div `
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+    .team-name-wrapper {
+      width: 100%;
+      margin-bottom: 3%;
+
+      input {
+        width: 30%;
+      }
+    }
+
+    .toggle-switch {
+      margin: 0 0 3% 4%;
+    }
+
+    form {
+      width: 50%;
+
+      button {
+        margin-right: 5%;
+      }
+    }
+`; 
 class TeamSettings extends React.Component{
   state = {
     team_name: this.props.team.team_name,
@@ -41,16 +68,24 @@ class TeamSettings extends React.Component{
     }
   }
   render() {
+    let isTeam = true;
     return(
       <div id='settings' className='team-settings tab-content'>
         <h1>Settings</h1>
-        <form>
-          <ToggleSwitch isPrivate={this.state.isPrivate} handleToggle={this.handleToggle} />
-          <label htmlFor='team_name'>Team Name: </label>
-          <input id='team_name' type='text' name='team_name' value={this.state.team_name} onChange={this.handleInput} />
-          <button onClick={this.updateTeam}>Update Team</button>
-          <button onClick={this.deleteTeam}>Delete Team</button>
-        </form>
+        <Settings>
+          <div className='team-name-wrapper'> 
+            <label htmlFor='team_name'>Team Name: </label>
+            <input id='team_name' type='text' name='team_name' value={this.state.team_name} onChange={this.handleInput} />
+          </div>
+          <UploadImage isTeam={isTeam}/>
+          <div className='toggle-switch'>
+            <ToggleSwitch isPrivate={this.state.isPrivate} handleToggle={this.handleToggle} />
+          </div>
+          <form>
+            <button onClick={this.updateTeam}>Update Team</button>
+            <button onClick={this.deleteTeam}>Delete Team</button>
+          </form>
+        </Settings>
       </div>
     );
   };
