@@ -7,7 +7,7 @@ import { getProfile, updateProfile } from "../../store/actions/index.js";
 // components
 
 // globals
-import { phoneL, topHeaderHeight } from "../../globals/globals.js";
+import { phoneL, topHeaderHeight, phoneP } from "../../globals/globals.js";
 
 const ModalBackground = styled.div`
   display: flex;
@@ -138,6 +138,23 @@ const DivName = styled.div`
     align-items: center;
     flex-direction: column;
   }
+
+  textarea {
+    resize: none; 
+    width: 500px;
+    height: 100px;
+    margin: 2% 0;
+    
+    @media ${phoneP}{
+      display: flex; 
+      width: 100%;
+    }
+  }
+
+  @media ${phoneP} {
+    display: flex; 
+    width: 100%;
+  }
 `;
 
 const DivButtons = styled.div`
@@ -154,7 +171,8 @@ class EditProfileModal extends React.Component {
     twitter: "",
     github: "",
     linkedin: "",
-    userId: ""
+    userId: "", 
+    location : "",
   };
 
   componentWillMount() {
@@ -168,7 +186,8 @@ class EditProfileModal extends React.Component {
       linkedin: this.props.profile[0].linkedin
         ? this.props.profile[0].linkedin
         : "",
-      userId: this.props.profile[0].id
+      userId: this.props.profile[0].id, 
+      location : this.props.profile[0].location ? this.props.profile[0].location : "",
     });
   }
 
@@ -187,7 +206,8 @@ class EditProfileModal extends React.Component {
         linkedin: this.props.profile[0].linkedin
           ? this.props.profile[0].linkedin
           : "",
-        userId: this.props.profile[0].id
+        userId: this.props.profile[0].id,
+        location : this.props.profile[0].location ? this.props.profile[0].location : "",
       });
     }
   }
@@ -206,7 +226,7 @@ class EditProfileModal extends React.Component {
       Or if it has not changed from its previous setting*/
     event.preventDefault();
     let callTheFunction = false;
-    let { userId, bio, twitter, github, linkedin } = this.state;
+    let { userId, bio, twitter, github, linkedin, location } = this.state;
     if (bio.length === 0 || bio === this.props.profile[0].bio) {
       bio = null;
     } else {
@@ -228,8 +248,14 @@ class EditProfileModal extends React.Component {
       callTheFunction = true;
     }
 
+    if (location.length === 0 || location === this.props.profile[0].location){
+      location = null; 
+    } else {
+      callTheFunction = true; 
+    }
+
     if (callTheFunction === true) {
-      this.props.updateProfile(userId, bio, twitter, github, linkedin);
+      this.props.updateProfile(userId, bio, twitter, github, linkedin, location);
     }
     this.props.setEditProfileModalRaised(event, false); //closes modal affter submitting.
     this.props.history.push("/home");
@@ -238,7 +264,7 @@ class EditProfileModal extends React.Component {
   render() {
     const { setEditProfileModalRaised } = this.props;
 
-    const { bio, twitter, github, linkedin } = this.state;
+    const { bio, twitter, github, linkedin, location } = this.state;
     return (
       <ModalBackground>
         <DivModalCloser
@@ -256,16 +282,26 @@ class EditProfileModal extends React.Component {
           <FormContent onSubmit={this.handleSubmit}>
             <DivRight>
               <DivName>
-                <h4>Bio</h4>
-                <input
+                <h4>Bio - Tell us about yourself...</h4>
+                <textarea
                   type="text"
                   placeholder=""
                   name="bio"
                   value={bio}
                   className="body-input"
                   onChange={this.handleChange}
+                  >
+                  </textarea>
+                <h4>Location - Where are you?</h4>
+                <input 
+                  type = "text"
+                  placeholder = ""
+                  name = "location"
+                  value = {location}
+                  className = "body-input"
+                  onChange = {this.handleChange}
                 />
-                <h4>Github link</h4>
+                <h4>Add Your Github profile link</h4>
                 <input
                   type="text"
                   placeholder=""
@@ -274,7 +310,7 @@ class EditProfileModal extends React.Component {
                   className="body-input"
                   onChange={this.handleChange}
                 />
-                <h4>Linkedin link</h4>
+                <h4>Add Your Linkedin profile link</h4>
                 <input
                   type="text"
                   placeholder=""
@@ -283,7 +319,7 @@ class EditProfileModal extends React.Component {
                   className="body-input"
                   onChange={this.handleChange}
                 />
-                <h4>Twitter link</h4>
+                <h4>Add your Twitter profile link</h4>
                 <input
                   type="text"
                   placeholder=""
