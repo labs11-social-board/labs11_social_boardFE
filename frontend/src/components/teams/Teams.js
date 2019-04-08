@@ -1,7 +1,7 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
-import { Team } from '../index.js'
+import { Team } from "../index.js";
 
 /***************************************************************************************************
  ********************************************** Styles *********************************************
@@ -25,17 +25,12 @@ const Teams = ({ teams, history }) => {
   return (
     <DivTeams>
       <DivTeamRows>
-        {
-          teams.map((team, index) =>
-            <Team 
-              key={team.id}
-              team={team}
-              history={history}/>
-          )
-        }
+        {teams.map((team, index) => (
+          <Team key={team.id} team={team} history={history} />
+        ))}
       </DivTeamRows>
     </DivTeams>
   );
-}
+};
 
 export default Teams;
