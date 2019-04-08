@@ -140,6 +140,7 @@ class UploadImage extends React.Component {
     }
     return newStr;
   }
+  
     render() {
       const { name, imagePreviewUrl } = this.state;
       return(
