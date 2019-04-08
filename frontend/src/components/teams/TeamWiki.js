@@ -28,6 +28,16 @@ const WikiEditButton = styled.button`
     background-color: #418DCF;
 `;
 
+const TextContainerButtons = styled.button`
+    border: 1px solid #418DCF;
+    height: 35px;
+    border-radius: 3px;
+    color: white;
+    background-color: #418DCF;
+    margin: 5px;
+
+`;
+
 class TeamWiki extends React.Component {
   state = {
     isEditting: false,
@@ -63,8 +73,10 @@ class TeamWiki extends React.Component {
        <div id='wiki' className='wiki tab-content'>
           <form onSubmit={this.updateWiki}>
             <TextContainer value={this.state.updatedWiki} onChange={this.handleInput}></TextContainer>
-            <button>Update Wiki</button>
-            <button onClick={this.toggleEditting}>Back</button>
+            <div>
+            <TextContainerButtons>Update Wiki</TextContainerButtons>
+            <TextContainerButtons onClick={this.toggleEditting}>Back</TextContainerButtons>
+            </div>
           </form>
        </div>
       );
