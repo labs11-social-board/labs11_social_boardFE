@@ -7,7 +7,7 @@ import { Avatar } from '../index.js';
 // globals
 import { topHeaderHeight, phoneP } from '../../globals/globals.js';
 // action creators
-import { addReply, uploadImage, updateReplyWithImage, removeUpload } from '../../store/actions/index.js';
+import { addReply, uploadImage, updateReplyWithImage, removeUpload, resetImageState } from '../../store/actions/index.js';
 
 // components 
 import { UploadImage } from '../index.js';
@@ -172,7 +172,7 @@ class AddReplyForm extends Component {
 		const { replyBody } = this.state;
 		const { post_id, team_id, handleFilterChange, handleTeamFilter, toggleAddReplyForm, updateReplyWithImage, image } = this.props;
 		this.props.addReply(post_id, team_id, replyBody).then((res) => {
-			if(this.state.name){
+			if(image){
 				updateReplyWithImage(image[0], res.payload[0]);
 				this.props.resetImageState();
        }
@@ -229,7 +229,7 @@ class AddReplyForm extends Component {
 						</Link>
 					</div>
 					<button type = 'submit'>Post Reply</button>	
-					<UploadImage handleFileChange={this.handleFileChange} name={this.state.name}/>
+					<UploadImage />
 				</UserActions>
 			</AddReplyFormWrapper>
 		)
@@ -244,4 +244,4 @@ const mapStateToProps = state => ({
 	image: state.posts.images
 });
 
-export default connect(mapStateToProps, { addReply, uploadImage, updateReplyWithImage, removeUpload })(AddReplyForm);
+export default connect(mapStateToProps, { addReply, uploadImage, updateReplyWithImage, removeUpload, resetImageState })(AddReplyForm);
