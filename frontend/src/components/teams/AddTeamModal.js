@@ -223,6 +223,7 @@ class AddTeamModal extends React.Component {
   render() {
     const { setAddTeamModalRaised } = this.props;
     const { team_name, wiki, isPrivate, imagePreviewUrl } = this.state;
+    let isTeam = true;
     return (
       <ModalBackground>
         <DivModalCloser onClick={this.handleExit} />
@@ -238,7 +239,7 @@ class AddTeamModal extends React.Component {
             <DivRight>
               <DivName>
                 <div className='image-wrapper'>
-                  <UploadImage/>
+                  <UploadImage isTeam={isTeam}/>
                 </div>
                 <label htmlFor='team_name'>Team Name</label>
                 <input

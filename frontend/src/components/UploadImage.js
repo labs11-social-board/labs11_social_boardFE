@@ -59,7 +59,43 @@ const FileUpload = styled.div `
   .fileinput + label:hover {
     background-color: lightgrey;
   }
+
+  .image-upload {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+  }
+
+  .image-upload + label {
+    padding: 10px 0;
+    width: 135px;
+    text-align: center;
+    border: 1px solid;
+    margin: 0 25% 0 9%;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: #418DCF;
+    color: white;
+
+    @media(max-width: 1024px) {
+      width: 43%;
+      margin: 0 25%;
+    }
+
+    @media ${phoneP} {
+      width: 80%;
+      margin: 0;
+    }
+  }
+
+  .image-upload + label:hover {
+    background-color: lightgrey;
+  }
 `;
+
 class UploadImage extends React.Component {
   state = {
     name: '',
@@ -96,17 +132,31 @@ class UploadImage extends React.Component {
     render() {
       return(
         <FileUpload>
-          <label htmlFor='image-file'>Team Logo</label>
-          <input
-            type = 'file'
-            name = 'image-file'
-            id = 'image-file'
-            className = 'fileinput'
-            onChange = { this.handleFileChange }
-          />
-          <label htmlFor='image-file'>{this.state.imagePreviewUrl ? <img src={this.state.imagePreviewUrl}/> : 'Upload a File'}</label>
-          {/* <button onClick={ this.handleImageSubmit } disabled={!this.state.name}>Upload</button> */}
-          {this.props.image.length > 0 ? this.props.isUploadingImage ? <p>Uploading...</p> : <p>Image Uploaded!</p> : null}
+          {this.props.isTeam ? 
+            <>
+              <label htmlFor='image-file'>Team Logo</label>
+              <input
+                type = 'file'
+                name = 'image-file'
+                id = 'image-file'
+                className = 'fileinput'
+                onChange = { this.handleFileChange }
+              />
+              <label htmlFor='image-file'>{this.state.imagePreviewUrl ? <img src={this.state.imagePreviewUrl}/> : 'Upload a File'}</label> 
+            </>
+            : 
+            <>
+              <input
+                type = 'file'
+                name = 'image-upload'
+                id = 'image-upload'
+                className = 'image-upload'
+                onChange = { this.handleFileChange }
+              />
+              <label htmlFor='image-upload'>{this.state.name ? this.state.name : 'Upload an Image'}</label>
+              {this.props.image.length > 0 ? this.props.isUploadingImage ? <p>Uploading...</p> : <p>Image Uploaded!</p> : null}
+            </>
+          }
         </FileUpload>
       );
     }
