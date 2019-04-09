@@ -2,8 +2,41 @@ import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
+
+
 // action creators
 import { updateTeam } from '../../store/actions/index.js';
+
+
+/***************************************************************************************************
+ ********************************************** Styles *********************************************
+ **************************************************************************************************/
+
+const TextContainer = styled.textarea`
+    height: 450px;
+    width: 85%;
+
+    @media(max-width: 800px) {
+      width: 100%;
+    }
+ `;
+
+const WikiEditButton = styled.button`
+    border: 1px solid #418DCF;
+    border-radius: 5px;
+    color: white;
+    background-color: #418DCF;
+`;
+
+const TextContainerButtons = styled.button`
+    border: 1px solid #418DCF;
+    height: 35px;
+    border-radius: 3px;
+    color: white;
+    background-color: #418DCF;
+    margin: 5px;
+
+`;
 
 class TeamWiki extends React.Component {
   state = {
@@ -39,9 +72,11 @@ class TeamWiki extends React.Component {
       return (
        <div id='wiki' className='wiki tab-content'>
           <form onSubmit={this.updateWiki}>
-            <textarea value={this.state.updatedWiki} onChange={this.handleInput}></textarea>
-            <button>Update Wiki</button>
-            <button onClick={this.toggleEditting}>Back</button>
+            <TextContainer value={this.state.updatedWiki} onChange={this.handleInput}></TextContainer>
+            <div>
+            <TextContainerButtons>Update Wiki</TextContainerButtons>
+            <TextContainerButtons onClick={this.toggleEditting}>Back</TextContainerButtons>
+            </div>
           </form>
        </div>
       );
@@ -49,7 +84,7 @@ class TeamWiki extends React.Component {
       return (
         <div id='wiki' className='wiki tab-content'>
           <div className='edit-wiki'>
-            {isTeamOwner ? <button onClick={this.toggleEditting}>Edit</button> : null}
+            {isTeamOwner ? <WikiEditButton onClick={this.toggleEditting}>Edit</WikiEditButton> : null}
           </div>
           <div className='wiki-content'>
             <p>{this.props.wiki}</p>

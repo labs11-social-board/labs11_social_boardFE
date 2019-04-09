@@ -297,22 +297,42 @@ const InviteFriendLink = styled.p`
   }
 `;
 
+const SpanLabel = styled.span`
+  font-weight: 900;
+`;
+
+const ProfileLink = styled.a`
+  text-decoration: none; 
+  color: black; 
+
+  &:hover {
+    text-decoration: underline;
+    cursor: pointer; 
+    color : ${props => props.theme.defaultColorOnHover};
+  }
+`;
+
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
 class Profile extends Component {
   state = {
-    
+    initialized: false 
   }
   componentDidMount() {
     this.props.getProfile(this.props.match.params.id);
     this.handleInitializeFollowList();
+    this.setState({initialized : true})
   };
   componentDidUpdate(prevProps) {
     if (prevProps.match.params.id !== this.props.match.params.id) {
       this.handleInitializeFollowList(); // this line handles going from profile to profile. 
       return this.props.getProfile(this.props.match.params.id);
     }
+    if (prevProps.isEditProfileModalRaised === true && this.props.isEditProfileModalRaised === false){
+      return this.props.getProfile(this.props.match.params.id)
+    }
+   
   };
 
   handleInitializeFollowList = () => {
@@ -351,7 +371,6 @@ class Profile extends Component {
     const twitter = this.props.profile[0].twitter ? this.props.profile[0].twitter : ""; 
     const github = this.props.profile[0].github ? this.props.profile[0].github : ""; 
     const linkedin = this.props.profile[0].linkedin ? this.props.profile[0].linkedin : "";
-    //add in location here once created on backend.  
     const location = this.props.profile[0].location ? this.props.profile[0].location : "";
     //Follow list variables 
     const userId = localStorage.getItem("symposium_user_id");
@@ -402,12 +421,12 @@ class Profile extends Component {
               </HeaderStyle>
               {/* This section is for the bio and the links for a user account */}
               <div>
-                  <p><span>Bio </span><span>{bio}</span></p>
+                  <p><SpanLabel>Bio </SpanLabel><span>{bio}</span></p>
                   <br/>
-                  <p><span>Location </span>{location}</p>
-                  <p><span>Github </span> <span>{github}</span></p>
-                  <p><span>LinkedIn </span> <span>{linkedin}</span></p>
-                  <p><span>Twitter </span> <span>{twitter}</span></p>
+                  <p><SpanLabel>Location </SpanLabel> <span>{location}</span></p>
+                  <p><SpanLabel>Github </SpanLabel> <span><ProfileLink href={ github.includes("http://") === true ? `${github}` : `http://${github}`} target = "_blank">{github}</ProfileLink></span></p>
+                  <p><SpanLabel>LinkedIn </SpanLabel> <span><ProfileLink href={linkedin.includes("http://") === true ? `${linkedin}` : `http://${linkedin}`}  target = "_blank">{linkedin}</ProfileLink></span></p>
+                  <p><SpanLabel>Twitter </SpanLabel> <span><ProfileLink href={twitter.includes("http://") === true ? `${twitter}` : `http://${twitter}`} target = "_blank">{twitter}</ProfileLink></span></p>
               </div>
               <br/>
               <WrappedDiv>
@@ -422,31 +441,13 @@ class Profile extends Component {
               </WrappedDiv>
               <br/>
               <br/>
-              <div>
-                {followListLength > 0 ?  followList.map((user, id) => 
-                  // user.following_id can be used to go to the users profile upon clicking on them currently not implemented. 
-                  <WrappedDiv
-                    style = {{cursor:"pointer"}} 
-                    key = {id} 
-                    onClick = {this.goToUsersPage(user.following_id)}
-                    > 
-                    <Avatar 
-                      height = '50px'
-                      width = '50px'
-                      src= {user.avatar}
-                    >
-                      
-                    </Avatar>
-                    <span>{user.username}</span>
-                  
-                  </WrappedDiv>
-                ) : <div>{profileId !== userId ? `${usernameForProfile} currently doesn't follow any users.` :  "You are not currently following any users."}</div>}
-              </div>
+              <h4>Below lists what you are following click a tab to check it out.</h4>
               <Tabs>
                 <TabList>
                   <Tab> Followed Posts</Tab>
                   <Tab>Comments</Tab>
                   <Tab>Replies</Tab>
+                  <Tab>Followers</Tab>
                 </TabList>
                 <TabPanel>
                   <WrappedDiv>
@@ -550,6 +551,32 @@ class Profile extends Component {
                             </PostHeader>
                           </Link>
                         </ContentDiv>)}
+                    </SubWrapper>
+                  </WrappedDiv>
+                </TabPanel>
+                <TabPanel>
+                  <WrappedDiv>
+                    <SubWrapper>
+                    <div>
+                {followListLength > 0 ?  followList.map((user, id) => 
+                  // user.following_id can be used to go to the users profile upon clicking on them currently not implemented. 
+                  <WrappedDiv
+                    style = {{cursor:"pointer"}} 
+                    key = {id} 
+                    onClick = {this.goToUsersPage(user.following_id)}
+                    > 
+                    <Avatar 
+                      height = '50px'
+                      width = '50px'
+                      src= {user.avatar}
+                    >
+                      
+                    </Avatar>
+                    <span>{user.username}</span>
+                  
+                  </WrappedDiv>
+                ) : <div>{profileId !== userId ? `${usernameForProfile} currently doesn't follow any users.` :  "You are not currently following any users."}</div>}
+              </div>
                     </SubWrapper>
                   </WrappedDiv>
                 </TabPanel>
