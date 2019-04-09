@@ -186,8 +186,12 @@ class UploadImage extends React.Component {
   handleDrop = (e) => {
     e.preventDefault()
     e.stopPropagation()
-
-
+    this.setState({ dragging: false })
+    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+      this.handleImageSubmit(e.dataTransfer.files[0]);
+      e.dataTransfer.clearData()
+      this.dragCounter = 0
+    }
   }
   componentDidMount() {
     let dropzone = document.getElementById('drop-zone');
