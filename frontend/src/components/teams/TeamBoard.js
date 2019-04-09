@@ -225,6 +225,13 @@ const InviteButton = styled.button `
     background-color: #418DCF;
     height: 35px;
     width: 50px;
+
+    cursor: pointer;
+    &:hover {
+      color: #418DCF;
+      border: 1px solid #418DCF;
+      background-color: white;
+    }
 `;
 
 const newest = 'newest';
