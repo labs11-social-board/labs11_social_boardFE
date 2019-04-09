@@ -126,7 +126,6 @@ class UploadImage extends React.Component {
   handleFileChange = (e) => {
     e.preventDefault();
     const { uploadImage, removeUpload, image } = this.props;
-    const imageData = new FormData();
     let reader = new FileReader();
     let file = e.target.files[0];
     if(image.id && file !== this.state.name) {
@@ -134,8 +133,6 @@ class UploadImage extends React.Component {
       this.props.resetImageState();
       this.setState({ name: '', imagePreviewUrl: '' });  
     }
-
-    imageData.append('imageFile', file);
 
     reader.onloadend = () => {
       this.setState({
@@ -184,13 +181,24 @@ class UploadImage extends React.Component {
     e.stopPropagation()
   }
   handleDrop = (e) => {
-    e.preventDefault()
-    e.stopPropagation()
-    this.setState({ dragging: false })
+    e.preventDefault();
+    e.stopPropagation();
+    let reader = new FileReader();
+    let file = e.dataTransfer.files[0];
+    reader.onloadend = () => {
+      this.setState({
+        name: file,
+        imagePreviewUrl: reader.result,
+        dragging: false
+      });
+    };
+
+    // this.setState({ dragging: false })
     if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-      this.handleImageSubmit(e.dataTransfer.files[0]);
-      e.dataTransfer.clearData()
-      this.dragCounter = 0
+      reader.readAsDataURL(file)
+      this.handleImageSubmit(file);
+      e.dataTransfer.clearData();
+      this.dragCounter = 0;
     }
   }
   componentDidMount() {
@@ -216,7 +224,7 @@ class UploadImage extends React.Component {
   }
 
   componentDidUpdate(prevProps){
-    if(this.props.imagePreviewUrl !== this.state.imagePreviewUrl ){
+    if(this.props.imagePreviewUrl !== this.state.imagePreviewUrl && !this.state.name ){
       this.setState({ imagePreviewUrl: this.props.imagePreviewUrl });
     }
   }
