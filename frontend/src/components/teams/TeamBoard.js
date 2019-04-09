@@ -9,7 +9,7 @@ import { DiscussionByFollowedCats, AddDiscussionForm, FollowCat, Avatar, TeamWik
 import { getTeamDiscussions, handleDiscussionVote, getTeamMembers } from '../../store/actions/index.js';
 
 // globals
-import { tabletP } from '../../globals/globals.js';
+import { tabletP, phoneP } from '../../globals/globals.js';
 import TeamSettings from './TeamSettings.js';
 
 /***************************************************************************************************
@@ -51,6 +51,7 @@ const DiscussionsWrapper = styled.div`
     flex-direction: column;
     width: 95%;
     margin-top: 5%;
+    overflow-wrap: break-word;
 
     .edit-wiki{
       display: flex;
@@ -61,6 +62,7 @@ const DiscussionsWrapper = styled.div`
         padding: 13px 25px;
       }
     }
+    
   }
 
   .team-members {
@@ -91,7 +93,7 @@ const DiscussionsWrapper = styled.div`
         margin: 0% 5% 0% 5%;
         width: 60%;
         
-        @media (max-width: 500px){
+        @media ${phoneP}{
           width: 50%;
         }
       }
@@ -104,6 +106,8 @@ const DiscussionsWrapper = styled.div`
   .team-settings {
     display:none;
     flex-direction: column;
+    width: 95%;
+    align-items: center;
   }
     
   .selected {
@@ -118,6 +122,13 @@ const DiscussionHeader = styled.div`
 	justify-content: space-between;
 	align-items: center;
   width: 100%;
+
+  img {
+    width: 100px;
+    height: 90px;
+    border-radius: 50%;
+    margin-right: 10%;
+  }
   
   .name-follow-wrapper {
     display: flex;
@@ -133,7 +144,7 @@ const DiscussionHeader = styled.div`
     justify-content: space-evenly;
     width: 480px;
 
-    @media (max-width: 500px) {
+    @media ${phoneP} {
       width: 100%;
       flex-direction: column;
       margin-bottom: 15px;
@@ -340,6 +351,7 @@ class TeamBoard extends Component {
           {isAddTeamMemberModalRaised && <UsersListModal setTeamMemberModal={this.setTeamMemberModal} team_id={team.id}/> }
           <DiscussionHeader>
             <div className='name-follow-wrapper'>
+              {team.logo ? <img src={team.logo} /> : null}
               <h2 className='name'>{team.team_name}</h2>
               <FollowCat
                 team_id={match.params.team_id}

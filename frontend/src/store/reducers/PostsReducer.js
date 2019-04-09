@@ -16,13 +16,16 @@ import {
 	HANDLE_POST_VOTE_FAILURE,
 
 	UPLOAD_IMAGE_LOADING,
-	UPLOAD_IMAGE_SUCCESS
+	UPLOAD_IMAGE_SUCCESS,
+
+	RESET_IMAGE_STATE
 
 } from '../actions/index.js';
 
 const initialState = {
 	images: {},
-	post_id: {}
+	post_id: {},
+	isUploadingImage: false
 };
 
 export const PostsReducer = (state = initialState, action) => {
@@ -44,11 +47,24 @@ export const PostsReducer = (state = initialState, action) => {
 		case HANDLE_POST_VOTE_SUCCESS:
 		case HANDLE_POST_VOTE_FAILURE:
 		case UPLOAD_IMAGE_LOADING:
+			return {
+				...state,
+				isUploadingImage: true
+			};
+
 		case UPLOAD_IMAGE_SUCCESS:
 			return {
 				...state,
-				images: action.payload
+				images: action.payload,
+				isUploadingImage: false
 			};
+		
+		case RESET_IMAGE_STATE: 
+			return {
+				...state,
+				images: {}
+			};
+			
 		default:
 		return state;
 	}

@@ -200,7 +200,7 @@ export const getUsers = () => dispatch => {
     .get(`${backendUrl}/users`)
     .then(res => dispatch({ type: GET_USERS_SUCCESS, payload: res.data }))
     .catch(err => handleError(err, GET_USERS_FAILURE)(dispatch));
-}
+};
 
 export const login = creds => dispatch => {
   dispatch({ type: USER_LOGIN_LOADING });

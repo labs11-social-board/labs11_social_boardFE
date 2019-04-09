@@ -56,6 +56,10 @@ const SearchBox = styled.div`
       -moz-user-select: none;
       -ms-user-select: none;
       user-select: none;
+
+      @media (min-width: 320px) and (max-width: 767px) {
+        margin: auto;
+      }
     }
 
     /* Hide the browser's default radio button */
@@ -108,6 +112,9 @@ const SearchBox = styled.div`
       height: 6px;
       border-radius: 50%;
       background: white;
+    }
+    @media (min-width: 320px) and (max-width: 767px) {
+      margin: auto;
     }
   }
 
@@ -171,7 +178,7 @@ const SearchBox = styled.div`
     max-height: 80vh;
     overflow: auto;
     position: absolute;
-    right: -50px;
+    right: -120px;
     top: 44px;
     z-index: 9001;
     border-radius: 5px;
@@ -182,17 +189,17 @@ const SearchBox = styled.div`
     padding: 15px;
 
     @media (max-width: 1024px) {
-      
-      width: auto;
-      margin-right: -80px;
+      width: 510px;
+      margin-right: -65px;
       display: inline-block;
+      max-height: 66vh;
     }
 
-    @media (max-width: 480px) {
-      background-color: lavender;
-      width: auto;
-      margin-right: -80px;
-      display: inline-block;
+    @media (min-width: 320px) and (max-width: 767px) {
+      margin-right: -103px;
+      overflow-x: hidden;
+      right: -61%;
+      width: 340px;
     }
 
     .results-length {

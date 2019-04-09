@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 // action creators
-import { addDiscussion, addTeamDiscussion, displayError, removeUpload, updateDiscussionWithImage, followDiscussion } from '../../store/actions/index.js';
+import { addDiscussion, addTeamDiscussion, displayError, removeUpload, updateDiscussionWithImage, followDiscussion, resetImageState } from '../../store/actions/index.js';
 
 // components
 import { UploadImage } from '../index.js';
@@ -199,15 +199,16 @@ class AddDiscussionForm extends Component {
   handleSubmit = e => {
     e.preventDefault();
     const { body, category_id } = this.state;
-    const { toggleAddDiscussionForm, getDiscussions, updateDiscussionWithImage, image, followDiscussion, user_id } = this.props;
+    const { toggleAddDiscussionForm, getDiscussions, updateDiscussionWithImage, image, followDiscussion, user_id, resetImageState } = this.props;
 		
 		if(this.props.team_id){
 			this.props.addTeamDiscussion(body, this.props.team_id)
 			.then(res => {
 				toggleAddDiscussionForm();
 				followDiscussion(res.payload[0], user_id)
-				if(this.state.name){
-					updateDiscussionWithImage(image[0], res.payload[0]);
+				if(this.props.image){
+					updateDiscussionWithImage(image, res.payload[0]);
+					resetImageState();
 				}
 			})
       .then(() => getDiscussions());
@@ -216,24 +217,28 @@ class AddDiscussionForm extends Component {
       .then(res => {
 				toggleAddDiscussionForm();
 				followDiscussion(res.payload[0], user_id)
-				if(this.state.name){
+				if(this.props.image){
 					updateDiscussionWithImage(image[0], res.payload[0]);
+					resetImageState();
 				}
 			})
       .then(() => getDiscussions());
 		}
 	};
-	handleFileChange = e => {
-		if (e.target.files.length) {
-      const { name } = e.target.files[0];
-			return this.setState({ name });
-		}
-		return this.setState({ name: '' });
-  };
+	// handleFileChange = e => {
+	// 	if (e.target.files.length) {
+  //     const { name } = e.target.files[0];
+	// 		return this.setState({ name });
+	// 	}
+	// 	return this.setState({ name: '' });
+  // };
   handleExit = e => {
     e.preventDefault();
     this.props.toggleAddDiscussionForm();
-    this.props.removeUpload(this.props.image[0])
+    if(this.props.image.length > 0){
+			this.props.removeUpload(this.props.image[0]);
+			this.props.resetImageState();
+		}
   }
   getCategoryNames = () => this.setState({ categoryNames: this.props.categoriesFollowed, category_id: this.props.category_id || this.props.categoriesFollowed[0].id });
   componentDidMount = () => this.getCategoryNames();
@@ -284,7 +289,7 @@ class AddDiscussionForm extends Component {
 							}
 						</select> }
             <button className='submit-btn' type='submit'>Post</button>
-						<UploadImage handleFileChange={this.handleFileChange}/>  
+						<UploadImage />  
           </div>
         </AddDiscussionFormBox>
       </AddDiscussionFormWrapper>
@@ -298,7 +303,7 @@ const mapStateToProps = state => ({
 	user_id: state.users.user_id,
 	avatar: state.users.avatar,
 	isDay: state.users.isDay,
-	image: state.posts.images
+	image: state.posts.images.id
 });
 
-export default connect(mapStateToProps, { addDiscussion, addTeamDiscussion, displayError, updateDiscussionWithImage, removeUpload, followDiscussion })(AddDiscussionForm);
+export default connect(mapStateToProps, { addDiscussion, addTeamDiscussion, displayError, updateDiscussionWithImage, removeUpload, followDiscussion, resetImageState })(AddDiscussionForm);

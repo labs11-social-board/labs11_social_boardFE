@@ -4,8 +4,10 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Avatar } from '../index.js';
 
+// globals
+import { topHeaderHeight, phoneP } from '../../globals/globals.js';
 // action creators
-import { addReply, uploadImage, updateReplyWithImage, removeUpload } from '../../store/actions/index.js';
+import { addReply, uploadImage, updateReplyWithImage, removeUpload, resetImageState } from '../../store/actions/index.js';
 
 // components 
 import { UploadImage } from '../index.js';
@@ -77,7 +79,7 @@ const UserActions = styled.div`
 		text-decoration: none;
 	}
 
-	@media (max-width: 500px){
+	@media ${phoneP}{
     flex-direction: column;
     height: 18vh;
 
@@ -170,8 +172,9 @@ class AddReplyForm extends Component {
 		const { replyBody } = this.state;
 		const { post_id, team_id, handleFilterChange, handleTeamFilter, toggleAddReplyForm, updateReplyWithImage, image } = this.props;
 		this.props.addReply(post_id, team_id, replyBody).then((res) => {
-			if(this.state.name){
-        updateReplyWithImage(image[0], res.payload[0])
+			if(image){
+				updateReplyWithImage(image, res.payload[0]);
+				this.props.resetImageState();
        }
 		});
 
@@ -193,8 +196,9 @@ class AddReplyForm extends Component {
   handleExit = e => {
     e.preventDefault();
     this.props.toggleAddReplyForm();
-    if(this.state.name){
-			this.props.removeUpload(this.props.image[0])
+    if(this.props.image.length > 0){
+			this.props.removeUpload(this.props.image[0]);
+			this.props.resetImageState();
 		}
   }
 	render() {
@@ -225,7 +229,7 @@ class AddReplyForm extends Component {
 						</Link>
 					</div>
 					<button type = 'submit'>Post Reply</button>	
-					<UploadImage handleFileChange={this.handleFileChange}/>
+					<UploadImage />
 				</UserActions>
 			</AddReplyFormWrapper>
 		)
@@ -237,7 +241,7 @@ const mapStateToProps = state => ({
 	username: state.users.username,
 	user_id: state.users.user_id,
 	avatar: state.users.avatar,
-	image: state.posts.images
+	image: state.posts.images.id
 });
 
-export default connect(mapStateToProps, { addReply, uploadImage, updateReplyWithImage, removeUpload })(AddReplyForm);
+export default connect(mapStateToProps, { addReply, uploadImage, updateReplyWithImage, removeUpload, resetImageState })(AddReplyForm);

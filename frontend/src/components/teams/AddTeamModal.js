@@ -3,19 +3,20 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 // action creators
-import { addTeam, getUsersTeams } from '../../store/actions/index.js';
+import { addTeam, getUsersTeams, updateTeamWithLogo, resetImageState } from '../../store/actions/index.js';
 
 // components 
-import { ToggleSwitch } from '../index.js';
+import { ToggleSwitch, UploadImage } from '../index.js';
+
 // globals
-import { phoneL, topHeaderHeight } from '../../globals/globals.js';
+import { topHeaderHeight, phoneP } from '../../globals/globals.js';
 
 const ModalBackground = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   position: fixed;
-  z-index: 8001;
+  z-index: 10000;
   top: 0;
   left: 0;
   width: 100%;
@@ -43,6 +44,12 @@ const DivModal = styled.div`
   border-radius: 5px;
   box-sizing: border-box;
   width: 590px;
+
+  @media ${phoneP}{
+    width: 95%;
+    height: 95%;
+    flex-direction: row;
+  }
 
   .btn {
     margin-left: 10px;
@@ -92,13 +99,14 @@ const FormContent = styled.form`
   flex-wrap: wrap;
   flex-direction: column;
 
-  @media ${phoneL} {
+  @media ${phoneP} {
     height: 90%;
     width: 100%;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     margin-bottom: ${topHeaderHeight};
+    flex-wrap: nowrap;
   }
 `;
 
@@ -116,27 +124,53 @@ const DivRight = styled.div`
   justify-content: center;
   align-items: center;
 
-  @media ${phoneL} {
+  @media ${phoneP} {
     width: 100%;
-    height: 60%;
     justify-content: center;
     align-items: center;
   }
 `;
 
 const DivName = styled.div`
-  .body-input, .categories-select {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap:wrap;
+
+  .body-input {
     border-radius: 5px;
     padding: 5px 10px;
   }
 
-  @media ${phoneL} {
+  input[type=text]{
+    margin: 0 24% 0 2%;
+
+    @media ${phoneP}{
+      margin: 0 14% 0 2%;
+    }
+  }
+
+  textarea {
+    resize: none;
+    width: 500px;
+    height: 200px;
+    margin: 2% 0;
+  }
+
+  @media ${phoneP} {
     display: flex;
-    height: 20%;
-    width: 80%;
-    justify-content: center;
-    align-items: center;
+    width: 100%;
+    align-items: baseline;
+  }
+
+  .image-wrapper {
+    width: 100%;
+    display: flex;
     flex-direction: column;
+    align-items: center;
+
+    
   }
 `;
 
@@ -153,15 +187,26 @@ class AddTeamModal extends React.Component {
     team_name: '',
     isPrivate: false,
     wiki: '',
+    name: '',
+    imagePreviewUrl: ''
   };
 
   handleSubmit = e => {
     e.preventDefault();
     const { team_name, wiki, isPrivate } = this.state;
     const newTeam = { team_name, isPrivate, wiki };
-    const { addTeam, historyPush, setAddTeamModalRaised, getUsersTeams } = this.props;
+    const { addTeam, historyPush, setAddTeamModalRaised, getUsersTeams, updateTeamWithLogo, image } = this.props;
     return Promise.resolve(setAddTeamModalRaised(e, false))
-      .then(() => addTeam(newTeam, historyPush).then(() => getUsersTeams()));
+      .then(() => addTeam(newTeam).then((res) => {
+          if(image.id){
+            updateTeamWithLogo(image.id, res.payload.teamBoard.id);
+            this.props.resetImageState();
+          }
+          historyPush(`/team/discussions/${res.payload.teamBoard.id}`);
+        }
+      )).then(() => {
+        getUsersTeams();
+      });
   }
 
   handleInput = e => {
@@ -171,12 +216,21 @@ class AddTeamModal extends React.Component {
   handleToggle = e => {
     this.setState({ isPrivate: !this.state.isPrivate });
   };
+  handleExit = e => {
+    e.preventDefault();
+    this.props.setAddTeamModalRaised(e, false);
+    if(this.props.image.length > 0){
+      this.props.removeUpload(this.props.image[0]);
+      this.props.resetImageState();
+		}
+  }
   render() {
     const { setAddTeamModalRaised } = this.props;
-    const { team_name, wiki, isPrivate } = this.state;
+    const { team_name, wiki, isPrivate, imagePreviewUrl } = this.state;
+    let isTeam = true;
     return (
       <ModalBackground>
-        <DivModalCloser onClick={(e) => setAddTeamModalRaised(e, false)} />
+        <DivModalCloser onClick={this.handleExit} />
         <DivModal>
           <div className='above-input'>
               <span
@@ -188,8 +242,13 @@ class AddTeamModal extends React.Component {
           <FormContent onSubmit={this.handleSubmit}>
             <DivRight>
               <DivName>
+                <div className='image-wrapper'>
+                  <UploadImage isTeam={isTeam}/>
+                </div>
+                <label htmlFor='team_name'>Team Name</label>
                 <input
                   type='text'
+                  id='team_name'
                   placeholder='Team Name'
                   name='team_name'
                   value={team_name}
@@ -197,16 +256,16 @@ class AddTeamModal extends React.Component {
                   onChange={this.handleInput}
                   autoComplete='off'
                 />
-                <input 
-                  type='text'
-                  placeholder='Wiki'
+                <ToggleSwitch isPrivate={this.state.isPrivate} handleToggle={this.handleToggle} />
+                <label htmlFor='wiki'>Team Wiki/Description</label>
+                <textarea 
+                  id='wiki'
+                  placeholder='Wiki/Description for your Team'
                   name='wiki'
                   value={wiki}
                   className= 'body-input'
                   onChange={this.handleInput}
-                  autoComplete='off'
                 />
-                <ToggleSwitch isPrivate={this.state.isPrivate} handleToggle={this.handleToggle} />
               </DivName>
             </DivRight>
             <DivButtons>
@@ -219,4 +278,8 @@ class AddTeamModal extends React.Component {
   };
 };
 
-export default connect(null, { addTeam, getUsersTeams })(AddTeamModal);
+const mapStateToProps = state => ({
+  image: state.posts.images
+});
+
+export default connect(mapStateToProps, { addTeam, getUsersTeams, updateTeamWithLogo, resetImageState })(AddTeamModal);
