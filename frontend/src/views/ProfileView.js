@@ -312,12 +312,18 @@ const ProfileLink = styled.a`
   }
 `;
 
+const FollowSpan = styled.span`
+  margin-right: 20px; 
+  margin-left: 20px; 
+`;
+
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
 class Profile extends Component {
   state = {
-    initialized: false 
+    initialized: false,
+
   }
   componentDidMount() {
     this.props.getProfile(this.props.match.params.id);
@@ -339,6 +345,7 @@ class Profile extends Component {
     const userId = localStorage.getItem("symposium_user_id");
     this.props.getProfileFollowers(this.props.match.params.id); 
     this.props.getFollowers(userId);
+    this.props.followersCount(this.props.match.params.id);
   }
   /*double arrow functions prevent peformance issues because it will not create a new function on every render */
   handleAddFollower = (userId, followingId) => () => {
@@ -396,6 +403,8 @@ class Profile extends Component {
 
     const followListLength = followList ? followList.length : 0; 
 
+    const profileFollowersCount = this.props.followers.profileFollowers ?   this.props.followers.profileFollowers.length : 0;
+    const usersFollowersCount = this.props.followers.usersFollowers ? this.props.followers.usersFollowers.length : 0; 
     let profileItems;
     if (this.props.profile.length === 0) {
       profileItems = <Spinner />;
@@ -417,6 +426,8 @@ class Profile extends Component {
                 <WrappedDiv className='username-style'>
                   <p className='property-content'> {profile.username ? profile.username : <Deleted />}</p>
                   {profileId !== userId ? alreadyFollowing === false ? <Button className='add-post-btn' onClick = {this.handleAddFollower(userId, profileId)}>Follow</Button> : <Button className='add-post-btn' onClick = {this.handleRemoveFollower(userId, profileId)}>UnFollow</Button> : <Button className='add-post-btn' onClick = {this.editProfile}>Edit Profile</Button>}
+                  <br/>
+                  <span><SpanLabel>Following: </SpanLabel>{profileFollowersCount}  </span><span>  <SpanLabel> Followers: </SpanLabel>{usersFollowersCount}</span>
                 </WrappedDiv>
               </HeaderStyle>
               {/* This section is for the bio and the links for a user account */}
