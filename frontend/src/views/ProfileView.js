@@ -452,10 +452,9 @@ class Profile extends Component {
                   <p className='property-content'> {profile.username ? profile.username : <Deleted />}</p>
                   {profileId !== userId ? alreadyFollowing === false ? <Button className='add-post-btn' onClick = {this.handleAddFollower(userId, profileId)}>Follow</Button> : <Button className='add-post-btn' onClick = {this.handleRemoveFollower(userId, profileId)}>UnFollow</Button> : <Button className='add-post-btn' onClick = {this.editProfile}>Edit Profile</Button>}
                   <br/>
-                  <WrappedDiv className = 'userfollowers-style'>
-
+                 { profileId === userId ?  <WrappedDiv className = 'userfollowers-style'>
                   <FollowSpan><SpanLabel>Following: </SpanLabel>{profileFollowersCount}  </FollowSpan><FollowSpan>  <SpanLabel> Followers: </SpanLabel>{usersFollowersCount}</FollowSpan>
-                  </WrappedDiv>
+                  </WrappedDiv> : <span></span>}
 
                 </WrappedDiv>
               </HeaderStyle>
