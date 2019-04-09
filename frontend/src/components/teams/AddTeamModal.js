@@ -198,11 +198,13 @@ class AddTeamModal extends React.Component {
     const { addTeam, historyPush, setAddTeamModalRaised, getUsersTeams, updateTeamWithLogo, image } = this.props;
     return Promise.resolve(setAddTeamModalRaised(e, false))
       .then(() => addTeam(newTeam).then((res) => {
-          if(image.id){
-            updateTeamWithLogo(image.id, res.payload.teamBoard.id);
-            this.props.resetImageState();
+          if(res){
+            if(image.id){
+              updateTeamWithLogo(image.id, res.payload.teamBoard.id);
+              this.props.resetImageState();
+            }
+            historyPush(`/team/discussions/${res.payload.teamBoard.id}`);
           }
-          historyPush(`/team/discussions/${res.payload.teamBoard.id}`);
         }
       )).then(() => {
         getUsersTeams();
