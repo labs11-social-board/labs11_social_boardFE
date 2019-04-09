@@ -90,6 +90,26 @@ const UserActions = styled.div`
     color: black;
     text-decoration: none;
   }
+
+  .drag-zone-wrapper {
+    bottom: 34%;
+    height: 3.5vh;
+
+    @media(max-width: 1440px){
+      bottom: 34%;
+      height: 4vh;
+    }
+
+    @media(max-width: 1024px){
+      bottom: 35.6%;
+    }
+
+    @media ${phoneP}{
+      bottom: 33.7%;
+      height: 5vh;
+      width: 39%
+    }
+  }
 `;
 
 class AddPostForm extends Component {
