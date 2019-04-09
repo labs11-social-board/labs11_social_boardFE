@@ -39,6 +39,7 @@ class TeamSettings extends React.Component{
   state = {
     team_name: this.props.team.team_name,
     isPrivate: this.props.team.isPrivate,
+    image: ''
   };
   handleInput = e => {
     e.preventDefault();
@@ -68,6 +69,10 @@ class TeamSettings extends React.Component{
   componentDidUpdate(prevProps){
     if( prevProps.team.team_name !== this.props.team.team_name){
       this.setState({ team_name: this.props.team.team_name, isPrivate: this.props.team.isPrivate });
+    }
+
+    if(prevProps.image !== this.props.image){
+      this.setState({ image: this.props.image.image });
     }
   }
   render() {
