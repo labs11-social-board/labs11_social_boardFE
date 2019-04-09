@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Spinner from '../assets/gif/spinner/Spinner'; //need to move to assets folder
 import { getProfile } from '../store/actions/index';
-import { getFollowers, getProfileFollowers, removeFollower, addFollower, inviteFriend } from '../store/actions/index';
+import { getFollowers, getProfileFollowers, removeFollower, addFollower, inviteFriend, followersCount } from '../store/actions/index';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { phoneP, phoneL, tabletP, tabletL } from '../globals/globals';
@@ -447,7 +447,7 @@ class Profile extends Component {
                   <Tab> Followed Posts</Tab>
                   <Tab>Comments</Tab>
                   <Tab>Replies</Tab>
-                  <Tab>Followers</Tab>
+                  <Tab>Users</Tab>
                 </TabList>
                 <TabPanel>
                   <WrappedDiv>
@@ -604,6 +604,7 @@ Profile.propTypes = {
   removeFollower : PropTypes.func, 
   addFollower : PropTypes.func,
   inviteFriend : PropTypes.func, 
+  followersCount : PropTypes.func, 
   setEditProfileModalRaised : PropTypes.func.isRequired,
   isEditProfileModalRaised : PropTypes.bool.isRequired, 
   toggleSearch : PropTypes.func.isRequired,
@@ -629,7 +630,8 @@ Profile.propTypes = {
 const mapStateToProps = state => ({
   profile: state.profilesData.singleProfileData,
   followers: state.followers,
-  profileFollowers : state.profileFollowers
+  profileFollowers : state.profileFollowers,
+  userFollowers : state.userFollowers,
 });
 
-export default connect(mapStateToProps, { getProfile,getFollowers, getProfileFollowers, removeFollower, addFollower, inviteFriend })(Profile);
+export default connect(mapStateToProps, { getProfile,getFollowers, getProfileFollowers, removeFollower, addFollower, inviteFriend, followersCount })(Profile);
