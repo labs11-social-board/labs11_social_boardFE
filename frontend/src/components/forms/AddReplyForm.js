@@ -173,7 +173,7 @@ class AddReplyForm extends Component {
 		const { post_id, team_id, handleFilterChange, handleTeamFilter, toggleAddReplyForm, updateReplyWithImage, image } = this.props;
 		this.props.addReply(post_id, team_id, replyBody).then((res) => {
 			if(image){
-				updateReplyWithImage(image[0], res.payload[0]);
+				updateReplyWithImage(image, res.payload[0]);
 				this.props.resetImageState();
        }
 		});
@@ -241,7 +241,7 @@ const mapStateToProps = state => ({
 	username: state.users.username,
 	user_id: state.users.user_id,
 	avatar: state.users.avatar,
-	image: state.posts.images
+	image: state.posts.images.id
 });
 
 export default connect(mapStateToProps, { addReply, uploadImage, updateReplyWithImage, removeUpload, resetImageState })(AddReplyForm);

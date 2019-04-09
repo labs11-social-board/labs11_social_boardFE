@@ -207,7 +207,7 @@ class AddDiscussionForm extends Component {
 				toggleAddDiscussionForm();
 				followDiscussion(res.payload[0], user_id)
 				if(this.props.image){
-					updateDiscussionWithImage(image[0], res.payload[0]);
+					updateDiscussionWithImage(image, res.payload[0]);
 					resetImageState();
 				}
 			})
@@ -303,7 +303,7 @@ const mapStateToProps = state => ({
 	user_id: state.users.user_id,
 	avatar: state.users.avatar,
 	isDay: state.users.isDay,
-	image: state.posts.images
+	image: state.posts.images.id
 });
 
 export default connect(mapStateToProps, { addDiscussion, addTeamDiscussion, displayError, updateDiscussionWithImage, removeUpload, followDiscussion, resetImageState })(AddDiscussionForm);
