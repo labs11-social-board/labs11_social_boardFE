@@ -214,6 +214,12 @@ class UploadImage extends React.Component {
     dropzone.removeEventListener('dragover', this.handleDrag);
     dropzone.removeEventListener('drop', this.handleDrop);
   }
+
+  componentDidUpdate(prevProps){
+    if(this.props.imagePreviewUrl !== this.state.imagePreviewUrl ){
+      this.setState({ imagePreviewUrl: this.props.imagePreviewUrl });
+    }
+  }
     render() {
       const { name, imagePreviewUrl } = this.state;
       return(
