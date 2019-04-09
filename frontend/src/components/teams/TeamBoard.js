@@ -224,7 +224,10 @@ const InviteButton = styled.button `
     color: white;
     background-color: #418DCF;
     height: 35px;
-    width: 50px;
+    width: 100%;
+    margin-left: 20px;
+
+    @media
 
     cursor: pointer;
     &:hover {
@@ -374,7 +377,7 @@ class TeamBoard extends Component {
                 historyPush={history.push}
                 team_members={team_members}
               />
-              {!isMember ? null : isTeamMembersTab ? <InviteButton onClick={e => this.setTeamMemberModal(e, true)}>Invite</InviteButton> : null}
+              {!isMember ? null : isTeamMembersTab ? <InviteButton onClick={e => this.setTeamMemberModal(e, true)}>Invite Team Member</InviteButton> : null}
             </div>
             <div className = 'team-tabs'>
               <h3 className='tab tab-selected' onClick={this.handleTab}>Discussions</h3>
