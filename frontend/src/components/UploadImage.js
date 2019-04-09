@@ -55,24 +55,6 @@ const FileUpload = styled.div `
       margin: 14px 9% 0 9%;
     }
   }
-  .drag-zone-wrapper {
-    border: dashed grey 4px;
-    background: rgba(255,255,255,.8);
-    position: absolute;
-    z-index: 9999;
-    border-radius: 50%;
-    height: 16vh;
-
-    .drag-zone {
-      position: relative;
-      top: 30%;
-      right: 0;
-      left: 0;
-      text-align: center;
-      color: grey;
-      font-size: 25px;
-    }
-  }
 
   .fileinput + label:hover {
     color: #418DCF;
@@ -115,6 +97,42 @@ const FileUpload = styled.div `
     margin-left: 10px;
   }
 
+    .drag-zone-t-wrapper {
+      border: dashed grey 4px;
+      background: rgba(255,255,255,.8);
+      position: absolute;
+      z-index: 9999;
+      border-radius: 50%;
+      height: 16vh;
+  
+      .drag-zone {
+        position: relative;
+        top: 30%;
+        right: 0;
+        left: 0;
+        text-align: center;
+        color: grey;
+        font-size: 25px;
+      }
+    }
+    .drag-zone-wrapper {
+      border: dashed grey 4px;
+      background: rgba(255,255,255,.8);
+      position: absolute;
+      z-index: 9999;
+      height: 4vh;
+      width: 132px;
+      bottom: 32.5%;
+  
+      .drag-zone {
+        position: relative;
+        top: 11%;
+        right: 0;
+        left: 0;
+        text-align: center;
+        color: grey;
+      }
+    }
 `;
 
 class UploadImage extends React.Component {
@@ -250,7 +268,7 @@ class UploadImage extends React.Component {
       return(
        <>
         {this.props.isTeam ?   
-          <div id='drop-zone'>
+          <div id='drop-zone-t'>
             <FileUpload>
               <label htmlFor='image-file'>Team Logo</label>
               <input
@@ -262,7 +280,7 @@ class UploadImage extends React.Component {
               />
               <label htmlFor='image-file' >{imagePreviewUrl ? <img src={imagePreviewUrl}/> : 'Upload a Image'}</label>
               {this.state.dragging &&
-                <div className='drag-zone-wrapper'>
+                <div className='drag-zone-t-wrapper'>
                   <div className='drag-zone'>
                     Drop file here
                   </div>
@@ -271,7 +289,7 @@ class UploadImage extends React.Component {
             </FileUpload>
          </div> 
          : 
-         <div id='drop-zone-t'>
+         <div id='drop-zone'>
           <FileUpload>
             <input
               type = 'file'
