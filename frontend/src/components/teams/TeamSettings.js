@@ -119,7 +119,3 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, { updateTeam, deleteTeam, displayMessage, getUsersTeams })(TeamSettings);
-
-
-
-
