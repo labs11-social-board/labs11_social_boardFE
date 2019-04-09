@@ -170,7 +170,14 @@ const DivName = styled.div`
     flex-direction: column;
     align-items: center;
 
-    
+    @media ${phoneP}{
+      height: 22vh;
+      margin-bottom: 8px;
+
+      .drag-zone-t-wrapper {
+        bottom: 68%;
+      }
+    }
   }
 `;
 
