@@ -218,6 +218,15 @@ const DiscussionHeader = styled.div`
   }
 `;
 
+const InviteButton = styled.button `
+    border: 1px solid #418DCF;
+    border-radius: 3px;
+    color: white;
+    background-color: #418DCF;
+    height: 35px;
+    width: 50px;
+`;
+
 const newest = 'newest';
 const oldest = 'oldest';
 const mostUpvotes = 'most upvotes';
@@ -358,7 +367,7 @@ class TeamBoard extends Component {
                 historyPush={history.push}
                 team_members={team_members}
               />
-              {!isMember ? null : isTeamMembersTab ? <button onClick={e => this.setTeamMemberModal(e, true)}>Invite</button> : null}
+              {!isMember ? null : isTeamMembersTab ? <InviteButton onClick={e => this.setTeamMemberModal(e, true)}>Invite</InviteButton> : null}
             </div>
             <div className = 'team-tabs'>
               <h3 className='tab tab-selected' onClick={this.handleTab}>Discussions</h3>
