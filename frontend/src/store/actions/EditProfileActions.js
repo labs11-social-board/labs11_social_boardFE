@@ -6,6 +6,10 @@ import { handleError } from "../../helpers/index.js";
 //globals
 import { backendUrl } from "../../globals/globals.js";
 
+//action creator
+import { getProfile } from "../../store/actions/index.js";
+
+
 /***************************************************************************************************
  ********************************************* Actions *******************************************
  **************************************************************************************************/
@@ -71,10 +75,10 @@ export const updateProfile = (
   github,
   linkedin, 
   location,
+  history
 ) => dispatch => {
   const token = localStorage.getItem("symposium_token");
   const headers = { headers: { Authorization: token } };
-  console.log(bio, twitter, github, linkedin);
   dispatch({ type: UPDATE_PROFILE });
   if (bio !== null) {
     const body = { bio };
@@ -130,6 +134,7 @@ export const updateProfile = (
       })
       .catch(err => handleError(err, UPDATE_LOCATION_FAILURE)(dispatch))
   }
+
 };
 
 
