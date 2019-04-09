@@ -102,7 +102,8 @@ class UploadImage extends React.Component {
   state = {
     name: '',
     imagePreviewUrl: '',
-    dragging: false
+    dragging: false,
+    dragCounter: 0
   }
   handleFileChange = (e) => {
     e.preventDefault();
@@ -145,24 +146,31 @@ class UploadImage extends React.Component {
     return newStr;
   }
   handleDragIn = (e) => {
-    e.preventDefault()
-    e.stopPropagation()
+    e.preventDefault();
+    e.stopPropagation();
+    let count = this.state.dragCounter;
+    count++;
+    console.log(count)
+    this.setState({ dragCounter: count });
+
     if (e.dataTransfer.items && e.dataTransfer.items.length > 0) {
-      this.setState({dragging: true})
+      this.setState({ dragging: true })
     }
-    console.log('running', e.dataTransfer)
   }
   handleDragOut = (e) => {
-    e.preventDefault()
-    e.stopPropagation()
+    e.preventDefault();
+    e.stopPropagation();
+    let count = this.state.dragCounter;
+    count--;
+    this.setState({ dragCounter:  count });
 
-
+    if(count === 0){
+      this.setState({ dragging: false})
+    }
   }
   handleDrag = (e) => {
     e.preventDefault()
     e.stopPropagation()
-
-    this.setState({dragging: false})
   }
   handleDrop = (e) => {
     e.preventDefault()
@@ -204,7 +212,14 @@ class UploadImage extends React.Component {
                 className = 'fileinput'
                 onChange = { this.handleFileChange }
               />
-              <label htmlFor='image-file' id='drop-zone'>{imagePreviewUrl ? <img src={imagePreviewUrl}/> : 'Upload a Image'}</label> 
+              <label htmlFor='image-file' id='drop-zone'>{imagePreviewUrl ? <img src={imagePreviewUrl}/> : 'Upload a Image'}</label>
+              {this.state.dragging && 
+                <div className='drag-zone-wrapper'>
+                  <div className='drag-zone'>
+                    Drop file here
+                  </div>
+                </div>
+              } 
             </>
             : 
             <>
