@@ -10,7 +10,10 @@ import {
   ADD_FOLLOWER_FAILURE,
   REMOVE_FOLLOWER,
   REMOVE_FOLLOWER_SUCCESS,
-  REMOVE_FOLLOWER_FAILURE
+  REMOVE_FOLLOWER_FAILURE,
+  GET_FOLLOWING, 
+  GET_FOLLOWING_SUCCESSFUL,
+  GET_FOLLOWING_FAILURE,
 } from "../actions/index.js";
 
 export const FollowersReducer = (state = {}, action) => {
@@ -36,6 +39,11 @@ export const FollowersReducer = (state = {}, action) => {
         ...state,
         followers: action.payload
       };
+    case GET_FOLLOWING_SUCCESSFUL:
+      return {
+        ...state, 
+        usersFollowers: action.payload
+      }
     case GET_FOLLOWERS:
     case GET_USER_FOLLOWERS:
     case GET_USER_FOLLOWERS_FAILURE:
@@ -44,6 +52,8 @@ export const FollowersReducer = (state = {}, action) => {
     case ADD_FOLLOWER_FAILURE:
     case REMOVE_FOLLOWER:
     case REMOVE_FOLLOWER_FAILURE:
+    case GET_FOLLOWING: 
+    case GET_FOLLOWING_FAILURE:
     default:
       return state;
   }
