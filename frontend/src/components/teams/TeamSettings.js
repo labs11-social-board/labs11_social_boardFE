@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 // action creators
-import { updateTeam, deleteTeam, displayMessage, getUsersTeams } from '../../store/actions/index.js';
+import { updateTeam, deleteTeam, displayMessage, getUsersTeams, updateTeamWithLogo } from '../../store/actions/index.js';
 
 // components
 import { ToggleSwitch, UploadImage } from '../index.js';
@@ -51,8 +51,11 @@ class TeamSettings extends React.Component{
   updateTeam = e => {
     e.preventDefault();
     const changes = { ...this.state };
-    this.props.updateTeam(this.props.team.id, changes).then(() => this.props.displayMessage('Team Settings Updated!'));
-    setTimeout(() => this.props.getDiscussions(), 150);
+    const { team, updateTeam, displayMessage } = this.props;
+
+    updateTeam(team.id, changes)
+      .then(() => displayMessage('Team Settings Updated!'))
+      .then(() => setTimeout(() => this.props.getDiscussions(), 150));
   };
   deleteTeam = e => {
     e.preventDefault();
@@ -77,7 +80,7 @@ class TeamSettings extends React.Component{
             <label htmlFor='team_name'>Team Name: </label>
             <input id='team_name' type='text' name='team_name' value={this.state.team_name} onChange={this.handleInput} />
           </div>
-          <UploadImage isTeam={isTeam}/>
+          <UploadImage isTeam={isTeam} imagePreviewUrl={this.props.team.logo}/>
           <div className='toggle-switch'>
             <ToggleSwitch isPrivate={this.state.isPrivate} handleToggle={this.handleToggle} />
           </div>
@@ -91,6 +94,8 @@ class TeamSettings extends React.Component{
   };
 };
 
-const mapStateToProps = state => ({ });
+const mapStateToProps = state => ({
+  image: state.posts.images
+});
 
 export default connect(mapStateToProps, { updateTeam, deleteTeam, displayMessage, getUsersTeams })(TeamSettings);
