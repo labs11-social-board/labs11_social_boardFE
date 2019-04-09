@@ -68,7 +68,6 @@ class TeamWiki extends React.Component {
   updateWiki = e => {
     e.preventDefault();
     const changes = { wiki: this.state.updatedWiki };
-
     this.props.updateTeam(this.props.team_id, changes);
     // this.setState({ isEditting: false });
     this.setState({ isEditting: false }, () => {
