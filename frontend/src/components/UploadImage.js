@@ -299,7 +299,7 @@ class UploadImage extends React.Component {
                 onChange = { this.handleFileChange }
               />
               <label htmlFor='image-file' >{imagePreviewUrl ? <img src={imagePreviewUrl}/> : 'Upload a Image'}</label>
-              {
+              {this.state.dragging &&
                 <div className='drag-zone-t-wrapper'>
                   <div className='drag-zone'>
                     Drop file here

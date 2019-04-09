@@ -62,6 +62,28 @@ const Settings = styled.div `
         }
       }
     }
+
+    .settings-upload {
+      @media (max-width: 1440px){
+        .drag-zone-t-wrapper {
+          left: 12.5%;
+          width: 11.8%;
+        }
+      }
+      @media (max-width: 1024px){
+        .drag-zone-t-wrapper {
+          left: 16.5%;
+          width: 18%;
+        }
+      }
+      @media (max-width: 480px){
+        .drag-zone-t-wrapper {
+          bottom: 22.5%;
+          left: 7%;
+          width: 25%;
+        }
+      }
+    }
 `; 
 class TeamSettings extends React.Component{
   state = {
@@ -116,7 +138,9 @@ class TeamSettings extends React.Component{
             <label htmlFor='team_name'>Team Name: </label>
             <input id='team_name' type='text' name='team_name' value={this.state.team_name} onChange={this.handleInput} />
           </div>
-          <UploadImage isTeam={isTeam} imagePreviewUrl={this.props.team.logo}/>
+          <div className='settings-upload'>
+           <UploadImage isTeam={isTeam} imagePreviewUrl={this.props.team.logo}/>
+          </div>
           <div className='toggle-switch'>
             <ToggleSwitch isPrivate={this.state.isPrivate} handleToggle={this.handleToggle} />
           </div>
