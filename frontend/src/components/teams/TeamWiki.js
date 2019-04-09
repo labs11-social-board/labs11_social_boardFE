@@ -22,12 +22,16 @@ const TextContainer = styled.textarea`
  `;
 
 const WikiEditButton = styled.button`
-    
     border: 1px solid #418DCF;
-    border-radius: 5px;
+    border-radius: 3px;
     color: white;
     background-color: #418DCF;
     height: 35px;
+    width: 50px;
+
+    @media(max-width: 800px) {
+      width: 100%;
+    }
 `;
 
 const TextContainerButtons = styled.button`
@@ -44,6 +48,7 @@ const EditWikiDiv = styled.div`
     display: flex;
     justify-content: flex-start;
     padding-right: 5%;
+    width: 100%;
 `;
 
 class TeamWiki extends React.Component {
