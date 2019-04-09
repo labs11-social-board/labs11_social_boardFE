@@ -105,9 +105,7 @@ const UserActions = styled.div`
     }
 
     @media ${phoneP}{
-      bottom: 33.7%;
-      height: 5vh;
-      width: 39%
+      display:none;
     }
   }
 `;

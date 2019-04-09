@@ -217,7 +217,6 @@ class UploadImage extends React.Component {
     e.preventDefault();
     e.stopPropagation();
     this.dragCounter++;
-    console.log(this.dragCounter)
     if ( e.dataTransfer.items && e.dataTransfer.items.length > 0) {
       this.setState({ dragging: true })
     }
@@ -334,7 +333,7 @@ class UploadImage extends React.Component {
               onChange = { this.handleFileChange }
             />
             <label htmlFor='image-upload'>{name ? this.checkStringLength(name.name) : 'Upload an Image'}</label>
-            {
+            {this.state.dragging &&
               <div className='drag-zone-wrapper'>
                 <div className='drag-zone'>
                   Drop file here
