@@ -32,6 +32,17 @@ const Settings = styled.div `
 
       button {
         margin-right: 5%;
+        margin-left: 10px;
+        padding: 10px 15px;
+        border-radius: 5px;
+        border: 1px solid #418DCF;
+        background-color: #418DCF;
+        color: white;
+      }
+
+      .delete {
+        background: red;
+        border: none;
       }
     }
 `; 
@@ -91,7 +102,7 @@ class TeamSettings extends React.Component{
           </div>
           <form>
             <button onClick={this.updateTeam}>Update Team</button>
-            <button onClick={this.deleteTeam}>Delete Team</button>
+            <button className='delete' onClick={this.deleteTeam}>Delete Team</button>
           </form>
         </Settings>
       </div>
