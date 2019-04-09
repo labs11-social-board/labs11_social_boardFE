@@ -328,12 +328,17 @@ import {
   REMOVE_FOLLOWER,
   REMOVE_FOLLOWER_SUCCESS,
   REMOVE_FOLLOWER_FAILURE,
+  GET_FOLLOWING, 
+  GET_FOLLOWING_SUCCESSFUL,
+  GET_FOLLOWING_FAILURE, 
+ 
 
   //FOLLOW CREATORS
   getFollowers,
   getProfileFollowers,
   removeFollower,
-  addFollower
+  addFollower,
+  followersCount,
 } from '../actions/FollowersActions.js';
 
 import {
@@ -656,11 +661,15 @@ export {
   REMOVE_FOLLOWER,
   REMOVE_FOLLOWER_SUCCESS,
   REMOVE_FOLLOWER_FAILURE,
+  GET_FOLLOWING, 
+  GET_FOLLOWING_SUCCESSFUL,
+  GET_FOLLOWING_FAILURE,
   //FOLLOW CREATORS
   getFollowers,
   getProfileFollowers,
   removeFollower,
   addFollower,
+  followersCount,
   //INVITE A FRIEND
   SENDING_INVITE,
   SENDING_INVITE_FAILURE,
