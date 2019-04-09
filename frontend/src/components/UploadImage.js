@@ -143,7 +143,22 @@ const FileUpload = styled.div `
       height: 4vh;
       width: 132px;
       bottom: 32.5%;
-  
+      
+      @media (max-width: 1440px){
+        bottom: 31.7%;
+      }
+
+      @media (max-width: 1024px){
+        bottom: 24%;
+        height: 5vh;
+      }
+
+      @media ${phoneP}{
+        bottom: 15.3%;
+        height: 6vh;
+        width: 37%;
+      }
+
       .drag-zone {
         position: relative;
         top: 11%;
@@ -319,7 +334,7 @@ class UploadImage extends React.Component {
               onChange = { this.handleFileChange }
             />
             <label htmlFor='image-upload'>{name ? this.checkStringLength(name.name) : 'Upload an Image'}</label>
-            {this.state.dragging &&
+            {
               <div className='drag-zone-wrapper'>
                 <div className='drag-zone'>
                   Drop file here
