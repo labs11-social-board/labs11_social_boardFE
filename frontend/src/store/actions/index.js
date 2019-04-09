@@ -60,7 +60,8 @@ import {
   addTeam,
   addTeamMember,
   deleteTeam,
-  getUsersTeams
+  getUsersTeams,
+  updateTeamWithLogo
 } from './TeamsActions.js';
 
 import {
@@ -152,6 +153,7 @@ import {
   REMOVE_POST_FAILURE,
   UPLOAD_IMAGE_LOADING,
   UPLOAD_IMAGE_SUCCESS,
+  RESET_IMAGE_STATE,
 
   // Action Creators
   addPost,
@@ -159,7 +161,8 @@ import {
   removePost,
   uploadImage,
   updatePostWithImage,
-  removeUpload
+  removeUpload,
+  resetImageState
 } from './PostsActions.js';
 
 import {
@@ -325,12 +328,17 @@ import {
   REMOVE_FOLLOWER,
   REMOVE_FOLLOWER_SUCCESS,
   REMOVE_FOLLOWER_FAILURE,
+  GET_FOLLOWING, 
+  GET_FOLLOWING_SUCCESSFUL,
+  GET_FOLLOWING_FAILURE, 
+ 
 
   //FOLLOW CREATORS
   getFollowers,
   getProfileFollowers,
   removeFollower,
-  addFollower
+  addFollower,
+  followersCount,
 } from '../actions/FollowersActions.js';
 
 import {
@@ -349,6 +357,9 @@ import {
   UPDATE_TWITTER,
   UPDATE_TWITTER_SUCCESSFUL,
   UPDATE_TWITTER_FAILURE,
+  UPDATE_LOCATION,
+  UPDATE_LOCATION_SUCCESSFUL,
+  UPDATE_LOCATION_FAILURE,
   updateProfile
 } from '../actions/EditProfileActions.js';
 
@@ -552,6 +563,7 @@ export {
   UPDATE_EMAIL_FAILURE,
   UPLOAD_IMAGE_LOADING,
   UPLOAD_IMAGE_SUCCESS,
+  RESET_IMAGE_STATE, 
   //Reply Actions
   ADD_REPLY_LOADING,
   ADD_REPLY_SUCCESS,
@@ -573,6 +585,7 @@ export {
   addTeamMember,
   deleteTeam,
   getUsersTeams,
+  updateTeamWithLogo,
   // Discussion Action Creators
   getTopDiscussions,
   getDiscussionsByCat,
@@ -631,6 +644,7 @@ export {
   uploadImage,
   updatePostWithImage,
   removeUpload,
+  resetImageState,
   // Reply Action Creators
   addReply,
   updateReplyWithImage,
@@ -647,11 +661,15 @@ export {
   REMOVE_FOLLOWER,
   REMOVE_FOLLOWER_SUCCESS,
   REMOVE_FOLLOWER_FAILURE,
+  GET_FOLLOWING, 
+  GET_FOLLOWING_SUCCESSFUL,
+  GET_FOLLOWING_FAILURE,
   //FOLLOW CREATORS
   getFollowers,
   getProfileFollowers,
   removeFollower,
   addFollower,
+  followersCount,
   //INVITE A FRIEND
   SENDING_INVITE,
   SENDING_INVITE_FAILURE,
@@ -673,6 +691,9 @@ export {
   UPDATE_TWITTER,
   UPDATE_TWITTER_SUCCESSFUL,
   UPDATE_TWITTER_FAILURE,
+  UPDATE_LOCATION,
+  UPDATE_LOCATION_SUCCESSFUL,
+  UPDATE_LOCATION_FAILURE,
   updateProfile,
   // Emails
   // actions
