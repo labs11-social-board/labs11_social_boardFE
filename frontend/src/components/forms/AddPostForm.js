@@ -102,7 +102,7 @@ class AddPostForm extends Component {
     
     this.props.addPost(discussion_id, postBody, team_id).then( res => {
       if(image){
-        updatePostWithImage(image[0], res.payload[0]);
+        updatePostWithImage(image, res.payload[0]);
         this.props.resetImageState();
       }
     });
@@ -119,8 +119,8 @@ class AddPostForm extends Component {
   handleExit = e => {
     e.preventDefault();
     this.props.toggleAddPostForm();
-    if(this.props.image.length > 0){
-      this.props.removeUpload(this.props.image[0]);
+    if(this.props.image){
+      this.props.removeUpload(this.props.image);
       this.props.resetImageState();
 		}
   }
@@ -177,7 +177,7 @@ const mapStateToProps = state => ({
   username: state.users.username,
   user_id: state.users.user_id,
   avatar: state.users.avatar,
-  image: state.posts.images,
+  image: state.posts.images.id,
   isUploadingImage: state.posts.isUploadingImage
 });
 
