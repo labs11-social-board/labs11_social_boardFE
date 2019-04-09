@@ -226,7 +226,6 @@ const DivCategoriesContainer = styled.div`
 const DropdownFollowing = styled.div`
   display: flex;
   text-align: center;
-  }
 `;
 
 
