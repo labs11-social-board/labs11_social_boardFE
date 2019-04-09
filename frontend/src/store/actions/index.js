@@ -60,7 +60,8 @@ import {
   addTeam,
   addTeamMember,
   deleteTeam,
-  getUsersTeams
+  getUsersTeams,
+  updateTeamWithLogo
 } from './TeamsActions.js';
 
 import {
@@ -351,6 +352,9 @@ import {
   UPDATE_TWITTER,
   UPDATE_TWITTER_SUCCESSFUL,
   UPDATE_TWITTER_FAILURE,
+  UPDATE_LOCATION,
+  UPDATE_LOCATION_SUCCESSFUL,
+  UPDATE_LOCATION_FAILURE,
   updateProfile
 } from '../actions/EditProfileActions.js';
 
@@ -576,6 +580,7 @@ export {
   addTeamMember,
   deleteTeam,
   getUsersTeams,
+  updateTeamWithLogo,
   // Discussion Action Creators
   getTopDiscussions,
   getDiscussionsByCat,
@@ -677,6 +682,9 @@ export {
   UPDATE_TWITTER,
   UPDATE_TWITTER_SUCCESSFUL,
   UPDATE_TWITTER_FAILURE,
+  UPDATE_LOCATION,
+  UPDATE_LOCATION_SUCCESSFUL,
+  UPDATE_LOCATION_FAILURE,
   updateProfile,
   // Emails
   // actions

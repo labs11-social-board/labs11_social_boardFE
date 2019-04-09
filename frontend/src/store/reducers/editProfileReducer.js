@@ -17,6 +17,10 @@ import {
   UPDATE_TWITTER, 
   UPDATE_TWITTER_SUCCESSFUL,
   UPDATE_TWITTER_FAILURE,
+
+  UPDATE_LOCATION,
+  UPDATE_LOCATION_SUCCESSFUL,
+  UPDATE_LOCATION_FAILURE,
 } from "../actions/index.js";
 
 export const editProfileReducer = (state = {}, action) => {
@@ -40,6 +44,9 @@ export const editProfileReducer = (state = {}, action) => {
     case UPDATE_TWITTER: 
     case UPDATE_TWITTER_SUCCESSFUL:
     case UPDATE_TWITTER_FAILURE:
+    case UPDATE_LOCATION:
+    case UPDATE_LOCATION_SUCCESSFUL:
+    case UPDATE_LOCATION_FAILURE:
     default:
       return state;
   }

@@ -271,7 +271,7 @@ const SubWrapper = styled.div`
 `;
 
 const SearchContainer = styled.div`
-  margin-left: 15px;
+  margin-right: 15px;
   display: flex;
   width: 100%;
   justify-content: center;
@@ -302,17 +302,22 @@ const InviteFriendLink = styled.p`
  **************************************************************************************************/
 class Profile extends Component {
   state = {
-    
+    initialized: false 
   }
   componentDidMount() {
     this.props.getProfile(this.props.match.params.id);
     this.handleInitializeFollowList();
+    this.setState({initialized : true})
   };
   componentDidUpdate(prevProps) {
     if (prevProps.match.params.id !== this.props.match.params.id) {
       this.handleInitializeFollowList(); // this line handles going from profile to profile. 
       return this.props.getProfile(this.props.match.params.id);
     }
+    if (prevProps.isEditProfileModalRaised === true && this.props.isEditProfileModalRaised === false){
+      return this.props.getProfile(this.props.match.params.id)
+    }
+   
   };
 
   handleInitializeFollowList = () => {
@@ -351,8 +356,7 @@ class Profile extends Component {
     const twitter = this.props.profile[0].twitter ? this.props.profile[0].twitter : ""; 
     const github = this.props.profile[0].github ? this.props.profile[0].github : ""; 
     const linkedin = this.props.profile[0].linkedin ? this.props.profile[0].linkedin : "";
-    //add in location here once created on backend.  
-    
+    const location = this.props.profile[0].location ? this.props.profile[0].location : "";
     //Follow list variables 
     const userId = localStorage.getItem("symposium_user_id");
     
@@ -404,6 +408,7 @@ class Profile extends Component {
               <div>
                   <p><span>Bio </span><span>{bio}</span></p>
                   <br/>
+                  <p><span>Location </span>{location}</p>
                   <p><span>Github </span> <span>{github}</span></p>
                   <p><span>LinkedIn </span> <span>{linkedin}</span></p>
                   <p><span>Twitter </span> <span>{twitter}</span></p>
