@@ -92,12 +92,17 @@ const FileUpload = styled.div `
     border: 1px solid #418DCF;
     background-color: white;
   }
+
+  p {
+    margin-left: 10px;
+  }
 `;
 
 class UploadImage extends React.Component {
   state = {
     name: '',
-    imagePreviewUrl: ''
+    imagePreviewUrl: '',
+    dragging: false
   }
   handleFileChange = (e) => {
     e.preventDefault();
@@ -139,10 +144,51 @@ class UploadImage extends React.Component {
     }
     return newStr;
   }
+  handleDragIn = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    if (e.dataTransfer.items && e.dataTransfer.items.length > 0) {
+      this.setState({dragging: true})
+    }
+    console.log('running', e.dataTransfer)
+  }
+  handleDragOut = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+
+
+  }
+  handleDrag = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+
+    this.setState({dragging: false})
+  }
+  handleDrop = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+
+
+  }
   componentDidMount() {
+    let dropzone = document.getElementById('drop-zone');
     if(this.props.imagePreviewUrl !== this.state.imagePreviewUrl ){
       this.setState({ imagePreviewUrl: this.props.imagePreviewUrl });
     }
+    
+    //code for droping a file into the upload input
+    dropzone.addEventListener('dragenter', this.handleDragIn);
+    dropzone.addEventListener('dragleave', this.handleDragOut);
+    dropzone.addEventListener('dragover', this.handleDrag);
+    dropzone.addEventListener('drop', this.handleDrop);
+  }
+  componentWillUnmount(){
+    let dropzone = document.getElementById('drop-zone');
+
+    dropzone.removeEventListener('dragenter', this.handleDragIn);
+    dropzone.removeEventListener('dragleave', this.handleDragOut);
+    dropzone.removeEventListener('dragover', this.handleDrag);
+    dropzone.removeEventListener('drop', this.handleDrop);
   }
     render() {
       const { name, imagePreviewUrl } = this.state;
@@ -158,7 +204,7 @@ class UploadImage extends React.Component {
                 className = 'fileinput'
                 onChange = { this.handleFileChange }
               />
-              <label htmlFor='image-file'>{imagePreviewUrl ? <img src={imagePreviewUrl}/> : 'Upload a Image'}</label> 
+              <label htmlFor='image-file' id='drop-zone'>{imagePreviewUrl ? <img src={imagePreviewUrl}/> : 'Upload a Image'}</label> 
             </>
             : 
             <>
@@ -169,7 +215,7 @@ class UploadImage extends React.Component {
                 className = 'image-upload'
                 onChange = { this.handleFileChange }
               />
-              <label htmlFor='image-upload'>{name ? this.checkStringLength(name.name) : 'Upload an Image'}</label>
+              <label htmlFor='image-upload' id='drop-zone'>{name ? this.checkStringLength(name.name) : 'Upload an Image'}</label>
               {this.state.name ? this.props.isUploadingImage ? <p>Uploading...</p> : <p>Image Uploaded!</p> : null}
             </>
           }
