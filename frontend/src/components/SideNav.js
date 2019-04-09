@@ -76,9 +76,10 @@ const LinkBrowseCategories = styled(Link)`
 
   i {
     cursor: pointer;
-    padding: 10px 8px 10px 0;
+    margin-left: 20px;
+    padding: 10px 12px 10px 0;
     color: inherit;
-    margin-left: 12px;
+    margin-left: 15px;
   }
 
   &:hover {
@@ -86,7 +87,7 @@ const LinkBrowseCategories = styled(Link)`
   }
 
     &:hover {
-      border: 1px solid ${props => props.theme.defaultColorOnHover};
+      //border: 1px solid ${props => props.theme.defaultColorOnHover};
     }
   }
 `;
@@ -135,10 +136,14 @@ const LinkAllPosts = styled(Link)`
       ? `${props.theme.defaultColorOnHover}`
       : `${props.theme.defaultColor}`};
   font-weight: normal;
+  margin-left: -1px;
   margin-right: 41px;
   margin-top: -65px;
   font-size: 0.9rem;
-
+  display: flex;
+  align-items: center;
+  margin-bottom: 9px;
+  border-left: ${props => props.islinkselected === 'true' ? `5px solid ${props.theme.defaultColorOnHover}` : '7px solid transparent'};
   &:hover {
     color: ${props => props.theme.defaultColorOnHover};
 
@@ -165,7 +170,7 @@ const DivWindows = styled.div`
   width: 18px;
   height: 18px;
   padding-top: 1.8px;
-  margin-left: 12px;
+  margin-left: 15px;
   margin-right: 13px;
   margin-bottom: 0px;
 
@@ -213,6 +218,8 @@ const LiCategoryFollowed = styled.li`
 `;
 
 const LinkSideNav = styled(Link)`
+border-left: ${props => props.islinkselected === 'true' ? `5px solid ${props.theme.defaultColorOnHover}` : '5px solid transparent'};
+//border-left: 5px solid ${props => props.theme.defaultColorOnHover};
   text-decoration: none;
   // color: ${props => (props.islinkselected === "true" ? "blue" : "black")};
   color: ${props =>
@@ -244,7 +251,6 @@ const LinkSideNav = styled(Link)`
 const DropdownFollowing = styled.div`
   display: flex;
   text-align: center;
-  }
 `;
 
 /***************************************************************************************************

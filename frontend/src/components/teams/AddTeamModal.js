@@ -3,10 +3,11 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 // action creators
-import { addTeam, getUsersTeams } from '../../store/actions/index.js';
+import { addTeam, getUsersTeams, updateTeamWithLogo } from '../../store/actions/index.js';
 
 // components 
-import { ToggleSwitch } from '../index.js';
+import { ToggleSwitch, UploadImage } from '../index.js';
+
 // globals
 import { topHeaderHeight, phoneP } from '../../globals/globals.js';
 
@@ -15,7 +16,7 @@ const ModalBackground = styled.div`
   justify-content: center;
   align-items: center;
   position: fixed;
-  z-index: 8001;
+  z-index: 10000;
   top: 0;
   left: 0;
   width: 100%;
@@ -46,7 +47,7 @@ const DivModal = styled.div`
 
   @media ${phoneP}{
     width: 95%;
-    height: 73%;
+    height: 95%;
     flex-direction: row;
   }
 
@@ -160,6 +161,16 @@ const DivName = styled.div`
   @media ${phoneP} {
     display: flex;
     width: 100%;
+    align-items: baseline;
+  }
+
+  .image-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    
   }
 `;
 
@@ -176,15 +187,22 @@ class AddTeamModal extends React.Component {
     team_name: '',
     isPrivate: false,
     wiki: '',
+    name: '',
+    imagePreviewUrl: ''
   };
 
   handleSubmit = e => {
     e.preventDefault();
     const { team_name, wiki, isPrivate } = this.state;
     const newTeam = { team_name, isPrivate, wiki };
-    const { addTeam, historyPush, setAddTeamModalRaised, getUsersTeams } = this.props;
+    const { addTeam, historyPush, setAddTeamModalRaised, getUsersTeams, updateTeamWithLogo, image } = this.props;
     return Promise.resolve(setAddTeamModalRaised(e, false))
-      .then(() => addTeam(newTeam, historyPush).then(() => getUsersTeams()));
+      .then(() => addTeam(newTeam).then((res) => {
+          updateTeamWithLogo(image.id, res.payload.teamBoard.id);
+          getUsersTeams();
+          historyPush(`/team/discussions/${res.payload.teamBoard.id}`)
+        }
+      ));
   }
 
   handleInput = e => {
@@ -194,12 +212,21 @@ class AddTeamModal extends React.Component {
   handleToggle = e => {
     this.setState({ isPrivate: !this.state.isPrivate });
   };
+  handleExit = e => {
+    e.preventDefault();
+    this.props.setAddTeamModalRaised(e, false);
+    if(this.props.image.length > 0){
+      this.props.removeUpload(this.props.image[0]);
+      this.props.resetImageState();
+		}
+  }
   render() {
     const { setAddTeamModalRaised } = this.props;
-    const { team_name, wiki, isPrivate } = this.state;
+    const { team_name, wiki, isPrivate, imagePreviewUrl } = this.state;
+    let isTeam = true;
     return (
       <ModalBackground>
-        <DivModalCloser onClick={(e) => setAddTeamModalRaised(e, false)} />
+        <DivModalCloser onClick={this.handleExit} />
         <DivModal>
           <div className='above-input'>
               <span
@@ -211,6 +238,9 @@ class AddTeamModal extends React.Component {
           <FormContent onSubmit={this.handleSubmit}>
             <DivRight>
               <DivName>
+                <div className='image-wrapper'>
+                  <UploadImage isTeam={isTeam}/>
+                </div>
                 <label htmlFor='team_name'>Team Name</label>
                 <input
                   type='text'
@@ -244,4 +274,8 @@ class AddTeamModal extends React.Component {
   };
 };
 
-export default connect(null, { addTeam, getUsersTeams })(AddTeamModal);
+const mapStateToProps = state => ({
+  image: state.posts.images
+});
+
+export default connect(mapStateToProps, { addTeam, getUsersTeams, updateTeamWithLogo })(AddTeamModal);
