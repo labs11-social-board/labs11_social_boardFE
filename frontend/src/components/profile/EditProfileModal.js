@@ -173,6 +173,7 @@ class EditProfileModal extends React.Component {
     linkedin: "",
     userId: "", 
     location : "",
+    updated : false,
   };
 
   componentWillMount() {
@@ -208,17 +209,18 @@ class EditProfileModal extends React.Component {
           : "",
         userId: this.props.profile[0].id,
         location : this.props.profile[0].location ? this.props.profile[0].location : "",
+        updated : false, 
       });
     }
   }
 
   componentDidUpdate(prevProps) {
-      
+    
   }
 
   handleChange = event => {
     event.preventDefault();
-    this.setState({ [event.target.name]: event.target.value });
+    this.setState({ [event.target.name]: event.target.value});
   };
 
   handleSubmit = event => {
@@ -255,11 +257,10 @@ class EditProfileModal extends React.Component {
     }
 
     if (callTheFunction === true) {
-      this.props.updateProfile(userId, bio, twitter, github, linkedin, location);
-    }
-    this.props.setEditProfileModalRaised(event, false); //closes modal affter submitting.
-    this.props.history.push("/home");
-  };
+        return Promise.resolve(this.props.updateProfile(userId, bio, twitter, github, linkedin, location, this.props.history))
+        .then(() => this.props.getProfile(userId, this.props.history) ).then( () => this.props.setEditProfileModalRaised(event, false))
+    };
+  }
 
   render() {
     const { setEditProfileModalRaised } = this.props;

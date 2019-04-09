@@ -38,7 +38,7 @@ const DivHeader = styled.div`
     padding: 10px;
     color: ${ props => props.theme.defaultColor};
     margin: 10px;
-    margin-bottom: 45px;
+    margin-bottom: 10px;
 
     &:hover {
       color: ${ props => props.theme.defaultColorOnHover};
@@ -49,8 +49,8 @@ const DivHeader = styled.div`
 
 const H4BrowseCategories = styled.h4`
     width: 95%;
-    border-left: ${props => props.islinkselected === 'true' ? '1px solid #418DCF' : '1px solid transparent'};
-    margin-bottom: 57px;
+    margin-top: 6px;
+    margin-bottom: 36px;
 
     .browse-categories {
       font-size: 0.9rem;
@@ -59,14 +59,17 @@ const H4BrowseCategories = styled.h4`
 
 const LinkBrowseCategories = styled(Link)`
   text-decoration: none;
+  margin-left: -6px;
   color: ${props => props.islinkselected === 'true' ? props.theme.defaultColorOnHover : props.theme.defaultColor};
+  border-left: ${props => props.islinkselected === 'true' ? `5px solid ${props.theme.defaultColorOnHover}` : '6px solid transparent'};
   font-weight: normal;
 
   i {
     cursor: pointer;
-    padding: 10px 8px 10px 0;
+    margin-left: 20px;
+    padding: 10px 12px 10px 0;
     color: inherit;
-    margin-left: 12px;
+    margin-left: 15px;
   }
 
   &:hover {
@@ -74,7 +77,7 @@ const LinkBrowseCategories = styled(Link)`
   }
 
     &:hover {
-      border: 1px solid ${props => props.theme.defaultColorOnHover};
+      //border: 1px solid ${props => props.theme.defaultColorOnHover};
     }
   }
 `;
@@ -97,7 +100,7 @@ const H4AllPosts = styled.h4`
   display: flex;
   align-items: center;
   margin-bottom: 9px;
-  border-left: ${props => props.islinkselected === 'true' ? `1px solid ${props.theme.defaultColor}` : '1px solid transparent'};
+  border-left: ${props => props.islinkselected === 'true' ? `1px solid ${props.theme.defaultColor}` : '0px solid transparent'};
 
   i {
     cursor: pointer;
@@ -118,10 +121,14 @@ const LinkAllPosts = styled(Link)`
   text-decoration: none;
   color: ${props => props.islinkselected === 'true' ? `${props.theme.defaultColorOnHover}` : `${props.theme.defaultColor}`};
   font-weight: normal;
+  margin-left: -1px;
   margin-right: 41px;
   margin-top: -65px;
   font-size: 0.9rem;
-
+  display: flex;
+  align-items: center;
+  margin-bottom: 9px;
+  border-left: ${props => props.islinkselected === 'true' ? `5px solid ${props.theme.defaultColorOnHover}` : '7px solid transparent'};
   &:hover {
     color: ${props => props.theme.defaultColorOnHover};
 
@@ -145,7 +152,7 @@ const DivWindows = styled.div`
   width: 18px;
   height: 18px;
   padding-top: 1.8px;
-  margin-left: 12px;
+  margin-left: 15px;
   margin-right: 13px;
   margin-bottom: 0px;
 
@@ -169,8 +176,8 @@ const PNoCatFollowMessage = styled.p`
 
 const LiCategoryFollowed = styled.li`
   display: ${props => props.isfollowedcatsopen === 'true' ? 'list-item' : 'none'};
-  padding-left: 42px;
-  border-left: ${props => props.islinkselected === 'true' ? `5px solid ${props => props.theme.defaultColorOnHover}` : '5px solid transparent'};
+  padding-left: 50px;
+  border-left: ${props => props.islinkselected === 'true' ? `5px solid ${props => props.theme.defaultColorOnHover}` : '1px solid transparent'};
   list-style-position: inside;
   &::before{
     // background-color: ${props => props.islinkselected === 'true' ? 'blue' : 'black'};
@@ -186,6 +193,8 @@ const LiCategoryFollowed = styled.li`
 `;
 
 const LinkSideNav = styled(Link)`
+border-left: ${props => props.islinkselected === 'true' ? `5px solid ${props.theme.defaultColorOnHover}` : '5px solid transparent'};
+//border-left: 5px solid ${props => props.theme.defaultColorOnHover};
   text-decoration: none;
   // color: ${props => props.islinkselected === 'true' ? 'blue' : 'black'};
   color: ${props => props.islinkselected === 'true' ? `${props.theme.defaultColorOnHover}` : `${props.theme.defaultColor}`};
@@ -210,10 +219,13 @@ const LinkSideNav = styled(Link)`
   }
 `;
 
-const DropdownFollowing = styled.div `
+const DivCategoriesContainer = styled.div`
+
+`;
+
+const DropdownFollowing = styled.div`
   display: flex;
   text-align: center;
-  }
 `;
 
 
@@ -225,7 +237,7 @@ class SideNav extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      linkSelected: '',
+      linkSelected: 'AllPosts',
       categories: [],
       categoryFollows: [],
       userTeams: [],
@@ -267,68 +279,74 @@ class SideNav extends Component {
 
     return (
       <DivSideNav isOpen={`${this.props.isOpen}`}>
-        <DivHeader>
-          <H4BrowseCategories
-            islinkselected={(this.state.linkSelected === 'BrowseCategories').toString()}
-          >
 
-            <LinkBrowseCategories
-              to={`/categories`}
+        <DivCategoriesContainer>
+          <span style={{marginLeft: 20 + "px"}}>Categories</span>
+          <DivHeader>
+
+            <H4BrowseCategories
               islinkselected={(this.state.linkSelected === 'BrowseCategories').toString()}
-              onClick={() => this.selectLink('BrowseCategories')}
-              className='browse-categories'
-            ><i className="fas fa-book-open" />Browse&nbsp;Categories&nbsp;</LinkBrowseCategories>
+            >
 
-            {(accountUserTypes.indexOf(user_type) >= subSilverStartIndex) &&
-              <i className="fas fa-plus-circle" onClick={(ev) => this.props.setAddCatModalRaised(ev, true)} />
-            }
-            {console.log(accountUserTypes)}
-            {
-              (user_type == 'admin') &&
               <LinkBrowseCategories
-                to={`/admin`}
-                islinkselected={(this.state.linkSelected === 'Admin').toString()}
-                onClick={() => this.selectLink('Admin')}
+                to={`/categories`}
+                islinkselected={(this.state.linkSelected === 'BrowseCategories').toString()}
+                onClick={() => this.selectLink('BrowseCategories')}
                 className='browse-categories'
-              ><i className="fas fa-cogs" />Admin</LinkBrowseCategories>
-            }
+              ><i className="fas fa-book-open" />Browse&nbsp;Categories&nbsp;</LinkBrowseCategories>
 
-          </H4BrowseCategories>
+              {(accountUserTypes.indexOf(user_type) >= subSilverStartIndex) &&
+                <i className="fas fa-plus-circle" onClick={(ev) => this.props.setAddCatModalRaised(ev, true)} />
+              }
+              {console.log(accountUserTypes)}
+              {
+                (user_type == 'admin') &&
+                <LinkBrowseCategories
+                  to={`/admin`}
+                  islinkselected={(this.state.linkSelected === 'Admin').toString()}
+                  onClick={() => this.selectLink('Admin')}
+                  className='browse-categories'
+                ><i className="fas fa-cogs" />Admin</LinkBrowseCategories>
+              }
+
+            </H4BrowseCategories>
 
 
-        </DivHeader>
-        <DivCategoriesFollowed>
-          <DivCatFollowItems>
-            <H4AllPosts islinkselected={(this.state.linkSelected === 'AllPosts').toString()}>
+          </DivHeader>
+          <DivCategoriesFollowed>
+            <DivCatFollowItems>
+              <H4AllPosts islinkselected={(this.state.linkSelected === 'AllPosts').toString()}>
 
-              <LinkAllPosts onClick={() => this.selectLink('AllPosts')} to='/home' islinkselected={(this.state.linkSelected === 'AllPosts').toString()}>
-                <DivWindows>
-                  <div className='div-window' />
-                  <div className='div-window' />
-                  <div className='div-window' />
-                  <div className='div-window' />
-                </DivWindows>All&nbsp;Posts</LinkAllPosts>
-              {/* <i className={this.state.isFollowedCatsOpen ? "fas fa-minus-circle" : "fas fa-plus-circle"} onClick={this.toggleFollowedCats} /> */}
-            </H4AllPosts>
-            <ul>
-              {(this.state.categories.length === 0) ? (<PNoCatFollowMessage isfollowedcatsopen={(this.state.isFollowedCatsOpen).toString()}>You are currently not following any categories</PNoCatFollowMessage>) : (this.state.categories.map((category, index) => (
-                <LiCategoryFollowed
-                  isfollowedcatsopen={(this.state.isFollowedCatsOpen).toString()}
-                  key={index} islinkselected={(this.state.linkSelected === category.name).toString()}>
-                  <LinkSideNav onClick={() => this.selectLink(category.name)}
-                    islinkselected={(this.state.linkSelected === category.name).toString()}
-                    to={`/discussions/category/${category.id}`}>
-                    <span>
-                      <i className={category.icon}
-                        islinkselected={(this.state.linkSelected === category.name).toString()} />
-                    </span>
-                    {category.name}
-                  </LinkSideNav>
-                </LiCategoryFollowed>
-              )))}
-            </ul>
-          </DivCatFollowItems>
-        </DivCategoriesFollowed>
+                <LinkAllPosts onClick={() => this.selectLink('AllPosts')} to='/home' islinkselected={(this.state.linkSelected === 'AllPosts').toString()}>
+                  <DivWindows>
+                    <div className='div-window' />
+                    <div className='div-window' />
+                    <div className='div-window' />
+                    <div className='div-window' />
+                  </DivWindows>All&nbsp;Posts</LinkAllPosts>
+                {/* <i className={this.state.isFollowedCatsOpen ? "fas fa-minus-circle" : "fas fa-plus-circle"} onClick={this.toggleFollowedCats} /> */}
+              </H4AllPosts>
+              <ul>
+                {(this.state.categories.length === 0) ? (<PNoCatFollowMessage isfollowedcatsopen={(this.state.isFollowedCatsOpen).toString()}>You are currently not following any categories</PNoCatFollowMessage>) : (this.state.categories.map((category, index) => (
+                  <LiCategoryFollowed
+                    isfollowedcatsopen={(this.state.isFollowedCatsOpen).toString()}
+                    key={index} islinkselected={(this.state.linkSelected === category.name).toString()}>
+                    <LinkSideNav onClick={() => this.selectLink(category.name)}
+                      islinkselected={(this.state.linkSelected === category.name).toString()}
+                      to={`/discussions/category/${category.id}`}>
+                      <span>
+                        <i className={category.icon}
+                          islinkselected={(this.state.linkSelected === category.name).toString()} />
+                      </span>
+                      {category.name}
+                    </LinkSideNav>
+                  </LiCategoryFollowed>
+                )))}
+              </ul>
+            </DivCatFollowItems>
+          </DivCategoriesFollowed>
+        </DivCategoriesContainer>
+
         <DivHeader>
           <LinkBrowseCategories
             to='/teams'
