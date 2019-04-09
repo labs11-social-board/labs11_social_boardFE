@@ -23,11 +23,17 @@ const TextContainer = styled.textarea`
 
 const WikiEditButton = styled.button`
     border: 1px solid #418DCF;
-    border-radius: 5px;
+    border-radius: 3px;
     color: white;
     background-color: #418DCF;
-    cursor: pointer;
+    height: 35px;
+    width: 50px;
 
+    @media(max-width: 800px) {
+      width: 100%;
+    }
+    
+    cursor: pointer;
     &:hover {
       color: #418DCF;
       border: 1px solid #418DCF;
@@ -49,6 +55,13 @@ const TextContainerButtons = styled.button`
       border: 1px solid #418DCF;
       background-color: white;
     }
+`;
+
+const EditWikiDiv = styled.div`
+    display: flex;
+    justify-content: flex-start;
+    padding-right: 5%;
+    width: 100%;
 `;
 
 class TeamWiki extends React.Component {
@@ -95,12 +108,13 @@ class TeamWiki extends React.Component {
     } else {
       return (
         <div id='wiki' className='wiki tab-content'>
-          <div className='edit-wiki'>
-            {isTeamOwner ? <WikiEditButton onClick={this.toggleEditting}>Edit</WikiEditButton> : null}
-          </div>
+
           <div className='wiki-content'>
             <p>{this.props.wiki}</p>
           </div>
+          <EditWikiDiv>
+            {isTeamOwner ? <WikiEditButton onClick={this.toggleEditting}>Edit</WikiEditButton> : null}
+          </EditWikiDiv>
         </div>
       );
     }
