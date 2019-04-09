@@ -42,11 +42,24 @@ const Settings = styled.div `
         border: 1px solid #418DCF;
         background-color: #418DCF;
         color: white;
+        cursor: pointer;
+
+        &:hover {
+          color: #418DCF;
+          border: 1px solid #418DCF;
+          background-color: white;
+        }
       }
 
       .delete {
         background: red;
         border: none;
+
+        &:hover {
+          color: red;
+          border: 1px solid red;
+          background-color: white;
+        }
       }
     }
 `; 

@@ -26,6 +26,13 @@ const WikiEditButton = styled.button`
     border-radius: 5px;
     color: white;
     background-color: #418DCF;
+    cursor: pointer;
+
+    &:hover {
+      color: #418DCF;
+      border: 1px solid #418DCF;
+      background-color: white;
+    }
 `;
 
 const TextContainerButtons = styled.button`
@@ -35,7 +42,13 @@ const TextContainerButtons = styled.button`
     color: white;
     background-color: #418DCF;
     margin: 5px;
-
+    cursor:pointer;
+    
+    &:hover {
+      color: #418DCF;
+      border: 1px solid #418DCF;
+      background-color: white;
+    }
 `;
 
 class TeamWiki extends React.Component {
