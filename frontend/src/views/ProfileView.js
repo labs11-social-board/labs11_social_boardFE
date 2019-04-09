@@ -79,6 +79,7 @@ const ProfileWrapper = styled.div`
     font-size: .8rem; 
     justify-content: flex-start;
     align-content : center; 
+    align-items : center; 
 
     &:hover {
       cursor: default; 
