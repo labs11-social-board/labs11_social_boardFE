@@ -105,11 +105,10 @@ class UploadImage extends React.Component {
     const imageData = new FormData();
     let reader = new FileReader();
     let file = e.target.files[0];
-    
-    if(image.length > 0 && file !== this.state.name) {
-      removeUpload(image[0]);
+    if(image.id && file !== this.state.name) {
+      removeUpload(image.id);
       this.props.resetImageState();
-      this.setState({ name: '' });  
+      this.setState({ name: '', imagePreviewUrl: '' });  
     }
 
     imageData.append('imageFile', file);
@@ -140,7 +139,11 @@ class UploadImage extends React.Component {
     }
     return newStr;
   }
-  
+  componentDidMount() {
+    if(this.props.imagePreviewUrl !== this.state.imagePreviewUrl ){
+      this.setState({ imagePreviewUrl: this.props.imagePreviewUrl });
+    }
+  }
     render() {
       const { name, imagePreviewUrl } = this.state;
       return(
