@@ -20,6 +20,10 @@ const Settings = styled.div `
 
       input {
         width: 30%;
+        margin-left: 1%;
+        height: 20px;
+        border-radius: 5px;
+        padding: 5px;
       }
     }
 
