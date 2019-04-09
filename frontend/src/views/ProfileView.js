@@ -73,6 +73,25 @@ const ProfileWrapper = styled.div`
       width: 80%;
     }
   }
+
+  .userfollowers-style {
+    margin-left: 0px; 
+    font-size: .8rem; 
+    justify-content: flex-start;
+    align-content : center; 
+
+    &:hover {
+      cursor: default; 
+      color: black; 
+      text-decoration: none;
+    }
+
+    @media (max-width: 395px ){
+      flex-direction: column; 
+    }
+
+  }
+
   @media ${phoneP} {
     margin-left: 0px;
     display: flex;
@@ -313,8 +332,13 @@ const ProfileLink = styled.a`
 `;
 
 const FollowSpan = styled.span`
-  margin-right: 20px; 
-  margin-left: 20px; 
+  margin-right: 15px; 
+  margin-left: 15px; 
+  text-align : center; 
+  &:hover {
+    text-decoration: none; 
+    color: black;
+  }
 `;
 
 /***************************************************************************************************
@@ -427,7 +451,11 @@ class Profile extends Component {
                   <p className='property-content'> {profile.username ? profile.username : <Deleted />}</p>
                   {profileId !== userId ? alreadyFollowing === false ? <Button className='add-post-btn' onClick = {this.handleAddFollower(userId, profileId)}>Follow</Button> : <Button className='add-post-btn' onClick = {this.handleRemoveFollower(userId, profileId)}>UnFollow</Button> : <Button className='add-post-btn' onClick = {this.editProfile}>Edit Profile</Button>}
                   <br/>
-                  <span><SpanLabel>Following: </SpanLabel>{profileFollowersCount}  </span><span>  <SpanLabel> Followers: </SpanLabel>{usersFollowersCount}</span>
+                  <WrappedDiv className = 'userfollowers-style'>
+
+                  <FollowSpan><SpanLabel>Following: </SpanLabel>{profileFollowersCount}  </FollowSpan><FollowSpan>  <SpanLabel> Followers: </SpanLabel>{usersFollowersCount}</FollowSpan>
+                  </WrappedDiv>
+
                 </WrappedDiv>
               </HeaderStyle>
               {/* This section is for the bio and the links for a user account */}
