@@ -424,9 +424,9 @@ class Profile extends Component {
                   <p><SpanLabel>Bio </SpanLabel><span>{bio}</span></p>
                   <br/>
                   <p><SpanLabel>Location </SpanLabel> <span>{location}</span></p>
-                  <p><SpanLabel>Github </SpanLabel> <span><ProfileLink href={`${github}`}>{github}</ProfileLink></span></p>
-                  <p><SpanLabel>LinkedIn </SpanLabel> <span><ProfileLink href={`${linkedin}`}>{linkedin}</ProfileLink></span></p>
-                  <p><SpanLabel>Twitter </SpanLabel> <span><ProfileLink href={`${twitter}`}>{twitter}</ProfileLink></span></p>
+                  <p><SpanLabel>Github </SpanLabel> <span><ProfileLink href={ github.includes("http://") === true ? `${github}` : `http://${github}`} target = "_blank">{github}</ProfileLink></span></p>
+                  <p><SpanLabel>LinkedIn </SpanLabel> <span><ProfileLink href={linkedin.includes("http://") === true ? `${linkedin}` : `http://${linkedin}`}  target = "_blank">{linkedin}</ProfileLink></span></p>
+                  <p><SpanLabel>Twitter </SpanLabel> <span><ProfileLink href={twitter.includes("http://") === true ? `${twitter}` : `http://${twitter}`} target = "_blank">{twitter}</ProfileLink></span></p>
               </div>
               <br/>
               <WrappedDiv>
