@@ -24,6 +24,10 @@ export const REMOVE_FOLLOWER = "REMOVE_FOLLOWER";
 export const REMOVE_FOLLOWER_SUCCESS = "REMOVE_FOLLOWER_SUCCESS";
 export const REMOVE_FOLLOWER_FAILURE = "REMOVE_FOLLOWER_FAILURE";
 
+export const GET_FOLLOWING = "GET_FOLLOWING";
+export const GET_FOLLOWING_SUCCESSFUL = "GET_FOLLOWING_SUCCESSFUL";
+export const GET_FOLLOWING_FAILURE = "GET_FOLLOWING_FAILURE";
+
 /***************************************************************************************************
  ********************************************* Actions *******************************************
  **************************************************************************************************/
@@ -78,3 +82,16 @@ export const addFollower = (userId, following_id) => dispatch => {
       dispatch({type: ADD_FOLLOWER_FAILURE, err: "A user cannot follow themselves"});
   }
 };
+
+//Get count of users following a user 
+export const followersCount = (userId) => dispatch => {
+  const token = localStorage.getItem("symposium_token");
+  const headers = { headers: {Authorization: token }};
+  dispatch ({type: GET_FOLLOWING})
+  return axios
+    .get(`${backendURL}/followers/following/${userId}`)
+    .then((res) => dispatch({type: GET_FOLLOWING_SUCCESSFUL, payload: res.data}))
+    .catch(err => handleError(err, GET_FOLLOWING_FAILURE)(dispatch));
+}
+
+

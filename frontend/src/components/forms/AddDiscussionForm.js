@@ -206,8 +206,8 @@ class AddDiscussionForm extends Component {
 			.then(res => {
 				toggleAddDiscussionForm();
 				followDiscussion(res.payload[0], user_id)
-				if(this.props.image){
-					updateDiscussionWithImage(image[0], res.payload[0]);
+				if(image){
+					updateDiscussionWithImage(image, res.payload[0]);
 					resetImageState();
 				}
 			})
@@ -217,8 +217,8 @@ class AddDiscussionForm extends Component {
       .then(res => {
 				toggleAddDiscussionForm();
 				followDiscussion(res.payload[0], user_id)
-				if(this.props.image){
-					updateDiscussionWithImage(image[0], res.payload[0]);
+				if(image){
+					updateDiscussionWithImage(image, res.payload[0]);
 					resetImageState();
 				}
 			})
@@ -235,8 +235,8 @@ class AddDiscussionForm extends Component {
   handleExit = e => {
     e.preventDefault();
     this.props.toggleAddDiscussionForm();
-    if(this.props.image.length > 0){
-			this.props.removeUpload(this.props.image[0]);
+    if(this.props.image){
+			this.props.removeUpload(this.props.image);
 			this.props.resetImageState();
 		}
   }
@@ -303,7 +303,7 @@ const mapStateToProps = state => ({
 	user_id: state.users.user_id,
 	avatar: state.users.avatar,
 	isDay: state.users.isDay,
-	image: state.posts.images
+	image: state.posts.images.id
 });
 
 export default connect(mapStateToProps, { addDiscussion, addTeamDiscussion, displayError, updateDiscussionWithImage, removeUpload, followDiscussion, resetImageState })(AddDiscussionForm);
