@@ -52,7 +52,7 @@ const ProfileWrapper = styled.div`
     align-self: flex-start;
     
     @media ${phoneP} {
-      width: 20%;
+      display: none;
       }
   }
   .username-style { 
@@ -344,7 +344,7 @@ const FollowSpan = styled.span`
 `;
 
 const BioInfoDiv = styled.div`
-
+  word-break: break-word;
 `;
 
 /***************************************************************************************************
