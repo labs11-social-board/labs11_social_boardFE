@@ -164,6 +164,9 @@ const DivButtons = styled.div`
     align-self: center;
   }
 `;
+const Errortag = styled.h5`
+  color: red; 
+`;
 
 class EditProfileModal extends React.Component {
   state = {
@@ -231,7 +234,7 @@ class EditProfileModal extends React.Component {
 
   handleUserMessage = (str) => {
     const section = str; 
-    const displayMessage = `The ${section} input is not a valid link. Please adjust and try again. Valid link example http://${section}.com/profile123`;
+    const displayMessage = `Invalid link. Please adjust and try again. Example http://${section}.com/profile123`;
     this.setState({displayMessage, section});
     switch(section){
       case "twitter":
@@ -304,7 +307,7 @@ class EditProfileModal extends React.Component {
         return Promise.resolve(this.props.updateProfile(userId, bio, twitter, github, linkedin, location, this.props.history))
         .then(() => this.props.getProfile(userId, this.props.history) ).then( () => this.props.setEditProfileModalRaised(event, false))
     } else {
-      this.setState({twitterError: false, linkedinError: false, githubError: false}); // after one error the form will never submit unless this is turned back to false
+      // this.setState({twitterError: false, linkedinError: false, githubError: false}); // after one error the form will never submit unless this is turned back to false
     }
   }
 
@@ -312,6 +315,7 @@ class EditProfileModal extends React.Component {
     const { setEditProfileModalRaised } = this.props;
 
     const { bio, twitter, github, linkedin, location, twitterError, twitterMessage, githubError, githubMessage, linkedinError, linkedinMessage } = this.state;
+    console.log([githubError, linkedinError, twitterError]);
     return (
       <ModalBackground>
         <DivModalCloser
@@ -350,7 +354,7 @@ class EditProfileModal extends React.Component {
                 />
                 <h4>Add Your Github profile link</h4>
 
-                {githubError === true ?  <h5>{githubMessage}</h5> : <span></span>}
+                {githubError === true ?  <Errortag>{githubMessage}</Errortag> : <span></span>}
                 <input
                   type="text"
                   placeholder=""
@@ -360,7 +364,7 @@ class EditProfileModal extends React.Component {
                   onChange={this.handleChange}
                 />
                 <h4>Add Your Linkedin profile link</h4>
-                {linkedinError === true ? <h5>{linkedinMessage}</h5> : <span></span>}
+                {linkedinError === true ? <Errortag>{linkedinMessage}</Errortag> : <span></span>}
                 <input
                   type="text"
                   placeholder=""
@@ -370,7 +374,7 @@ class EditProfileModal extends React.Component {
                   onChange={this.handleChange}
                 />
                 <h4>Add your Twitter profile link</h4>
-                {twitterError === true ? <h5>{twitterMessage}</h5> : <span></span>}
+                {twitterError === true ? <Errortag>{twitterMessage}</Errortag> : <span></span>}
                 <input
                   type="text"
                   placeholder=""
