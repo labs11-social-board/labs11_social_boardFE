@@ -151,10 +151,7 @@ const DiscussionHeader = styled.div`
     }
 
     .tab {
-      border: 1px solid black;
       padding: 6px 15px;
-      border-radius: 3px;
-      box-shadow: 1px 1px 1px 1px black;
       cursor:pointer;
 
       @media (max-width: 500px){
@@ -164,14 +161,13 @@ const DiscussionHeader = styled.div`
       }
 
       &:hover {
-        background: lightskyblue;
-        color: white;
+        color: ${ props => props.theme.defaultColorOnHover}
       }
     } 
       
     .tab-selected {
-      color: white;
-      background: dodgerblue;
+      color: dodgerblue;
+      border-bottom: 1px solid dodgerblue;
     }
   }
 
