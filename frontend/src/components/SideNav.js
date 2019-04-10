@@ -381,16 +381,41 @@ class SideNav extends Component {
           </DivCategoriesFollowed>
         </DivNavContainer>
 
-        <DivHeader>
-          <LinkBrowseCategories
-            to='/teams'
-            islinkselected={(this.state.linkSelected === 'Teams').toString()}
-            onClick={() => this.selectLink('Teams')}
-          >
-            Teams
-            </LinkBrowseCategories>
-          <i className="fas fa-plus-circle" onClick={(ev) => this.props.setAddTeamModalRaised(ev, true)} />
-        </DivHeader>
+        <DivNavContainer>
+        <span style={{ marginLeft: 20 + "px" }}>Teams</span>
+        <H4BrowseCategories>
+          <div>            
+              <LinkBrowseCategories
+                to='/teams'
+                islinkselected={(this.state.linkSelected === 'Teams').toString()}
+                onClick={() => this.selectLink('Teams')}
+                className='browse-categories'
+              ><i className="fas fa-book-open" />Browse Teams</LinkBrowseCategories>
+            
+          </div>
+          <div>            
+              <LinkBrowseCategories
+                to={`/teamanalytics`}
+                islinkselected={(this.state.linkSelected === 'TeamAnalytics').toString()}
+                onClick={() => this.selectLink('TeamAnalytics')}
+                className='browse-categories'
+              ><i className="fas fa-chart-line" />Team Analytics</LinkBrowseCategories>
+            
+          </div>
+          <div>           
+              <LinkBrowseCategories
+                to={`/teamconversations`}
+                islinkselected={(this.state.linkSelected === 'TeamConversations').toString()}
+                onClick={() => this.selectLink('TeamConversations')}
+                className='browse-categories'
+              ><i className="fas fa-comment" />Team Conversations</LinkBrowseCategories>          
+          </div>
+        </H4BrowseCategories>
+      </DivNavContainer>
+
+
+
+        { /*
         <ul>
           {this.state.userTeams.length === 0 ? <div>No teams yet!</div> : (this.state.userTeams.map(team => (
             <LiCategoryFollowed key={team.team_id}
@@ -404,6 +429,7 @@ class SideNav extends Component {
             </LiCategoryFollowed>
           )))}
         </ul>
+          */}
       </DivSideNav>
     );
   }
