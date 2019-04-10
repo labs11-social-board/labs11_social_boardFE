@@ -4,6 +4,7 @@ import {BrowserRouter as Router, Route, Link, NavLink} from "react-router-dom";
 import styled from 'styled-components';
 import { connect } from "react-redux";
 import { getUsers, getUsersNMods, makeMod, makeBas } from './../store/actions/UsersActions';
+import {getEmails} from './../store/actions'
 import ReactTable from "react-table";
 import "react-table/react-table.css";
 
@@ -38,14 +39,19 @@ class Users extends React.Component {
     constructor() {
         super()
 
-        this.state = { selected: {index: 0} };
+        this.state = {
+          selected: {
+            index: 0
+          },
+          emails: []
+        };
     }
 
     
 
     componentDidMount() {
         this.props.getUsersNMods();
-        //this.props.getUsers();
+        this.props.getEmails();
     }
 
     buttony = (event, userNum) => {
@@ -169,6 +175,45 @@ class Users extends React.Component {
                   <option value="false">Basic</option>
                 </select>
               )
+            },
+            {
+              Header: "E-Mail Status",
+              id: "email_status",
+              accessor: (u => {
+
+                let emails = this.props.approvedEmails.map(e => e.email);
+
+                return emails.includes(u.email) ? 'Approved' : 'Denied'
+              }),
+              filterMethod: (filter, row) => {
+                if (filter.value === "all") {
+                  return true;
+                }
+                if (filter.value === "true") {
+                  return row[filter.id] === "Approved";
+                }
+                return row[filter.id] === "Denied";
+              },
+              Filter: ({
+                filter,
+                onChange
+              }) => ( 
+                <select onChange = {
+                  event => onChange(event.target.value)
+                }
+                style = {
+                  {
+                    width: "100%"
+                  }
+                }
+                value = {
+                  filter ? filter.value : "all"
+                } >
+                <option value = "all"> Show All </option> 
+                <option value = "true"> Approved </option> 
+                <option value = "false" > Denied </option> 
+                </select>
+              )
             }
           ]}
           defaultPageSize={10}
@@ -205,9 +250,10 @@ class Users extends React.Component {
 const mapStateToProps = state => {
     return {
         users: state.users,
+        approvedEmails: state.emails.approvedEmails
     };
   };
   
   export default connect(
-    mapStateToProps,{ getUsers, getUsersNMods, makeMod, makeBas } 
+    mapStateToProps,{ getUsers, getUsersNMods, makeMod, makeBas, getEmails } 
   )(Users);
