@@ -124,7 +124,7 @@ const DiscussionHeader = styled.div`
   width: 100%;
 
   img {
-    width: 100px;
+    width: 90px;
     height: 90px;
     border-radius: 50%;
     margin-right: 10%;
