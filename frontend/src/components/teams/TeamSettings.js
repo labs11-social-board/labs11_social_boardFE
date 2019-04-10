@@ -29,10 +29,26 @@ const Settings = styled.div `
 
     .toggle-switch {
       margin: 0 0 3% 4%;
+
+      @media (max-width: 1440px){
+        margin: 0 0 3% 5.4%;
+      }
+
+      @media (max-width: 1024px){
+        margin: 0 0 3% 8%;
+      }
+
+      @media (max-width: 480px){
+        margin: 0 0 8% 12%;
+      }
     }
 
     form {
       width: 50%;
+
+      @media (max-width: 480px){
+        width: 100%;
+      }
 
       button {
         margin-right: 5%;
@@ -64,23 +80,48 @@ const Settings = styled.div `
     }
 
     .settings-upload {
-      @media (max-width: 1440px){
-        .drag-zone-t-wrapper {
-          left: 12.5%;
-          width: 11.8%;
+      width: 100%;
+
+      #drop-zone-t {
+        width: 270px;
+        justify-content: flex-start;
+
+        @media (max-width: 480px) {
+          flex-direction: row;
         }
-      }
-      @media (max-width: 1024px){
-        .drag-zone-t-wrapper {
-          left: 16.5%;
-          width: 18%;
+
+        .drag-zone-t-wrapper{
+          left: 12%
+
+          @media (max-width: 1680px){
+            left: 13%;
+          }
+
+          @media (max-width: 1440px){
+              left: 14%;
+              width: 11.8%;
+          }
+          @media (max-width: 1024px){
+              left: 18%;
+              width: 18%;
+          }
+          @media (max-width: 480px){
+            bottom: 21.5%;
+            left: 28%;
+            width: 25%;
+          }
         }
-      }
-      @media (max-width: 480px){
-        .drag-zone-t-wrapper {
-          bottom: 22.5%;
-          left: 7%;
-          width: 25%;
+
+        .fileinput + label {
+          @media (max-width: 1440px) {
+            width: 132px;
+            margin: 0px 0% 0 5.5%;
+          }
+
+          @media (max-width: 480px) {
+            margin: 14px 0% 0 9%;
+            width: 116px;
+          }
         }
       }
     }
