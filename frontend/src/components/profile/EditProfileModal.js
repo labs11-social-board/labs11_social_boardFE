@@ -235,15 +235,12 @@ class EditProfileModal extends React.Component {
     this.setState({displayMessage, section});
     switch(section){
       case "twitter":
-        console.log("twitter")
         this.setState({ twitterMessage : displayMessage, twitterError: true}, () => console.log("link error"));
         break; 
       case "linkedin":
-        console.log("linkedin")
         this.setState({linkedinMessage : displayMessage, linkedinError: true}, () => console.log("link error"));
         break; 
       case "github":
-        console.log("github")
         this.setState({githubMessage: displayMessage, githubError: true}, () => console.log("link error")); 
         break; 
       default: 
@@ -302,8 +299,7 @@ class EditProfileModal extends React.Component {
     }
 
     const possibleErrors = [String(this.state.githubError), String(this.state.linkedinError), String(this.state.twitterError)]
-    console.log(this.state);
-    console.log(possibleErrors);
+
     if(possibleErrors.includes("true") !== true && callTheFunction === true) {
         return Promise.resolve(this.props.updateProfile(userId, bio, twitter, github, linkedin, location, this.props.history))
         .then(() => this.props.getProfile(userId, this.props.history) ).then( () => this.props.setEditProfileModalRaised(event, false))
@@ -354,7 +350,7 @@ class EditProfileModal extends React.Component {
                 />
                 <h4>Add Your Github profile link</h4>
 
-                {githubError === true ?  <h4>{githubMessage}</h4> : <span></span>}
+                {githubError === true ?  <h5>{githubMessage}</h5> : <span></span>}
                 <input
                   type="text"
                   placeholder=""
@@ -364,7 +360,7 @@ class EditProfileModal extends React.Component {
                   onChange={this.handleChange}
                 />
                 <h4>Add Your Linkedin profile link</h4>
-                {linkedinError === true ? <h4>{linkedinMessage}</h4> : <span></span>}
+                {linkedinError === true ? <h5>{linkedinMessage}</h5> : <span></span>}
                 <input
                   type="text"
                   placeholder=""
@@ -374,7 +370,7 @@ class EditProfileModal extends React.Component {
                   onChange={this.handleChange}
                 />
                 <h4>Add your Twitter profile link</h4>
-                {twitterError === true ? <h4>{twitterMessage}</h4> : <span></span>}
+                {twitterError === true ? <h5>{twitterMessage}</h5> : <span></span>}
                 <input
                   type="text"
                   placeholder=""
