@@ -280,7 +280,6 @@ class SideNav extends Component {
     return (
       <DivSideNav isOpen={`${this.props.isOpen}`}>
         <DivNavContainer>
-        (user_type == 'admin') &&
           <span style={{ marginLeft: 20 + "px" }}>Admin</span>
           <H4BrowseCategories>
             <div>
