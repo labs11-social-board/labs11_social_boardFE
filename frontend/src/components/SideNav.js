@@ -415,10 +415,6 @@ class SideNav extends Component {
           </div>
         </H4BrowseCategories>
       </DivNavContainer>
-
-
-
-        { /*
         <ul>
           {this.state.userTeams.length === 0 ? <div>No teams yet!</div> : (this.state.userTeams.map(team => (
             <LiCategoryFollowed key={team.team_id}
@@ -432,7 +428,7 @@ class SideNav extends Component {
             </LiCategoryFollowed>
           )))}
         </ul>
-          */}
+          
       </DivSideNav>
     );
   }
