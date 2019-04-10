@@ -89,6 +89,15 @@ const NightModeToggle = styled.div`
   margin-bottom: 5px;
   cursor:pointer;
 
+  &:hover {
+    color: black;
+    background-color: ${props => props.theme.borderColor};
+  }
+  &:hover i {
+    color: black;
+    background-color: ${props => props.theme.borderColor};
+  }
+
   i {
     color: ${props => props.theme.notificationFontColor};
     margin-left: 10px;
