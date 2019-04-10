@@ -86,7 +86,26 @@ const UserActions = styled.div`
     input[type=file] {
       margin-left: 25%;
     }
-  }
+	}
+	
+	.drag-zone-wrapper{
+		bottom: 4.9%;
+    height: 3.4vh;
+    position: relative;
+		right: 50%;
+		
+		@media(max-width:1440px){
+			height: 4vh;
+		}
+
+		@media ${phoneP}{
+			display:none;
+		}
+
+		.drag-zone {
+			top:21%;
+		}
+	}
 `;
 
 // //Original AddReplyForm
@@ -196,8 +215,8 @@ class AddReplyForm extends Component {
   handleExit = e => {
     e.preventDefault();
     this.props.toggleAddReplyForm();
-    if(this.props.image.length > 0){
-			this.props.removeUpload(this.props.image[0]);
+    if(this.props.image){
+			this.props.removeUpload(this.props.image);
 			this.props.resetImageState();
 		}
   }

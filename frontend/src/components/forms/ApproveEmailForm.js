@@ -25,6 +25,10 @@ class ApproveEmailForm extends Component {
 
         // handle submit logic
         this.props.approveEmail(this.state);
+
+        setTimeout(() => {
+            window.location.reload();
+        }, 800);
     };
 
     render() {
