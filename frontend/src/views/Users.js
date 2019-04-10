@@ -38,7 +38,7 @@ class Users extends React.Component {
     constructor() {
         super()
 
-        
+        this.state = { selected: {index: 0} };
     }
 
     
@@ -67,9 +67,9 @@ class Users extends React.Component {
     render() {
 
 
-        return (
-          <div>
-            {/* <div >
+    return (
+      <div>
+        {/* <div >
                     <h4>
                     <MainWrapper>
                     <InnerWrapper>Name</InnerWrapper>
@@ -111,58 +111,94 @@ class Users extends React.Component {
                     
                     </h4>
                 </div> */}
-
-            <ReactTable
-              data={this.props.users.usersNmods}
-              filterable
-              defaultFilterMethod={(filter, row) =>
-                String(row[filter.id]) === filter.value
-              }
-              columns={[
-                {
-                  Header: "Username",
-                  accessor: "username",
-                  filterMethod: (filter, row) =>
-                    row[filter.id].startsWith(filter.value) &&
-                    row[filter.id].endsWith(filter.value)
-                },
-                {
-                  Header: "E-Mail",
-                  accessor: "email",
-                  filterMethod: (filter, row) =>
-                    row[filter.id].startsWith(filter.value) &&
-                    row[filter.id].endsWith(filter.value)
-                },
-                {
-                    Header: "Account Type",
-                    accessor: "user_permissions",
-                    filterMethod: (filter, row) => {
-                        if (filter.value === "all") {
-                            return true;
-                        }
-                        if (filter.value === "true") {
-                            return row[filter.id] === 'moderator';
-                        }
-                        return row[filter.id] === 'basic';
-                    },
-                    Filter: ({ filter, onChange }) => (
-                        <select
-                            onChange={event => onChange(event.target.value)}
-                            style={{ width: "100%" }}
-                            value={filter ? filter.value : "all"}
-                        >
-                            <option value="all">Show All</option>
-                            <option value="true">Moderator</option>
-                            <option value="false">Basic</option>
-                        </select>
-                    )
+        <button
+          onClick={e => {
+            this.buttony2(e, this.state.selected.id);
+          }}
+        >
+          Make Basic
+        </button>
+        <button
+          onClick={e => {
+            this.buttony(e, this.state.selected.id);
+          }}
+        >
+          Make Moderator
+        </button>
+        <ReactTable
+          data={this.props.users.usersNmods}
+          filterable
+          defaultFilterMethod={(filter, row) =>
+            String(row[filter.id]) === filter.value
+          }
+          columns={[
+            {
+              Header: "Username",
+              accessor: "username",
+              filterMethod: (filter, row) =>
+                row[filter.id].startsWith(filter.value) &&
+                row[filter.id].endsWith(filter.value)
+            },
+            {
+              Header: "E-Mail",
+              accessor: "email",
+              filterMethod: (filter, row) =>
+                row[filter.id].startsWith(filter.value) &&
+                row[filter.id].endsWith(filter.value)
+            },
+            {
+              Header: "Account Type",
+              accessor: "user_permissions",
+              filterMethod: (filter, row) => {
+                if (filter.value === "all") {
+                  return true;
                 }
-              ]}
-              defaultPageSize={10}
-              className="-striped -highlight"
-            />
-          </div>
-        );
+                if (filter.value === "true") {
+                  return row[filter.id] === "moderator";
+                }
+                return row[filter.id] === "basic";
+              },
+              Filter: ({ filter, onChange }) => (
+                <select
+                  onChange={event => onChange(event.target.value)}
+                  style={{ width: "100%" }}
+                  value={filter ? filter.value : "all"}
+                >
+                  <option value="all">Show All</option>
+                  <option value="true">Moderator</option>
+                  <option value="false">Basic</option>
+                </select>
+              )
+            }
+          ]}
+          defaultPageSize={10}
+          className="-striped -highlight"
+          getTrProps={(state, rowInfo) => {
+            if (rowInfo && rowInfo.row) {
+              return {
+                onClick: e => {
+                  this.setState({
+                    selected: rowInfo.row._original
+                  });
+                },
+                style: {
+                  background:
+                    rowInfo.row.email === this.state.selected.email
+                      ? "#418DCF"
+                      : "white",
+                  color:
+                    rowInfo.row.email === this.state.selected.email
+                      ? "white"
+                      : "black"
+                }
+              };
+            } else {
+              return {};
+            }
+          }}
+        />
+      </div>
+    );  
     }
 }
 

@@ -52,7 +52,7 @@ const ProfileWrapper = styled.div`
     align-self: flex-start;
     
     @media ${phoneP} {
-      width: 20%;
+      display: none;
       }
   }
   .username-style { 
@@ -60,11 +60,12 @@ const ProfileWrapper = styled.div`
     font-size: .8rem;
     justify-content: flex-start;
     
-    &:hover {
-      cursor: pointer;
-      color: ${props => props.theme.defaultColorOnHover};
-      text-decoration: underline;
-    }
+    //commented this out due to it highlighting everything in the div
+    // &:hover {
+    //   cursor: pointer;
+    //   color: ${props => props.theme.defaultColorOnHover};
+    //   text-decoration: underline;
+    // }
 
     @media (max-width: 1080px) {
       margin-left: 0px;
@@ -141,6 +142,31 @@ color: ${props => props.theme.defaultColor};
   &:hover{
     cursor: pointer;
   }
+}
+`;
+
+const WrappedDivSearch = styled.div`
+display: flex;
+flex-direction: row;
+width: 90%;
+margin: 0 auto;
+color: ${props => props.theme.defaultColor};
+.back {
+  margin-right: 5px;
+  width: 7%;
+  height: 50px;
+  font-size: 1rem;
+  color: ${props => props.theme.defaultColor};
+  
+  &:hover{
+    cursor: pointer;
+  }
+}
+
+@media ${phoneP} {
+  display: flex
+  flex-direction: column;
+  width: 100%;
 }
 `;
 
@@ -281,6 +307,7 @@ const PostHeader = styled.div`
       margin-right: 10px;
       width: 23px;
     }
+  
   }
 `;
 
@@ -340,6 +367,10 @@ const FollowSpan = styled.span`
     text-decoration: none; 
     color: black;
   }
+`;
+
+const BioInfoDiv = styled.div`
+  word-break: break-word;
 `;
 
 /***************************************************************************************************
@@ -459,16 +490,16 @@ class Profile extends Component {
                 </WrappedDiv>
               </HeaderStyle>
               {/* This section is for the bio and the links for a user account */}
-              <div>
+              <BioInfoDiv>
                   <p><SpanLabel>Bio </SpanLabel><span>{bio}</span></p>
                   <br/>
                   <p><SpanLabel>Location </SpanLabel> <span>{location}</span></p>
                   <p><SpanLabel>Github </SpanLabel> <span><ProfileLink href={ github.includes("http://") === true  || github.includes("https://") === true ? `${github}` : `http://${github}`} target = "_blank">{github}</ProfileLink></span></p>
                   <p><SpanLabel>LinkedIn </SpanLabel> <span><ProfileLink href={linkedin.includes("http://") === true || linkedin.includes("https://") === true ? `${linkedin}` : `http://${linkedin}`}  target = "_blank">{linkedin}</ProfileLink></span></p>
                   <p><SpanLabel>Twitter </SpanLabel> <span><ProfileLink href={twitter.includes("http://") === true || twitter.includes("https://") === true? `${twitter}` : `http://${twitter}`} target = "_blank">{twitter}</ProfileLink></span></p>
-              </div>
+              </BioInfoDiv>
               <br/>
-              <WrappedDiv>
+              <WrappedDivSearch>
                 
                 {/* <label className="container">Search for a friend</label> */}
                 <SearchContainer>
@@ -477,7 +508,7 @@ class Profile extends Component {
                 </SearchContainer>
                 <br/>
                 <Button className= "add-post-btn" onClick = {this.handleEmailInput}>Invite a friend</Button>
-              </WrappedDiv>
+              </WrappedDivSearch>
               <br/>
               <br/>
               <h4>Below lists what you are following click a tab to check it out.</h4>
