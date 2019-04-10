@@ -452,6 +452,3 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, { getTeamDiscussions, handleDiscussionVote, getTeamMembers })(TeamBoard);
-
-
-
