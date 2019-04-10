@@ -143,7 +143,22 @@ const FileUpload = styled.div `
       height: 4vh;
       width: 132px;
       bottom: 32.5%;
-  
+      
+      @media (max-width: 1440px){
+        bottom: 31.7%;
+      }
+
+      @media (max-width: 1024px){
+        bottom: 24%;
+        height: 5vh;
+      }
+
+      @media ${phoneP}{
+        bottom: 15.3%;
+        height: 6vh;
+        width: 37%;
+      }
+
       .drag-zone {
         position: relative;
         top: 11%;
@@ -187,7 +202,8 @@ class UploadImage extends React.Component {
   handleImageSubmit = file => {
 		const { uploadImage } = this.props;
 		// const imageFile = e.target.previousSibling.files[0];
-		const imageData = new FormData();
+    const imageData = new FormData();
+
     imageData.append('imageFile', file);
     return uploadImage(imageData);
   };
@@ -202,7 +218,6 @@ class UploadImage extends React.Component {
     e.preventDefault();
     e.stopPropagation();
     this.dragCounter++;
-    console.log(this.dragCounter)
     if ( e.dataTransfer.items && e.dataTransfer.items.length > 0) {
       this.setState({ dragging: true })
     }
@@ -279,7 +294,7 @@ class UploadImage extends React.Component {
   }
 
   componentDidUpdate(prevProps){
-    if(this.props.imagePreviewUrl !== this.state.imagePreviewUrl && !this.state.name ){
+    if(this.props.imagePreviewUrl !== this.state.imagePreviewUrl && !prevProps.isUploadingImage){
       this.setState({ imagePreviewUrl: this.props.imagePreviewUrl });
     }
   }
