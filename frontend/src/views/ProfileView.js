@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Spinner from '../assets/gif/spinner/Spinner'; //need to move to assets folder
 import { getProfile } from '../store/actions/index';
-import { getFollowers, getProfileFollowers, removeFollower, addFollower, inviteFriend } from '../store/actions/index';
+import { getFollowers, getProfileFollowers, removeFollower, addFollower, inviteFriend, followersCount } from '../store/actions/index';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { phoneP, phoneL, tabletP, tabletL } from '../globals/globals';
@@ -73,6 +73,26 @@ const ProfileWrapper = styled.div`
       width: 80%;
     }
   }
+
+  .userfollowers-style {
+    margin-left: 0px; 
+    font-size: .8rem; 
+    justify-content: flex-start;
+    align-content : center; 
+    align-items : center; 
+
+    &:hover {
+      cursor: default; 
+      color: black; 
+      text-decoration: none;
+    }
+
+    @media (max-width: 395px ){
+      flex-direction: column; 
+    }
+
+  }
+
   @media ${phoneP} {
     margin-left: 0px;
     display: flex;
@@ -297,12 +317,38 @@ const InviteFriendLink = styled.p`
   }
 `;
 
+const SpanLabel = styled.span`
+  font-weight: 900;
+`;
+
+const ProfileLink = styled.a`
+  text-decoration: none; 
+  color: black; 
+
+  &:hover {
+    text-decoration: underline;
+    cursor: pointer; 
+    color : ${props => props.theme.defaultColorOnHover};
+  }
+`;
+
+const FollowSpan = styled.span`
+  margin-right: 15px; 
+  margin-left: 15px; 
+  text-align : center; 
+  &:hover {
+    text-decoration: none; 
+    color: black;
+  }
+`;
+
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
 class Profile extends Component {
   state = {
-    initialized: false 
+    initialized: false,
+
   }
   componentDidMount() {
     this.props.getProfile(this.props.match.params.id);
@@ -324,6 +370,7 @@ class Profile extends Component {
     const userId = localStorage.getItem("symposium_user_id");
     this.props.getProfileFollowers(this.props.match.params.id); 
     this.props.getFollowers(userId);
+    this.props.followersCount(this.props.match.params.id);
   }
   /*double arrow functions prevent peformance issues because it will not create a new function on every render */
   handleAddFollower = (userId, followingId) => () => {
@@ -381,6 +428,8 @@ class Profile extends Component {
 
     const followListLength = followList ? followList.length : 0; 
 
+    const profileFollowersCount = this.props.followers.profileFollowers ?   this.props.followers.profileFollowers.length : 0;
+    const usersFollowersCount = this.props.followers.usersFollowers ? this.props.followers.usersFollowers.length : 0; 
     let profileItems;
     if (this.props.profile.length === 0) {
       profileItems = <Spinner />;
@@ -402,16 +451,21 @@ class Profile extends Component {
                 <WrappedDiv className='username-style'>
                   <p className='property-content'> {profile.username ? profile.username : <Deleted />}</p>
                   {profileId !== userId ? alreadyFollowing === false ? <Button className='add-post-btn' onClick = {this.handleAddFollower(userId, profileId)}>Follow</Button> : <Button className='add-post-btn' onClick = {this.handleRemoveFollower(userId, profileId)}>UnFollow</Button> : <Button className='add-post-btn' onClick = {this.editProfile}>Edit Profile</Button>}
+                  <br/>
+                 { profileId === userId ?  <WrappedDiv className = 'userfollowers-style'>
+                  <FollowSpan><SpanLabel>Following: </SpanLabel>{profileFollowersCount}  </FollowSpan><FollowSpan>  <SpanLabel> Followers: </SpanLabel>{usersFollowersCount}</FollowSpan>
+                  </WrappedDiv> : <span></span>}
+
                 </WrappedDiv>
               </HeaderStyle>
               {/* This section is for the bio and the links for a user account */}
               <div>
-                  <p><span>Bio </span><span>{bio}</span></p>
+                  <p><SpanLabel>Bio </SpanLabel><span>{bio}</span></p>
                   <br/>
-                  <p><span>Location </span>{location}</p>
-                  <p><span>Github </span> <span>{github}</span></p>
-                  <p><span>LinkedIn </span> <span>{linkedin}</span></p>
-                  <p><span>Twitter </span> <span>{twitter}</span></p>
+                  <p><SpanLabel>Location </SpanLabel> <span>{location}</span></p>
+                  <p><SpanLabel>Github </SpanLabel> <span><ProfileLink href={ github.includes("http://") === true  || github.includes("https://") === true ? `${github}` : `http://${github}`} target = "_blank">{github}</ProfileLink></span></p>
+                  <p><SpanLabel>LinkedIn </SpanLabel> <span><ProfileLink href={linkedin.includes("http://") === true || linkedin.includes("https://") === true ? `${linkedin}` : `http://${linkedin}`}  target = "_blank">{linkedin}</ProfileLink></span></p>
+                  <p><SpanLabel>Twitter </SpanLabel> <span><ProfileLink href={twitter.includes("http://") === true || twitter.includes("https://") === true? `${twitter}` : `http://${twitter}`} target = "_blank">{twitter}</ProfileLink></span></p>
               </div>
               <br/>
               <WrappedDiv>
@@ -426,31 +480,13 @@ class Profile extends Component {
               </WrappedDiv>
               <br/>
               <br/>
-              <div>
-                {followListLength > 0 ?  followList.map((user, id) => 
-                  // user.following_id can be used to go to the users profile upon clicking on them currently not implemented. 
-                  <WrappedDiv
-                    style = {{cursor:"pointer"}} 
-                    key = {id} 
-                    onClick = {this.goToUsersPage(user.following_id)}
-                    > 
-                    <Avatar 
-                      height = '50px'
-                      width = '50px'
-                      src= {user.avatar}
-                    >
-                      
-                    </Avatar>
-                    <span>{user.username}</span>
-                  
-                  </WrappedDiv>
-                ) : <div>{profileId !== userId ? `${usernameForProfile} currently doesn't follow any users.` :  "You are not currently following any users."}</div>}
-              </div>
+              <h4>Below lists what you are following click a tab to check it out.</h4>
               <Tabs>
                 <TabList>
                   <Tab> Followed Posts</Tab>
                   <Tab>Comments</Tab>
                   <Tab>Replies</Tab>
+                  <Tab>Users</Tab>
                 </TabList>
                 <TabPanel>
                   <WrappedDiv>
@@ -557,6 +593,32 @@ class Profile extends Component {
                     </SubWrapper>
                   </WrappedDiv>
                 </TabPanel>
+                <TabPanel>
+                  <WrappedDiv>
+                    <SubWrapper>
+                    <div>
+                {followListLength > 0 ?  followList.map((user, id) => 
+                  // user.following_id can be used to go to the users profile upon clicking on them currently not implemented. 
+                  <WrappedDiv
+                    style = {{cursor:"pointer"}} 
+                    key = {id} 
+                    onClick = {this.goToUsersPage(user.following_id)}
+                    > 
+                    <Avatar 
+                      height = '50px'
+                      width = '50px'
+                      src= {user.avatar}
+                    >
+                      
+                    </Avatar>
+                    <span>{user.username}</span>
+                  
+                  </WrappedDiv>
+                ) : <div>{profileId !== userId ? `${usernameForProfile} currently doesn't follow any users.` :  "You are not currently following any users."}</div>}
+              </div>
+                    </SubWrapper>
+                  </WrappedDiv>
+                </TabPanel>
               </Tabs>
             </ProfileWrapper>
           </ProfileStyle>
@@ -581,6 +643,7 @@ Profile.propTypes = {
   removeFollower : PropTypes.func, 
   addFollower : PropTypes.func,
   inviteFriend : PropTypes.func, 
+  followersCount : PropTypes.func, 
   setEditProfileModalRaised : PropTypes.func.isRequired,
   isEditProfileModalRaised : PropTypes.bool.isRequired, 
   toggleSearch : PropTypes.func.isRequired,
@@ -606,7 +669,8 @@ Profile.propTypes = {
 const mapStateToProps = state => ({
   profile: state.profilesData.singleProfileData,
   followers: state.followers,
-  profileFollowers : state.profileFollowers
+  profileFollowers : state.profileFollowers,
+  userFollowers : state.userFollowers,
 });
 
-export default connect(mapStateToProps, { getProfile,getFollowers, getProfileFollowers, removeFollower, addFollower, inviteFriend })(Profile);
+export default connect(mapStateToProps, { getProfile,getFollowers, getProfileFollowers, removeFollower, addFollower, inviteFriend, followersCount })(Profile);

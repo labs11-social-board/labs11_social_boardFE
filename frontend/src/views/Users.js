@@ -3,6 +3,9 @@ import { BrowserRouter as Router, Route, Link, NavLink } from "react-router-dom"
 import styled from 'styled-components';
 import { connect } from "react-redux";
 import { getUsers, getUsersNMods, makeMod, makeBas } from './../store/actions/UsersActions';
+import ReactTable from "react-table";
+import "react-table/react-table.css";
+
 
 
 const MainWrapper = styled.div`
@@ -60,10 +63,9 @@ class Users extends React.Component {
         }, 800);
     }
 
-    render() {
         return (
-            <div>
-                <div >
+          <div>
+            {/* <div >
                     <h4>
                         <MainWrapper>
                             <InnerWrapper>Name</InnerWrapper>
@@ -105,12 +107,59 @@ class Users extends React.Component {
                         })}
 
                     </h4>
-                </div>
+                </div> */}
 
-
-
-            </div>
-        )
+            <ReactTable
+              data={this.props.users.usersNmods}
+              filterable
+              defaultFilterMethod={(filter, row) =>
+                String(row[filter.id]) === filter.value
+              }
+              columns={[
+                {
+                  Header: "Username",
+                  accessor: "username",
+                  filterMethod: (filter, row) =>
+                    row[filter.id].startsWith(filter.value) &&
+                    row[filter.id].endsWith(filter.value)
+                },
+                {
+                  Header: "E-Mail",
+                  accessor: "email",
+                  filterMethod: (filter, row) =>
+                    row[filter.id].startsWith(filter.value) &&
+                    row[filter.id].endsWith(filter.value)
+                },
+                {
+                    Header: "Account Type",
+                    accessor: "user_permissions",
+                    filterMethod: (filter, row) => {
+                        if (filter.value === "all") {
+                            return true;
+                        }
+                        if (filter.value === "true") {
+                            return row[filter.id] === 'moderator';
+                        }
+                        return row[filter.id] === 'basic';
+                    },
+                    Filter: ({ filter, onChange }) => (
+                        <select
+                            onChange={event => onChange(event.target.value)}
+                            style={{ width: "100%" }}
+                            value={filter ? filter.value : "all"}
+                        >
+                            <option value="all">Show All</option>
+                            <option value="true">Moderator</option>
+                            <option value="false">Basic</option>
+                        </select>
+                    )
+                }
+              ]}
+              defaultPageSize={10}
+              className="-striped -highlight"
+            />
+          </div>
+        );
     }
 }
 
