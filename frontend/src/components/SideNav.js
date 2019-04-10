@@ -13,7 +13,7 @@ import { phoneL, accountUserTypes, subSilverStartIndex } from '../globals/global
  ********************************************** Styles *********************************************
  **************************************************************************************************/
 const DivSideNav = styled.div`
-
+margin-top: 20px;
   flex-direction: column;
   width: 100%;
   user-select:none;
@@ -37,8 +37,8 @@ const DivHeader = styled.div`
     cursor: pointer;
     padding: 10px;
     color: ${ props => props.theme.defaultColor};
-    margin: 10px;
-    margin-bottom: 10px;
+    //margin: 10px;
+    //margin-bottom: 10px;
 
     &:hover {
       color: ${ props => props.theme.defaultColorOnHover};
@@ -59,7 +59,7 @@ const H4BrowseCategories = styled.h4`
 
 const LinkBrowseCategories = styled(Link)`
   text-decoration: none;
-  margin-left: -6px;
+  //margin-left: -6px;
   color: ${props => props.islinkselected === 'true' ? props.theme.defaultColorOnHover : props.theme.defaultColor};
   border-left: ${props => props.islinkselected === 'true' ? `5px solid ${props.theme.defaultColorOnHover}` : '6px solid transparent'};
   font-weight: normal;
@@ -219,8 +219,8 @@ border-left: ${props => props.islinkselected === 'true' ? `5px solid ${props.the
   }
 `;
 
-const DivCategoriesContainer = styled.div`
-
+const DivNavContainer = styled.div`
+  
 `;
 
 const DropdownFollowing = styled.div`
@@ -279,26 +279,10 @@ class SideNav extends Component {
 
     return (
       <DivSideNav isOpen={`${this.props.isOpen}`}>
-
-        <DivCategoriesContainer>
-          <span style={{marginLeft: 20 + "px"}}>Categories</span>
-          <DivHeader>
-
-            <H4BrowseCategories
-              islinkselected={(this.state.linkSelected === 'BrowseCategories').toString()}
-            >
-
-              <LinkBrowseCategories
-                to={`/categories`}
-                islinkselected={(this.state.linkSelected === 'BrowseCategories').toString()}
-                onClick={() => this.selectLink('BrowseCategories')}
-                className='browse-categories'
-              ><i className="fas fa-book-open" />Browse&nbsp;Categories&nbsp;</LinkBrowseCategories>
-
-              {(accountUserTypes.indexOf(user_type) >= subSilverStartIndex) &&
-                <i className="fas fa-plus-circle" onClick={(ev) => this.props.setAddCatModalRaised(ev, true)} />
-              }
-              {console.log(accountUserTypes)}
+        <DivNavContainer>
+          <span style={{ marginLeft: 20 + "px" }}>Admin</span>
+          <H4BrowseCategories>
+            <div>
               {
                 (user_type == 'admin') &&
                 <LinkBrowseCategories
@@ -306,8 +290,58 @@ class SideNav extends Component {
                   islinkselected={(this.state.linkSelected === 'Admin').toString()}
                   onClick={() => this.selectLink('Admin')}
                   className='browse-categories'
-                ><i className="fas fa-cogs" />Admin</LinkBrowseCategories>
+                ><i className="fas fa-male" />User Management</LinkBrowseCategories>
               }
+            </div>
+            <div>
+              {
+                (user_type == 'admin') &&
+                <LinkBrowseCategories
+                  to={`/analytics`}
+                  islinkselected={(this.state.linkSelected === 'Analytics').toString()}
+                  onClick={() => this.selectLink('Analytics')}
+                  className='browse-categories'
+                ><i className="fas fa-chart-line" />Analytics</LinkBrowseCategories>
+              }
+            </div>
+            <div>
+              {
+                (user_type == 'admin') &&
+                <LinkBrowseCategories
+                  to={`/resources`}
+                  islinkselected={(this.state.linkSelected === 'Resources').toString()}
+                  onClick={() => this.selectLink('Resources')}
+                  className='browse-categories'
+                ><i className="fas fa-comment" />Resources</LinkBrowseCategories>
+              }
+            </div>
+          </H4BrowseCategories>
+        </DivNavContainer>
+
+
+        <DivNavContainer>
+          <span style={{ marginLeft: 20 + "px" }}>Categories</span>
+
+          <div>
+            {(accountUserTypes.indexOf(user_type) >= subSilverStartIndex) &&
+              <i style={{ display: 'block', marginLeft: 22 + 'px', marginTop: 10 + 'px' }} className="fas fa-plus-circle" onClick={(ev) => this.props.setAddCatModalRaised(ev, true)}/>} { //<span>New&nbsp;Category&nbsp;</span>
+              }
+            
+            {console.log(accountUserTypes)}
+          </div>
+
+          <DivHeader>
+
+            <H4BrowseCategories
+              islinkselected={(this.state.linkSelected === 'BrowseCategories').toString()}
+            >
+
+              <LinkBrowseCategories style={{ marginLeft: -6 + 'px' }}
+                to={`/categories`}
+                islinkselected={(this.state.linkSelected === 'BrowseCategories').toString()}
+                onClick={() => this.selectLink('BrowseCategories')}
+                className='browse-categories'
+              ><i className="fas fa-book-open" />Browse&nbsp;Categories&nbsp;</LinkBrowseCategories>
 
             </H4BrowseCategories>
 
@@ -345,18 +379,43 @@ class SideNav extends Component {
               </ul>
             </DivCatFollowItems>
           </DivCategoriesFollowed>
-        </DivCategoriesContainer>
+        </DivNavContainer>
 
-        <DivHeader>
-          <LinkBrowseCategories
-            to='/teams'
-            islinkselected={(this.state.linkSelected === 'Teams').toString()}
-            onClick={() => this.selectLink('Teams')}
-          >
-            Teams
-            </LinkBrowseCategories>
-          <i className="fas fa-plus-circle" onClick={(ev) => this.props.setAddTeamModalRaised(ev, true)} />
-        </DivHeader>
+        <DivNavContainer>
+        <span style={{ marginLeft: 20 + "px" }}>Teams</span>
+        <H4BrowseCategories>
+          <div>            
+              <LinkBrowseCategories
+                to='/teams'
+                islinkselected={(this.state.linkSelected === 'Teams').toString()}
+                onClick={() => this.selectLink('Teams')}
+                className='browse-categories'
+              ><i className="fas fa-book-open" />Browse Teams</LinkBrowseCategories>
+            
+          </div>
+          <div>            
+              <LinkBrowseCategories
+                to={`/teamanalytics`}
+                islinkselected={(this.state.linkSelected === 'TeamAnalytics').toString()}
+                onClick={() => this.selectLink('TeamAnalytics')}
+                className='browse-categories'
+              ><i className="fas fa-chart-line" />Team Analytics</LinkBrowseCategories>
+            
+          </div>
+          <div>           
+              <LinkBrowseCategories
+                to={`/teamconversations`}
+                islinkselected={(this.state.linkSelected === 'TeamConversations').toString()}
+                onClick={() => this.selectLink('TeamConversations')}
+                className='browse-categories'
+              ><i className="fas fa-comment" />Team Conversations</LinkBrowseCategories>          
+          </div>
+        </H4BrowseCategories>
+      </DivNavContainer>
+
+
+
+        { /*
         <ul>
           {this.state.userTeams.length === 0 ? <div>No teams yet!</div> : (this.state.userTeams.map(team => (
             <LiCategoryFollowed key={team.team_id}
@@ -370,6 +429,7 @@ class SideNav extends Component {
             </LiCategoryFollowed>
           )))}
         </ul>
+          */}
       </DivSideNav>
     );
   }
