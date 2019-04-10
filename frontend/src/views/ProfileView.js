@@ -145,6 +145,31 @@ color: ${props => props.theme.defaultColor};
 }
 `;
 
+const WrappedDivSearch = styled.div`
+display: flex;
+flex-direction: row;
+width: 90%;
+margin: 0 auto;
+color: ${props => props.theme.defaultColor};
+.back {
+  margin-right: 5px;
+  width: 7%;
+  height: 50px;
+  font-size: 1rem;
+  color: ${props => props.theme.defaultColor};
+  
+  &:hover{
+    cursor: pointer;
+  }
+}
+
+@media ${phoneP} {
+  display: flex
+  flex-direction: column;
+  width: 100%;
+}
+`;
+
 const WrappedDiv2 = styled.div`
 display: flex;
 flex-direction: row;
@@ -282,6 +307,7 @@ const PostHeader = styled.div`
       margin-right: 10px;
       width: 23px;
     }
+  
   }
 `;
 
@@ -473,7 +499,7 @@ class Profile extends Component {
                   <p><SpanLabel>Twitter </SpanLabel> <span><ProfileLink href={twitter.includes("http://") === true || twitter.includes("https://") === true? `${twitter}` : `http://${twitter}`} target = "_blank">{twitter}</ProfileLink></span></p>
               </BioInfoDiv>
               <br/>
-              <WrappedDiv>
+              <WrappedDivSearch>
                 
                 {/* <label className="container">Search for a friend</label> */}
                 <SearchContainer>
@@ -482,7 +508,7 @@ class Profile extends Component {
                 </SearchContainer>
                 <br/>
                 <Button className= "add-post-btn" onClick = {this.handleEmailInput}>Invite a friend</Button>
-              </WrappedDiv>
+              </WrappedDivSearch>
               <br/>
               <br/>
               <h4>Below lists what you are following click a tab to check it out.</h4>
