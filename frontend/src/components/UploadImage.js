@@ -202,7 +202,8 @@ class UploadImage extends React.Component {
   handleImageSubmit = file => {
 		const { uploadImage } = this.props;
 		// const imageFile = e.target.previousSibling.files[0];
-		const imageData = new FormData();
+    const imageData = new FormData();
+
     imageData.append('imageFile', file);
     return uploadImage(imageData);
   };
@@ -293,7 +294,7 @@ class UploadImage extends React.Component {
   }
 
   componentDidUpdate(prevProps){
-    if(this.props.imagePreviewUrl !== this.state.imagePreviewUrl && !this.state.name ){
+    if(this.props.imagePreviewUrl !== this.state.imagePreviewUrl && !prevProps.isUploadingImage){
       this.setState({ imagePreviewUrl: this.props.imagePreviewUrl });
     }
   }
