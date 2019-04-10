@@ -232,24 +232,25 @@ class EditProfileModal extends React.Component {
     this.setState({ [event.target.name]: event.target.value});
   };
 
-  handleUserMessage = (str) => {
-    const section = str; 
-    const displayMessage = `Invalid link. Please adjust and try again. Example http://${section}.com/profile123`;
-    this.setState({displayMessage, section});
-    switch(section){
+  handleUserMessage = (str, reset = false) => {
+    /*will set the state according to what str is if reset is true then it will reset to a blank string which should remove the message from the display */
+    const displayMessage = reset === false ? `Invalid link. Please adjust and try again. Example http://${str}.com/profile123` : "";
+    const boolean = reset === false ? true : false; 
+    switch(str){
       case "twitter":
-        this.setState({ twitterMessage : displayMessage, twitterError: true}, () => console.log("link error"));
+        this.setState({ twitterMessage : displayMessage, twitterError: boolean}, () => console.log("link error"));
         break; 
       case "linkedin":
-        this.setState({linkedinMessage : displayMessage, linkedinError: true}, () => console.log("link error"));
+        this.setState({linkedinMessage : displayMessage, linkedinError: boolean}, () => console.log("link error"));
         break; 
       case "github":
-        this.setState({githubMessage: displayMessage, githubError: true}, () => console.log("link error")); 
+        this.setState({githubMessage: displayMessage, githubError: boolean}, () => console.log("link error")); 
         break; 
       default: 
         console.log("Shouldn't get to this case, but meets requirements");
     }
   }
+
 
   handleSubmit = async (event) => {
     /*Make the argument null needed for updateProfile if it is of zero length 
@@ -272,6 +273,7 @@ class EditProfileModal extends React.Component {
         await this.handleUserMessage("twitter"); 
       } else {
         callTheFunction = true;
+        await this.handleUserMessage("twitter", true);
       }
       
     }
@@ -282,6 +284,7 @@ class EditProfileModal extends React.Component {
         await this.handleUserMessage("github"); 
       } else {
         callTheFunction = true;
+        await this.handleUserMessage("github", true); 
       }
       
     }
@@ -292,6 +295,7 @@ class EditProfileModal extends React.Component {
         await this.handleUserMessage("linkedin"); 
       } else {
         callTheFunction = true;
+        await this.handleUserMessage("linkedin", true);
       }
       
     }
