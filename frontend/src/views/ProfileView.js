@@ -241,7 +241,7 @@ const ContentDiv = styled.div`
     span {
       margin-left: 5px;
       
-      @media (max-width: 525px) {
+      @media (max-width: 600px) {
         display: none;
       }
     }
