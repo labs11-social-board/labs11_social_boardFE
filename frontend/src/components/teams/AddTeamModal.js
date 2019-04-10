@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 // action creators
-import { addTeam, getUsersTeams, updateTeamWithLogo } from '../../store/actions/index.js';
+import { addTeam, getUsersTeams, updateTeamWithLogo, resetImageState } from '../../store/actions/index.js';
 
 // components 
 import { ToggleSwitch, UploadImage } from '../index.js';
@@ -170,7 +170,14 @@ const DivName = styled.div`
     flex-direction: column;
     align-items: center;
 
-    
+    @media ${phoneP}{
+      height: 22vh;
+      margin-bottom: 8px;
+
+      .drag-zone-t-wrapper {
+        bottom: 68%;
+      }
+    }
   }
 `;
 
@@ -198,11 +205,17 @@ class AddTeamModal extends React.Component {
     const { addTeam, historyPush, setAddTeamModalRaised, getUsersTeams, updateTeamWithLogo, image } = this.props;
     return Promise.resolve(setAddTeamModalRaised(e, false))
       .then(() => addTeam(newTeam).then((res) => {
-          updateTeamWithLogo( image[0],res.payload.teamBoard.id);
-          getUsersTeams();
-          historyPush(`/team/discussions/${res.payload.teamBoard.id}`)
+          if(res){
+            if(image.id){
+              updateTeamWithLogo(image.id, res.payload.teamBoard.id);
+              this.props.resetImageState();
+            }
+            historyPush(`/team/discussions/${res.payload.teamBoard.id}`);
+          }
         }
-      ));
+      )).then(() => {
+        getUsersTeams();
+      });
   }
 
   handleInput = e => {
@@ -278,4 +291,4 @@ const mapStateToProps = state => ({
   image: state.posts.images
 });
 
-export default connect(mapStateToProps, { addTeam, getUsersTeams, updateTeamWithLogo })(AddTeamModal);
+export default connect(mapStateToProps, { addTeam, getUsersTeams, updateTeamWithLogo, resetImageState })(AddTeamModal);
