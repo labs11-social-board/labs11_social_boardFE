@@ -179,6 +179,23 @@ const DivName = styled.div`
       width: 270px;
       margin-right: 17%;
 
+      .drag-zone-t-wrapper {
+        left: 46.2%;
+        
+        @media (max-width: 1680px){
+          left: 45.5%;
+        }
+
+        @media (max-width: 1024px){
+          left: 43.5%;
+        }
+        
+        @media ${phoneP}{
+          bottom: 72.7%;
+          left: 38.2%;
+        }
+      }
+
       @media (max-width: 1440px) {
         margin-right: 22%;
 
@@ -208,9 +225,6 @@ const DivName = styled.div`
 
         .fileinput + label {
           line-height: 7;
-        }
-        .drag-zone-t-wrapper {
-          bottom: 68%;
         }
       }
     }
