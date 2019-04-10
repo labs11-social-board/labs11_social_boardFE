@@ -173,9 +173,45 @@ const DivName = styled.div`
     @media ${phoneP}{
       height: 22vh;
       margin-bottom: 8px;
+    }
 
-      .drag-zone-t-wrapper {
-        bottom: 68%;
+    #drop-zone-t {
+      width: 270px;
+      margin-right: 17%;
+
+      @media (max-width: 1440px) {
+        margin-right: 22%;
+
+        #label-text {
+          width: 55%;
+        }
+        .fileinput + label {
+          margin: 0px 0% 0 9.5%;
+          height: 17vh;
+          line-height: 9;
+        }
+      }
+
+      @media (max-width: 1024px) {
+        .fileinput + label {
+          line-height: 8;
+        }
+      }
+
+      @media ${phoneP}{
+        margin-right 24%;
+        flex-direction: row;
+
+        #label-text {
+          width: 29%;
+        }
+
+        .fileinput + label {
+          line-height: 7;
+        }
+        .drag-zone-t-wrapper {
+          bottom: 68%;
+        }
       }
     }
   }
