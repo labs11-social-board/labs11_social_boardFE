@@ -343,6 +343,10 @@ const FollowSpan = styled.span`
   }
 `;
 
+const BioInfoDiv = styled.div`
+
+`;
+
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
@@ -460,14 +464,14 @@ class Profile extends Component {
                 </WrappedDiv>
               </HeaderStyle>
               {/* This section is for the bio and the links for a user account */}
-              <div>
+              <BioInfoDiv>
                   <p><SpanLabel>Bio </SpanLabel><span>{bio}</span></p>
                   <br/>
                   <p><SpanLabel>Location </SpanLabel> <span>{location}</span></p>
                   <p><SpanLabel>Github </SpanLabel> <span><ProfileLink href={ github.includes("http://") === true  || github.includes("https://") === true ? `${github}` : `http://${github}`} target = "_blank">{github}</ProfileLink></span></p>
                   <p><SpanLabel>LinkedIn </SpanLabel> <span><ProfileLink href={linkedin.includes("http://") === true || linkedin.includes("https://") === true ? `${linkedin}` : `http://${linkedin}`}  target = "_blank">{linkedin}</ProfileLink></span></p>
                   <p><SpanLabel>Twitter </SpanLabel> <span><ProfileLink href={twitter.includes("http://") === true || twitter.includes("https://") === true? `${twitter}` : `http://${twitter}`} target = "_blank">{twitter}</ProfileLink></span></p>
-              </div>
+              </BioInfoDiv>
               <br/>
               <WrappedDiv>
                 
