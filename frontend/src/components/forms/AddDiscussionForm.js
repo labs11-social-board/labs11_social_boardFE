@@ -235,8 +235,8 @@ class AddDiscussionForm extends Component {
   handleExit = e => {
     e.preventDefault();
     this.props.toggleAddDiscussionForm();
-    if(this.props.image.length > 0){
-			this.props.removeUpload(this.props.image[0]);
+    if(this.props.image){
+			this.props.removeUpload(this.props.image);
 			this.props.resetImageState();
 		}
   }
