@@ -34,14 +34,14 @@ const FileUpload = styled.div `
   }
 
   .fileinput + label {
-    width: 230px;
+    width: 153px;
     height: 16vh;
     border-radius: 50%;
     text-align: center;
     border: 1px solid;
     line-height: 10;
-    margin: 0 25% 0 9%;
-    cursor:pointer;
+    margin: 0px 0% 0 9.5%;
+    cursor: pointer;
 
     @media (max-width: 1440px){
       width: 200px;
@@ -303,8 +303,7 @@ class UploadImage extends React.Component {
       return(
        <>
         {this.props.isTeam ?   
-          <div id='drop-zone-t'>
-            <FileUpload>
+            <FileUpload id='drop-zone-t'>
               <label htmlFor='image-file'>Team Logo</label>
               <input
                 type = 'file'
@@ -322,10 +321,8 @@ class UploadImage extends React.Component {
                 </div>
               } 
             </FileUpload>
-         </div> 
          : 
-         <div id='drop-zone'>
-          <FileUpload>
+          <FileUpload id='drop-zone'>
             <input
               type = 'file'
               name = 'image-upload'
@@ -343,7 +340,6 @@ class UploadImage extends React.Component {
             } 
             {this.state.name ? this.props.isUploadingImage ? <p>Uploading...</p> : <p>Image Uploaded!</p> : null}
           </FileUpload>
-        </div>
         }
        </>
         
