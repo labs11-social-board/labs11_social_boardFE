@@ -235,26 +235,30 @@ class EditProfileModal extends React.Component {
     this.setState({displayMessage, section});
     switch(section){
       case "twitter":
-        this.setState({ twitterMessage : displayMessage, twitterError: true});
+        console.log("twitter")
+        this.setState({ twitterMessage : displayMessage, twitterError: true}, () => console.log("link error"));
         break; 
       case "linkedin":
-        this.setState({linkedinMessage : displayMessage, linkedinError: true});
+        console.log("linkedin")
+        this.setState({linkedinMessage : displayMessage, linkedinError: true}, () => console.log("link error"));
         break; 
       case "github":
-        this.setState({githubMessage: displayMessage, githubError: true}); 
+        console.log("github")
+        this.setState({githubMessage: displayMessage, githubError: true}, () => console.log("link error")); 
+        break; 
       default: 
         console.log("Shouldn't get to this case, but meets requirements");
     }
   }
 
-  handleSubmit = event => {
+  handleSubmit = async (event) => {
     /*Make the argument null needed for updateProfile if it is of zero length 
       Or if it has not changed from its previous setting. 
       checks are done to see if the profile links are valid links if not their state paramaters are updated and a message will be displayed on the modal and submission doesn't happen. 
       */
     event.preventDefault();
 
-    this.setState({twitterError: false, linkedinError: false, githubError: false}); // after one error the form will never submit unless this is turned back to false
+    
 
     let callTheFunction = false;
     let { userId, bio, twitter, github, linkedin, location } = this.state;
@@ -266,20 +270,29 @@ class EditProfileModal extends React.Component {
     if (twitter.length === 0 || twitter === this.props.profile[0].twitter) {
       twitter = null;
     } else {
-      if(!isUrl(twitter)) this.handleUserMessage("twitter"); 
-      callTheFunction = true;
+      if(!isUrl(twitter)) {
+        await this.handleUserMessage("twitter"); 
+        callTheFunction = true;
+      }
+      
     }
     if (github.length === 0 || github === this.props.profile[0].github) {
       github = null;
     } else {
-      if(!isUrl(github)) this.handleUserMessage("github"); 
-      callTheFunction = true;
+      if(!isUrl(github)) {
+        await this.handleUserMessage("github"); 
+        callTheFunction = true;
+      }
+      
     }
     if (linkedin.length === 0 || linkedin === this.props.profile[0].linkedin) {
       linkedin = null;
     } else {
-      if(!isUrl(linkedin)) this.handleUserMessage("linkedin"); 
-      callTheFunction = true;
+      if(!isUrl(linkedin)) {
+        await this.handleUserMessage("linkedin"); 
+        callTheFunction = true;
+      }
+      
     }
 
     if (location.length === 0 || location === this.props.profile[0].location){
@@ -291,13 +304,12 @@ class EditProfileModal extends React.Component {
     const possibleErrors = [String(this.state.githubError), String(this.state.linkedinError), String(this.state.twitterError)]
     console.log(this.state);
     console.log(possibleErrors);
-    if(possibleErrors.includes("true") === true) {
-      callTheFunction = false; 
-    }
-    else if (callTheFunction === true) {
+    if(possibleErrors.includes("true") !== true && callTheFunction === true) {
         return Promise.resolve(this.props.updateProfile(userId, bio, twitter, github, linkedin, location, this.props.history))
         .then(() => this.props.getProfile(userId, this.props.history) ).then( () => this.props.setEditProfileModalRaised(event, false))
-    };
+    } else {
+      this.setState({twitterError: false, linkedinError: false, githubError: false}); // after one error the form will never submit unless this is turned back to false
+    }
   }
 
   render() {
