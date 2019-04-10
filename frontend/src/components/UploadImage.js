@@ -96,6 +96,63 @@ const FileUpload = styled.div `
   p {
     margin-left: 10px;
   }
+
+    .drag-zone-t-wrapper {
+      position: absolute;
+      border: dashed grey 4px;
+      background: rgba(255,255,255,.8);
+      z-index: 9999;
+      border-radius: 50%;
+      height: 16vh;
+      
+      @media (max-width: 1440px){
+        right: 44.5%;
+        width: 9.5%;
+      }
+
+      @media (max-width: 1024px){
+        width: 13.5%;
+        left: 43.5%;
+      }
+
+      @media ${phoneP}{
+        width: 24%;
+        bottom: 67%;
+        height: 16vh;
+        left: 37.1%;
+      }
+      .drag-zone {
+        position: relative;
+        top: 40%;
+        right: 0;
+        left: 0;
+        text-align: center;
+        color: grey;
+        font-size: 25px;
+
+        @media(max-width: 1440px){
+          top:30%;
+        }
+      }
+    }
+    .drag-zone-wrapper {
+      border: dashed grey 4px;
+      background: rgba(255,255,255,.8);
+      position: absolute;
+      z-index: 9999;
+      height: 4vh;
+      width: 132px;
+      bottom: 32.5%;
+  
+      .drag-zone {
+        position: relative;
+        top: 11%;
+        right: 0;
+        left: 0;
+        text-align: center;
+        color: grey;
+      }
+    }
 `;
 
 class UploadImage extends React.Component {
@@ -103,11 +160,10 @@ class UploadImage extends React.Component {
     name: '',
     imagePreviewUrl: '',
     dragging: false
-  }
+  };
   handleFileChange = (e) => {
     e.preventDefault();
     const { uploadImage, removeUpload, image } = this.props;
-    const imageData = new FormData();
     let reader = new FileReader();
     let file = e.target.files[0];
     if(image.id && file !== this.state.name) {
@@ -115,8 +171,6 @@ class UploadImage extends React.Component {
       this.props.resetImageState();
       this.setState({ name: '', imagePreviewUrl: '' });  
     }
-
-    imageData.append('imageFile', file);
 
     reader.onloadend = () => {
       this.setState({
@@ -145,57 +199,97 @@ class UploadImage extends React.Component {
     return newStr;
   }
   handleDragIn = (e) => {
-    e.preventDefault()
-    e.stopPropagation()
-    if (e.dataTransfer.items && e.dataTransfer.items.length > 0) {
-      this.setState({dragging: true})
+    e.preventDefault();
+    e.stopPropagation();
+    this.dragCounter++;
+    console.log(this.dragCounter)
+    if ( e.dataTransfer.items && e.dataTransfer.items.length > 0) {
+      this.setState({ dragging: true })
     }
-    console.log('running', e.dataTransfer)
   }
   handleDragOut = (e) => {
-    e.preventDefault()
-    e.stopPropagation()
-
-
+    e.preventDefault();
+    e.stopPropagation();
+    this.dragCounter--;
+    if(this.dragCounter === 0){
+      this.setState({ dragging: false})
+    }
   }
   handleDrag = (e) => {
     e.preventDefault()
     e.stopPropagation()
-
-    this.setState({dragging: false})
   }
   handleDrop = (e) => {
-    e.preventDefault()
-    e.stopPropagation()
+    e.preventDefault();
+    e.stopPropagation();
+    let reader = new FileReader();
+    let file = e.dataTransfer.files[0];
+    reader.onloadend = () => {
+      this.setState({
+        name: file,
+        imagePreviewUrl: reader.result,
+        dragging: false
+      });
+    };
 
-
+    // this.setState({ dragging: false })
+    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+      reader.readAsDataURL(file)
+      this.handleImageSubmit(file);
+      e.dataTransfer.clearData();
+      this.dragCounter = 0;
+    }
   }
   componentDidMount() {
     let dropzone = document.getElementById('drop-zone');
+    let dropzoneT = document.getElementById('drop-zone-t');
+    this.dragCounter = 0;
     if(this.props.imagePreviewUrl !== this.state.imagePreviewUrl ){
       this.setState({ imagePreviewUrl: this.props.imagePreviewUrl });
     }
     
     //code for droping a file into the upload input
-    dropzone.addEventListener('dragenter', this.handleDragIn);
-    dropzone.addEventListener('dragleave', this.handleDragOut);
-    dropzone.addEventListener('dragover', this.handleDrag);
-    dropzone.addEventListener('drop', this.handleDrop);
+    if(dropzone){
+      dropzone.addEventListener('dragenter', this.handleDragIn);
+      dropzone.addEventListener('dragleave', this.handleDragOut);
+      dropzone.addEventListener('dragover', this.handleDrag);
+      dropzone.addEventListener('drop', this.handleDrop);
+    } else {
+      dropzoneT.addEventListener('dragenter', this.handleDragIn);
+      dropzoneT.addEventListener('dragleave', this.handleDragOut);
+      dropzoneT.addEventListener('dragover', this.handleDrag);
+      dropzoneT.addEventListener('drop', this.handleDrop);
+    }
   }
   componentWillUnmount(){
     let dropzone = document.getElementById('drop-zone');
+    let dropzoneT = document.getElementById('drop-zone-t');
 
-    dropzone.removeEventListener('dragenter', this.handleDragIn);
-    dropzone.removeEventListener('dragleave', this.handleDragOut);
-    dropzone.removeEventListener('dragover', this.handleDrag);
-    dropzone.removeEventListener('drop', this.handleDrop);
+    if(dropzone){
+      dropzone.removeEventListener('dragenter', this.handleDragIn);
+      dropzone.removeEventListener('dragleave', this.handleDragOut);
+      dropzone.removeEventListener('dragover', this.handleDrag);
+      dropzone.removeEventListener('drop', this.handleDrop);
+    } else {
+      dropzoneT.removeEventListener('dragenter', this.handleDragIn);
+      dropzoneT.removeEventListener('dragleave', this.handleDragOut);
+      dropzoneT.removeEventListener('dragover', this.handleDrag);
+      dropzoneT.removeEventListener('drop', this.handleDrop);
+    }
+  }
+
+  componentDidUpdate(prevProps){
+    if(this.props.imagePreviewUrl !== this.state.imagePreviewUrl && !this.state.name ){
+      this.setState({ imagePreviewUrl: this.props.imagePreviewUrl });
+    }
   }
     render() {
       const { name, imagePreviewUrl } = this.state;
       return(
-        <FileUpload>
-          {this.props.isTeam ? 
-            <>
+       <>
+        {this.props.isTeam ?   
+          <div id='drop-zone-t'>
+            <FileUpload>
               <label htmlFor='image-file'>Team Logo</label>
               <input
                 type = 'file'
@@ -204,22 +298,41 @@ class UploadImage extends React.Component {
                 className = 'fileinput'
                 onChange = { this.handleFileChange }
               />
-              <label htmlFor='image-file' id='drop-zone'>{imagePreviewUrl ? <img src={imagePreviewUrl}/> : 'Upload a Image'}</label> 
-            </>
-            : 
-            <>
-              <input
-                type = 'file'
-                name = 'image-upload'
-                id = 'image-upload'
-                className = 'image-upload'
-                onChange = { this.handleFileChange }
-              />
-              <label htmlFor='image-upload' id='drop-zone'>{name ? this.checkStringLength(name.name) : 'Upload an Image'}</label>
-              {this.state.name ? this.props.isUploadingImage ? <p>Uploading...</p> : <p>Image Uploaded!</p> : null}
-            </>
-          }
-        </FileUpload>
+              <label htmlFor='image-file' >{imagePreviewUrl ? <img src={imagePreviewUrl}/> : 'Upload a Image'}</label>
+              {this.state.dragging &&
+                <div className='drag-zone-t-wrapper'>
+                  <div className='drag-zone'>
+                    Drop file here
+                  </div>
+                </div>
+              } 
+            </FileUpload>
+         </div> 
+         : 
+         <div id='drop-zone'>
+          <FileUpload>
+            <input
+              type = 'file'
+              name = 'image-upload'
+              id = 'image-upload'
+              className = 'image-upload'
+              onChange = { this.handleFileChange }
+            />
+            <label htmlFor='image-upload'>{name ? this.checkStringLength(name.name) : 'Upload an Image'}</label>
+            {this.state.dragging &&
+              <div className='drag-zone-wrapper'>
+                <div className='drag-zone'>
+                  Drop file here
+                </div>
+              </div>
+            } 
+            {this.state.name ? this.props.isUploadingImage ? <p>Uploading...</p> : <p>Image Uploaded!</p> : null}
+          </FileUpload>
+        </div>
+        }
+       </>
+        
+          
       );
     }
 };
