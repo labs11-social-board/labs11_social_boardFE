@@ -157,6 +157,12 @@ const UsernameWrapper = styled.span`
   }
 `;
 
+const DeleteWrapper = styled.div`
+  .no-show {
+    display: none
+  }
+`
+
 const Post = ({
   post,
   // loggedInUserId,
@@ -238,6 +244,12 @@ const Post = ({
     }
   };
 
+  const hideDeleteButton = () => {
+    // const getId = localStorage.getItem('symposium_user_id')
+    console.log(this.props.users.userType)
+    
+  }
+
   return (
     <PostWrapper>
       <div>
@@ -286,7 +298,8 @@ const Post = ({
         />
       )}
       <div>
-        {replies.map((reply, i) => (
+        {replies.map((reply, i) => ( 
+          <>
           <Reply
             key={i}
             reply={reply}
@@ -298,6 +311,10 @@ const Post = ({
             handleFilterChange={handleFilterChange}
             handleTeamFilter={handleTeamFilter}
           />
+          <DeleteWrapper onClick={(e) => hideDeleteButton(e)} >
+            <a onClick={e => handleRemovePost(e, id)}>Delete comment</a>
+          </DeleteWrapper>
+          </>
         ))}
       </div>
     </PostWrapper>
@@ -306,7 +323,8 @@ const Post = ({
 
 const mapStateToProps = state => ({
   loggedInUserId: state.users.user_id,
-  avatar: state.users.avatar
+  avatar: state.users.avatar,
+  userType: state.users.user_type
 });
 
 export default connect(
