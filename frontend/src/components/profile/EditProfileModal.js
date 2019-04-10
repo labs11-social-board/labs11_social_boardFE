@@ -258,8 +258,6 @@ class EditProfileModal extends React.Component {
       */
     event.preventDefault();
 
-    
-
     let callTheFunction = false;
     let { userId, bio, twitter, github, linkedin, location } = this.state;
     if (bio.length === 0 || bio === this.props.profile[0].bio) {
@@ -272,6 +270,7 @@ class EditProfileModal extends React.Component {
     } else {
       if(!isUrl(twitter)) {
         await this.handleUserMessage("twitter"); 
+      } else {
         callTheFunction = true;
       }
       
@@ -281,6 +280,7 @@ class EditProfileModal extends React.Component {
     } else {
       if(!isUrl(github)) {
         await this.handleUserMessage("github"); 
+      } else {
         callTheFunction = true;
       }
       
@@ -290,6 +290,7 @@ class EditProfileModal extends React.Component {
     } else {
       if(!isUrl(linkedin)) {
         await this.handleUserMessage("linkedin"); 
+      } else {
         callTheFunction = true;
       }
       
@@ -302,13 +303,15 @@ class EditProfileModal extends React.Component {
     }
 
     const possibleErrors = [String(this.state.githubError), String(this.state.linkedinError), String(this.state.twitterError)]
-
+    console.log(possibleErrors);
+    console.log(callTheFunction);
     if(possibleErrors.includes("true") !== true && callTheFunction === true) {
         return Promise.resolve(this.props.updateProfile(userId, bio, twitter, github, linkedin, location, this.props.history))
         .then(() => this.props.getProfile(userId, this.props.history) ).then( () => this.props.setEditProfileModalRaised(event, false))
     } else {
-      // this.setState({twitterError: false, linkedinError: false, githubError: false}); // after one error the form will never submit unless this is turned back to false
-    }
+      this.setState({githubError : false, linkedinError: false, twitterError: false});
+    } 
+    
   }
 
   render() {
@@ -354,7 +357,7 @@ class EditProfileModal extends React.Component {
                 />
                 <h4>Add Your Github profile link</h4>
 
-                {githubError === true ?  <Errortag>{githubMessage}</Errortag> : <span></span>}
+                {githubError === true || githubMessage.length ?  <Errortag>{githubMessage}</Errortag> : <span></span>}
                 <input
                   type="text"
                   placeholder=""
@@ -364,7 +367,7 @@ class EditProfileModal extends React.Component {
                   onChange={this.handleChange}
                 />
                 <h4>Add Your Linkedin profile link</h4>
-                {linkedinError === true ? <Errortag>{linkedinMessage}</Errortag> : <span></span>}
+                {linkedinError === true || linkedinMessage.length ? <Errortag>{linkedinMessage}</Errortag> : <span></span>}
                 <input
                   type="text"
                   placeholder=""
@@ -374,7 +377,7 @@ class EditProfileModal extends React.Component {
                   onChange={this.handleChange}
                 />
                 <h4>Add your Twitter profile link</h4>
-                {twitterError === true ? <Errortag>{twitterMessage}</Errortag> : <span></span>}
+                {twitterError === true  || twitterMessage.length? <Errortag>{twitterMessage}</Errortag> : <span></span>}
                 <input
                   type="text"
                   placeholder=""
