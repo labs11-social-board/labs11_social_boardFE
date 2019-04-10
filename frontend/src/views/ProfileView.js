@@ -60,6 +60,7 @@ const ProfileWrapper = styled.div`
     font-size: .8rem;
     justify-content: flex-start;
     
+    //commented this out due to it highlighting everything in the div
     // &:hover {
     //   cursor: pointer;
     //   color: ${props => props.theme.defaultColorOnHover};
