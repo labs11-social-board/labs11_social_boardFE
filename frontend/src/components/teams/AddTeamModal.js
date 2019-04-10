@@ -170,7 +170,14 @@ const DivName = styled.div`
     flex-direction: column;
     align-items: center;
 
-    
+    @media ${phoneP}{
+      height: 22vh;
+      margin-bottom: 8px;
+
+      .drag-zone-t-wrapper {
+        bottom: 68%;
+      }
+    }
   }
 `;
 
@@ -198,11 +205,13 @@ class AddTeamModal extends React.Component {
     const { addTeam, historyPush, setAddTeamModalRaised, getUsersTeams, updateTeamWithLogo, image } = this.props;
     return Promise.resolve(setAddTeamModalRaised(e, false))
       .then(() => addTeam(newTeam).then((res) => {
-          if(image.id){
-            updateTeamWithLogo(image.id, res.payload.teamBoard.id);
-            this.props.resetImageState();
+          if(res){
+            if(image.id){
+              updateTeamWithLogo(image.id, res.payload.teamBoard.id);
+              this.props.resetImageState();
+            }
+            historyPush(`/team/discussions/${res.payload.teamBoard.id}`);
           }
-          historyPush(`/team/discussions/${res.payload.teamBoard.id}`);
         }
       )).then(() => {
         getUsersTeams();
