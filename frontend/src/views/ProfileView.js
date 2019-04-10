@@ -52,7 +52,7 @@ const ProfileWrapper = styled.div`
     align-self: flex-start;
     
     @media ${phoneP} {
-      display: none;
+      display: 100%;
       }
   }
   .username-style { 
@@ -241,7 +241,7 @@ const ContentDiv = styled.div`
     span {
       margin-left: 5px;
       
-      @media (max-width: 600px) {
+      @media (max-width: 525px) {
         display: none;
       }
     }
