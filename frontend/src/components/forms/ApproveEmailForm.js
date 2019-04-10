@@ -13,9 +13,7 @@ import {
 
 class ApproveEmailForm extends Component {
     state = {
-        email: '',
-        first_name: '',
-        last_name: ''
+        email: ''
     };
 
     handleChange = e => this.setState({
@@ -41,29 +39,7 @@ class ApproveEmailForm extends Component {
                 <h2>Emails</h2>
 
                 <input
-                    placeholder = 'First Name'
-                    name = 'first_name'
-                    value = {
-                        first_name
-                    }
-                    onChange = {
-                        this.handleChange
-                    }
-                />
-
-                <input
-                    placeholder = 'Last Name'
-                    name = 'last_name'
-                    value = {
-                        last_name
-                    }
-                    onChange = {
-                        this.handleChange
-                    }
-                />
-
-                <input
-                    placeholder = 'E-Mail'
+                    placeholder = 'E-mail Address'
                     name = 'email'
                     value = {
                         email

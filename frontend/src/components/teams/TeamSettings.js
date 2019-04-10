@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 // action creators
-import { updateTeam, deleteTeam, displayMessage, getUsersTeams, updateTeamWithLogo } from '../../store/actions/index.js';
+import { updateTeam, deleteTeam, displayMessage, getUsersTeams, updateTeamWithLogo, resetImageState } from '../../store/actions/index.js';
 
 // components
 import { ToggleSwitch, UploadImage } from '../index.js';
@@ -62,6 +62,28 @@ const Settings = styled.div `
         }
       }
     }
+
+    .settings-upload {
+      @media (max-width: 1440px){
+        .drag-zone-t-wrapper {
+          left: 12.5%;
+          width: 11.8%;
+        }
+      }
+      @media (max-width: 1024px){
+        .drag-zone-t-wrapper {
+          left: 16.5%;
+          width: 18%;
+        }
+      }
+      @media (max-width: 480px){
+        .drag-zone-t-wrapper {
+          bottom: 22.5%;
+          left: 7%;
+          width: 25%;
+        }
+      }
+    }
 `; 
 class TeamSettings extends React.Component{
   state = {
@@ -80,10 +102,13 @@ class TeamSettings extends React.Component{
   updateTeam = e => {
     e.preventDefault();
     const changes = { ...this.state };
-    const { team, updateTeam, displayMessage } = this.props;
+    const { team, updateTeam, displayMessage, resetImageState } = this.props;
 
     updateTeam(team.id, changes)
-      .then(() => displayMessage('Team Settings Updated!'))
+      .then(() => {
+        displayMessage('Team Settings Updated!');
+        resetImageState();
+      })
       .then(() => setTimeout(() => this.props.getDiscussions(), 150));
   };
   deleteTeam = e => {
@@ -100,7 +125,7 @@ class TeamSettings extends React.Component{
     }
 
     if(prevProps.image !== this.props.image){
-      this.setState({ image: this.props.image.image });
+      this.setState({ image: this.props.image });
     }
   }
   render() {
@@ -113,7 +138,9 @@ class TeamSettings extends React.Component{
             <label htmlFor='team_name'>Team Name: </label>
             <input id='team_name' type='text' name='team_name' value={this.state.team_name} onChange={this.handleInput} />
           </div>
-          <UploadImage isTeam={isTeam} imagePreviewUrl={this.props.team.logo}/>
+          <div className='settings-upload'>
+           <UploadImage isTeam={isTeam} imagePreviewUrl={this.props.team.logo}/>
+          </div>
           <div className='toggle-switch'>
             <ToggleSwitch isPrivate={this.state.isPrivate} handleToggle={this.handleToggle} />
           </div>
@@ -131,4 +158,4 @@ const mapStateToProps = state => ({
   image: state.posts.images
 });
 
-export default connect(mapStateToProps, { updateTeam, deleteTeam, displayMessage, getUsersTeams })(TeamSettings);
+export default connect(mapStateToProps, { updateTeam, deleteTeam, displayMessage, getUsersTeams, resetImageState })(TeamSettings);
