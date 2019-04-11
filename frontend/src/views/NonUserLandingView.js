@@ -39,6 +39,8 @@ const Woah = styled.section `
   justify-content: center;
   align-text: center;
   color: black;
+  font-size: 42px;
+  margin-bottom: 15px;
   // @media (max-width: 1240px) {
   //   width: 100%;
   //   color: black;
@@ -118,8 +120,11 @@ const Woah = styled.section `
           <Woah loggedIn={this.props.user_id !== 0}>
             <BackgroundBox>
               <LandingText loggedIn={this.props.user_id !== 0}>
-              Welcome, get started here.
+              Welcome to Social App 2
               </LandingText>
+              <LandingDiv>
+                <p>A place where discussions are built to further projects and encourage conversations.</p>
+              </LandingDiv>
               <LandingDiv>
                 <GetStartedButton onClick={toggleRegisterModal}> Get Started</GetStartedButton>
               </LandingDiv>
