@@ -252,6 +252,7 @@ class SideNav extends Component {
       categoryFollows: [],
       userTeams: [],
       isFollowedCatsOpen: true,
+      setWrapperRef: this.setWrapperRef.bind(this)
     }
   }
 
@@ -263,6 +264,8 @@ class SideNav extends Component {
     this.props.getUsersTeams().then(() => {
       this.setState({ userTeams: this.props.userTeams });
     });
+
+    document.addEventListener('click', this.handleClick, false);
   }
 
   componentDidUpdate = (prevProps) => {
@@ -276,6 +279,9 @@ class SideNav extends Component {
     }
   }
 
+  componentWillUnmount = () => {
+    document.addEventListener('click', this.handleClick, false);
+  }
   selectLink = (linkName) => {
     this.setState({ linkSelected: linkName });
     this.props.toggleSideNav();
@@ -285,11 +291,19 @@ class SideNav extends Component {
     this.setState({ isFollowedCatsOpen: !this.state.isFollowedCatsOpen })
   }
 
+  handleClick = e => {
+    if (this.wrapperRef && !this.wrapperRef.contains(e.target) && e.target.id !== 'nav-button' && this.props.isOpen) {
+      this.props.toggleSideNav();
+    }
+  }
+  setWrapperRef(node){
+    this.wrapperRef = node;
+  }
   render() {
     const { user_type } = this.props;
 
     return (
-      <DivSideNav isOpen={`${this.props.isOpen}`}>
+      <DivSideNav isOpen={`${this.props.isOpen}`} ref={this.state.setWrapperRef}>
         <DivNavContainer>
           {
             (user_type == 'admin') &&

@@ -115,7 +115,7 @@ const DivSideNav = styled.div`
   position: fixed;
   left: 0;
   top: ${topHeaderHeight};
-  z-index: 10000;
+  z-index: ${props => (props.isSideNavOpen ? '10000' : '7901')};
   box-sizing: border-box;
   border-right: 2px solid rgb(243, 245, 248);
   height: 100%;
@@ -391,7 +391,7 @@ class App extends Component {
                 
               </DivPage>
             </DivBody>
-            {this.state.isSideNavOpen === true ? <StyledNavButton className="fas fa-times" onClick={this.toggleSideNav}></StyledNavButton> : <StyledNavButton className="fas fa-bars" onClick={this.toggleSideNav}></StyledNavButton>}
+            {this.state.isSideNavOpen === true ? <StyledNavButton id='nav-button' className="fas fa-times" onClick={this.toggleSideNav}></StyledNavButton> : <StyledNavButton id='nav-button' className="fas fa-bars" onClick={this.toggleSideNav}></StyledNavButton>}
             <Footer
               toggleSearch={this.toggleSearch}
               switched={this.switchTheme}
