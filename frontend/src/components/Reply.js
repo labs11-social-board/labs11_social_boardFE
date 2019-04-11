@@ -5,6 +5,9 @@ import styled from 'styled-components';
 import DeleteComment from './DeleteComment.js';
 import { removePost } from '../store/actions/PostsActions.js'
 
+// action creators
+import { removeReply, displayMessage } from '../store/actions/index.js';
+
 // components
 import { AddReplyForm, Avatar, VoteCount } from './index.js';
 
@@ -81,6 +84,15 @@ const InfoWrapper = styled.div`
       display: flex;
     }
 
+    .delete {
+      margin-left: 10px;
+      cursor:pointer;
+
+      &:hover {
+        color: #418dcf;
+      }
+    }
+
     @media (max-width: 830px) {
       justify-content: center;
 
@@ -144,7 +156,9 @@ const Reply = ({
   handleReplyVote,
   team_id,
   handleFilterChange,
-  handleTeamFilter
+  handleTeamFilter,
+  removeReply,
+  displayMessage
 }) => {
   const {
     body,
@@ -154,6 +168,7 @@ const Reply = ({
     username,
     user_id,
     id,
+    user_type,
     discussion_id,
     upvotes,
     downvotes,
@@ -175,19 +190,15 @@ const Reply = ({
     e.stopPropagation();
     return historyPush(`/profile/${user_id}`);
   };
-
-  const handleRemovePost = (e, id) => {
-    // e.preventDefault();
-    this.props.removePost(id);
-    console.log('run :D');
-
-    if (this.teamId) {
-      this.props.handleTeamFilter();
+  const deleteReply = id => {
+    removeReply(id);
+    displayMessage('Reply deleted');
+    if (team_id) {
+      handleTeamFilter();
     } else {
-      this.props.handleFilterChange();
+      handleFilterChange();
     }
-}
-console.log(reply.id)
+  }
   return (
     <ReplyWrapper>
       <div>
@@ -219,13 +230,9 @@ console.log(reply.id)
           <div className="date tablet">
             <span>{moment(new Date(Number(created_at))).fromNow()}</span>
           </div>
-          <DeleteComment 
-            handleRemovePost={handleRemovePost} 
-            handleTeamFilter={handleTeamFilter} 
-            handleFilterChange={handleFilterChange}
-            id={id} 
-            teamId={team_id} 
-            />
+          {loggedInUserId === user_id ?
+            <div className='delete' onClick={() => deleteReply(id)}>Delete reply</div>
+            : null}
         </div>
       </InfoWrapper>
       {showAddReplyForm === id && (
@@ -248,10 +255,10 @@ const mapStateToProps = state => ({
   loggedInUserId: state.users.user_id,
   avatar: state.users.avatar,
   username: state.users.username,
-  user_id: state.users.user_id
+  user_type: state.users.user_type
 });
 
 export default connect(
   mapStateToProps,
-  {removePost}
+  {removeReply, displayMessage}
 )(Reply);

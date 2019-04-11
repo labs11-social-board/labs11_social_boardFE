@@ -138,6 +138,10 @@ export const UPLOAD_LIST_LOADING = 'UPLOAD_LIST_LOADING';
 export const UPLOAD_LIST_SUCCESS = 'UPLOAD_LIST_SUCCESS';
 export const UPLOAD_LIST_FAILURE = 'UPLOAD_LIST_FAILURE';
 
+export const VERIFYUSER_LOADING = 'VERIFYUSER_LOADING';
+export const VERIFYUSER_SUCCESS = 'VERIFYUSER_SUCCESS';
+export const VERIFYUSER_FAILURE = 'VERIFYUSER_FAILURE';
+
 /***************************************************************************************************
  ****************************************** Action Creators ****************************************
  **************************************************************************************************/
@@ -151,6 +155,23 @@ export const getUsersNMods = () => dispatch => {
       }))
     .catch(err => handleError(err, GET_USERSnMODS_FAILURE)(dispatch));
 
+}
+
+export const verifyEmail = token => dispatch => {
+  
+  const headers = { headers: { Email: token} };
+  dispatch({type: VERIFYUSER_LOADING});
+  return axios
+  .get(`${backendUrl}/emails/is-accepted-email`, headers)
+  .then(res =>{
+    console.log("results:",res) 
+    dispatch({
+    type: VERIFYUSER_SUCCESS, payload: res.data
+   })
+   }
+   )
+ .catch(err => handleError(err, VERIFYUSER_FAILURE)(dispatch));
+ 
 }
 
 export const makeMod = newMod => dispatch => {

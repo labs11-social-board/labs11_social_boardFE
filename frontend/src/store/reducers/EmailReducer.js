@@ -5,13 +5,18 @@ import {
 
     GET_EMAILS,
     GET_EMAILS_SUCCESS,
-    GET_EMAILS_FAIL
+    GET_EMAILS_FAIL,
+
+    DELETING_EMAIL_APPROVAL,
+    EMAIL_REMOVAL_SUCCESS,
+    EMAIL_REMOVAL_FAIL,
 } from '../actions';
 
 const initialState = {
     approvingEmail: false,
     fetchingEmails: false,
     approvedEmails: [],
+    deletingEmail: false,
     error: null
 }
 
@@ -55,6 +60,24 @@ export const EmailReducer = (state = initialState, action) => {
             return {
                 ...state,
                 fetchingEmails: false,
+                error: action.payload
+            }
+
+        case DELETING_EMAIL_APPROVAL:
+            return {
+                ...state,
+                deletingEmail: true
+            }
+        case EMAIL_REMOVAL_SUCCESS:
+            return {
+                ...state,
+                deletingEmail: false,
+                approvedEmails: action.payload
+            }
+        case EMAIL_REMOVAL_FAIL:
+            return {
+                ...state,
+                deletingEmail: false,
                 error: action.payload
             }
         default:

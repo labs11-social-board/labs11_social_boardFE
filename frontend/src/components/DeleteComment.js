@@ -27,7 +27,7 @@ class DeleteComment extends React.Component {
     //    console.log(this.props)
         return (
             <>    
-          {(this.props.user_type === 'admin' || this.props.user_type === 'moderator') ? 
+          {(this.props.loggedInUserId === this.props.user_id || this.props.user_type === 'admin' || this.props.user_type === 'moderator') ? 
           (<a onClick={e => this.handleRemovePost(e, this.props.id)}>Delete comment</a>) : null}
           </>
         )
@@ -37,7 +37,8 @@ class DeleteComment extends React.Component {
 const mapStateToProps = state =>( {
     user_type: state.users.user_type,
     user_id: state.users.user_id,
-    team_id: state.teams.team_id
+    team_id: state.teams.team_id,
+    loggedInUserId: state.users.user_id,
 })
 
 export default connect(mapStateToProps, {removePost})(DeleteComment);
