@@ -170,10 +170,14 @@ import {
   ADD_REPLY_LOADING,
   ADD_REPLY_SUCCESS,
   ADD_REPLY_FAILURE,
+  HANDLE_DELETE_REPLY_LOADING,
+  HANDLE_DELETE_REPLY_SUCCESS,
+  HANDLE_DELETE_REPLY_FAILURE,
 
   //Action Creators
   addReply,
-  updateReplyWithImage
+  updateReplyWithImage,
+  removeReply
 } from './RepliesActions.js';
 
 import {
@@ -381,10 +385,14 @@ import {
   GET_EMAILS,
   GET_EMAILS_SUCCESS,
   GET_EMAILS_FAIL,
+  DELETING_EMAIL_APPROVAL,
+  EMAIL_REMOVAL_SUCCESS,
+  EMAIL_REMOVAL_FAIL,
 
   // Action Creators
   approveEmail,
-  getEmails
+  getEmails,
+  denyEmail
 } from '../actions/EmailActions';
 
 //*************************************************************************************************
@@ -575,6 +583,9 @@ export {
   ADD_REPLY_LOADING,
   ADD_REPLY_SUCCESS,
   ADD_REPLY_FAILURE,
+  HANDLE_DELETE_REPLY_LOADING,
+  HANDLE_DELETE_REPLY_SUCCESS,
+  HANDLE_DELETE_REPLY_FAILURE,
   // Categories Action Creators
   getCategories,
   getCategoriesFollowed,
@@ -656,6 +667,7 @@ export {
   // Reply Action Creators
   addReply,
   updateReplyWithImage,
+  removeReply,
   //followers actions
   GET_FOLLOWERS,
   GET_FOLLOWERS_SUCCESS,
@@ -711,8 +723,12 @@ export {
   GET_EMAILS,
   GET_EMAILS_SUCCESS,
   GET_EMAILS_FAIL,
+  DELETING_EMAIL_APPROVAL,
+  EMAIL_REMOVAL_SUCCESS,
+  EMAIL_REMOVAL_FAIL,
   // Action Creators
   approveEmail,
-  getEmails
+  getEmails,
+  denyEmail
 };
 

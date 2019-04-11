@@ -173,9 +173,59 @@ const DivName = styled.div`
     @media ${phoneP}{
       height: 22vh;
       margin-bottom: 8px;
+    }
+
+    #drop-zone-t {
+      width: 270px;
+      margin-right: 17%;
 
       .drag-zone-t-wrapper {
-        bottom: 68%;
+        left: 46.2%;
+        
+        @media (max-width: 1680px){
+          left: 45.5%;
+        }
+
+        @media (max-width: 1024px){
+          left: 43.5%;
+        }
+        
+        @media ${phoneP}{
+          bottom: 72.7%;
+          left: 38.2%;
+        }
+      }
+
+      @media (max-width: 1440px) {
+        margin-right: 22%;
+
+        #label-text {
+          width: 55%;
+        }
+        .fileinput + label {
+          margin: 0px 0% 0 9.5%;
+          height: 17vh;
+          line-height: 9;
+        }
+      }
+
+      @media (max-width: 1024px) {
+        .fileinput + label {
+          line-height: 8;
+        }
+      }
+
+      @media ${phoneP}{
+        margin-right 24%;
+        flex-direction: row;
+
+        #label-text {
+          width: 29%;
+        }
+
+        .fileinput + label {
+          line-height: 7;
+        }
       }
     }
   }
@@ -265,7 +315,7 @@ class AddTeamModal extends React.Component {
                   onChange={this.handleInput}
                   autoComplete='off'
                 />
-                <ToggleSwitch isPrivate={this.state.isPrivate} handleToggle={this.handleToggle} />
+                <ToggleSwitch booleanValue={this.state.isPrivate} handleToggle={this.handleToggle} />
                 <label htmlFor='wiki'>Team Wiki/Description</label>
                 <textarea 
                   id='wiki'

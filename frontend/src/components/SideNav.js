@@ -228,6 +228,14 @@ const DropdownFollowing = styled.div`
   text-align: center;
 `;
 
+const DivModalRaised = styled.div`
+font-weight: normal;
+&:hover {
+  color: ${props => props.theme.defaultColorOnHover};
+
+}
+`
+
 
 
 /***************************************************************************************************
@@ -325,9 +333,15 @@ class SideNav extends Component {
         <DivNavContainer>
           <span style={{ marginLeft: 20 + "px" }}>Categories</span>
 
-          <div>
+          <div onClick={(ev) => this.props.setAddCatModalRaised(ev, true)}>
             {(accountUserTypes.indexOf(user_type) >= subSilverStartIndex) &&
-              <i style={{ display: 'block', marginLeft: 22 + 'px', marginTop: 10 + 'px' }} className="fas fa-plus-circle" onClick={(ev) => this.props.setAddCatModalRaised(ev, true)} />} { //<span>New&nbsp;Category&nbsp;</span>
+              <DivModalRaised>
+                <i style={{ marginLeft: 22 + 'px', marginTop: 15 + 'px', marginRight: 10 + 'px', marginBottom: 7 + 'px' }} className="fas fa-plus-circle" />
+                Create Category
+            </DivModalRaised>
+            }
+
+            { //<span>New&nbsp;Category&nbsp;</span>
             }
 
             {/* {console.log(accountUserTypes)} */}
@@ -387,6 +401,10 @@ class SideNav extends Component {
         <DivNavContainer>
           <span style={{ marginLeft: 20 + "px" }}>Teams</span>
           <H4BrowseCategories>
+            <DivModalRaised onClick={(ev) => this.props.setAddTeamModalRaised(ev, true)}>
+              <i style={{ marginLeft: 22 + 'px', marginTop: 10 + 'px', marginRight: 10 + 'px', marginBottom: 10 + 'px' }} className="fas fa-plus-circle" />
+              Create Team
+            </DivModalRaised>
             <div>
               <LinkBrowseCategories
                 to='/teams'
@@ -415,7 +433,6 @@ class SideNav extends Component {
             </div>
           </H4BrowseCategories>
         </DivNavContainer>
-        <i className="fas fa-plus-circle" onClick={(ev) => this.props.setAddTeamModalRaised(ev, true)} />
 
 
         { /*

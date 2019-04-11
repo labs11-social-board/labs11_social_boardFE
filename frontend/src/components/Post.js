@@ -18,7 +18,8 @@ import {
 import {
   handlePostVote,
   handleReplyVote,
-  removePost
+  removePost,
+  displayMessage
 } from '../store/actions/index.js';
 
 const PostWrapper = styled.div`
@@ -106,6 +107,14 @@ const InfoWrapper = styled.div`
       display: flex;
     }
 
+    .delete {
+      margin-left: 10px;
+      cursor:pointer;
+
+      &:hover {
+        color: #418dcf;
+      }
+    }
     @media (max-width: 830px) {
       justify-content: center;
 
@@ -159,7 +168,7 @@ const UsernameWrapper = styled.span`
 
 const Post = ({
   post,
-  // loggedInUserId,
+  loggedInUserId,
   historyPush,
   // showEditPostForm,
   // updateEditPostForm,
@@ -172,7 +181,8 @@ const Post = ({
   handleReplyVote,
   //deleteReply,
   scrollTo,
-  team_id
+  team_id, 
+  displayMessage
 }) => {
   const {
     body,
@@ -229,8 +239,7 @@ const Post = ({
   const handleRemovePost = (e, id) => {
     // e.preventDefault();
     removePost(id);
-    console.log('run :D');
-
+    displayMessage('Comment deleted');
     if (team_id) {
       handleTeamFilter();
     } else {
@@ -269,9 +278,11 @@ const Post = ({
           <div className="date tablet">
             <span>{moment(new Date(Number(created_at))).fromNow()}</span>
           </div>
-          <div>
-            <a onClick={e => handleRemovePost(e, id)}>Delete comment</a>
-          </div>
+          {loggedInUserId === user_id ? 
+            <div className='delete'>
+              <a onClick={e => handleRemovePost(e, id)}>Delete comment</a>
+            </div> 
+            : null}
         </div>
       </InfoWrapper>
       {showAddReplyForm === id && (
@@ -311,5 +322,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { handlePostVote, handleReplyVote, removePost }
+  { handlePostVote, handleReplyVote, removePost, displayMessage }
 )(Post);
