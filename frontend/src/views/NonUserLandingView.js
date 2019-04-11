@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import styled from 'styled-components';
 import {connect} from 'react-redux';
 import {background, computericon } from '../assets/index.js';
+import { Link } from 'react-router-dom';
+import { register, isEmailTaken, isUsernameTaken } from '../store/actions/index.js';
+import { RegisterDropdown } from './index.js';
 
 const Woah = styled.section `
   width: 100%;
@@ -103,15 +106,15 @@ const Woah = styled.section `
 
     class NonUserLandingView extends Component {
       render() {
+        const { toggleRegisterModal } = this.props;
         return (
-
           <Woah loggedIn={this.props.user_id !== 0}>
             <BackgroundBox>
               <LandingText loggedIn={this.props.user_id !== 0}>
               Welcome, get started here.
               </LandingText>
               <LandingDiv>
-              <LoginButton>Get started!</LoginButton>
+                <LoginButton onClick={toggleRegisterModal}> Get Started</LoginButton>
               </LandingDiv>
             </BackgroundBox>
 

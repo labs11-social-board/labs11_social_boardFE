@@ -367,7 +367,7 @@ class App extends Component {
                     />
                   )
                 }
-                <Route exact path="/" component={NonUserLandingView} />
+                <Route exact path="/" render = {props => <NonUserLandingView {...props} toggleRegisterModal={this.toggleRegisterModal} />} />
                 <Route exact path="/home" component={LandingView} />
                 <Route exact path="/admin" component={Admin} />
                 <Route exact path="/upload" component={Upload} />
@@ -382,6 +382,7 @@ class App extends Component {
                 <Route path='/settings/:id' render={props => <Settings {...props} setChangeSubModalRaised={this.setChangeSubModalRaised} />} />
                 <Route path='/discussions/category/:category_id' component={DiscussionsByCats} />
                 <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} />
+                
               </DivPage>
             </DivBody>
             <Footer
