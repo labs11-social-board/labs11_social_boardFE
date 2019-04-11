@@ -34,7 +34,7 @@ const DivAvatarDropdown = styled.div`
   right: 0;
   background-color: ${props => props.theme.notificationBackgroundColor};
   margin-top: -2px;
-  width: 180px;
+  width: 220px;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   border: 2px solid ${props => props.theme.borderColor};
@@ -122,7 +122,7 @@ const NightModeToggle = styled.div`
 
   i {
     color: ${props => props.theme.notificationFontColor};
-    margin-left: 10px;
+    margin-left: -33px;
     display: flex;
     align-items: center;
   }
