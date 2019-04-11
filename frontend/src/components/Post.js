@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import styled from 'styled-components';
+import DeleteComment from './DeleteComment';
 
 // components
 import {
@@ -157,12 +158,6 @@ const UsernameWrapper = styled.span`
   }
 `;
 
-const DeleteWrapper = styled.div`
-  .no-show {
-    display: none
-  }
-`
-
 const Post = ({
   post,
   // loggedInUserId,
@@ -244,12 +239,6 @@ const Post = ({
     }
   };
 
-  const hideDeleteButton = () => {
-    // const getId = localStorage.getItem('symposium_user_id')
-    console.log(this.props.users.userType)
-    
-  }
-
   return (
     <PostWrapper>
       <div>
@@ -282,7 +271,8 @@ const Post = ({
             <span>{moment(new Date(Number(created_at))).fromNow()}</span>
           </div>
           <div>
-            <a onClick={e => handleRemovePost(e, id)}>Delete comment</a>
+            {/* <a onClick={e => handleRemovePost(e, id)}>Delete Comment</a> */}
+            <DeleteComment handleRemovePost={handleRemovePost} />
           </div>
         </div>
       </InfoWrapper>
@@ -311,11 +301,13 @@ const Post = ({
             handleFilterChange={handleFilterChange}
             handleTeamFilter={handleTeamFilter}
           />
-          <DeleteWrapper onClick={(e) => hideDeleteButton(e)} >
-            <a onClick={e => handleRemovePost(e, id)}>Delete comment</a>
-          </DeleteWrapper>
-          </>
+        
+        <DeleteComment />
+        
+          
+         </>
         ))}
+        
       </div>
     </PostWrapper>
   );
@@ -324,7 +316,7 @@ const Post = ({
 const mapStateToProps = state => ({
   loggedInUserId: state.users.user_id,
   avatar: state.users.avatar,
-  userType: state.users.user_type
+  user_type: state.users.user_type
 });
 
 export default connect(
