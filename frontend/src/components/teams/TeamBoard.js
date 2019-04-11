@@ -124,7 +124,7 @@ const DiscussionHeader = styled.div`
   width: 100%;
 
   img {
-    width: 100px;
+    width: 90px;
     height: 90px;
     border-radius: 50%;
     margin-right: 10%;
@@ -136,6 +136,27 @@ const DiscussionHeader = styled.div`
     .name {
       font-size: 24px;
     }
+
+
+
+
+    .follow {
+    cursor: pointer;
+    margin-left: 10px;
+		padding: 03px 25px 03px 25px;
+    border-radius: 5px;
+    border: 1px solid #418DCF;
+    background-color: ${ ({ isFollowing }) => isFollowing ? 'lightsteelblue' : '#418DCF' };
+    color: white;
+    text-align: center;
+    &:hover {
+        cursor: pointer;
+        background-color: white;
+        color: #418DCF;
+      }
+    }
+
+    
   }
 
   .team-tabs {
@@ -151,10 +172,7 @@ const DiscussionHeader = styled.div`
     }
 
     .tab {
-      border: 1px solid black;
       padding: 6px 15px;
-      border-radius: 3px;
-      box-shadow: 1px 1px 1px 1px black;
       cursor:pointer;
 
       @media (max-width: 500px){
@@ -164,14 +182,13 @@ const DiscussionHeader = styled.div`
       }
 
       &:hover {
-        background: lightskyblue;
-        color: white;
+        color: ${ props => props.theme.defaultColorOnHover}
       }
     } 
       
     .tab-selected {
-      color: white;
-      background: dodgerblue;
+      color: dodgerblue;
+      border-bottom: 1px solid dodgerblue;
     }
   }
 
@@ -456,3 +473,4 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, { getTeamDiscussions, handleDiscussionVote, getTeamMembers })(TeamBoard);
+

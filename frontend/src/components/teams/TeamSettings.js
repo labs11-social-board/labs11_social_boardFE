@@ -24,6 +24,13 @@ const Settings = styled.div `
         height: 20px;
         border-radius: 5px;
         padding: 5px;
+
+        @media (max-width: 1024px){
+          width: 40%;
+        }
+        @media (max-width: 480px) {
+          width: 72%;
+        }
       }
     }
 

@@ -83,13 +83,13 @@ class Admin extends React.Component {
                             <Users />
                             
                             </Boxed>
-                            {/* <Boxed>
+                            <Boxed>
                             <h4>Existing Moderators</h4>
                             <p>Welcome to the admin page. Welcome to the admin page. Welcome to the admin page. Welcome to the admin page. 
                             Welcome to the admin page. Welcome to the admin page. Welcome to the admin page. Welcome to the admin page. 
                             Welcome to the admin page. Welcome to the admin page. Welcome to the admin page. Welcome to the admin page. 
                             </p>
-                            </Boxed> */}
+                            </Boxed>
                         </InnerWrapper>
                     </MainWrapper>
                 </div>

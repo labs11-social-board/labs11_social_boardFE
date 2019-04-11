@@ -94,13 +94,13 @@ class Nav extends Component {
         }
         <DivAuth user_id={this.props.user_id}>
 
-          {
+          {/* {
             this.props.user_id !== 0 && (
               this.props.isDay ?
             <i onClick={this.props.switchTheme} className='fas fa-sun' /> :
             <i onClick={this.props.switchTheme} className='fas fa-moon' />
             )
-          }
+          } */}
 
           {(this.props.isLoggedIn) ? (
             <DisplayUser history={this.props.history} isAvatarModalRaised={this.props.isAvatarModalRaised} setAvatarModalRaised={this.props.setAvatarModalRaised} isNotificationsModalRaised={this.props.isNotificationsModalRaised} setNotificationsModalRaised={this.props.setNotificationsModalRaised} />
