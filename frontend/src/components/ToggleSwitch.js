@@ -44,9 +44,9 @@ const Toggle = styled.div `
   }
   
   input:checked + label {
-    background: green;
+    background: ${({ isDay }) => !isDay ? 'green': 'dodgerblue'};
   }
-  
+
   input:checked + label:after {
     left: calc(100% - 5px);
     transform: translateX(-100%);
@@ -56,12 +56,22 @@ const Toggle = styled.div `
     width: 30px;
   }
 `;
-const ToggleSwitch = ({ isPrivate, handleToggle }) => {
+
+
+const ToggleSwitch = ({ booleanValue, handleToggle, isDay, handleSwitch }) => {
   return (
-    <Toggle>
-      <input id='isPrivate' type='checkbox' name='isPrivate' checked={isPrivate} onChange={handleToggle} />
-      <label htmlFor='isPrivate'>Private? </label>
-    </Toggle>
+    <>
+      {handleSwitch ? 
+        <Toggle id='isDay-wrapper' isDay={isDay}>
+          <input id='isDay' type='checkbox' checked={isDay} onChange={handleSwitch}/>
+          <label htmlFor='isDay'></label>
+        </Toggle>
+      : 
+        <Toggle isDay={isDay}>
+          <input id='booleanValue' type='checkbox' name='booleanValue' checked={booleanValue} onChange={handleToggle} />
+          <label htmlFor='booleanValue'>Private? </label>
+        </Toggle>}
+    </>
   );
 };
 

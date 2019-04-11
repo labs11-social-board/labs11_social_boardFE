@@ -78,7 +78,6 @@ export const removePost = post_id => dispatch => {
   return axios
     .delete(`${backendURL}/posts/${user_id}/${post_id}`, headers)
     .then(() => dispatch({ type: REMOVE_POST_SUCCESS }))
-
     .catch(err => handleError(err, REMOVE_POST_FAILURE)(dispatch));
 };
 
