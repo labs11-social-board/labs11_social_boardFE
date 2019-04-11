@@ -11,9 +11,6 @@ const Woah = styled.section `
   flex-wrap: wrap;
   flex-direction: column;
   align-items: center;
-  @media (max-width: 1240px) {
-    background-image: none;
-  }
 
   ${ ({
   loggedIn}) => loggedIn && '@media (max-width: 980px) {background-image: none;background-color: white;}'}
@@ -38,11 +35,11 @@ const Woah = styled.section `
   display: flex;
   justify-content: center;
   align-text: center;
-  color: lightgray;
-  @media (max-width: 1240px) {
-    width: 100%;
-    color: black;
-  }
+  color: black;
+  // @media (max-width: 1240px) {
+  //   width: 100%;
+  //   color: black;
+  // }
 
   ${ ({
     loggedIn}) => loggedIn && '@media (max-width: 980px) {width: 100%;background-color: white;}'}
@@ -53,6 +50,11 @@ const Woah = styled.section `
     margin: 15px;
   }
 `;
+
+  const LoginButton = styled.button `
+    width: 100px;
+    border-radius: 5px;
+  `;
 
     // const VideoPlayer = styled.div`   position: relative;   @media (max-width:
     // 1240px) {     position: absolute;     top: 40%;     left: 0;     right: 0;
@@ -90,6 +92,11 @@ const Woah = styled.section `
     width: 100%;
   `;
 
+  const LandingDiv = styled.div`
+    display: flex;
+    justify-content: center;
+  `;
+
     class NonUserLandingView extends Component {
       render() {
         return (
@@ -97,9 +104,13 @@ const Woah = styled.section `
           <Woah loggedIn={this.props.user_id !== 0}>
             <BackgroundBox>
               <LandingText loggedIn={this.props.user_id !== 0}>
-              
+              Welcome, get started here.
               </LandingText>
+              <LandingDiv>
+              <LoginButton>Get started!</LoginButton>
+              </LandingDiv>
             </BackgroundBox>
+
             <BottomFiller>
               <TextBlurb>
                 <img src={computericon} />
