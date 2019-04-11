@@ -57,10 +57,12 @@ class LandingView extends React.Component {
 
   
   componentDidMount() {
+    // setTimeout( () => {
+    //   this.props.verifyEmail(this.state.verify.email);
+    // }, 200);
+    
     this.props.verifyEmail(this.state.verify.email);
     
-    //console.log(token)
-    console.log(this.state.verify)
     
   }
 
