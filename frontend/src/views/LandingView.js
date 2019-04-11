@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import {phoneP, tabletP, } from '../globals/globals';
 import { getUsers, verifyEmail } from './../store/actions/UsersActions';
+import NoGo from './NoGo.js';
 
 
 
@@ -69,6 +70,11 @@ class LandingView extends React.Component {
   render() {
     
     console.log(this.props.verified)
+    if (!this.props.verified) {
+      return(
+        <NoGo />
+      )
+    }
 
     return(
       <LandingViewWrapper>
