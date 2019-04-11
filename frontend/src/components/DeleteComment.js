@@ -2,8 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { removePost } from '../store/actions/PostsActions.js'
 
-const backendURL = 
-
 class DeleteComment extends React.Component {
     constructor(props) {
         super(props)

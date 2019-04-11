@@ -70,6 +70,7 @@ class Users extends React.Component {
         }, 800);
     }
 
+    render() {
     return (
       <div>
         {/* <div >
@@ -241,7 +242,7 @@ class Users extends React.Component {
         />
       </div>
     );  
-    }
+        }
 }
 
 const mapStateToProps = state => {
