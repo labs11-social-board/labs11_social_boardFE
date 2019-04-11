@@ -52,8 +52,12 @@ const Woah = styled.section `
 `;
 
   const LoginButton = styled.button `
+    border: 1px solid #418DCF;
+    border-radius: 3px;
+    color: white;
+    background-color: #418DCF;
+    height: 35px;
     width: 100px;
-    border-radius: 5px;
   `;
 
     // const VideoPlayer = styled.div`   position: relative;   @media (max-width:
