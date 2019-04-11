@@ -25,11 +25,12 @@ const Woah = styled.section `
   background-size: cover;
   background-position: center center;
   height: 85vh;
-
-  @media(max-width: 1240px) {
-    background-image: none;
-  }
+  background: #838B8B;
 `;
+
+  const LandingDivBox = styled.div`
+  margin-top: 160px;
+  `;
 
   const LandingText = styled.h1 `
   // height: 40%;
@@ -63,6 +64,12 @@ const Woah = styled.section `
     background-color: #418DCF;
     height: 35px;
     width: 100px;
+
+    &:hover {
+			cursor: pointer;
+      background-color: ${props => props.theme.profilesWrapperBgColorHov};
+
+  }
   `;
 
     // const VideoPlayer = styled.div`   position: relative;   @media (max-width:
@@ -92,6 +99,7 @@ const Woah = styled.section `
     @media(max-width: 1240px) {
         display: none;
       }
+    
   `;
 
     const TextBlurb = styled.div `
@@ -119,6 +127,7 @@ const Woah = styled.section `
         return (
           <Woah loggedIn={this.props.user_id !== 0}>
             <BackgroundBox>
+              <LandingDivBox>
               <LandingText loggedIn={this.props.user_id !== 0}>
               Welcome to Social App 2
               </LandingText>
@@ -128,6 +137,7 @@ const Woah = styled.section `
               <LandingDiv>
                 <GetStartedButton onClick={toggleRegisterModal}> Get Started</GetStartedButton>
               </LandingDiv>
+              </LandingDivBox>
             </BackgroundBox>
 
             <BottomFiller>
