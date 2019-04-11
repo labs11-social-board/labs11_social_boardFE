@@ -115,14 +115,15 @@ const DivSideNav = styled.div`
   position: fixed;
   left: 0;
   top: ${topHeaderHeight};
-  z-index: 7801;
+  z-index: 10000;
   box-sizing: border-box;
   border-right: 2px solid rgb(243, 245, 248);
   height: 100%;
 
   @media (max-width: 800px) {
-    position: absolute;
-    height: 91vh;
+    display: ${props => (props.isSideNavOpen ? 'flex': 'none')}
+    position: fixed;
+    height: 85%;
     width: 80%;
     min-height: 0;
     border:none;
@@ -131,8 +132,11 @@ const DivSideNav = styled.div`
 `;
 
 const StyledNavButton = styled.button`
-position: absolute;
-
+position: fixed;
+z-index: 10000;
+cursor: pointer;
+bottom: 20px;
+left: 10px;
 @media (min-width: 800px) {
   display: none
 }
@@ -324,12 +328,12 @@ class App extends Component {
             />
             <DivBody isLoggedIn>
               <DivSideNav isLoggedIn isSideNavOpen={this.state.isSideNavOpen}>
-                {this.state.isSideNavOpen === true ? <StyledNavButton className="fas fa-times" onClick={this.toggleSideNav}></StyledNavButton> : <StyledNavButton className="fas fa-bars" onClick={this.toggleSideNav}></StyledNavButton>}
                 <SideNav
                   isOpen={this.state.isSideNavOpen}
                   setAddCatModalRaised={this.setAddCatModalRaised}
                   setAddTeamModalRaised={this.setAddTeamModalRaised}
                   history={history}
+                  toggleSideNav={this.toggleSideNav}
                 />
               </DivSideNav>
               <DivPage>
@@ -387,6 +391,7 @@ class App extends Component {
                 
               </DivPage>
             </DivBody>
+            {this.state.isSideNavOpen === true ? <StyledNavButton className="fas fa-times" onClick={this.toggleSideNav}></StyledNavButton> : <StyledNavButton className="fas fa-bars" onClick={this.toggleSideNav}></StyledNavButton>}
             <Footer
               toggleSearch={this.toggleSearch}
               switched={this.switchTheme}
