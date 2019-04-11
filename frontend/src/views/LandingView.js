@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import {phoneP, tabletP, } from '../globals/globals';
+import { getUsers, verifyEmail } from './../store/actions/UsersActions';
+
+
+
 
 // components
 import { DiscussionsByFollowedCats } from '../components/index.js';
@@ -27,16 +31,61 @@ const LandingViewWrapper = styled.div`
   }
 `;
 
+const tammy = {
+  email: null,
+}
+
+const user_id = localStorage.getItem('symposium_user_id');
+const token = localStorage.getItem('symposium_token');
+
+
+
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
-const LandingView = ({ history, match }) => {
-  return (
-    <LandingViewWrapper>
-      <DiscussionsByFollowedCats history = { history } match = { match } />
-    </LandingViewWrapper>
-  );
-};
+class LandingView extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      verify: {
+        email: token
+      }
+    }
+    
+  }
+
+  
+  componentDidMount() {
+    this.props.verifyEmail(this.state.verify.email);
+    
+    //console.log(token)
+    console.log(this.state.verify)
+    
+  }
+
+  render() {
+    
+    console.log(this.props.verified)
+
+    return(
+      <LandingViewWrapper>
+      <DiscussionsByFollowedCats history = { this.props.history } match = { this.props.match } />
+      </LandingViewWrapper>
+    )
+  }
+
+
+}
+
+//  const LandingView = ({ history, match }) => {
+//   return (
+    
+//     <LandingViewWrapper>
+//       <DiscussionsByFollowedCats history = { history } match = { match } />
+//     </LandingViewWrapper>
+//   );
+// };
 
 // LandingView.propTypes = {
 //   propertyName: PropTypes.string
@@ -44,11 +93,13 @@ const LandingView = ({ history, match }) => {
 
 const mapStateToProps = state => {
   return {
-    loggingInLoadingMessage: state.loggingInLoadingMessage
+    loggingInLoadingMessage: state.loggingInLoadingMessage,
+    users: state.users,
+    verified: state.users.verified,
   };
 };
 
 export default connect(
   mapStateToProps,
-  {}
+  { getUsers, verifyEmail }
 )(LandingView);

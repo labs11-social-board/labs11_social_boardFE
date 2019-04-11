@@ -330,7 +330,7 @@ class SideNav extends Component {
               <i style={{ display: 'block', marginLeft: 22 + 'px', marginTop: 10 + 'px' }} className="fas fa-plus-circle" onClick={(ev) => this.props.setAddCatModalRaised(ev, true)} />} { //<span>New&nbsp;Category&nbsp;</span>
             }
 
-            {console.log(accountUserTypes)}
+            {/* {console.log(accountUserTypes)} */}
           </div>
 
           <DivHeader>

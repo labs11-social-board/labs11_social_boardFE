@@ -106,6 +106,9 @@ import {
   UPLOAD_LIST_LOADING,
   UPLOAD_LIST_SUCCESS,
   UPLOAD_LIST_FAILURE,
+  VERIFYUSER_LOADING,
+  VERIFYUSER_SUCCESS,
+  VERIFYUSER_FAILURE,
 } from '../actions/index.js';
 
 const initialState = {
@@ -140,6 +143,8 @@ const initialState = {
   isGettingUsers: false,
   isFetchingNewMods: false,
   isListUploading: false,
+  isVerifyingEmail: false,
+  verified: null,
 };
 
 export const UsersReducer = (state = initialState, action) => {
@@ -156,6 +161,27 @@ export const UsersReducer = (state = initialState, action) => {
       return {
         ...state,
         isDay: !state.isDay,
+      };
+
+
+    case VERIFYUSER_LOADING:
+      return {
+        ...state,
+        isVerifyingEmail: true
+      };
+
+    case VERIFYUSER_SUCCESS: 
+      return {
+        ...state,
+        isVerifyingEmail: false,
+        verified: action.payload
+      };
+
+    case VERIFYUSER_FAILURE: 
+      return {
+        ...state,
+        isVerifyingEmail: false,
+        
       };
 
 
