@@ -377,10 +377,14 @@ import {
   GET_EMAILS,
   GET_EMAILS_SUCCESS,
   GET_EMAILS_FAIL,
+  DELETING_EMAIL_APPROVAL,
+  EMAIL_REMOVAL_SUCCESS,
+  EMAIL_REMOVAL_FAIL,
 
   // Action Creators
   approveEmail,
-  getEmails
+  getEmails,
+  denyEmail
 } from '../actions/EmailActions';
 
 //*************************************************************************************************
@@ -703,8 +707,12 @@ export {
   GET_EMAILS,
   GET_EMAILS_SUCCESS,
   GET_EMAILS_FAIL,
+  DELETING_EMAIL_APPROVAL,
+  EMAIL_REMOVAL_SUCCESS,
+  EMAIL_REMOVAL_FAIL,
   // Action Creators
   approveEmail,
-  getEmails
+  getEmails,
+  denyEmail
 };
 
