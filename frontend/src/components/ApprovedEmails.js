@@ -10,19 +10,65 @@ import {
     getEmails
 } from '../store/actions';
 
+import ReactTable from "react-table";
+import "react-table/react-table.css";
+
 class ApprovedEmails extends Component {
+    state = {
+        approvedEmails: this.props.approvedEmails,
+        selected: {index:0}
+    }
     componentDidMount(){
         this.props.getEmails();
     }
     render() {
         return (
             <div>
-                <ul>
-                    {this.props.approvedEmails.map(e => {
-                        return <li>{e.email}</li>
-                    })}
-
-                </ul>
+                <ReactTable
+                    data={this.props.approvedEmails}
+                    filterable
+                    defaultFilterMethod = {
+                        (filter, row) =>
+                        String(row[filter.id]) === filter.value
+                    }
+                    columns = {
+                        [
+                            {
+                                Header: "E-Mail",
+                                accessor: "email",
+                                filterMethod: (filter, row) =>
+                                    row[filter.id].startsWith(filter.value) &&
+                                    row[filter.id].endsWith(filter.value)
+                            }
+                        ]
+                    }
+                    defaultPageSize = {
+                        5
+                    }
+                    className = "-striped -highlight"
+                    getTrProps = {
+                            (state, rowInfo) => {
+                                if (rowInfo && rowInfo.row) {
+                                    return {
+                                        onClick: e => {
+                                            this.setState({
+                                                selected: rowInfo.row._original
+                                            });
+                                        },
+                                        style: {
+                                            background: rowInfo.row.email === this.state.selected.email ?
+                                                "#418DCF" :
+                                                "white",
+                                            color: rowInfo.row.email === this.state.selected.email ?
+                                                "white" :
+                                                "black"
+                                        }
+                                    };
+                                } else {
+                                    return {};
+                                }
+                            }}
+                />
             </div>
         )
     }

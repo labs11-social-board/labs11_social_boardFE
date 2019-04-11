@@ -462,7 +462,11 @@ export const UsersReducer = (state = initialState, action) => {
         isGettingUsers: false,
         users: action.payload
       };
-
+    case SENDING_INVITE_SUCCESSFUL:
+      return {
+        ...state, 
+        message: action.payload.message, 
+      }   
       
 
     case CHANGE_USER_TYPE_LOADING:
@@ -498,7 +502,7 @@ export const UsersReducer = (state = initialState, action) => {
     case EDIT_USER_FAILURE:
     case SENDING_INVITE:
     case SENDING_INVITE_FAILURE:
-    case SENDING_INVITE_SUCCESSFUL:
+   
   
     default:
       return state;
