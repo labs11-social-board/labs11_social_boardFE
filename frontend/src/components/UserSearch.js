@@ -148,6 +148,7 @@ const SearchBox = styled.div`
       position: absolute;
       top: 4px;
       left: 6px;
+      margin-right: 3px;
     }
 
     .search-input {
