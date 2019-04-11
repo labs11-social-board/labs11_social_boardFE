@@ -21,7 +21,9 @@ const PostsView = ({
 	scrollTo,
 	team_id
 }) => {
+	
 	return(
+		
 		<PostsViewWrapper>
 			{ posts.map((post, index) =>
 				<Post

@@ -45,6 +45,7 @@ class ApproveEmailForm extends Component {
                 <input
                     placeholder = 'E-mail Address'
                     name = 'email'
+                    type='email'
                     value = {
                         email
                     }
