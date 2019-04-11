@@ -13,13 +13,15 @@ import { SearchUserResults } from "./index.js";
 /*Styled Components*/
 
 const SearchBox = styled.div`
-  width: 100%;
+  width: 300px;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   flex-direction: column;
   border-radius: 35px;
   position: relative;
+  border: 1px solid black;
+  
 
   input {
     background-color: #f7f9fc;
@@ -139,19 +141,19 @@ const SearchBox = styled.div`
     position: relative;
     border: none;
     width: 100%;
+    margin:  5px;
 
     .fa-search {
       color: #acb1bc;
       position: absolute;
-      top: 7px;
-      left: 10px;
+      top: 4px;
+      left: 6px;
     }
 
     .search-input {
       width: 100%;
       border: none;
       border-radius: 55px;
-      padding: 5px 10px;
       font-size: 14px;
       text-indent: 27px;
       ::placeholder {
