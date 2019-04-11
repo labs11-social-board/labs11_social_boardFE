@@ -272,7 +272,13 @@ const Post = ({
           </div>
           <div>
             {/* <a onClick={e => handleRemovePost(e, id)}>Delete Comment</a> */}
-            <DeleteComment handleRemovePost={handleRemovePost} />
+            <DeleteComment 
+            handleRemovePost={handleRemovePost} 
+            handleTeamFilter={handleTeamFilter} 
+            handleFilterChange={handleFilterChange}
+            id={id} 
+            teamId={team_id} 
+            />
           </div>
         </div>
       </InfoWrapper>
@@ -302,9 +308,13 @@ const Post = ({
             handleTeamFilter={handleTeamFilter}
           />
         
-        <DeleteComment />
-        
-          
+        <DeleteComment 
+            handleRemovePost={handleRemovePost} 
+            handleTeamFilter={handleTeamFilter} 
+            handleFilterChange={handleFilterChange}
+            id={id} 
+            teamId={team_id} 
+            />
          </>
         ))}
         
