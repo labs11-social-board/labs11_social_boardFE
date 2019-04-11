@@ -504,7 +504,7 @@ class Profile extends Component {
                 {/* <label className="container">Search for a friend</label> */}
                 <SearchContainer>
                 
-                  <UserSearch showSearch={this.props.showSearch} scrollTo={this.props.scrollTo} pathname={this.props.pathname} goTo={this.props.goTo} toggleSearch={this.props.toggleSearch} />
+                  <UserSearch showSearch={this.props.showSearch} scrollTo={this.props.scrollTo} pathname={this.props.pathname} goTo={this.props.goTo} toggleSearch={this.props.toggleSearch}/>
                 </SearchContainer>
                 <br/>
                 <Button className= "add-post-btn" onClick = {this.handleEmailInput}>Invite a friend</Button>
