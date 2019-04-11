@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import {connect} from 'react-redux';
 import {background, computericon } from '../assets/index.js';
 import { Link } from 'react-router-dom';
-import { register, isEmailTaken, isUsernameTaken } from '../store/actions/index.js';
-import { RegisterDropdown } from './index.js';
+// import { register, isEmailTaken, isUsernameTaken } from '../store/actions/index.js';
+// import { RegisterDropdown } from './index.js';
 
 const Woah = styled.section `
   width: 100%;
@@ -54,7 +54,7 @@ const Woah = styled.section `
   }
 `;
 
-  const LoginButton = styled.button `
+  const GetStartedButton = styled.button `
     border: 1px solid #418DCF;
     border-radius: 3px;
     color: white;
@@ -105,8 +105,15 @@ const Woah = styled.section `
   `;
 
     class NonUserLandingView extends Component {
+      // constructor(props) {
+        // super(props);
+        state = {
+          showRegisterModal: true,
+        };
+
       render() {
         const { toggleRegisterModal } = this.props;
+        console.log(toggleRegisterModal);
         return (
           <Woah loggedIn={this.props.user_id !== 0}>
             <BackgroundBox>
@@ -114,7 +121,7 @@ const Woah = styled.section `
               Welcome, get started here.
               </LandingText>
               <LandingDiv>
-                <LoginButton onClick={toggleRegisterModal}> Get Started</LoginButton>
+                <GetStartedButton onClick={toggleRegisterModal}> Get Started</GetStartedButton>
               </LandingDiv>
             </BackgroundBox>
 
