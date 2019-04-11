@@ -463,4 +463,3 @@ export default connect(
   mapStateToProps,
   { getCategoriesFollowed, getUsersTeams }
 )(SideNav);
-
