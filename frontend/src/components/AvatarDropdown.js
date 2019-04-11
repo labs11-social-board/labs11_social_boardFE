@@ -6,6 +6,9 @@ import { Link } from 'react-router-dom';
 // action creators
 import { signout } from '../store/actions';
 
+// components 
+import { ToggleSwitch } from './index.js';
+
 /***************************************************************************************************
  ********************************************** Styles *********************************************
  **************************************************************************************************/
@@ -31,7 +34,7 @@ const DivAvatarDropdown = styled.div`
   right: 0;
   background-color: ${props => props.theme.notificationBackgroundColor};
   margin-top: -2px;
-  width: 140px;
+  width: 180px;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   border: 2px solid ${props => props.theme.borderColor};
@@ -87,6 +90,7 @@ const Item = styled.a`
 const NightModeToggle = styled.div`
   display: flex;
   margin-bottom: 5px;
+  justify-content: center;
   cursor:pointer;
 
   &:hover {
@@ -108,6 +112,26 @@ const NightModeToggle = styled.div`
   p {
     margin: 0 0 0 6px;
   }
+
+ #isDay-wrapper {
+  display: flex;
+  margin: 0;
+
+  label {
+    width: 45px;
+    height: 20px;
+    
+    &:after {
+      top: 4px;
+      width: 12px;
+      height: 12px;
+    }
+  }
+
+  label:active:after {
+    width: 20px;
+  }
+ }
 `;
 
 /***************************************************************************************************
@@ -136,6 +160,7 @@ class AvatarDropdown extends Component {
             )
           }
             <p>Night Mode</p>
+            <ToggleSwitch isDay={!this.props.isDay} handleSwitch={this.props.switchTheme}/>
           </NightModeToggle>
           <LinkItem to={`/profile/${this.props.user_id}`} onClick={(ev) => this.props.setAvatarModalRaised(ev, false)}>Profile</LinkItem>
           <LinkItem to={`/settings/${this.props.user_id}`} onClick={(ev) => this.props.setAvatarModalRaised(ev, false)}>Settings</LinkItem>

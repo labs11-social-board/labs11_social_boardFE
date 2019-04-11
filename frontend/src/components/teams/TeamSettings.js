@@ -190,7 +190,7 @@ class TeamSettings extends React.Component{
            <UploadImage isTeam={isTeam} imagePreviewUrl={this.props.team.logo}/>
           </div>
           <div className='toggle-switch'>
-            <ToggleSwitch isPrivate={this.state.isPrivate} handleToggle={this.handleToggle} />
+            <ToggleSwitch booleanValue={this.state.isPrivate} handleToggle={this.handleToggle} />
           </div>
           <form>
             <button onClick={this.updateTeam}>Update Team</button>
