@@ -26,6 +26,10 @@ const Woah = styled.section `
   background-position: center center;
   height: 85vh;
   background: #838B8B;
+
+  @media (max-width: 800px) {
+    margin-bottom: 150px;
+  }
 `;
 
   const LandingDivBox = styled.div`
@@ -42,10 +46,12 @@ const Woah = styled.section `
   color: black;
   font-size: 42px;
   margin-bottom: 15px;
-  // @media (max-width: 1240px) {
-  //   width: 100%;
-  //   color: black;
-  // }
+  @media (max-width: 1240px) {
+    width: 100%;
+    color: black;
+    font-size: 32px;
+    
+  }
 
   ${ ({
     loggedIn}) => loggedIn && '@media (max-width: 980px) {width: 100%;background-color: white;}'}
@@ -93,11 +99,12 @@ const Woah = styled.section `
     display: flex;
     justify-content: space-evenly
     width: 100%;
-    margin-top: 40px;
+    height: 100%
     postion: fixed;
     height: 45vh;
     @media(max-width: 1240px) {
-        display: none;
+        flex-direction: column;
+        height: 60vh;
       }
     
   `;
@@ -139,7 +146,7 @@ const Woah = styled.section `
               </LandingDiv>
               </LandingDivBox>
             </BackgroundBox>
-
+            
             <BottomFiller>
               <TextBlurb>
                 <img src={computericon} />
