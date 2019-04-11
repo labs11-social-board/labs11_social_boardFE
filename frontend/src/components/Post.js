@@ -167,7 +167,7 @@ const UsernameWrapper = styled.span`
 
 const Post = ({
   post,
-  // loggedInUserId,
+  loggedInUserId,
   historyPush,
   // showEditPostForm,
   // updateEditPostForm,
@@ -237,7 +237,6 @@ const Post = ({
   const handleRemovePost = (e, id) => {
     // e.preventDefault();
     removePost(id);
-    console.log('run :D');
 
     if (team_id) {
       handleTeamFilter();
@@ -277,9 +276,11 @@ const Post = ({
           <div className="date tablet">
             <span>{moment(new Date(Number(created_at))).fromNow()}</span>
           </div>
-          <div className='delete'>
-            <a onClick={e => handleRemovePost(e, id)}>Delete comment</a>
-          </div>
+          {loggedInUserId === user_id ? 
+            <div className='delete'>
+              <a onClick={e => handleRemovePost(e, id)}>Delete comment</a>
+            </div> 
+            : null}
         </div>
       </InfoWrapper>
       {showAddReplyForm === id && (
