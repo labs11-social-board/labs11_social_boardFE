@@ -7,7 +7,9 @@ import {
 } from 'react-redux';
 
 import {
-    getEmails
+    approveEmail,
+    getEmails,
+    denyEmail
 } from '../store/actions';
 
 import ReactTable from "react-table";
@@ -21,9 +23,20 @@ class ApprovedEmails extends Component {
     componentDidMount(){
         this.props.getEmails();
     }
+
+    handleClick(id){
+        this.props.denyEmail(id)
+        setTimeout(() => {
+            window.location.reload();
+        }, 800);
+        // alert('Approve or Deny')
+    }
     render() {
         return (
             <div>
+                {/* <button onClick={() => {
+                    this.handleClick()
+                    }}>Deny Email</button> */}
                 <ReactTable
                     data={this.props.approvedEmails}
                     filterable
@@ -42,32 +55,46 @@ class ApprovedEmails extends Component {
                             }
                         ]
                     }
+                    SubComponent = {
+                        row => {
+                            console.log(row)
+                            return ( 
+                                <div>
+                                    <button
+                                        onClick={() => this.handleClick(row.original.id)}
+                                    >Deny Email</button>
+                                </div>
+                            );
+                        }
+                    }
                     defaultPageSize = {
                         5
                     }
                     className = "-striped -highlight"
-                    getTrProps = {
-                            (state, rowInfo) => {
-                                if (rowInfo && rowInfo.row) {
-                                    return {
-                                        onClick: e => {
-                                            this.setState({
-                                                selected: rowInfo.row._original
-                                            });
-                                        },
-                                        style: {
-                                            background: rowInfo.row.email === this.state.selected.email ?
-                                                "#418DCF" :
-                                                "white",
-                                            color: rowInfo.row.email === this.state.selected.email ?
-                                                "white" :
-                                                "black"
-                                        }
-                                    };
-                                } else {
-                                    return {};
-                                }
-                            }}
+                    // getTrProps = {
+                    //         (state, rowInfo) => {
+                    //             if (rowInfo && rowInfo.row) {
+                    //                 return {
+                    //                     onClick: async e => {
+                    //                         this.setState({
+                    //                             selected: rowInfo.row._original
+                    //                         });
+
+                    //                         // this.handleClick()
+                    //                     },
+                    //                     // style: {
+                    //                     //     background: rowInfo.row.email === this.state.selected.email ?
+                    //                     //         "#418DCF" :
+                    //                     //         "white",
+                    //                     //     color: rowInfo.row.email === this.state.selected.email ?
+                    //                     //         "white" :
+                    //                     //         "black"
+                    //                     // }
+                    //                 };
+                    //             } else {
+                    //                 return {};
+                    //             }
+                            // }}
                 />
             </div>
         )
@@ -82,7 +109,9 @@ const mapStoreToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        getEmails: () => dispatch(getEmails())
+        approveEmail: email => dispatch(approveEmail(email)),
+        getEmails: () => dispatch(getEmails()),
+        denyEmail: id => dispatch(denyEmail(id))
     }
 }
 

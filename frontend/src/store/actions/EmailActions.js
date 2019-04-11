@@ -27,6 +27,10 @@ export const GET_EMAILS = 'GET_EMAILS';
 export const GET_EMAILS_SUCCESS = 'GET_EMAIL_SUCCESS';
 export const GET_EMAILS_FAIL = 'GET_EMAILS_FAIL';
 
+export const DELETING_EMAIL_APPROVAL = 'DELETING_EMAIL_APPROVAL';
+export const EMAIL_REMOVAL_SUCCESS = 'EMAIL_REMOVAL_SUCCESS';
+export const EMAIL_REMOVAL_FAIL = 'EMAIL_REMOVAL_FAIL';
+
 
 /***************************************************************************************************
  ****************************************** Action Creators ****************************************
@@ -68,4 +72,26 @@ export const getEmails = () => dispatch => {
             err,
             GET_EMAILS_FAIL
         ));
+}
+
+export const denyEmail = id => async dispatch => {
+    dispatch({
+        type: DELETING_EMAIL_APPROVAL
+    });
+
+    return axios
+        .delete(`${backendUrl}/emails/${id}`)
+        .then(async res => {
+            dispatch({
+                type: EMAIL_REMOVAL_SUCCESS,
+                payload: res
+            });
+        })
+        .catch(err => {
+            dispatch({
+                type: EMAIL_REMOVAL_FAIL,
+                payload: err
+            });
+        });
+
 }

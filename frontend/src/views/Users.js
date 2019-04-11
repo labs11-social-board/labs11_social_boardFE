@@ -4,7 +4,7 @@ import {BrowserRouter as Router, Route, Link, NavLink} from "react-router-dom";
 import styled from 'styled-components';
 import { connect } from "react-redux";
 import { getUsers, getUsersNMods, makeMod, makeBas } from './../store/actions/UsersActions';
-import {getEmails} from './../store/actions'
+import {getEmails, approveEmail, denyEmail} from './../store/actions'
 import ReactTable from "react-table";
 import "react-table/react-table.css";
 
@@ -39,12 +39,12 @@ class Users extends React.Component {
     constructor() {
         super()
 
-        this.state = {
-          selected: {
-            index: 0
-          },
-          emails: []
-        };
+        // this.state = {
+        //   selected: {
+        //     index: 0
+        //   },
+        //   emails: []
+        // };
     }
 
     
@@ -70,9 +70,44 @@ class Users extends React.Component {
             }, 800);
     }
     
+    handleEmailToggle(event, email){
+
+      event.preventDefault();
+  
+      if (this.props.approvedEmails.map(e => e.email).includes(email)) {
+        this.props.approvedEmails.map(e => {
+          if (e.email === email) {
+            this.props.denyEmail(e.id)
+          }
+        })
+      } else {
+        this.props.approveEmail({email})
+      }
+      
+      
+      
+      
+      setTimeout(() => {
+        window.location.reload();
+      }, 800);
+
+
+      
+      // let email_status = emails.includes(email);
+
+      // email_status ?
+      //   alert('Already on list')
+      //   :
+      //   this.props.approveEmail(email)
+      // ?
+      //   alert('Approve => Deny')
+      //   : alert(email)
+
+      // this.props.approvedEmails.include(email) ?x
+
+    }
+    
     render() {
-
-
     return (
       <div>
         {/* <div >
@@ -117,25 +152,48 @@ class Users extends React.Component {
                     
                     </h4>
                 </div> */}
-        <button
-          onClick={e => {
-            this.buttony2(e, this.state.selected.id);
-          }}
-        >
-          Make Basic
-        </button>
-        <button
-          onClick={e => {
-            this.buttony(e, this.state.selected.id);
-          }}
-        >
-          Make Moderator
-        </button>
         <ReactTable
           data={this.props.users.usersNmods}
           filterable
           defaultFilterMethod={(filter, row) =>
             String(row[filter.id]) === filter.value
+          }
+          SubComponent = {
+            row => {
+              console.log(row)
+              return ( 
+                <div>
+
+                  {
+                    row.original.user_permissions === 'moderator' ?
+                      <button
+                      onClick = {
+                          e => {
+                            this.buttony2(e, row.original.id);
+                          }
+                        } >
+                        Make Basic 
+                        </button>
+                    :
+                      <button
+                      onClick = {
+                          e => {
+                            this.buttony(e, row.original.id);
+                          }
+                        }>
+                        Make Moderator 
+                        </button>
+                  }
+                  <button
+                  onClick = {
+                      e => {
+                        this.handleEmailToggle(e, row.original.email)
+                      }
+                    }>
+                    Toggle E-mail Status</button>
+                </div>
+              );
+            }
           }
           columns={[
             {
@@ -218,42 +276,53 @@ class Users extends React.Component {
           ]}
           defaultPageSize={10}
           className="-striped -highlight"
-          getTrProps={(state, rowInfo) => {
-            if (rowInfo && rowInfo.row) {
-              return {
-                onClick: e => {
-                  this.setState({
-                    selected: rowInfo.row._original
-                  });
-                },
-                style: {
-                  background:
-                    rowInfo.row.email === this.state.selected.email
-                      ? "#418DCF"
-                      : "white",
-                  color:
-                    rowInfo.row.email === this.state.selected.email
-                      ? "white"
-                      : "black"
-                }
-              };
-            } else {
-              return {};
-            }
-          }}
+          // getTrProps={(state, rowInfo) => {
+          //   if (rowInfo && rowInfo.row) {
+          //     return {
+          //       onClick: e => {
+          //         this.setState({
+          //           selected: rowInfo.row._original
+          //         });
+          //       },
+          //       style: {
+          //         background:
+          //           rowInfo.row.email === this.state.selected.email
+          //             ? "#418DCF"
+          //             : "white",
+          //         color:
+          //           rowInfo.row.email === this.state.selected.email
+          //             ? "white"
+          //             : "black"
+          //       }
+          //     };
+          //   } else {
+          //     return {};
+          //   }
+          // }}
         />
       </div>
-    );  
+    ); 
     }
 }
 
 const mapStateToProps = state => {
     return {
         users: state.users,
-        approvedEmails: state.emails.approvedEmails
+        approvedEmails: state.emails.approvedEmails,
+        approvingEmail: state.emails.approvingEmail,
+        deletingEmail: state.emails.deletingEmail,
+        fetchingEmails: state.emails.fetchingEmails
     };
   };
+
+  // const mapDispatchToProps = dispatch => {
+  //   return {
+  //     approveEmail: email => dispatch(approveEmail(email)),
+  //     getEmails: () => dispatch(getEmails()),
+  //     denyEmail: 
+  //   }
+  // }
   
   export default connect(
-    mapStateToProps,{ getUsers, getUsersNMods, makeMod, makeBas, getEmails } 
+    mapStateToProps,{ getUsers, getUsersNMods, makeMod, makeBas, getEmails, approveEmail, denyEmail } 
   )(Users);
