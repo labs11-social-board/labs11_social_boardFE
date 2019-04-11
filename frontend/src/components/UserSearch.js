@@ -23,7 +23,7 @@ const SearchBox = styled.div`
   
 
   input {
-    background-color: #f7f9fc;
+    background-color: #DCDCDC;
     border-radius: 35px;
 
     &:focus {
@@ -157,7 +157,6 @@ const SearchBox = styled.div`
       border-radius: 55px;
       font-size: 14px;
       text-indent: 27px;
-      border: 1px solid black;
       padding: 2px;
       ::placeholder {
         color: #babec8;
