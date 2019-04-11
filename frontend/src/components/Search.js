@@ -30,7 +30,7 @@ const SearchBox = styled.div`
   position: relative;
 
   input {
-    background-color: #f7f9fc;
+    background-color: #DCDCDC;
     border-radius: 35px;
 
     &:focus {
