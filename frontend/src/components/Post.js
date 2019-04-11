@@ -106,6 +106,14 @@ const InfoWrapper = styled.div`
       display: flex;
     }
 
+    .delete {
+      margin-left: 10px;
+      cursor:pointer;
+
+      &:hover {
+        color: #418dcf;
+      }
+    }
     @media (max-width: 830px) {
       justify-content: center;
 
@@ -269,7 +277,7 @@ const Post = ({
           <div className="date tablet">
             <span>{moment(new Date(Number(created_at))).fromNow()}</span>
           </div>
-          <div>
+          <div className='delete'>
             <a onClick={e => handleRemovePost(e, id)}>Delete comment</a>
           </div>
         </div>
