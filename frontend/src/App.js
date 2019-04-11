@@ -308,6 +308,8 @@ class App extends Component {
               history={history}
               isAvatarModalRaised={this.state.isAvatarModalRaised}
               setAvatarModalRaised={this.setAvatarModalRaised}
+              isDay={isDay}
+              switchTheme={this.switchTheme}
             />
             <Notifications
               history={history}
