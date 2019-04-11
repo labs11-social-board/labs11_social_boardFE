@@ -84,6 +84,32 @@ const Item = styled.a`
   }
 `;
 
+const NightModeToggle = styled.div`
+  display: flex;
+  margin-bottom: 5px;
+  cursor:pointer;
+
+  &:hover {
+    color: black;
+    background-color: ${props => props.theme.borderColor};
+  }
+  &:hover i {
+    color: black;
+    background-color: ${props => props.theme.borderColor};
+  }
+
+  i {
+    color: ${props => props.theme.notificationFontColor};
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+  }
+
+  p {
+    margin: 0 0 0 6px;
+  }
+`;
+
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
@@ -101,6 +127,16 @@ class AvatarDropdown extends Component {
       <DivAvatarModal isAvatarModalRaised={this.props.isAvatarModalRaised.toString()}>
         <DivModalCloser onClick={(ev) => this.props.setAvatarModalRaised(ev, false)} />
         <DivAvatarDropdown>
+          <NightModeToggle onClick={this.props.switchTheme}>
+            {
+            this.props.user_id !== 0 && (
+              this.props.isDay ?
+            <i className='fas fa-sun'/> :
+            <i className='fas fa-moon' />
+            )
+          }
+            <p>Night Mode</p>
+          </NightModeToggle>
           <LinkItem to={`/profile/${this.props.user_id}`} onClick={(ev) => this.props.setAvatarModalRaised(ev, false)}>Profile</LinkItem>
           <LinkItem to={`/settings/${this.props.user_id}`} onClick={(ev) => this.props.setAvatarModalRaised(ev, false)}>Settings</LinkItem>
           <Item onClick={ev => this.clickSignout(ev)}>Sign Out</Item>
