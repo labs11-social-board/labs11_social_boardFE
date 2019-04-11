@@ -232,7 +232,7 @@ const DivModalRaised = styled.div`
 font-weight: normal;
 &:hover {
   color: ${props => props.theme.defaultColorOnHover};
-  cursor: pointer;
+
 }
 `
 

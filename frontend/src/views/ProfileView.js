@@ -373,16 +373,6 @@ const BioInfoDiv = styled.div`
   word-break: break-word;
 `;
 
-const DivFollowListItem = styled.div`
-  margin-left: -70px;
-  padding: 5px;
-  line-height: 47px;
-
-  img {
-    padding: 10px;
-  }
-`;
-
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
@@ -394,22 +384,22 @@ class Profile extends Component {
   componentDidMount() {
     this.props.getProfile(this.props.match.params.id);
     this.handleInitializeFollowList();
-    this.setState({ initialized: true })
+    this.setState({initialized : true})
   };
   componentDidUpdate(prevProps) {
     if (prevProps.match.params.id !== this.props.match.params.id) {
       this.handleInitializeFollowList(); // this line handles going from profile to profile. 
       return this.props.getProfile(this.props.match.params.id);
     }
-    if (prevProps.isEditProfileModalRaised === true && this.props.isEditProfileModalRaised === false) {
+    if (prevProps.isEditProfileModalRaised === true && this.props.isEditProfileModalRaised === false){
       return this.props.getProfile(this.props.match.params.id)
     }
-
+   
   };
 
   handleInitializeFollowList = () => {
     const userId = localStorage.getItem("symposium_user_id");
-    this.props.getProfileFollowers(this.props.match.params.id);
+    this.props.getProfileFollowers(this.props.match.params.id); 
     this.props.getFollowers(userId);
     this.props.followersCount(this.props.match.params.id);
   }
@@ -424,10 +414,10 @@ class Profile extends Component {
   goToUsersPage = (followingId) => () => {
     this.props.history.push(`/profile/${followingId}`);
   }
-
+  
 
   editProfile = event => {
-    this.props.setEditProfileModalRaised(event, !this.props.isEditProfileModalRaised);
+    this.props.setEditProfileModalRaised( event, !this.props.isEditProfileModalRaised);
   }
 
   handleEmailInput = event => {
@@ -439,38 +429,38 @@ class Profile extends Component {
   by mapping through our data received and choosing what properties we want to display with our profile parameter*/
   render() {
     /*Profile data for user profile*/
-    const usernameForProfile = this.props.profile[0].username;
-    const bio = this.props.profile[0].bio ? this.props.profile[0].bio : "";
-    const twitter = this.props.profile[0].twitter ? this.props.profile[0].twitter : "";
-    const github = this.props.profile[0].github ? this.props.profile[0].github : "";
+    const usernameForProfile = this.props.profile[0].username; 
+    const bio  = this.props.profile[0].bio ?  this.props.profile[0].bio : ""; 
+    const twitter = this.props.profile[0].twitter ? this.props.profile[0].twitter : ""; 
+    const github = this.props.profile[0].github ? this.props.profile[0].github : ""; 
     const linkedin = this.props.profile[0].linkedin ? this.props.profile[0].linkedin : "";
     const location = this.props.profile[0].location ? this.props.profile[0].location : "";
     //Follow list variables 
     const userId = localStorage.getItem("symposium_user_id");
-
-    const profileId = this.props.match.params.id;
+    
+    const profileId = this.props.match.params.id; 
 
     let alreadyFollowing = false; // will be used to display follow or unfollow depending on false vs true. 
     let userLoggedInFollowList;
     //initially the data won't exist so an empty array is used once it loads it will be what is returned. 
-    let followList = this.props.followers.profileFollowers ? this.props.followers.profileFollowers : [];
+    let followList = this.props.followers.profileFollowers ? this.props.followers.profileFollowers : []; 
     /*Check if the user logged in is not the user listed on the profile.
       Then check if the user listed on the profile is being followed by the user logged in.
     */
-    if (userId !== profileId) {
-      userLoggedInFollowList = this.props.followers.followers ? this.props.followers.followers : [];
-      for (let user of userLoggedInFollowList) {
-        if (user.username === usernameForProfile) {
-          alreadyFollowing = true;
-          break;
+    if (userId !== profileId){
+      userLoggedInFollowList = this.props.followers.followers ?  this.props.followers.followers : []; 
+      for(let user of userLoggedInFollowList){
+        if(user.username === usernameForProfile){
+          alreadyFollowing = true; 
+          break; 
         }
       }
     }
 
-    const followListLength = followList ? followList.length : 0;
+    const followListLength = followList ? followList.length : 0; 
 
-    const profileFollowersCount = this.props.followers.profileFollowers ? this.props.followers.profileFollowers.length : 0;
-    const usersFollowersCount = this.props.followers.usersFollowers ? this.props.followers.usersFollowers.length : 0;
+    const profileFollowersCount = this.props.followers.profileFollowers ?   this.props.followers.profileFollowers.length : 0;
+    const usersFollowersCount = this.props.followers.usersFollowers ? this.props.followers.usersFollowers.length : 0; 
     let profileItems;
     if (this.props.profile.length === 0) {
       profileItems = <Spinner />;
@@ -487,40 +477,40 @@ class Profile extends Component {
                     src={profile.avatar}
                   />
                 </WrappedDiv>
-                <br />
-
+                <br/>
+                
                 <WrappedDiv className='username-style'>
                   <p className='property-content'> {profile.username ? profile.username : <Deleted />}</p>
-                  {profileId !== userId ? alreadyFollowing === false ? <Button className='add-post-btn' onClick={this.handleAddFollower(userId, profileId)}>Follow</Button> : <Button className='add-post-btn' onClick={this.handleRemoveFollower(userId, profileId)}>UnFollow</Button> : <Button className='add-post-btn' onClick={this.editProfile}>Edit Profile</Button>}
-                  <br />
-                  {profileId === userId ? <WrappedDiv className='userfollowers-style'>
-                    <FollowSpan><SpanLabel>Following: </SpanLabel>{profileFollowersCount}  </FollowSpan><FollowSpan>  <SpanLabel> Followers: </SpanLabel>{usersFollowersCount}</FollowSpan>
+                  {profileId !== userId ? alreadyFollowing === false ? <Button className='add-post-btn' onClick = {this.handleAddFollower(userId, profileId)}>Follow</Button> : <Button className='add-post-btn' onClick = {this.handleRemoveFollower(userId, profileId)}>UnFollow</Button> : <Button className='add-post-btn' onClick = {this.editProfile}>Edit Profile</Button>}
+                  <br/>
+                 { profileId === userId ?  <WrappedDiv className = 'userfollowers-style'>
+                  <FollowSpan><SpanLabel>Following: </SpanLabel>{profileFollowersCount}  </FollowSpan><FollowSpan>  <SpanLabel> Followers: </SpanLabel>{usersFollowersCount}</FollowSpan>
                   </WrappedDiv> : <span></span>}
 
                 </WrappedDiv>
               </HeaderStyle>
               {/* This section is for the bio and the links for a user account */}
               <BioInfoDiv>
-                <p><SpanLabel>Bio </SpanLabel><span>{bio}</span></p>
-                <br />
-                <p><SpanLabel>Location </SpanLabel> <span>{location}</span></p>
-                <p><SpanLabel>Github </SpanLabel> <span><ProfileLink href={github.includes("http://") === true || github.includes("https://") === true ? `${github}` : `http://${github}`} target="_blank">{github}</ProfileLink></span></p>
-                <p><SpanLabel>LinkedIn </SpanLabel> <span><ProfileLink href={linkedin.includes("http://") === true || linkedin.includes("https://") === true ? `${linkedin}` : `http://${linkedin}`} target="_blank">{linkedin}</ProfileLink></span></p>
-                <p><SpanLabel>Twitter </SpanLabel> <span><ProfileLink href={twitter.includes("http://") === true || twitter.includes("https://") === true ? `${twitter}` : `http://${twitter}`} target="_blank">{twitter}</ProfileLink></span></p>
+                  <p><SpanLabel>Bio </SpanLabel><span>{bio}</span></p>
+                  <br/>
+                  <p><SpanLabel>Location </SpanLabel> <span>{location}</span></p>
+                  <p><SpanLabel>Github </SpanLabel> <span><ProfileLink href={ github.includes("http://") === true  || github.includes("https://") === true ? `${github}` : `http://${github}`} target = "_blank">{github}</ProfileLink></span></p>
+                  <p><SpanLabel>LinkedIn </SpanLabel> <span><ProfileLink href={linkedin.includes("http://") === true || linkedin.includes("https://") === true ? `${linkedin}` : `http://${linkedin}`}  target = "_blank">{linkedin}</ProfileLink></span></p>
+                  <p><SpanLabel>Twitter </SpanLabel> <span><ProfileLink href={twitter.includes("http://") === true || twitter.includes("https://") === true? `${twitter}` : `http://${twitter}`} target = "_blank">{twitter}</ProfileLink></span></p>
               </BioInfoDiv>
-              <br />
+              <br/>
               <WrappedDivSearch>
-
+                
                 {/* <label className="container">Search for a friend</label> */}
                 <SearchContainer>
-
+                
                   <UserSearch showSearch={this.props.showSearch} scrollTo={this.props.scrollTo} pathname={this.props.pathname} goTo={this.props.goTo} toggleSearch={this.props.toggleSearch} />
                 </SearchContainer>
-                <br />
-                <Button className="add-post-btn" onClick={this.handleEmailInput}>Invite a friend</Button>
+                <br/>
+                <Button className= "add-post-btn" onClick = {this.handleEmailInput}>Invite a friend</Button>
               </WrappedDivSearch>
-              <br />
-              <br />
+              <br/>
+              <br/>
               <h4>Below lists what you are following click a tab to check it out.</h4>
               <Tabs>
                 <TabList>
@@ -637,29 +627,26 @@ class Profile extends Component {
                 <TabPanel>
                   <WrappedDiv>
                     <SubWrapper>
-                      <div>
-                        {followListLength > 0 ? followList.map((user, id) =>
-                          // user.following_id can be used to go to the users profile upon clicking on them currently not implemented. 
-                          <DivFollowListItem>
-                            <WrappedDiv
-                              style={{ cursor: "pointer" }}
-                              key={id}
-                              onClick={this.goToUsersPage(user.following_id)}
-                            >
-                              <Avatar
-                                height='50px'
-                                width='50px'
-                                src={user.avatar}
-                              >
-
-                              </Avatar>
-                              <span>{user.username}</span>
-
-                            </WrappedDiv>
-                          </DivFollowListItem>
-                        ) : <div>{profileId !== userId ? `${usernameForProfile} currently doesn't follow any users.` : "You are not currently following any users."}</div>}
-
-                      </div>
+                    <div>
+                {followListLength > 0 ?  followList.map((user, id) => 
+                  // user.following_id can be used to go to the users profile upon clicking on them currently not implemented. 
+                  <WrappedDiv
+                    style = {{cursor:"pointer"}} 
+                    key = {id} 
+                    onClick = {this.goToUsersPage(user.following_id)}
+                    > 
+                    <Avatar 
+                      height = '50px'
+                      width = '50px'
+                      src= {user.avatar}
+                    >
+                      
+                    </Avatar>
+                    <span>{user.username}</span>
+                  
+                  </WrappedDiv>
+                ) : <div>{profileId !== userId ? `${usernameForProfile} currently doesn't follow any users.` :  "You are not currently following any users."}</div>}
+              </div>
                     </SubWrapper>
                   </WrappedDiv>
                 </TabPanel>
@@ -684,16 +671,16 @@ Profile.propTypes = {
   getProfile: PropTypes.func,
   getFollowers: PropTypes.func,
   getProfileFollowers: PropTypes.func,
-  removeFollower: PropTypes.func,
-  addFollower: PropTypes.func,
-  inviteFriend: PropTypes.func,
-  followersCount: PropTypes.func,
-  setEditProfileModalRaised: PropTypes.func.isRequired,
-  isEditProfileModalRaised: PropTypes.bool.isRequired,
-  toggleSearch: PropTypes.func.isRequired,
-  showSearch: PropTypes.bool.isRequired,
-  setInviteFriendModalRaised: PropTypes.func.isRequired,
-  isInviteFriendModalRaised: PropTypes.bool.isRequired,
+  removeFollower : PropTypes.func, 
+  addFollower : PropTypes.func,
+  inviteFriend : PropTypes.func, 
+  followersCount : PropTypes.func, 
+  setEditProfileModalRaised : PropTypes.func.isRequired,
+  isEditProfileModalRaised : PropTypes.bool.isRequired, 
+  toggleSearch : PropTypes.func.isRequired,
+  showSearch : PropTypes.bool.isRequired,
+  setInviteFriendModalRaised : PropTypes.func.isRequired, 
+  isInviteFriendModalRaised : PropTypes.bool.isRequired, 
 
   profile: PropTypes.arrayOf(
     PropTypes.shape({
@@ -703,7 +690,7 @@ Profile.propTypes = {
     })),
   followers: PropTypes.arrayOf(
     PropTypes.shape({
-      avatar: PropTypes.string.isRequired,
+      avatar: PropTypes.string.isRequired, 
       following_id: PropTypes.number.isRequired,
       username: PropTypes.string.isRequired
     })
@@ -713,8 +700,8 @@ Profile.propTypes = {
 const mapStateToProps = state => ({
   profile: state.profilesData.singleProfileData,
   followers: state.followers,
-  profileFollowers: state.profileFollowers,
-  userFollowers: state.userFollowers,
+  profileFollowers : state.profileFollowers,
+  userFollowers : state.userFollowers,
 });
 
-export default connect(mapStateToProps, { getProfile, getFollowers, getProfileFollowers, removeFollower, addFollower, inviteFriend, followersCount })(Profile);
+export default connect(mapStateToProps, { getProfile,getFollowers, getProfileFollowers, removeFollower, addFollower, inviteFriend, followersCount })(Profile);
