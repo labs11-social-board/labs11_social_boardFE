@@ -295,7 +295,7 @@ const Post = ({
       )}
       <div>
         {replies.map((reply, i) => ( 
-          <>
+          
           <Reply
             key={i}
             reply={reply}
@@ -307,15 +307,6 @@ const Post = ({
             handleFilterChange={handleFilterChange}
             handleTeamFilter={handleTeamFilter}
           />
-        
-        <DeleteComment 
-            handleRemovePost={handleRemovePost} 
-            handleTeamFilter={handleTeamFilter} 
-            handleFilterChange={handleFilterChange}
-            id={id} 
-            teamId={team_id} 
-            />
-         </>
         ))}
         
       </div>

@@ -21,12 +21,10 @@ class DeleteComment extends React.Component {
         } else {
           this.props.handleFilterChange();
         }
-
-        window.location.reload()
     }
   
     render() {
-       console.log(this.props)
+    //    console.log(this.props)
         return (
             <>    
           {(this.props.user_type === 'admin' || this.props.user_type === 'moderator') ? 
@@ -40,7 +38,6 @@ const mapStateToProps = state =>( {
     user_type: state.users.user_type,
     user_id: state.users.user_id,
     team_id: state.teams.team_id
-    // discussions: state.discussion.
 })
 
 export default connect(mapStateToProps, {removePost})(DeleteComment);

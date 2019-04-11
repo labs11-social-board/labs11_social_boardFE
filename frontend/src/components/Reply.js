@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import styled from 'styled-components';
+import DeleteComment from './DeleteComment.js';
+import { removePost } from '../store/actions/PostsActions.js'
 
 // components
 import { AddReplyForm, Avatar, VoteCount } from './index.js';
@@ -174,6 +176,18 @@ const Reply = ({
     return historyPush(`/profile/${user_id}`);
   };
 
+  const handleRemovePost = (e, id) => {
+    // e.preventDefault();
+    this.props.removePost(id);
+    console.log('run :D');
+
+    if (this.teamId) {
+      this.props.handleTeamFilter();
+    } else {
+      this.props.handleFilterChange();
+    }
+}
+console.log(reply.id)
   return (
     <ReplyWrapper>
       <div>
@@ -205,6 +219,13 @@ const Reply = ({
           <div className="date tablet">
             <span>{moment(new Date(Number(created_at))).fromNow()}</span>
           </div>
+          <DeleteComment 
+            handleRemovePost={handleRemovePost} 
+            handleTeamFilter={handleTeamFilter} 
+            handleFilterChange={handleFilterChange}
+            id={id} 
+            teamId={team_id} 
+            />
         </div>
       </InfoWrapper>
       {showAddReplyForm === id && (
@@ -232,5 +253,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  {}
+  {removePost}
 )(Reply);
