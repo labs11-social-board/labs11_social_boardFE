@@ -261,9 +261,9 @@ class App extends Component {
     if (user_id && token) return this.props.logBackIn(user_id, token);
   }
   componentDidUpdate(prevProps) {
-    if (this.props.error.includes('expired')) {
-      localStorage.clear();
-    }
+    // if (this.props.error.includes('expired')) {
+    //   localStorage.clear();
+    // }
     if (
       prevProps.location.hash.substring(1) !==
       this.props.location.hash.substring(1)
