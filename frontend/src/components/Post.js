@@ -18,7 +18,8 @@ import {
 import {
   handlePostVote,
   handleReplyVote,
-  removePost
+  removePost,
+  displayMessage
 } from '../store/actions/index.js';
 
 const PostWrapper = styled.div`
@@ -180,7 +181,8 @@ const Post = ({
   handleReplyVote,
   //deleteReply,
   scrollTo,
-  team_id
+  team_id, 
+  displayMessage
 }) => {
   const {
     body,
@@ -237,7 +239,7 @@ const Post = ({
   const handleRemovePost = (e, id) => {
     // e.preventDefault();
     removePost(id);
-
+    displayMessage('Comment deleted');
     if (team_id) {
       handleTeamFilter();
     } else {
@@ -320,5 +322,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { handlePostVote, handleReplyVote, removePost }
+  { handlePostVote, handleReplyVote, removePost, displayMessage }
 )(Post);

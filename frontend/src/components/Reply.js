@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import styled from 'styled-components';
 
+// action creators
+import { removeReply, displayMessage } from '../store/actions/index.js';
+
 // components
 import { AddReplyForm, Avatar, VoteCount } from './index.js';
 
@@ -79,6 +82,15 @@ const InfoWrapper = styled.div`
       display: flex;
     }
 
+    .delete {
+      margin-left: 10px;
+      cursor:pointer;
+
+      &:hover {
+        color: #418dcf;
+      }
+    }
+
     @media (max-width: 830px) {
       justify-content: center;
 
@@ -142,7 +154,9 @@ const Reply = ({
   handleReplyVote,
   team_id,
   handleFilterChange,
-  handleTeamFilter
+  handleTeamFilter,
+  removeReply,
+  displayMessage
 }) => {
   const {
     body,
@@ -173,7 +187,15 @@ const Reply = ({
     e.stopPropagation();
     return historyPush(`/profile/${user_id}`);
   };
-
+  const deleteReply = id => {
+    removeReply(id);
+    displayMessage('Reply deleted');
+    if (team_id) {
+      handleTeamFilter();
+    } else {
+      handleFilterChange();
+    }
+  }
   return (
     <ReplyWrapper>
       <div>
@@ -205,6 +227,9 @@ const Reply = ({
           <div className="date tablet">
             <span>{moment(new Date(Number(created_at))).fromNow()}</span>
           </div>
+          {loggedInUserId === user_id ? 
+            <div className='delete' onClick={() => deleteReply(id)}>Delete reply</div>
+          : null}
         </div>
       </InfoWrapper>
       {showAddReplyForm === id && (
@@ -227,10 +252,9 @@ const mapStateToProps = state => ({
   loggedInUserId: state.users.user_id,
   avatar: state.users.avatar,
   username: state.users.username,
-  user_id: state.users.user_id
 });
 
 export default connect(
   mapStateToProps,
-  {}
+  {removeReply, displayMessage}
 )(Reply);
