@@ -90,6 +90,9 @@ const ProfileWrapper = styled.div`
 
     @media (max-width: 395px ){
       flex-direction: column; 
+      margin-bottom : 12.800px;
+      margin-top : 12.800px; 
+      
     }
 
   }
@@ -193,7 +196,6 @@ color: ${props => props.theme.defaultColor};
 `;
 
 const Button = styled.button`
-  margin-left: 10px;
   padding: 10px 15px;
   border-radius: 5px;
   border: 1px solid #418DCF;
@@ -373,6 +375,10 @@ const BioInfoDiv = styled.div`
   word-break: break-word;
 `;
 
+const FollowButtonSpan = styled.span`
+  margin-left: 15px; 
+`;
+
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
@@ -481,12 +487,11 @@ class Profile extends Component {
                 
                 <WrappedDiv className='username-style'>
                   <p className='property-content'> {profile.username ? profile.username : <Deleted />}</p>
-                  {profileId !== userId ? alreadyFollowing === false ? <Button className='add-post-btn' onClick = {this.handleAddFollower(userId, profileId)}>Follow</Button> : <Button className='add-post-btn' onClick = {this.handleRemoveFollower(userId, profileId)}>UnFollow</Button> : <Button className='add-post-btn' onClick = {this.editProfile}>Edit Profile</Button>}
-                  <br/>
-                 { profileId === userId ?  <WrappedDiv className = 'userfollowers-style'>
+                  <WrappedDiv>
+                   { profileId === userId ?  <WrappedDiv className = 'userfollowers-style'>
                   <FollowSpan><SpanLabel>Following: </SpanLabel>{profileFollowersCount}  </FollowSpan><FollowSpan>  <SpanLabel> Followers: </SpanLabel>{usersFollowersCount}</FollowSpan>
-                  </WrappedDiv> : <span></span>}
-
+                  </WrappedDiv> : <FollowButtonSpan>{profileId !== userId ? alreadyFollowing === false ? <Button className='add-post-btn' onClick = {this.handleAddFollower(userId, profileId)}>Follow</Button> : <Button className='add-post-btn' onClick = {this.handleRemoveFollower(userId, profileId)}>UnFollow</Button> : <span></span>}</FollowButtonSpan>}
+                  </WrappedDiv>
                 </WrappedDiv>
               </HeaderStyle>
               {/* This section is for the bio and the links for a user account */}
@@ -497,6 +502,7 @@ class Profile extends Component {
                   <p><SpanLabel>Github </SpanLabel> <span><ProfileLink href={ github.includes("http://") === true  || github.includes("https://") === true ? `${github}` : `http://${github}`} target = "_blank">{github}</ProfileLink></span></p>
                   <p><SpanLabel>LinkedIn </SpanLabel> <span><ProfileLink href={linkedin.includes("http://") === true || linkedin.includes("https://") === true ? `${linkedin}` : `http://${linkedin}`}  target = "_blank">{linkedin}</ProfileLink></span></p>
                   <p><SpanLabel>Twitter </SpanLabel> <span><ProfileLink href={twitter.includes("http://") === true || twitter.includes("https://") === true? `${twitter}` : `http://${twitter}`} target = "_blank">{twitter}</ProfileLink></span></p>
+                  <p>{profileId !== userId ? <span></span> : <Button className='add-post-btn' onClick = {this.editProfile}>Edit Profile</Button>}</p>
               </BioInfoDiv>
               <br/>
               <WrappedDivSearch>
