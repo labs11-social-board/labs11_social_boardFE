@@ -278,6 +278,9 @@ import {
   UPLOAD_LIST_LOADING,
   UPLOAD_LIST_SUCCESS,
   UPLOAD_LIST_FAILURE,
+  VERIFYUSER_LOADING,
+  VERIFYUSER_SUCCESS,
+  VERIFYUSER_FAILURE,
 
   // Action Creators
   login,
@@ -311,6 +314,7 @@ import {
   makeMod,
   emailCSV,
   makeBas,
+  verifyEmail,
 } from './UsersActions.js';
 
 /************************************************************
@@ -546,6 +550,9 @@ export {
   UPLOAD_LIST_LOADING,
   UPLOAD_LIST_SUCCESS,
   UPLOAD_LIST_FAILURE,
+  VERIFYUSER_LOADING,
+  VERIFYUSER_SUCCESS,
+  VERIFYUSER_FAILURE,
 
   // Posts Actions
   ADD_POST_LOADING,
@@ -645,6 +652,7 @@ export {
   makeMod,
   emailCSV,
   makeBas,
+  verifyEmail,
   // Profile Action Creators
   getProfiles,
   getProfile,

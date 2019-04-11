@@ -344,7 +344,7 @@ class SideNav extends Component {
             { //<span>New&nbsp;Category&nbsp;</span>
             }
 
-            {console.log(accountUserTypes)}
+            {/* {console.log(accountUserTypes)} */}
           </div>
 
           <DivHeader>
