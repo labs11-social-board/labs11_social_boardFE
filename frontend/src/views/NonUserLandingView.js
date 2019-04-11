@@ -21,7 +21,7 @@ const Woah = styled.section `
 
   const BackgroundBox = styled.div `
   width:100%;
-  background: linear-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, .5)), url(${background});
+  background: white;
   background-size: cover;
   background-position: center center;
   height: 85vh;
@@ -97,9 +97,7 @@ const Woah = styled.section `
           <Woah loggedIn={this.props.user_id !== 0}>
             <BackgroundBox>
               <LandingText loggedIn={this.props.user_id !== 0}>
-                <p className='blurb'>
-                  Welcome to Symposium.
-                </p>
+              
               </LandingText>
             </BackgroundBox>
             <BottomFiller>
