@@ -20,7 +20,6 @@ const SearchBox = styled.div`
   flex-direction: column;
   border-radius: 35px;
   position: relative;
-  border: 1px solid black;
   
 
   input {
@@ -143,6 +142,7 @@ const SearchBox = styled.div`
     width: 100%;
     margin:  5px;
 
+
     .fa-search {
       color: #acb1bc;
       position: absolute;
@@ -157,6 +157,8 @@ const SearchBox = styled.div`
       border-radius: 55px;
       font-size: 14px;
       text-indent: 27px;
+      border: 1px solid black;
+      padding: 2px;
       ::placeholder {
         color: #babec8;
       }
