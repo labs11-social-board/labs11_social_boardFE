@@ -121,11 +121,12 @@ const DivSideNav = styled.div`
   height: 100%;
 
   @media (max-width: 800px) {
-    position: relative;
-    height: auto;
-    width: 99.9%;
-    border: none;
-    top: 0;
+    position: absolute;
+    height: 91vh;
+    width: 80%;
+    min-height: 0;
+    border:none;
+    background: ${props => (props.isSideNavOpen ? 'white' : 'none' )};
   }
 `;
 
@@ -321,7 +322,7 @@ class App extends Component {
               setChangeSubModalRaised={this.setChangeSubModalRaised}
             />
             <DivBody isLoggedIn>
-              <DivSideNav isLoggedIn>
+              <DivSideNav isLoggedIn isSideNavOpen={this.state.isSideNavOpen}>
                 {this.state.isSideNavOpen === true ? <StyledNavButton className="fas fa-times" onClick={this.toggleSideNav}></StyledNavButton> : <StyledNavButton className="fas fa-bars" onClick={this.toggleSideNav}></StyledNavButton>}
                 <SideNav
                   isOpen={this.state.isSideNavOpen}

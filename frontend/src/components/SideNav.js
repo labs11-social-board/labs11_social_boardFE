@@ -23,6 +23,7 @@ margin-top: 20px;
 
   @media (max-width: 800px) {
     display: ${props => props.isOpen === 'true' ? 'flex' : 'none'};
+    height: calc(100% - 21px);
   }
 
 `;
