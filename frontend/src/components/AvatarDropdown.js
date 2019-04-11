@@ -6,6 +6,9 @@ import { Link } from 'react-router-dom';
 // action creators
 import { signout } from '../store/actions';
 
+// components 
+import { ToggleSwitch } from './index.js';
+
 /***************************************************************************************************
  ********************************************** Styles *********************************************
  **************************************************************************************************/
@@ -31,13 +34,22 @@ const DivAvatarDropdown = styled.div`
   right: 0;
   background-color: ${props => props.theme.notificationBackgroundColor};
   margin-top: -2px;
-  width: 140px;
+  width: 220px;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   border: 2px solid ${props => props.theme.borderColor};
   border-top: 2px solid white;
   padding: 10px 0;
 
+  .spacer {
+    font-size: .7rem;
+    margin: 0 0 5px 10px;
+    color: grey;
+  }
+  .line-break {
+    border: .5px solid lightgrey;
+    margin: 10px 15px;
+  }
   @media (max-width: 450px){
     padding-right: 15px;
     padding-top: 0px;
@@ -45,7 +57,9 @@ const DivAvatarDropdown = styled.div`
 `;
 
 const LinkItem = styled(Link)`
-  margin-bottom: 5px;
+  display: flex;
+  align-items: baseline;
+  margin-top: 5px;
   user-select: none;
   width: 100%;
   text-decoration: none;
@@ -53,10 +67,13 @@ const LinkItem = styled(Link)`
   background-color: ${props => props.theme.notificationBackgroundColor};
   width: 100%;
   cursor: pointer;
-  text-align: center;
   &:hover {
     color: black;
     background-color: ${props => props.theme.borderColor};
+  }
+
+  i {
+    margin: 0 7px 0px 15px;
   }
 
   @media(max-width: 750px){
@@ -67,14 +84,18 @@ const LinkItem = styled(Link)`
 `;
 
 const Item = styled.a`
-  margin-bottom: 5px;
+  display: flex;
+  align-items: baseline;
   user-select: none;
   width: 100%;
   cursor: pointer;
-  text-align: center;
   &:hover {
     color: black;
     background-color: ${props => props.theme.borderColor};
+  }
+
+  i {
+    margin: 0 7px 0px 15px;
   }
 
   @media(max-width: 750px){
@@ -86,7 +107,8 @@ const Item = styled.a`
 
 const NightModeToggle = styled.div`
   display: flex;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
+  justify-content: center;
   cursor:pointer;
 
   &:hover {
@@ -100,7 +122,7 @@ const NightModeToggle = styled.div`
 
   i {
     color: ${props => props.theme.notificationFontColor};
-    margin-left: 10px;
+    margin-left: -33px;
     display: flex;
     align-items: center;
   }
@@ -108,6 +130,26 @@ const NightModeToggle = styled.div`
   p {
     margin: 0 0 0 6px;
   }
+
+ #isDay-wrapper {
+  display: flex;
+  margin: 0;
+
+  label {
+    width: 45px;
+    height: 20px;
+    
+    &:after {
+      top: 4px;
+      width: 12px;
+      height: 12px;
+    }
+  }
+
+  label:active:after {
+    width: 20px;
+  }
+ }
 `;
 
 /***************************************************************************************************
@@ -127,6 +169,7 @@ class AvatarDropdown extends Component {
       <DivAvatarModal isAvatarModalRaised={this.props.isAvatarModalRaised.toString()}>
         <DivModalCloser onClick={(ev) => this.props.setAvatarModalRaised(ev, false)} />
         <DivAvatarDropdown>
+          <p className='spacer'>VIEW OPTIONS</p>
           <NightModeToggle onClick={this.props.switchTheme}>
             {
             this.props.user_id !== 0 && (
@@ -136,10 +179,13 @@ class AvatarDropdown extends Component {
             )
           }
             <p>Night Mode</p>
+            <ToggleSwitch isDay={!this.props.isDay} handleSwitch={this.props.switchTheme}/>
           </NightModeToggle>
-          <LinkItem to={`/profile/${this.props.user_id}`} onClick={(ev) => this.props.setAvatarModalRaised(ev, false)}>Profile</LinkItem>
-          <LinkItem to={`/settings/${this.props.user_id}`} onClick={(ev) => this.props.setAvatarModalRaised(ev, false)}>Settings</LinkItem>
-          <Item onClick={ev => this.clickSignout(ev)}>Sign Out</Item>
+          <p className='spacer'>MORE STUFF</p>
+          <LinkItem to={`/profile/${this.props.user_id}`} onClick={(ev) => this.props.setAvatarModalRaised(ev, false)}><i className="fas fa-user"/>Profile</LinkItem>
+          <LinkItem to={`/settings/${this.props.user_id}`} onClick={(ev) => this.props.setAvatarModalRaised(ev, false)}><i className="fas fa-cog"/>Settings</LinkItem>
+          <span className='line-break'/>
+          <Item onClick={ev => this.clickSignout(ev)}><i className="fas fa-sign-out-alt"/>Sign Out</Item>
         </DivAvatarDropdown>
       </DivAvatarModal>
     );
