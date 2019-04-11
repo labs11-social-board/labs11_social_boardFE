@@ -134,26 +134,8 @@ const DiscussionHeader = styled.div`
     display: flex;
     align-items: center;
     .name {
-      font-size: 20px;
+      font-size: 24px;
     }
-    .follow {
-    cursor: pointer;
-    margin-left: 10px;
-		padding: 03px 25px 03px 25px;
-    border-radius: 5px;
-    border: 1px solid #418DCF;
-    background-color: ${ ({ isFollowing }) => isFollowing ? 'lightsteelblue' : '#418DCF' };
-    color: white;
-    text-align: center;
-
-    &:hover {
-        cursor: pointer;
-        background-color: white;
-        color: #418DCF;
-      }
-
-    }
-    
   }
 
   .team-tabs {
