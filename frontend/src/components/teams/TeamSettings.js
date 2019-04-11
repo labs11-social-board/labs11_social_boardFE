@@ -24,6 +24,13 @@ const Settings = styled.div `
         height: 20px;
         border-radius: 5px;
         padding: 5px;
+
+        @media (max-width: 1024px){
+          width: 40%;
+        }
+        @media (max-width: 480px) {
+          width: 72%;
+        }
       }
     }
 
@@ -183,7 +190,7 @@ class TeamSettings extends React.Component{
            <UploadImage isTeam={isTeam} imagePreviewUrl={this.props.team.logo}/>
           </div>
           <div className='toggle-switch'>
-            <ToggleSwitch isPrivate={this.state.isPrivate} handleToggle={this.handleToggle} />
+            <ToggleSwitch booleanValue={this.state.isPrivate} handleToggle={this.handleToggle} isDay={!this.props.isDay}/>
           </div>
           <form>
             <button onClick={this.updateTeam}>Update Team</button>
@@ -196,7 +203,8 @@ class TeamSettings extends React.Component{
 };
 
 const mapStateToProps = state => ({
-  image: state.posts.images
+  image: state.posts.images,
+  isDay: state.users.isDay
 });
 
 export default connect(mapStateToProps, { updateTeam, deleteTeam, displayMessage, getUsersTeams, resetImageState })(TeamSettings);

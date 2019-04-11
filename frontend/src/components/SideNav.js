@@ -199,7 +199,7 @@ border-left: ${props => props.islinkselected === 'true' ? `5px solid ${props.the
 `;
 
 const DivNavContainer = styled.div`
-  
+  color: ${props => props.islinkselected === 'true' ? props.theme.defaultColorOnHover : props.theme.defaultColor};
 `;
 
 const DropdownFollowing = styled.div`
@@ -209,6 +209,7 @@ const DropdownFollowing = styled.div`
 
 const DivModalRaised = styled.div`
 font-weight: normal;
+color: ${props => props.islinkselected === 'true' ? props.theme.defaultColorOnHover : props.theme.defaultColor};
 &:hover {
   color: ${props => props.theme.defaultColorOnHover};
   cursor: pointer;

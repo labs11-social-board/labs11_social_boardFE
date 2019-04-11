@@ -37,9 +37,13 @@ const DivIcon = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100px;
+  width: 90px;
   height: 80px;
   margin: 15px;
+
+  @media (max-width: 480px) {
+    width: 110px;
+  }
 
   img {
     display: block;

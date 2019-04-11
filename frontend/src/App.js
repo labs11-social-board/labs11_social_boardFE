@@ -280,6 +280,7 @@ class App extends Component {
   }
 
   render() {
+    // console.log(this.toggleRegisterModal);
     const { showSearch } = this.state;
     const { error, history, message, location, isDay } = this.props;
     if (this.isAuthenticated() || localStorage.getItem('symposium_user_id')) {
@@ -308,6 +309,8 @@ class App extends Component {
               history={history}
               isAvatarModalRaised={this.state.isAvatarModalRaised}
               setAvatarModalRaised={this.setAvatarModalRaised}
+              isDay={isDay}
+              switchTheme={this.switchTheme}
             />
             <Notifications
               history={history}
@@ -365,7 +368,7 @@ class App extends Component {
                     />
                   )
                 }
-                <Route exact path="/" component={NonUserLandingView} />
+                <Route exact path="/" render={ () => <NonUserLandingView toggleRegisterModal={this.toggleRegisterModal}/>}/>
                 <Route exact path="/home" component={LandingView} />
                 <Route exact path="/admin" component={Admin} />
                 <Route exact path="/upload" component={Upload} />
@@ -380,6 +383,7 @@ class App extends Component {
                 <Route path='/settings/:id' render={props => <Settings {...props} setChangeSubModalRaised={this.setChangeSubModalRaised} />} />
                 <Route path='/discussions/category/:category_id' component={DiscussionsByCats} />
                 <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} />
+                
               </DivPage>
             </DivBody>
             <Footer
@@ -410,7 +414,7 @@ class App extends Component {
                   <Route path='/request-reset-pw' component={RequestResetPWForm} />
                   <Route path='/reset/:reset_pw_token' component={ResetPWForm} />
                   <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} />
-                  <Route component={NonUserLandingView} />
+                  <Route render={ () => <NonUserLandingView toggleRegisterModal={this.toggleRegisterModal}/>} />
                 </Switch>
               </DivPage>
             </DivBody>
