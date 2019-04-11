@@ -7,7 +7,7 @@ import { getProfile, updateProfile } from "../../store/actions/index.js";
 // components
 
 // globals
-import { phoneL, topHeaderHeight, phoneP } from "../../globals/globals.js";
+import { phoneL, topHeaderHeight, phoneP, isUrl } from "../../globals/globals.js";
 
 const ModalBackground = styled.div`
   display: flex;
@@ -164,6 +164,9 @@ const DivButtons = styled.div`
     align-self: center;
   }
 `;
+const Errortag = styled.h5`
+  color: red; 
+`;
 
 class EditProfileModal extends React.Component {
   state = {
@@ -174,6 +177,12 @@ class EditProfileModal extends React.Component {
     userId: "", 
     location : "",
     updated : false,
+    twitterMessage : "", 
+    githubMessage : "",
+    linkedinMessage : "", 
+    twitterError: false,
+    githubError: false, 
+    linkedinError: false,  
   };
 
   componentWillMount() {
@@ -223,10 +232,33 @@ class EditProfileModal extends React.Component {
     this.setState({ [event.target.name]: event.target.value});
   };
 
-  handleSubmit = event => {
+  handleUserMessage = (str, reset = false) => {
+    /*will set the state according to what str is if reset is true then it will reset to a blank string which should remove the message from the display */
+    const displayMessage = reset === false ? `Invalid link. Please adjust and try again. Example http://${str}.com/profile123` : "";
+    const boolean = reset === false ? true : false; 
+    switch(str){
+      case "twitter":
+        this.setState({ twitterMessage : displayMessage, twitterError: boolean}, () => console.log("link error"));
+        break; 
+      case "linkedin":
+        this.setState({linkedinMessage : displayMessage, linkedinError: boolean}, () => console.log("link error"));
+        break; 
+      case "github":
+        this.setState({githubMessage: displayMessage, githubError: boolean}, () => console.log("link error")); 
+        break; 
+      default: 
+        console.log("Shouldn't get to this case, but meets requirements");
+    }
+  }
+
+
+  handleSubmit = async (event) => {
     /*Make the argument null needed for updateProfile if it is of zero length 
-      Or if it has not changed from its previous setting*/
+      Or if it has not changed from its previous setting. 
+      checks are done to see if the profile links are valid links if not their state paramaters are updated and a message will be displayed on the modal and submission doesn't happen. 
+      */
     event.preventDefault();
+
     let callTheFunction = false;
     let { userId, bio, twitter, github, linkedin, location } = this.state;
     if (bio.length === 0 || bio === this.props.profile[0].bio) {
@@ -237,17 +269,35 @@ class EditProfileModal extends React.Component {
     if (twitter.length === 0 || twitter === this.props.profile[0].twitter) {
       twitter = null;
     } else {
-      callTheFunction = true;
+      if(!isUrl(twitter)) {
+        await this.handleUserMessage("twitter"); 
+      } else {
+        callTheFunction = true;
+        await this.handleUserMessage("twitter", true);
+      }
+      
     }
     if (github.length === 0 || github === this.props.profile[0].github) {
       github = null;
     } else {
-      callTheFunction = true;
+      if(!isUrl(github)) {
+        await this.handleUserMessage("github"); 
+      } else {
+        callTheFunction = true;
+        await this.handleUserMessage("github", true); 
+      }
+      
     }
     if (linkedin.length === 0 || linkedin === this.props.profile[0].linkedin) {
       linkedin = null;
     } else {
-      callTheFunction = true;
+      if(!isUrl(linkedin)) {
+        await this.handleUserMessage("linkedin"); 
+      } else {
+        callTheFunction = true;
+        await this.handleUserMessage("linkedin", true);
+      }
+      
     }
 
     if (location.length === 0 || location === this.props.profile[0].location){
@@ -256,16 +306,23 @@ class EditProfileModal extends React.Component {
       callTheFunction = true; 
     }
 
-    if (callTheFunction === true) {
+    const possibleErrors = [String(this.state.githubError), String(this.state.linkedinError), String(this.state.twitterError)]
+    console.log(possibleErrors);
+    console.log(callTheFunction);
+    if(possibleErrors.includes("true") !== true && callTheFunction === true) {
         return Promise.resolve(this.props.updateProfile(userId, bio, twitter, github, linkedin, location, this.props.history))
         .then(() => this.props.getProfile(userId, this.props.history) ).then( () => this.props.setEditProfileModalRaised(event, false))
-    };
+    } else {
+      this.setState({githubError : false, linkedinError: false, twitterError: false});
+    } 
+    
   }
 
   render() {
     const { setEditProfileModalRaised } = this.props;
 
-    const { bio, twitter, github, linkedin, location } = this.state;
+    const { bio, twitter, github, linkedin, location, twitterError, twitterMessage, githubError, githubMessage, linkedinError, linkedinMessage } = this.state;
+    console.log([githubError, linkedinError, twitterError]);
     return (
       <ModalBackground>
         <DivModalCloser
@@ -303,6 +360,8 @@ class EditProfileModal extends React.Component {
                   onChange = {this.handleChange}
                 />
                 <h4>Add Your Github profile link</h4>
+
+                {githubError === true || githubMessage.length ?  <Errortag>{githubMessage}</Errortag> : <span></span>}
                 <input
                   type="text"
                   placeholder=""
@@ -312,6 +371,7 @@ class EditProfileModal extends React.Component {
                   onChange={this.handleChange}
                 />
                 <h4>Add Your Linkedin profile link</h4>
+                {linkedinError === true || linkedinMessage.length ? <Errortag>{linkedinMessage}</Errortag> : <span></span>}
                 <input
                   type="text"
                   placeholder=""
@@ -321,6 +381,7 @@ class EditProfileModal extends React.Component {
                   onChange={this.handleChange}
                 />
                 <h4>Add your Twitter profile link</h4>
+                {twitterError === true  || twitterMessage.length? <Errortag>{twitterMessage}</Errortag> : <span></span>}
                 <input
                   type="text"
                   placeholder=""

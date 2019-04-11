@@ -499,7 +499,8 @@ export const inviteFriend = (email) => dispatch => {
     .post(`${backendUrl}/users/invite`, body, headers)
     .then(response => {
       return dispatch({
-        type: SENDING_INVITE_SUCCESSFUL
+        type: SENDING_INVITE_SUCCESSFUL, 
+        payload: response.data
       });
     })
     .catch(err => handleError(err, SENDING_INVITE_FAILURE)(dispatch));

@@ -304,7 +304,7 @@ class UploadImage extends React.Component {
        <>
         {this.props.isTeam ?   
             <FileUpload id='drop-zone-t'>
-              <label htmlFor='image-file'>Team Logo</label>
+              <label htmlFor='image-file' id='label-text'>Team Logo</label>
               <input
                 type = 'file'
                 name = 'image-file'
