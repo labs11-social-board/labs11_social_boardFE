@@ -315,7 +315,7 @@ class AddTeamModal extends React.Component {
                   onChange={this.handleInput}
                   autoComplete='off'
                 />
-                <ToggleSwitch isPrivate={this.state.isPrivate} handleToggle={this.handleToggle} />
+                <ToggleSwitch booleanValue={this.state.isPrivate} handleToggle={this.handleToggle} />
                 <label htmlFor='wiki'>Team Wiki/Description</label>
                 <textarea 
                   id='wiki'

@@ -11,9 +11,10 @@ export const ADD_REPLY_LOADING = 'ADD_REPLY_LOADING';
 export const ADD_REPLY_SUCCESS = 'ADD_REPLY_SUCCESS';
 export const ADD_REPLY_FAILURE = 'ADD_REPLY_FAILURE';
 
-export const HANDLE_DELETE_COMMENT_LOADING = 'HANDLE_DELETE_COMMENT_LOADING';
-export const HANDLE_DELETE_COMMENT_SUCCESS = 'HANDLE_DELETE_COMMENT_SUCCESS';
-export const HANDLE_DELETE_COMMENT_FAILURE = 'HANDLE_DELETE_COMMENT_FAILURE';
+export const HANDLE_DELETE_REPLY_LOADING = 'HANDLE_DELETE_REPLY_LOADING';
+export const HANDLE_DELETE_REPLY_SUCCESS = 'HANDLE_DELETE_REPLY_SUCCESS';
+export const HANDLE_DELETE_REPLY_FAILURE = 'HANDLE_DELETE_REPLY_FAILURE';
+
 /***************************************************************************************************
  ********************************************** Actions ********************************************
  **************************************************************************************************/
@@ -43,3 +44,14 @@ export const updateReplyWithImage = (image_id, reply_id) => dispatch => {
     .then(res => console.log(res.data))
     .catch(err => handleError(err)(dispatch));
 };
+
+export const removeReply = reply_id => dispatch => {
+  const user_id = localStorage.getItem('symposium_user_id');
+  const token = localStorage.getItem('symposium_token');
+  const headers = { headers: { Authorization: token } };
+  dispatch({ type: HANDLE_DELETE_REPLY_LOADING })
+  return axios
+    .delete(`${backendURL}/replies/${user_id}/${reply_id}`, headers)
+    .then(res => dispatch({ type: HANDLE_DELETE_REPLY_SUCCESS }))
+    .catch(err => handleError(err, HANDLE_DELETE_REPLY_FAILURE)(dispatch));
+}
