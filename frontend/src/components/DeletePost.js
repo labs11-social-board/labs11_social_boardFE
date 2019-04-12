@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { removePost } from '../store/actions/PostsActions.js'
+import { removePost, addDeletedPost } from '../store/actions/PostsActions.js'
 
 class DeleteComment extends React.Component {
 
@@ -15,13 +15,21 @@ class DeleteComment extends React.Component {
           this.props.handleFilterChange();
         }
     }
+
+    handleAddDeletedPost = (e, id, post) => {
+      this.props.addDeletedPost(id, post)
+    }
   
     render() {
     //    console.log(this.props)
         return (
-            <>    
-          {(this.props.loggedInUserId === this.props.discussion_id || this.props.loggedInUserId === this.props.post_id || this.props.user_type === 'admin' || this.props.user_type === 'moderator') ? 
+            <> 
+            
+          {( this.props.user_type === 'admin' || this.props.user_type === 'moderator') ? 
+          (<a onClick={e => this.handleRemovePost(e, this.props.id)}>Delete comment</a>) : null} : 
+          {(this.props.loggedInUserId === this.props.discussion_id || this.props.loggedInUserId === this.props.post_id) ? 
           (<a onClick={e => this.handleRemovePost(e, this.props.id)}>Delete comment</a>) : null}
+          
           </>
         )
     }   
@@ -36,6 +44,6 @@ const mapStateToProps = state =>( {
     post_id: state.discussions.discussion.posts.user_id
 })
 
-export default connect(mapStateToProps, {removePost})(DeleteComment);
+export default connect(mapStateToProps, {removePost, addDeletedPost})(DeleteComment);
 
  
