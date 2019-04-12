@@ -7,6 +7,7 @@
     "auth0-lock": "^11.14.0",
     "axios": "^0.18.0",
     "base64-img": "^1.0.4",
+    "bootstrap": "^4.3.1",
     "ckeditor4-react": "^0.1.0",
     "dotenv": "^6.2.0",
     "html-react-parser": "^0.6.1",
@@ -15,6 +16,7 @@
     "prop-types": "^15.7.1",
     "pusher-js": "^4.4.0",
     "react": "^16.8.1",
+    "react-bootstrap": "^1.0.0-beta.6",
     "react-csv-reader": "^1.2.2",
     "react-dom": "^16.8.1",
     "react-player": "^1.9.3",
@@ -27,6 +29,7 @@
     "react-table": "^6.9.2",
     "react-tabs": "^3.0.0",
     "react-text-loop": "^2.0.1",
+    "reactstrap": "^8.0.0",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
     "styled-components": "^4.1.3"
