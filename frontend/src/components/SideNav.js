@@ -269,6 +269,7 @@ class SideNav extends Component {
         this.setState({ userTeams: this.props.userTeams });
       });
         
+      //this.setTimeout((window.location.reload()),300)
   }
 
   componentDidUpdate = (prevProps) => {
