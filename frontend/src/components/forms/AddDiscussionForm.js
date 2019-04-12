@@ -205,10 +205,12 @@ class AddDiscussionForm extends Component {
 			this.props.addTeamDiscussion(body, this.props.team_id)
 			.then(res => {
 				toggleAddDiscussionForm();
-				followDiscussion(res.payload[0], user_id)
-				if(image){
-					updateDiscussionWithImage(image, res.payload[0]);
-					resetImageState();
+				if(res){
+					followDiscussion(res.payload[0], user_id)
+					if(image){
+						updateDiscussionWithImage(image, res.payload[0]);
+						resetImageState();
+					}
 				}
 			})
       .then(() => getDiscussions());
