@@ -143,7 +143,8 @@ const DiscussionHeader = styled.div`
     .follow {
     cursor: pointer;
     margin-left: 10px;
-		padding: 03px 25px 03px 25px;
+		padding: 10px 15px;
+    width: 130px;
     border-radius: 5px;
     border: 1px solid #418DCF;
     background-color: ${ ({ isFollowing }) => isFollowing ? 'lightsteelblue' : '#418DCF' };
