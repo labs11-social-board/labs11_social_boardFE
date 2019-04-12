@@ -369,7 +369,7 @@ class App extends Component {
                 }
                 <Route exact path="/" component={NonUserLandingView} />
                 <Route exact path="/home" component={LandingView} />
-                <Route exact path="/admin" component={Admin} />
+                <Route exact path="/admin" render={() => <Admin history={history}/>} />
                 <Route exact path="/upload" component={Upload} />
                 <Route path="/profiles" component={Profiles} />
                 {/* <Route path='/profile/:id' component={Profile} /> commented out instead of deleted incase I need to change it back J.H*/}

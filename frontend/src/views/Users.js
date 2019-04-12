@@ -91,67 +91,11 @@ class Users extends React.Component {
         window.location.reload();
       }, 800);
 
-
-      
-      // let email_status = emails.includes(email);
-
-      // email_status ?
-      //   alert('Already on list')
-      //   :
-      //   this.props.approveEmail(email)
-      // ?
-      //   alert('Approve => Deny')
-      //   : alert(email)
-
-      // this.props.approvedEmails.include(email) ?x
-
     }
     
     render() {
     return (
       <div>
-        {/* <div >
-                    <h4>
-                    <MainWrapper>
-                    <InnerWrapper>Name</InnerWrapper>
-                    <InnerWrapper>E-Mail</InnerWrapper>
-                    <InnerWrapper>Moderator</InnerWrapper>
-                    </MainWrapper>
-                    <hr></hr>
-
-                    {this.props.users.usersNmods.map(user =>{
-                        return (
-                            
-                            <MainWrapper>
-                                <InnerWrapper>{user.username}</InnerWrapper>
-                                <InnerWrapper>{user.email}</InnerWrapper>
-                                
-                                <InnerWrapper>
-                                {
-                                    (user.user_permissions == 'moderator') &&
-                                    <input
-                                    name="isMod"
-                                    type="checkbox"
-                                    checked='true'
-                                    onChange={e => {this.buttony2(e, user.id)}} />
-                                }
-                                {
-                                    (user.user_permissions == 'basic') &&
-                                    <input
-                                    name="notMod"
-                                    type="checkbox"
-                                    checked=''
-                                    onChange={e => {this.buttony(e, user.id)}} />
-                                }
-                                
-                                </InnerWrapper>
-                            </MainWrapper>
-                                    
-                        )
-                    })}
-                    
-                    </h4>
-                </div> */}
         <ReactTable
           data={this.props.users.usersNmods}
           filterable
