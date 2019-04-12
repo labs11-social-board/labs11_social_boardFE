@@ -115,23 +115,28 @@ const DivSideNav = styled.div`
   position: fixed;
   left: 0;
   top: ${topHeaderHeight};
-  z-index: 7801;
+  z-index: ${props => (props.isSideNavOpen ? '10000' : '7901')};
   box-sizing: border-box;
   border-right: 2px solid rgb(243, 245, 248);
   height: 100%;
 
   @media (max-width: 800px) {
-    position: relative;
-    height: auto;
-    width: 99.9%;
-    border: none;
-    top: 0;
+    display: ${props => (props.isSideNavOpen ? 'flex': 'none')}
+    position: fixed;
+    height: 85%;
+    width: 80%;
+    min-height: 0;
+    border:none;
+    background: ${props => (props.isSideNavOpen ? 'white' : 'none' )};
   }
 `;
 
 const StyledNavButton = styled.button`
-position: absolute;
-
+position: fixed;
+z-index: 10000;
+cursor: pointer;
+bottom: 20px;
+left: 10px;
 @media (min-width: 800px) {
   display: none
 }
@@ -280,6 +285,7 @@ class App extends Component {
   }
 
   render() {
+    // console.log(this.toggleRegisterModal);
     const { showSearch } = this.state;
     const { error, history, message, location, isDay } = this.props;
     if (this.isAuthenticated() || localStorage.getItem('symposium_user_id')) {
@@ -321,13 +327,13 @@ class App extends Component {
               setChangeSubModalRaised={this.setChangeSubModalRaised}
             />
             <DivBody isLoggedIn>
-              <DivSideNav isLoggedIn>
-                {this.state.isSideNavOpen === true ? <StyledNavButton className="fas fa-times" onClick={this.toggleSideNav}></StyledNavButton> : <StyledNavButton className="fas fa-bars" onClick={this.toggleSideNav}></StyledNavButton>}
+              <DivSideNav isLoggedIn isSideNavOpen={this.state.isSideNavOpen}>
                 <SideNav
                   isOpen={this.state.isSideNavOpen}
                   setAddCatModalRaised={this.setAddCatModalRaised}
                   setAddTeamModalRaised={this.setAddTeamModalRaised}
                   history={history}
+                  toggleSideNav={this.toggleSideNav}
                 />
               </DivSideNav>
               <DivPage>
@@ -367,7 +373,7 @@ class App extends Component {
                     />
                   )
                 }
-                <Route exact path="/" component={NonUserLandingView} />
+                <Route exact path="/" render={ () => <NonUserLandingView toggleRegisterModal={this.toggleRegisterModal}/>}/>
                 <Route exact path="/home" component={LandingView} />
                 <Route exact path="/admin" component={Admin} />
                 <Route exact path="/upload" component={Upload} />
@@ -382,8 +388,10 @@ class App extends Component {
                 <Route path='/settings/:id' render={props => <Settings {...props} setChangeSubModalRaised={this.setChangeSubModalRaised} />} />
                 <Route path='/discussions/category/:category_id' component={DiscussionsByCats} />
                 <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} />
+                
               </DivPage>
             </DivBody>
+            {this.state.isSideNavOpen === true ? <StyledNavButton id='nav-button' className="fas fa-times" onClick={this.toggleSideNav}></StyledNavButton> : <StyledNavButton id='nav-button' className="fas fa-bars" onClick={this.toggleSideNav}></StyledNavButton>}
             <Footer
               toggleSearch={this.toggleSearch}
               switched={this.switchTheme}
@@ -412,7 +420,7 @@ class App extends Component {
                   <Route path='/request-reset-pw' component={RequestResetPWForm} />
                   <Route path='/reset/:reset_pw_token' component={ResetPWForm} />
                   <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} />
-                  <Route component={NonUserLandingView} />
+                  <Route render={ () => <NonUserLandingView toggleRegisterModal={this.toggleRegisterModal}/>} />
                 </Switch>
               </DivPage>
             </DivBody>

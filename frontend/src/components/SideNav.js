@@ -20,18 +20,16 @@ margin-top: 20px;
   overflow-y: auto;
   height: calc(100% - 170px);
   min-height: 10%;
-
   @media (max-width: 800px) {
     display: ${props => props.isOpen === 'true' ? 'flex' : 'none'};
+    height: calc(100% - 21px);
   }
-
 `;
 
 const DivHeader = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-
   .fa-plus-circle {
     font-size: 21px;
     cursor: pointer;
@@ -39,11 +37,9 @@ const DivHeader = styled.div`
     color: ${ props => props.theme.defaultColor};
     //margin: 10px;
     //margin-bottom: 10px;
-
     &:hover {
       color: ${ props => props.theme.defaultColorOnHover};
     }
-
   }
 `;
 
@@ -51,7 +47,6 @@ const H4BrowseCategories = styled.h4`
     width: 95%;
     margin-top: 6px;
     margin-bottom: 36px;
-
     .browse-categories {
       font-size: 0.9rem;
     }
@@ -63,7 +58,6 @@ const LinkBrowseCategories = styled(Link)`
   color: ${props => props.islinkselected === 'true' ? props.theme.defaultColorOnHover : props.theme.defaultColor};
   border-left: ${props => props.islinkselected === 'true' ? `5px solid ${props.theme.defaultColorOnHover}` : '6px solid transparent'};
   font-weight: normal;
-
   i {
     cursor: pointer;
     margin-left: 20px;
@@ -71,11 +65,9 @@ const LinkBrowseCategories = styled(Link)`
     color: inherit;
     margin-left: 15px;
   }
-
   &:hover {
     color: ${ props => props.theme.defaultColorOnHover};
   }
-
     &:hover {
       //border: 1px solid ${props => props.theme.defaultColorOnHover};
     }
@@ -101,18 +93,15 @@ const H4AllPosts = styled.h4`
   align-items: center;
   margin-bottom: 9px;
   border-left: ${props => props.islinkselected === 'true' ? `1px solid ${props.theme.defaultColor}` : '0px solid transparent'};
-
   i {
     cursor: pointer;
     font-size: 21px;
     color: ${ props => props.theme.defaultColor};
     padding: 0 7px 2px 10px;
     opacity: 0.6;
-
     &:hover {
       opacity: 1;
     }
-
   }
 `;
 
@@ -131,12 +120,10 @@ const LinkAllPosts = styled(Link)`
   border-left: ${props => props.islinkselected === 'true' ? `5px solid ${props.theme.defaultColorOnHover}` : '7px solid transparent'};
   &:hover {
     color: ${props => props.theme.defaultColorOnHover};
-
     .div-window {
       background-color: ${props => props.theme.defaultColorOnHover};
     }
   }
-
   .div-window {
     background-color: ${props => props.islinkselected === 'true' ? `${props.theme.defaultColorOnHover}` : `${props.theme.defaultColor}`};
   }
@@ -155,7 +142,6 @@ const DivWindows = styled.div`
   margin-left: 15px;
   margin-right: 13px;
   margin-bottom: 0px;
-
   div {
     background-color: ${props => props.theme.defaultColor};
     border-radius: 2px;
@@ -171,7 +157,6 @@ const PNoCatFollowMessage = styled.p`
   height: 50px;
   color: ${props => props.theme.defaultColor};
   justify-content: center;
-
 `;
 
 const LiCategoryFollowed = styled.li`
@@ -198,7 +183,6 @@ border-left: ${props => props.islinkselected === 'true' ? `5px solid ${props.the
   text-decoration: none;
   // color: ${props => props.islinkselected === 'true' ? 'blue' : 'black'};
   color: ${props => props.islinkselected === 'true' ? `${props.theme.defaultColorOnHover}` : `${props.theme.defaultColor}`};
-
   span {
     width: 46px;
     display: inline-block;
@@ -209,18 +193,14 @@ border-left: ${props => props.islinkselected === 'true' ? `5px solid ${props.the
       color: inherit;
       margin-left: 15px;
     }
-
-
   }
-
   &:hover {
     color: ${props => props.theme.defaultColorOnHover};
-
   }
 `;
 
 const DivNavContainer = styled.div`
-  
+  color: ${props => props.islinkselected === 'true' ? props.theme.defaultColorOnHover : props.theme.defaultColor};
 `;
 
 const DropdownFollowing = styled.div`
@@ -230,9 +210,10 @@ const DropdownFollowing = styled.div`
 
 const DivModalRaised = styled.div`
 font-weight: normal;
+color: ${props => props.islinkselected === 'true' ? props.theme.defaultColorOnHover : props.theme.defaultColor};
 &:hover {
   color: ${props => props.theme.defaultColorOnHover};
-
+  cursor: pointer;
 }
 `
 
@@ -250,6 +231,7 @@ class SideNav extends Component {
       categoryFollows: [],
       userTeams: [],
       isFollowedCatsOpen: true,
+      setWrapperRef: this.setWrapperRef.bind(this)
     }
   }
 
@@ -261,6 +243,8 @@ class SideNav extends Component {
     this.props.getUsersTeams().then(() => {
       this.setState({ userTeams: this.props.userTeams });
     });
+
+    document.addEventListener('click', this.handleClick, false);
   }
 
   componentDidUpdate = (prevProps) => {
@@ -274,19 +258,31 @@ class SideNav extends Component {
     }
   }
 
+  componentWillUnmount = () => {
+    document.addEventListener('click', this.handleClick, false);
+  }
   selectLink = (linkName) => {
     this.setState({ linkSelected: linkName });
+    this.props.toggleSideNav();
   }
 
   toggleFollowedCats = () => {
     this.setState({ isFollowedCatsOpen: !this.state.isFollowedCatsOpen })
   }
 
+  handleClick = e => {
+    if (this.wrapperRef && !this.wrapperRef.contains(e.target) && e.target.id !== 'nav-button' && this.props.isOpen) {
+      this.props.toggleSideNav();
+    }
+  }
+  setWrapperRef(node){
+    this.wrapperRef = node;
+  }
   render() {
     const { user_type } = this.props;
 
     return (
-      <DivSideNav isOpen={`${this.props.isOpen}`}>
+      <DivSideNav isOpen={`${this.props.isOpen}`} ref={this.state.setWrapperRef}>
         <DivNavContainer>
           {
             (user_type == 'admin') &&
