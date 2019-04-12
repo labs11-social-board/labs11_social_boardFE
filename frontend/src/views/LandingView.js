@@ -69,7 +69,7 @@ class LandingView extends React.Component {
 
   render() {
     
-    console.log(this.props.verified)
+    //console.log(this.props.verified)
     if (!this.props.verified) {
       return(
         <NoGo />
