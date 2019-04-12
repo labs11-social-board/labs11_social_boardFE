@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import styled from 'styled-components';
-import DeleteComment from './DeleteComment';
+import DeletePost from './DeletePost';
 
 // components
 import {
@@ -290,7 +290,7 @@ console.log(user_type)
               <a onClick={e => handleRemovePost(e, id)}>Delete comment</a>
             </div>) 
             : null} */}
-            <DeleteComment 
+            <DeletePost 
             handleRemovePost={handleRemovePost} 
             handleTeamFilter={handleTeamFilter} 
             handleFilterChange={handleFilterChange}
