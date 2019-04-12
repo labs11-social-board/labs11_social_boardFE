@@ -64,23 +64,32 @@ class LandingView extends React.Component {
     
     this.props.verifyEmail(this.state.verify.email);
     
-    
+    console.log('mount',this.props.verified)
   }
 
-  render() {
-    
-    //console.log(this.props.verified)
+  componentDidUpdate(){
+    console.log('update',this.props.verified)
+  }
+
+  conditionalRender(){
     if (!this.props.verified) {
       return(
         <NoGo />
       )
+    } else {
+      return(
+        <LandingViewWrapper>
+        <DiscussionsByFollowedCats history = { this.props.history } match = { this.props.match } />
+        </LandingViewWrapper>
+      )
     }
-
-    return(
-      <LandingViewWrapper>
-      <DiscussionsByFollowedCats history = { this.props.history } match = { this.props.match } />
-      </LandingViewWrapper>
-    )
+  }
+  render() {
+    return (
+      <>
+        {this.props.isVerifyingEmail ? <div>...Loading</div> : this.conditionalRender()}
+      </>
+    );
   }
 
 
@@ -104,6 +113,7 @@ const mapStateToProps = state => {
     loggingInLoadingMessage: state.loggingInLoadingMessage,
     users: state.users,
     verified: state.users.verified,
+    isVerifyingEmail: state.users.isVerifyingEmail
   };
 };
 
