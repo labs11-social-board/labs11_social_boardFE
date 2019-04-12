@@ -10,6 +10,8 @@ const RepliesView = ({
     historyPush,
     showAddReplyForm,
     toggleAddReplyForm,
+    isShowImage,
+    handleImageShow
 }) => {
     return(
         <RepliesViewWrapper>
@@ -20,6 +22,8 @@ const RepliesView = ({
                     historyPush = { historyPush }
                     showAddReplyForm={showAddReplyForm}
                     toggleAddReplyForm={toggleAddReplyForm}
+                    isShowImage={isShowImage}
+                    handleImageShow={handleImageShow}
                 />)
             }
         </RepliesViewWrapper>

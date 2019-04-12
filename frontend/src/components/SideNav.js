@@ -275,7 +275,9 @@ class SideNav extends Component {
   }
   selectLink = (linkName) => {
     this.setState({ linkSelected: linkName });
-    this.props.toggleSideNav();
+    if(this.props.isOpen){
+      this.props.toggleSideNav();
+    }
   }
 
   toggleFollowedCats = () => {

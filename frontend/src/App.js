@@ -85,6 +85,35 @@ const AppWrapper = styled.div`
   width: 100%;
   position: relative;
   min-height: 100vh;
+
+  .show-image-wrapper {
+		.show-image {
+			border: 1px solid;
+			display: flex;
+      width: 23px;
+      height: 13px;
+      padding: 4px 5px 9px;
+      border-radius: 5px;
+      color: black;
+      cursor: pointer;
+      margin-bottom: 5px;
+      background: #418dcf;
+      color: white;
+
+      &:hover {
+        background: white;
+        color: ${props => props.theme.defaultColorOnHover};
+      }
+
+      i{
+        margin-right: 2px;
+      }
+		}
+		img {
+			max-width: 100%;
+			height: auto;
+		}
+	}
 `;
 
 const DivBody = styled.div`
@@ -123,24 +152,13 @@ const DivSideNav = styled.div`
   @media (max-width: 800px) {
     display: ${props => (props.isSideNavOpen ? 'flex': 'none')}
     position: fixed;
-    height: 85%;
+    height: 90%;
     width: 80%;
     min-height: 0;
     border:none;
     background: ${props => (props.isSideNavOpen ? 'white' : 'none' )};
   }
 `;
-
-const StyledNavButton = styled.button`
-position: fixed;
-z-index: 10000;
-cursor: pointer;
-bottom: 20px;
-left: 10px;
-@media (min-width: 800px) {
-  display: none
-}
-`
 
 const DivPage = styled.div`
   display: flex;
@@ -266,9 +284,9 @@ class App extends Component {
     if (user_id && token) return this.props.logBackIn(user_id, token);
   }
   componentDidUpdate(prevProps) {
-    if (this.props.error.includes('expired')) {
-      localStorage.clear();
-    }
+    // if (this.props.error.includes('expired')) {
+    //   localStorage.clear();
+    // }
     if (
       prevProps.location.hash.substring(1) !==
       this.props.location.hash.substring(1)
@@ -309,6 +327,8 @@ class App extends Component {
               setAvatarModalRaised={this.setAvatarModalRaised}
               isNotificationsModalRaised={this.state.isNotificationsModalRaised}
               setNotificationsModalRaised={this.setNotificationsModalRaised}
+              isSideNavOpen={this.state.isSideNavOpen}
+              toggleSideNav={this.toggleSideNav}
             />
             <AvatarDropdown
               history={history}
@@ -391,7 +411,6 @@ class App extends Component {
                 
               </DivPage>
             </DivBody>
-            {this.state.isSideNavOpen === true ? <StyledNavButton id='nav-button' className="fas fa-times" onClick={this.toggleSideNav}></StyledNavButton> : <StyledNavButton id='nav-button' className="fas fa-bars" onClick={this.toggleSideNav}></StyledNavButton>}
             <Footer
               toggleSearch={this.toggleSearch}
               switched={this.switchTheme}
