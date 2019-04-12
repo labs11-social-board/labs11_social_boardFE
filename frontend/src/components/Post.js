@@ -39,6 +39,19 @@ const PostWrapper = styled.div`
     margin-bottom: 16px;
     margin-top: 16px;
   }
+
+  .show-image-wrapper {
+		.show-image {
+			border: 1px solid;
+			display: flex;
+			width: 20px;
+			height: 20px;
+		}
+		img {
+			max-width: 100%;
+			height: auto;
+		}
+	}
 `;
 
 const BodyWrapper = styled.p`
@@ -184,7 +197,9 @@ const Post = ({
   //deleteReply,
   scrollTo,
   team_id, 
-  displayMessage
+  displayMessage,
+  isShowImage,
+  handleImageShow
 }) => {
   const {
     body,
@@ -253,9 +268,11 @@ console.log(user_type)
     <PostWrapper>
       <div>
         <BodyWrapper>{body}</BodyWrapper>
-        {image ? (
-          <img src={image} alt="uploaded image" height="42" width="42" />
-        ) : null}
+        {image ? 
+          <div className='show-image-wrapper'>
+            <a className='show-image' onClick={handleImageShow}/>
+            {isShowImage ? <img src={image} alt="uploaded image"/> : null}
+          </div> : null}
       </div>
       <InfoWrapper>
         <div className="user-info">
@@ -319,6 +336,8 @@ console.log(user_type)
             team_id={team_id}
             handleFilterChange={handleFilterChange}
             handleTeamFilter={handleTeamFilter}
+            isShowImage={isShowImage}
+            handleImageShow={handleImageShow}
           />
         ))}
         

@@ -380,6 +380,8 @@ class TeamDiscussion extends Component {
                     handleTeamFilter={this.handleTeamFilter}
                     team_id={team_id}
                     scrollTo={scrollTo}
+                    isShowImage={this.state.isShowImage}
+                    handleImageShow={this.handleImageShow}
                   />
                 </Posts>
               ) : null}

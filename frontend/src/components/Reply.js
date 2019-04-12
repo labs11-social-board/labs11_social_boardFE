@@ -19,6 +19,19 @@ const ReplyWrapper = styled.div`
   margin-left: 50px;
   border-left: 1px solid #ccc;
   padding-left: 10px;
+
+  .show-image-wrapper {
+		.show-image {
+			border: 1px solid;
+			display: flex;
+			width: 20px;
+			height: 20px;
+		}
+		img {
+			max-width: 100%;
+			height: auto;
+		}
+	}
 `;
 
 const BodyWrapper = styled.p`
@@ -158,7 +171,9 @@ const Reply = ({
   handleFilterChange,
   handleTeamFilter,
   removeReply,
-  displayMessage
+  displayMessage,
+  isShowImage,
+  handleImageShow
 }) => {
   const {
     body,
@@ -203,9 +218,11 @@ const Reply = ({
     <ReplyWrapper>
       <div>
         <BodyWrapper>{body}</BodyWrapper>
-        {image ? (
-          <img src={image} alt="uploaded image" height="42" width="42" />
-        ) : null}
+        {image ? 
+          <div className='show-image-wrapper'>
+            <a className='show-image' onClick={handleImageShow}/>
+            {isShowImage ? <img src={image} alt="uploaded image"/> : null}
+          </div> : null}
       </div>
       <InfoWrapper>
         <div className="user-info">

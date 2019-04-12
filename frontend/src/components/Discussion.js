@@ -375,6 +375,8 @@ class Discussion extends Component {
                   repliedPost={posts.find(post => post.id === showAddReplyForm)}
                   handleFilterChange={this.handleFilterChange}
                   scrollTo={scrollTo}
+                  isShowImage={this.state.isShowImage}
+                  handleImageShow={this.handleImageShow}
                 />
               </Posts>
             </CommentWrapper>
