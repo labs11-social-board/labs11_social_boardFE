@@ -236,13 +236,12 @@ class SideNav extends Component {
       verify: {
         email: token
       },
-      setWrapperRef: this.setWrapperRef.bind(this)
+      setWrapperRef: this.setWrapperRef.bind(this),
+      updated: this.props.verified
     }
   }
 
   componentDidMount = () => {
-    this.props.verifyEmail(this.state.verify.email);
-
     this.props.getCategoriesFollowed().then(() => {
       this.setState({ categories: this.props.categoriesFollowed, categoryFollows: this.props.categoryFollows });
     });
@@ -252,6 +251,8 @@ class SideNav extends Component {
     });
 
     document.addEventListener('click', this.handleClick, false);
+
+    this.props.verifyEmail(this.state.verify.email);
   }
 
   componentDidUpdate = (prevProps) => {
@@ -287,7 +288,7 @@ class SideNav extends Component {
   }
   render() {
     const { user_type } = this.props;
-    console.log(this.props.verified)
+    //console.log(this.props.verified)
     if (!this.props.verified) {
       return(
         <NoGo2 />
