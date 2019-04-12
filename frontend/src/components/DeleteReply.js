@@ -3,14 +3,7 @@ import { connect } from 'react-redux';
 import { removeReply } from '../store/actions/RepliesActions.js'
 
 class DeleteReply extends React.Component {
-    constructor() {
-        super()
-
-
-    }
-
-
-
+   
     deleteReply = (e, id) => {
         // e.preventDefault();
         this.props.removeReply(id);

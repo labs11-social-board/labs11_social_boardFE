@@ -3,13 +3,6 @@ import { connect } from 'react-redux';
 import { removePost } from '../store/actions/PostsActions.js'
 
 class DeleteComment extends React.Component {
-    constructor() {
-        super()
-
-        
-    }
-
-  
 
    handleRemovePost = (e, id) => {
         // e.preventDefault();
