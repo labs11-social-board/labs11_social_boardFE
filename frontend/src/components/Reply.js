@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import styled from 'styled-components';
-import DeleteComment from './DeleteComment.js';
-import { removePost } from '../store/actions/PostsActions.js'
+import DeleteReply from './DeleteReply.js';
+
 
 // action creators
 import { removeReply, displayMessage } from '../store/actions/index.js';
@@ -230,9 +230,19 @@ const Reply = ({
           <div className="date tablet">
             <span>{moment(new Date(Number(created_at))).fromNow()}</span>
           </div>
-          {loggedInUserId === user_id ?
+          {/* {loggedInUserId === user_id ?
             <div className='delete' onClick={() => deleteReply(id)}>Delete reply</div>
-            : null}
+            : null} */}
+          <DeleteReply
+            deleteReply={deleteReply}
+            handleTeamFilter={handleTeamFilter}
+            handleFilterChange={handleFilterChange}
+            displayMessage={displayMessage}
+            id={id}
+            teamId={team_id}
+            user_id={user_id}
+            user_type={user_type}
+          />
         </div>
       </InfoWrapper>
       {showAddReplyForm === id && (
@@ -260,5 +270,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  {removeReply, displayMessage}
+  { removeReply, displayMessage }
 )(Reply);
