@@ -1,10 +1,12 @@
+
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import NoGo2 from './NoGo2.js';
 
 // actions
-import { getCategoriesFollowed, getUsersTeams } from '../store/actions/index.js';
+import { getCategoriesFollowed, getUsersTeams, getUsers, verifyEmail } from '../store/actions/index.js';
 
 // globals
 import { phoneL, accountUserTypes, subSilverStartIndex } from '../globals/globals.js';
@@ -216,7 +218,7 @@ color: ${props => props.islinkselected === 'true' ? props.theme.defaultColorOnHo
   cursor: pointer;
 }
 `
-
+const token = localStorage.getItem('symposium_token');
 
 
 /***************************************************************************************************
@@ -231,7 +233,11 @@ class SideNav extends Component {
       categoryFollows: [],
       userTeams: [],
       isFollowedCatsOpen: true,
-      setWrapperRef: this.setWrapperRef.bind(this)
+      verify: {
+        email: token
+      },
+      setWrapperRef: this.setWrapperRef.bind(this),
+      updated: this.props.verified
     }
   }
 
@@ -245,6 +251,12 @@ class SideNav extends Component {
     });
 
     document.addEventListener('click', this.handleClick, false);
+
+    this.props.verifyEmail(this.state.verify.email);
+    this.setState({
+      ...this.state,
+      updated: this.props.verified
+    })
   }
 
   componentDidUpdate = (prevProps) => {
@@ -280,6 +292,12 @@ class SideNav extends Component {
   }
   render() {
     const { user_type } = this.props;
+    //console.log(this.props.verified)
+    if (!this.props.verified) {
+      return(
+        <NoGo2 />
+      )
+    }
 
     return (
       <DivSideNav isOpen={`${this.props.isOpen}`} ref={this.state.setWrapperRef}>
@@ -456,10 +474,11 @@ const mapStateToProps = state => ({
   categoryFollows: state.users.categoryFollows,
   user_type: state.users.user_type,
   categoriesFollowed: state.categories.categoriesFollowed,
-  userTeams: state.teams.userTeams
+  userTeams: state.teams.userTeams,
+  verified: state.users.verified,
 });
 
 export default connect(
   mapStateToProps,
-  { getCategoriesFollowed, getUsersTeams }
+  { getCategoriesFollowed, getUsersTeams, getUsers, verifyEmail }
 )(SideNav);
