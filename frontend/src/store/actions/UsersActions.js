@@ -165,11 +165,8 @@ export const verifyEmail = token => dispatch => {
   .get(`${backendUrl}/emails/is-accepted-email`, headers)
   .then(res =>{
     console.log("results:",res) 
-    dispatch({
-    type: VERIFYUSER_SUCCESS, payload: res.data
-   })
-   }
-   )
+    dispatch({ type: VERIFYUSER_SUCCESS, payload: res.data })
+  })
  .catch(err => handleError(err, VERIFYUSER_FAILURE)(dispatch));
  
 }

@@ -184,7 +184,10 @@ const Post = ({
   //deleteReply,
   scrollTo,
   team_id, 
-  displayMessage
+  displayMessage,
+  isShowImage,
+  handleImageShow,
+  imageClickedId
 }) => {
   const {
     body,
@@ -239,7 +242,7 @@ const Post = ({
   };
 
   const handleRemovePost = (e, id) => {
-    // e.preventDefault();
+    e.preventDefault();
     removePost(id);
     displayMessage('Comment deleted');
     if (team_id) {
@@ -253,9 +256,11 @@ console.log(user_type)
     <PostWrapper>
       <div>
         <BodyWrapper>{body}</BodyWrapper>
-        {image ? (
-          <img src={image} alt="uploaded image" height="42" width="42" />
-        ) : null}
+        {image ? 
+          <div className='show-image-wrapper'>
+            <a className='show-image' onClick={() => handleImageShow(id)}><i className="fas fa-camera"></i>{ isShowImage ? '-' : '+'}</a>
+					  {isShowImage ? id === imageClickedId ? <img src={image} alt="uploaded image"/> : null : null }
+          </div> : null}
       </div>
       <InfoWrapper>
         <div className="user-info">
@@ -280,19 +285,19 @@ console.log(user_type)
           <div className="date tablet">
             <span>{moment(new Date(Number(created_at))).fromNow()}</span>
           </div>
-          {/* {(loggedInUserId === user_id || user_type === 'admin' || user_type === 'moderator') ? 
+          {(loggedInUserId === user_id || user_type === 'admin' || user_type === 'moderator') ? 
             (<div className='delete'>
               <a onClick={e => handleRemovePost(e, id)}>Delete comment</a>
             </div>) 
-            : null} */}
-            <DeletePost 
+            : null}
+            {/* <DeletePost 
             handleRemovePost={handleRemovePost} 
             handleTeamFilter={handleTeamFilter} 
             handleFilterChange={handleFilterChange}
             id={id} 
             teamId={team_id} 
             user_id={user_id}
-            />
+            /> */}
         </div>
       </InfoWrapper>
       {showAddReplyForm === id && (
@@ -319,6 +324,9 @@ console.log(user_type)
             team_id={team_id}
             handleFilterChange={handleFilterChange}
             handleTeamFilter={handleTeamFilter}
+            isShowImage={isShowImage}
+            handleImageShow={handleImageShow}
+            imageClickedId={imageClickedId}
           />
         ))}
         

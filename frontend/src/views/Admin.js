@@ -58,7 +58,6 @@ class Admin extends React.Component {
     // }
 
     render() {
-
         //if (!this.props.isLoggedIn) return <h2>--Yo, dog.  You ain't logged in.  Do That <Link to="/">HERE</Link> </h2>;
 
         return(
@@ -72,7 +71,7 @@ class Admin extends React.Component {
 
                         <InnerWrapper>
                             <Boxed>
-                                <ApproveEmailForm/>
+                                <ApproveEmailForm histoy={this.props.history}/>
                             </Boxed>
                             <Boxed>
                             <ApprovedEmails/>
@@ -99,6 +98,7 @@ class Admin extends React.Component {
 }
 
 const mapStoreToProps = state => {
+    console.log('Admin State', state)
     return {
       
     };

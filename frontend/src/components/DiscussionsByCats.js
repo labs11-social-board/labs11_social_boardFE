@@ -119,6 +119,8 @@ class DiscussionsByCats extends Component {
     order: 'created_at', // possible values: 'created_at', 'post_count', 'discussion_votes'
     orderType: '', // possible values: 'desc', 'asc'
     showAddDiscussionForm: false,
+    isShowImage: false,
+    imageClickedId: ''
   };
   toggleAddDiscussionForm = () => this.setState({
     showAddDiscussionForm: !this.state.showAddDiscussionForm,
@@ -175,6 +177,9 @@ class DiscussionsByCats extends Component {
       return getDiscussionsByCat(category_id, order, orderType);
     };
   };
+  handleImageShow = id => {
+    this.setState({ isShowImage: !this.state.isShowImage, imageClickedId: id });
+  }
   render() {
     const { discussions, history, category_name, match } = this.props;
     const { showAddDiscussionForm } = this.state;
@@ -217,6 +222,9 @@ class DiscussionsByCats extends Component {
               discussion={discussion}
               history={history}
               voteOnDiscussion={this.handleDiscussionVote}
+              isShowImage={this.state.isShowImage}
+              handleImageShow={this.handleImageShow}
+              imageClickedId={this.state.imageClickedId}
             />)
           }
         </div>
