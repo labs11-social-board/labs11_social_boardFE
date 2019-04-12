@@ -16,8 +16,8 @@ class DeleteComment extends React.Component {
         }
     }
 
-    handleAddDeletedPost = (e, id, post) => {
-      this.props.addDeletedPost(id, post)
+    handleAddDeletedPost = (e, id) => {
+      this.props.addDeletedPost(id)
     }
   
     render() {
