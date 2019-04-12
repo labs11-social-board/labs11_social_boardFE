@@ -85,6 +85,35 @@ const AppWrapper = styled.div`
   width: 100%;
   position: relative;
   min-height: 100vh;
+
+  .show-image-wrapper {
+		.show-image {
+			border: 1px solid;
+			display: flex;
+      width: 23px;
+      height: 13px;
+      padding: 4px 5px 9px;
+      border-radius: 5px;
+      color: black;
+      cursor: pointer;
+      margin-bottom: 5px;
+      background: #418dcf;
+      color: white;
+
+      &:hover {
+        background: white;
+        color: #418dcf;
+      }
+
+      i{
+        margin-right: 2px;
+      }
+		}
+		img {
+			max-width: 100%;
+			height: auto;
+		}
+	}
 `;
 
 const DivBody = styled.div`
