@@ -218,7 +218,6 @@ color: ${props => props.islinkselected === 'true' ? props.theme.defaultColorOnHo
   cursor: pointer;
 }
 `
-const token = localStorage.getItem('symposium_token');
 
 
 /***************************************************************************************************
@@ -233,9 +232,6 @@ class SideNav extends Component {
       categoryFollows: [],
       userTeams: [],
       isFollowedCatsOpen: true,
-      verify: {
-        email: token
-      },
       setWrapperRef: this.setWrapperRef.bind(this),
       updated: this.props.verified
     }
@@ -251,12 +247,6 @@ class SideNav extends Component {
     });
 
     document.addEventListener('click', this.handleClick, false);
-
-    this.props.verifyEmail(this.state.verify.email);
-    this.setState({
-      ...this.state,
-      updated: this.props.verified
-    })
   }
 
   componentDidUpdate = (prevProps) => {
