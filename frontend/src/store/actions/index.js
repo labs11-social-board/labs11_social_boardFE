@@ -170,10 +170,14 @@ import {
   ADD_REPLY_LOADING,
   ADD_REPLY_SUCCESS,
   ADD_REPLY_FAILURE,
+  HANDLE_DELETE_REPLY_LOADING,
+  HANDLE_DELETE_REPLY_SUCCESS,
+  HANDLE_DELETE_REPLY_FAILURE,
 
   //Action Creators
   addReply,
-  updateReplyWithImage
+  updateReplyWithImage,
+  removeReply
 } from './RepliesActions.js';
 
 import {
@@ -274,6 +278,9 @@ import {
   UPLOAD_LIST_LOADING,
   UPLOAD_LIST_SUCCESS,
   UPLOAD_LIST_FAILURE,
+  VERIFYUSER_LOADING,
+  VERIFYUSER_SUCCESS,
+  VERIFYUSER_FAILURE,
 
   // Action Creators
   login,
@@ -307,6 +314,7 @@ import {
   makeMod,
   emailCSV,
   makeBas,
+  verifyEmail,
 } from './UsersActions.js';
 
 /************************************************************
@@ -542,6 +550,9 @@ export {
   UPLOAD_LIST_LOADING,
   UPLOAD_LIST_SUCCESS,
   UPLOAD_LIST_FAILURE,
+  VERIFYUSER_LOADING,
+  VERIFYUSER_SUCCESS,
+  VERIFYUSER_FAILURE,
 
   // Posts Actions
   ADD_POST_LOADING,
@@ -572,6 +583,9 @@ export {
   ADD_REPLY_LOADING,
   ADD_REPLY_SUCCESS,
   ADD_REPLY_FAILURE,
+  HANDLE_DELETE_REPLY_LOADING,
+  HANDLE_DELETE_REPLY_SUCCESS,
+  HANDLE_DELETE_REPLY_FAILURE,
   // Categories Action Creators
   getCategories,
   getCategoriesFollowed,
@@ -638,6 +652,7 @@ export {
   makeMod,
   emailCSV,
   makeBas,
+  verifyEmail,
   // Profile Action Creators
   getProfiles,
   getProfile,
@@ -652,6 +667,7 @@ export {
   // Reply Action Creators
   addReply,
   updateReplyWithImage,
+  removeReply,
   //followers actions
   GET_FOLLOWERS,
   GET_FOLLOWERS_SUCCESS,

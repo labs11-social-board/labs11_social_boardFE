@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import styled from 'styled-components';
 import {connect} from 'react-redux';
 import {background, computericon } from '../assets/index.js';
+import { Link } from 'react-router-dom';
+// import { register, isEmailTaken, isUsernameTaken } from '../store/actions/index.js';
+// import { RegisterDropdown } from './index.js';
 
 const Woah = styled.section `
   width: 100%;
@@ -11,9 +14,6 @@ const Woah = styled.section `
   flex-wrap: wrap;
   flex-direction: column;
   align-items: center;
-  @media (max-width: 1240px) {
-    background-image: none;
-  }
 
   ${ ({
   loggedIn}) => loggedIn && '@media (max-width: 980px) {background-image: none;background-color: white;}'}
@@ -21,7 +21,7 @@ const Woah = styled.section `
 
   const BackgroundBox = styled.div `
   width:100%;
-  background: linear-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, .5)), url(${background});
+  background: white;
   background-size: cover;
   background-position: center center;
   height: 85vh;
@@ -38,11 +38,11 @@ const Woah = styled.section `
   display: flex;
   justify-content: center;
   align-text: center;
-  color: lightgray;
-  @media (max-width: 1240px) {
-    width: 100%;
-    color: black;
-  }
+  color: black;
+  // @media (max-width: 1240px) {
+  //   width: 100%;
+  //   color: black;
+  // }
 
   ${ ({
     loggedIn}) => loggedIn && '@media (max-width: 980px) {width: 100%;background-color: white;}'}
@@ -53,6 +53,15 @@ const Woah = styled.section `
     margin: 15px;
   }
 `;
+
+  const GetStartedButton = styled.button `
+    border: 1px solid #418DCF;
+    border-radius: 3px;
+    color: white;
+    background-color: #418DCF;
+    height: 35px;
+    width: 100px;
+  `;
 
     // const VideoPlayer = styled.div`   position: relative;   @media (max-width:
     // 1240px) {     position: absolute;     top: 40%;     left: 0;     right: 0;
@@ -90,18 +99,32 @@ const Woah = styled.section `
     width: 100%;
   `;
 
-    class NonUserLandingView extends Component {
-      render() {
-        return (
+  const LandingDiv = styled.div`
+    display: flex;
+    justify-content: center;
+  `;
 
+    class NonUserLandingView extends Component {
+      // constructor(props) {
+        // super(props);
+        state = {
+          showRegisterModal: true,
+        };
+
+      render() {
+        const { toggleRegisterModal } = this.props;
+        console.log(toggleRegisterModal);
+        return (
           <Woah loggedIn={this.props.user_id !== 0}>
             <BackgroundBox>
               <LandingText loggedIn={this.props.user_id !== 0}>
-                <p className='blurb'>
-                  Welcome to Symposium.
-                </p>
+              Welcome, get started here.
               </LandingText>
+              <LandingDiv>
+                <GetStartedButton onClick={toggleRegisterModal}> Get Started</GetStartedButton>
+              </LandingDiv>
             </BackgroundBox>
+
             <BottomFiller>
               <TextBlurb>
                 <img src={computericon} />

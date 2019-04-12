@@ -85,6 +85,35 @@ const AppWrapper = styled.div`
   width: 100%;
   position: relative;
   min-height: 100vh;
+
+  .show-image-wrapper {
+		.show-image {
+			border: 1px solid;
+			display: flex;
+      width: 23px;
+      height: 13px;
+      padding: 4px 5px 9px;
+      border-radius: 5px;
+      color: black;
+      cursor: pointer;
+      margin-bottom: 5px;
+      background: #418dcf;
+      color: white;
+
+      &:hover {
+        background: white;
+        color: ${props => props.theme.defaultColorOnHover};
+      }
+
+      i{
+        margin-right: 2px;
+      }
+		}
+		img {
+			max-width: 100%;
+			height: auto;
+		}
+	}
 `;
 
 const DivBody = styled.div`
@@ -115,27 +144,21 @@ const DivSideNav = styled.div`
   position: fixed;
   left: 0;
   top: ${topHeaderHeight};
-  z-index: 7801;
+  z-index: ${props => (props.isSideNavOpen ? '10000' : '7901')};
   box-sizing: border-box;
   border-right: 2px solid rgb(243, 245, 248);
   height: 100%;
 
   @media (max-width: 800px) {
-    position: relative;
-    height: auto;
-    width: 99.9%;
-    border: none;
-    top: 0;
+    display: ${props => (props.isSideNavOpen ? 'flex': 'none')}
+    position: fixed;
+    height: 90%;
+    width: 80%;
+    min-height: 0;
+    border:none;
+    background: ${props => (props.isSideNavOpen ? 'white' : 'none' )};
   }
 `;
-
-const StyledNavButton = styled.button`
-position: absolute;
-
-@media (min-width: 800px) {
-  display: none
-}
-`
 
 const DivPage = styled.div`
   display: flex;
@@ -261,9 +284,9 @@ class App extends Component {
     if (user_id && token) return this.props.logBackIn(user_id, token);
   }
   componentDidUpdate(prevProps) {
-    if (this.props.error.includes('expired')) {
-      localStorage.clear();
-    }
+    // if (this.props.error.includes('expired')) {
+    //   localStorage.clear();
+    // }
     if (
       prevProps.location.hash.substring(1) !==
       this.props.location.hash.substring(1)
@@ -280,6 +303,7 @@ class App extends Component {
   }
 
   render() {
+    // console.log(this.toggleRegisterModal);
     const { showSearch } = this.state;
     const { error, history, message, location, isDay } = this.props;
     if (this.isAuthenticated() || localStorage.getItem('symposium_user_id')) {
@@ -303,6 +327,8 @@ class App extends Component {
               setAvatarModalRaised={this.setAvatarModalRaised}
               isNotificationsModalRaised={this.state.isNotificationsModalRaised}
               setNotificationsModalRaised={this.setNotificationsModalRaised}
+              isSideNavOpen={this.state.isSideNavOpen}
+              toggleSideNav={this.toggleSideNav}
             />
             <AvatarDropdown
               history={history}
@@ -321,13 +347,13 @@ class App extends Component {
               setChangeSubModalRaised={this.setChangeSubModalRaised}
             />
             <DivBody isLoggedIn>
-              <DivSideNav isLoggedIn>
-                {this.state.isSideNavOpen === true ? <StyledNavButton className="fas fa-times" onClick={this.toggleSideNav}></StyledNavButton> : <StyledNavButton className="fas fa-bars" onClick={this.toggleSideNav}></StyledNavButton>}
+              <DivSideNav isLoggedIn isSideNavOpen={this.state.isSideNavOpen}>
                 <SideNav
                   isOpen={this.state.isSideNavOpen}
                   setAddCatModalRaised={this.setAddCatModalRaised}
                   setAddTeamModalRaised={this.setAddTeamModalRaised}
                   history={history}
+                  toggleSideNav={this.toggleSideNav}
                 />
               </DivSideNav>
               <DivPage>
@@ -367,7 +393,7 @@ class App extends Component {
                     />
                   )
                 }
-                <Route exact path="/" component={NonUserLandingView} />
+                <Route exact path="/" render={ () => <NonUserLandingView toggleRegisterModal={this.toggleRegisterModal}/>}/>
                 <Route exact path="/home" component={LandingView} />
                 <Route exact path="/admin" render={() => <Admin history={history}/>} />
                 <Route exact path="/upload" component={Upload} />
@@ -382,6 +408,7 @@ class App extends Component {
                 <Route path='/settings/:id' render={props => <Settings {...props} setChangeSubModalRaised={this.setChangeSubModalRaised} />} />
                 <Route path='/discussions/category/:category_id' component={DiscussionsByCats} />
                 <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} />
+                
               </DivPage>
             </DivBody>
             <Footer
@@ -412,7 +439,7 @@ class App extends Component {
                   <Route path='/request-reset-pw' component={RequestResetPWForm} />
                   <Route path='/reset/:reset_pw_token' component={ResetPWForm} />
                   <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} />
-                  <Route component={NonUserLandingView} />
+                  <Route render={ () => <NonUserLandingView toggleRegisterModal={this.toggleRegisterModal}/>} />
                 </Switch>
               </DivPage>
             </DivBody>

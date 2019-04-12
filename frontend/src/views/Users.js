@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-
-import {BrowserRouter as Router, Route, Link, NavLink} from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, NavLink } from "react-router-dom";
 import styled from 'styled-components';
 import { connect } from "react-redux";
 import { getUsers, getUsersNMods, makeMod, makeBas } from './../store/actions/UsersActions';
 import {getEmails, approveEmail, denyEmail} from './../store/actions'
 import ReactTable from "react-table";
 import "react-table/react-table.css";
+
 
 
 const MainWrapper = styled.div`
@@ -36,8 +36,8 @@ font-size: 1.1rem;
 
 
 class Users extends React.Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
 
         // this.state = {
         //   selected: {
@@ -47,7 +47,7 @@ class Users extends React.Component {
         // };
     }
 
-    
+
 
     componentDidMount() {
         this.props.getUsersNMods();
@@ -59,7 +59,7 @@ class Users extends React.Component {
         this.props.makeMod(userNum);
         setTimeout(() => {
             window.location.reload();
-            }, 800);
+        }, 800);
     }
 
     buttony2 = (event, userNum) => {
@@ -67,7 +67,7 @@ class Users extends React.Component {
         this.props.makeBas(userNum);
         setTimeout(() => {
             window.location.reload();
-            }, 800);
+        }, 800);
     }
     
     handleEmailToggle(event, email){
