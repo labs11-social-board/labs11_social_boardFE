@@ -62,17 +62,11 @@ class Users extends React.Component {
             <div >
                 
                 <MainWrapper>
-                    <h4>ACCOUNT NOT ALLOWED</h4>
+                    <h4></h4>
                 </MainWrapper>
                 <hr></hr>
                 <MainWrapper>
-                    <InnerWrapper>
-                    You are not logged in, or are attempting
-                    to access a board or discussion that this 
-                    account is not authorized to see. Please
-                    log in with your company email
-                    or contact your administrator.
-                    </InnerWrapper>
+                    
                 </MainWrapper>
 
             </div>
