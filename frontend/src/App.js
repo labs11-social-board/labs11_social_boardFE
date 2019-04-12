@@ -104,6 +104,10 @@ const AppWrapper = styled.div`
         background: white;
         color: #418dcf;
       }
+
+      i{
+        margin-right: 2px;
+      }
 		}
 		img {
 			max-width: 100%;

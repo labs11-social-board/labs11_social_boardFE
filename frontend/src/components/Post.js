@@ -258,7 +258,7 @@ console.log(user_type)
         <BodyWrapper>{body}</BodyWrapper>
         {image ? 
           <div className='show-image-wrapper'>
-            <a className='show-image' onClick={() => handleImageShow(id)}><i class="fas fa-camera"></i>+</a>
+            <a className='show-image' onClick={() => handleImageShow(id)}><i class="fas fa-camera"></i>{ isShowImage ? '-' : '+'}</a>
 					  {isShowImage ? id === imageClickedId ? <img src={image} alt="uploaded image"/> : null : null }
           </div> : null}
       </div>
