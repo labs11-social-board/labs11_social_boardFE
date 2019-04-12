@@ -208,7 +208,8 @@ class Discussion extends Component {
     showEditDiscussionForm: false, // boolean
     showEditPostForm: null, // post_id
     showAddReplyForm: null, // post_id
-    filter: newest
+    filter: newest,
+    isShowImage: false
   };
   handleSelectChange = e =>
     this.setState(
@@ -268,6 +269,9 @@ class Discussion extends Component {
   handleVote = (id, type) => {
     this.handleDiscussionVote(id, type);
   };
+  handleImageShow = () => {
+    this.setState({ isShowImage: !this.state.isShowImage });
+  }
   render() {
     const { showAddPostForm, showEditPostForm, showAddReplyForm } = this.state;
     const {
@@ -309,6 +313,8 @@ class Discussion extends Component {
               history={history}
               voteOnDiscussion={this.handleVote}
               singleDiscussion={true}
+              isShowImage={this.state.isShowImage}
+              handleImageShow={this.handleImageShow}
             />
             <CommentWrapper>
               <CommentSort>

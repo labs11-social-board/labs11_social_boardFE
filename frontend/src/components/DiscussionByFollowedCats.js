@@ -16,6 +16,18 @@ const DiscussionWrapper = styled.div`
 	border-radius: 5px;
 	overflow-wrap: break-word;
 
+	.show-image-wrapper {
+		.show-image {
+			border: 1px solid;
+			display: flex;
+			width: 20px;
+			height: 20px;
+		}
+		img {
+			max-width: 100%;
+			height: auto;
+		}
+	}
 	.info-wrapper {
 		width: 100%;
 		display: flex;
@@ -161,7 +173,7 @@ const BodyWrapper = styled.p`
 	margin-bottom: 20px;
 `;
 
-const DiscussionByFollowedCats = ({ discussion, history, voteOnDiscussion, singleDiscussion, isDay, isTeam, toggleIsTeam }) => {
+const DiscussionByFollowedCats = ({ discussion, history, voteOnDiscussion, singleDiscussion, isDay, isTeam, toggleIsTeam, isShowImage, handleImageShow }) => {
 	const {
 		avatar,
 		body,
@@ -202,12 +214,16 @@ const DiscussionByFollowedCats = ({ discussion, history, voteOnDiscussion, singl
 		return voteOnDiscussion(id, type);
 	};
 	return(
-		<DiscussionWrapper isDay = { isDay } singleDiscussion = { singleDiscussion } onClick = { handleDiscussionClick }>
+		<DiscussionWrapper isDay = { isDay } singleDiscussion = { singleDiscussion } >
 			<div>
-			<BodyWrapper>{
+			<BodyWrapper onClick = { handleDiscussionClick }>{
 				!singleDiscussion ? body.length > 183 ? body.substr(0, 183) + '...' : body : body
 			}</BodyWrapper>
-			{image ? <img src={image} alt="uploaded image" height="42" width="42" /> : null}
+			{image ? 
+				<div className='show-image-wrapper'>
+					<a className='show-image' onClick={handleImageShow}/>
+					{isShowImage ? <img src={image} alt="uploaded image"/> : null}
+				</div> : null}
 			</div>
 			<div className = 'info-wrapper'>
 				<div className = 'user-info'>

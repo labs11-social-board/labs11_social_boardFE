@@ -208,7 +208,8 @@ class TeamDiscussion extends Component {
     showEditDiscussionForm: false, // boolean
     showEditPostForm: null, // post_id
     showAddReplyForm: null, // post_id
-    filter: newest
+    filter: newest,
+    isShowImage: false
   };
   handleSelectChange = e =>
     this.setState(
@@ -267,6 +268,9 @@ class TeamDiscussion extends Component {
   handleVote = (id, type) => {
     this.handleDiscussionVote(id, type);
   };
+  handleImageShow = () => {
+    this.setState({ isShowImage: !this.state.isShowImage });
+  }
   render() {
     const { showAddPostForm, showEditPostForm, showAddReplyForm } = this.state;
     const {
@@ -309,6 +313,8 @@ class TeamDiscussion extends Component {
               voteOnDiscussion={this.handleVote}
               singleDiscussion={true}
               isTeam={true}
+              isShowImage={this.state.isShowImage}
+              handleImageShow={this.handleImageShow}
             />
             <CommentWrapper>
               <CommentSort>
