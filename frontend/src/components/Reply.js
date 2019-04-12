@@ -193,7 +193,8 @@ const Reply = ({
     e.stopPropagation();
     return historyPush(`/profile/${user_id}`);
   };
-  const deleteReply = id => {
+  const deleteReply = (e, id) => {
+    e.preventDefault();
     removeReply(id);
     displayMessage('Reply deleted');
     if (team_id) {
@@ -208,7 +209,7 @@ const Reply = ({
         <BodyWrapper>{body}</BodyWrapper>
         {image ? 
           <div className='show-image-wrapper'>
-            <a className='show-image' onClick={() => handleImageShow(id)}><i className="fas fa-camera"></i>{ isShowImage ? '-' : '+'}</a>
+            <a className='show-image' onClick={()=> handleImageShow(id)}><i className="fas fa-camera"></i>{ isShowImage ? '-' : '+'}</a>
 					  {isShowImage ? id === imageClickedId ? <img src={image} alt="uploaded image"/> : null : null }
           </div> : null}
       </div>
@@ -235,10 +236,10 @@ const Reply = ({
           <div className="date tablet">
             <span>{moment(new Date(Number(created_at))).fromNow()}</span>
           </div>
-          {/* {loggedInUserId === user_id ?
-            <div className='delete' onClick={() => deleteReply(id)}>Delete reply</div>
-            : null} */}
-          <DeleteReply
+          {loggedInUserId === user_id ?
+            <div className='delete' onClick={e => deleteReply(e, id)}>Delete reply</div>
+            : null}
+          {/* <DeleteReply
             deleteReply={deleteReply}
             handleTeamFilter={handleTeamFilter}
             handleFilterChange={handleFilterChange}
@@ -247,7 +248,7 @@ const Reply = ({
             teamId={team_id}
             user_id={user_id}
             user_type={user_type}
-          />
+          /> */}
         </div>
       </InfoWrapper>
       {showAddReplyForm === id && (
