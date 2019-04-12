@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import styled from 'styled-components';
+import DeleteComment from './DeleteComment';
 
 // components
 import {
@@ -170,6 +171,7 @@ const Post = ({
   post,
   loggedInUserId,
   historyPush,
+  user_type,
   // showEditPostForm,
   // updateEditPostForm,
   removePost,
@@ -246,7 +248,7 @@ const Post = ({
       handleFilterChange();
     }
   };
-
+console.log(user_type)
   return (
     <PostWrapper>
       <div>
@@ -278,11 +280,19 @@ const Post = ({
           <div className="date tablet">
             <span>{moment(new Date(Number(created_at))).fromNow()}</span>
           </div>
-          {loggedInUserId === user_id ? 
-            <div className='delete'>
+          {/* {(loggedInUserId === user_id || user_type === 'admin' || user_type === 'moderator') ? 
+            (<div className='delete'>
               <a onClick={e => handleRemovePost(e, id)}>Delete comment</a>
-            </div> 
-            : null}
+            </div>) 
+            : null} */}
+            <DeleteComment 
+            handleRemovePost={handleRemovePost} 
+            handleTeamFilter={handleTeamFilter} 
+            handleFilterChange={handleFilterChange}
+            id={id} 
+            teamId={team_id} 
+            user_id={user_id}
+            />
         </div>
       </InfoWrapper>
       {showAddReplyForm === id && (
@@ -297,7 +307,8 @@ const Post = ({
         />
       )}
       <div>
-        {replies.map((reply, i) => (
+        {replies.map((reply, i) => ( 
+          
           <Reply
             key={i}
             reply={reply}
@@ -310,6 +321,7 @@ const Post = ({
             handleTeamFilter={handleTeamFilter}
           />
         ))}
+        
       </div>
     </PostWrapper>
   );
@@ -317,7 +329,8 @@ const Post = ({
 
 const mapStateToProps = state => ({
   loggedInUserId: state.users.user_id,
-  avatar: state.users.avatar
+  avatar: state.users.avatar,
+  user_type: state.users.user_type
 });
 
 export default connect(
