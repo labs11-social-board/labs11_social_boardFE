@@ -39,19 +39,6 @@ const PostWrapper = styled.div`
     margin-bottom: 16px;
     margin-top: 16px;
   }
-
-  .show-image-wrapper {
-		.show-image {
-			border: 1px solid;
-			display: flex;
-			width: 20px;
-			height: 20px;
-		}
-		img {
-			max-width: 100%;
-			height: auto;
-		}
-	}
 `;
 
 const BodyWrapper = styled.p`
@@ -271,7 +258,7 @@ console.log(user_type)
         <BodyWrapper>{body}</BodyWrapper>
         {image ? 
           <div className='show-image-wrapper'>
-            <a className='show-image' onClick={() => handleImageShow(id)}/>
+            <a className='show-image' onClick={() => handleImageShow(id)}><i class="fas fa-camera"></i>+</a>
 					  {isShowImage ? id === imageClickedId ? <img src={image} alt="uploaded image"/> : null : null }
           </div> : null}
       </div>

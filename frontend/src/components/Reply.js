@@ -19,19 +19,6 @@ const ReplyWrapper = styled.div`
   margin-left: 50px;
   border-left: 1px solid #ccc;
   padding-left: 10px;
-
-  .show-image-wrapper {
-		.show-image {
-			border: 1px solid;
-			display: flex;
-			width: 20px;
-			height: 20px;
-		}
-		img {
-			max-width: 100%;
-			height: auto;
-		}
-	}
 `;
 
 const BodyWrapper = styled.p`
@@ -221,7 +208,7 @@ const Reply = ({
         <BodyWrapper>{body}</BodyWrapper>
         {image ? 
           <div className='show-image-wrapper'>
-            <a className='show-image' onClick={() => handleImageShow(id)}/>
+            <a className='show-image' onClick={() => handleImageShow(id)}><i class="fas fa-camera"></i>+</a>
 					  {isShowImage ? id === imageClickedId ? <img src={image} alt="uploaded image"/> : null : null }
           </div> : null}
       </div>
