@@ -182,7 +182,9 @@ const DiscussionByFollowedCats = ({ discussion, history, voteOnDiscussion, singl
 	const handleDiscussionClick = () => {
 			if(isTeam){
 				history.push(`/team/posts/${ id }`);
-				toggleIsTeam();
+				if(toggleIsTeam){
+					toggleIsTeam();
+				}
 			} else {
 				history.push(`/discussion/${ id }`);
 			}
@@ -229,9 +231,9 @@ const DiscussionByFollowedCats = ({ discussion, history, voteOnDiscussion, singl
 						/>
 					</div>
 					<div className = 'category-wrapper' onClick = { handleCategoryClick }>
-						<i className = { category_icon } />
-						<span className = 'category-name'>{ category_name }</span>
-					</div>
+							<i className = { category_icon } />
+							<span className = 'category-name'>{ category_name }</span>
+					</div> 
 					&nbsp;&nbsp;&nbsp;&nbsp;
 					<div className = 'date-views-comment tablet'>
 						<span>{moment(new Date(Number(created_at))).fromNow()}</span>
