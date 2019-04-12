@@ -144,7 +144,7 @@ const initialState = {
   isFetchingNewMods: false,
   isListUploading: false,
   isVerifyingEmail: false,
-  verified: null,
+  verified: false,
 };
 
 export const UsersReducer = (state = initialState, action) => {

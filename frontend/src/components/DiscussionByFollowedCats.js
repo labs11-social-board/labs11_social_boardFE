@@ -137,8 +137,8 @@ const DiscussionWrapper = styled.div`
 	&:hover {
 		${ ({ singleDiscussion, isDay }) => {
 			return !singleDiscussion && (isDay ?
-				'background-color: #ddd;cursor: pointer;' :
-				'background-color: #ddd;cursor: pointer;color: black;'
+				'background-color: #ddd;' :
+				'background-color: #ddd;color: black;'
 			)
 		} }
 
@@ -159,6 +159,11 @@ const DiscussionWrapper = styled.div`
 const BodyWrapper = styled.p`
 	text-align: justify;
 	margin-bottom: 20px;
+	cursor:pointer;
+
+	&:hover {
+		color: #418DCF;
+	}
 `;
 
 const DiscussionByFollowedCats = ({ discussion, history, voteOnDiscussion, singleDiscussion, isDay, isTeam, toggleIsTeam, isShowImage, handleImageShow, imageClickedId }) => {
@@ -209,7 +214,7 @@ const DiscussionByFollowedCats = ({ discussion, history, voteOnDiscussion, singl
 			}</BodyWrapper>
 			{image ? 
 				<div className='show-image-wrapper'>
-					<a className='show-image' onClick={() => handleImageShow(id)}><i class="fas fa-camera"></i>{ isShowImage ? '-' : '+'}</a>
+					<a className='show-image' onClick={() => handleImageShow(id)}><i className="fas fa-camera"></i>{ isShowImage ? '-' : '+'}</a>
 					{isShowImage ? id === imageClickedId ? <img src={image} alt="uploaded image"/> : null : null }
 				</div> : null}
 			</div>
