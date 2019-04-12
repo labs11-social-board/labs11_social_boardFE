@@ -199,7 +199,8 @@ const Post = ({
   team_id, 
   displayMessage,
   isShowImage,
-  handleImageShow
+  handleImageShow,
+  imageClickedId
 }) => {
   const {
     body,
@@ -270,8 +271,8 @@ console.log(user_type)
         <BodyWrapper>{body}</BodyWrapper>
         {image ? 
           <div className='show-image-wrapper'>
-            <a className='show-image' onClick={handleImageShow}/>
-            {isShowImage ? <img src={image} alt="uploaded image"/> : null}
+            <a className='show-image' onClick={() => handleImageShow(id)}/>
+					  {isShowImage ? id === imageClickedId ? <img src={image} alt="uploaded image"/> : null : null }
           </div> : null}
       </div>
       <InfoWrapper>
@@ -338,6 +339,7 @@ console.log(user_type)
             handleTeamFilter={handleTeamFilter}
             isShowImage={isShowImage}
             handleImageShow={handleImageShow}
+            imageClickedId={imageClickedId}
           />
         ))}
         

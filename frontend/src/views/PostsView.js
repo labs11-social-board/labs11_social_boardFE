@@ -21,7 +21,8 @@ const PostsView = ({
 	scrollTo,
 	team_id,
   isShowImage,
-  handleImageShow
+	handleImageShow,
+	imageClickedId
 }) => {
 	
 	return(
@@ -43,6 +44,7 @@ const PostsView = ({
 					scrollTo = { scrollTo }
 					isShowImage = { isShowImage}
 					handleImageShow = { handleImageShow}
+					imageClickedId={imageClickedId}
 				/>)
 			}
 		</PostsViewWrapper>

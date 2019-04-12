@@ -173,7 +173,8 @@ const Reply = ({
   removeReply,
   displayMessage,
   isShowImage,
-  handleImageShow
+  handleImageShow,
+  imageClickedId
 }) => {
   const {
     body,
@@ -220,8 +221,8 @@ const Reply = ({
         <BodyWrapper>{body}</BodyWrapper>
         {image ? 
           <div className='show-image-wrapper'>
-            <a className='show-image' onClick={handleImageShow}/>
-            {isShowImage ? id === id ? <img src={image} alt="uploaded image"/> : null : null }
+            <a className='show-image' onClick={() => handleImageShow(id)}/>
+					  {isShowImage ? id === imageClickedId ? <img src={image} alt="uploaded image"/> : null : null }
           </div> : null}
       </div>
       <InfoWrapper>

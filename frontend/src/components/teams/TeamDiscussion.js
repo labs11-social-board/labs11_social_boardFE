@@ -384,6 +384,7 @@ class TeamDiscussion extends Component {
                     scrollTo={scrollTo}
                     isShowImage={this.state.isShowImage}
                     handleImageShow={this.handleImageShow}
+                    imageClickedId={this.state.imageClickedId}
                   />
                 </Posts>
               ) : null}
