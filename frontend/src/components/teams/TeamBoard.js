@@ -272,7 +272,8 @@ class TeamBoard extends Component {
     isTeam: true,
     isTeamMembersTab: false,
     isAddTeamMemberModalRaised: false,
-    isMember: false
+    isMember: false,
+    isShowImage: false
   };
   toggleIsTeam = () => this.setState({ isTeam: !this.state.isTeam });
   toggleAddDiscussionForm = () => this.setState({
@@ -284,6 +285,9 @@ class TeamBoard extends Component {
     return handleDiscussionVote(discussion_id, type)
       .then(() => getTeamDiscussions(match.params.team_id, order, orderType));
   };
+  handleImageShow = () => {
+    this.setState({ isShowImage: !this.state.isShowImage });
+  }
   handleTab = e => {
     const content = document.querySelectorAll('.tab-content');
     const tabs = document.querySelectorAll('.tab');
@@ -433,7 +437,9 @@ class TeamBoard extends Component {
                 history={history}
                 voteOnDiscussion={this.handleDiscussionVote}
                 isTeam={this.state.isTeam}
-                toggleIsTeam={this.toggleIsTeam}
+                toggleIsTeam={this.toggleIsTeam}                
+                isShowImage={this.state.isShowImage}
+                handleImageShow={this.handleImageShow}
               />)
             }
           </div>
