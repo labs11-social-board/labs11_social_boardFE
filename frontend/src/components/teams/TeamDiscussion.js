@@ -308,6 +308,7 @@ class TeamDiscussion extends Component {
               history={history}
               voteOnDiscussion={this.handleVote}
               singleDiscussion={true}
+              isTeam={true}
             />
             <CommentWrapper>
               <CommentSort>
