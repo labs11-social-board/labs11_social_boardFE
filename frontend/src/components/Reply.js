@@ -221,7 +221,7 @@ const Reply = ({
         {image ? 
           <div className='show-image-wrapper'>
             <a className='show-image' onClick={handleImageShow}/>
-            {isShowImage ? <img src={image} alt="uploaded image"/> : null}
+            {isShowImage ? id === id ? <img src={image} alt="uploaded image"/> : null : null }
           </div> : null}
       </div>
       <InfoWrapper>

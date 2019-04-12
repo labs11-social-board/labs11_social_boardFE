@@ -173,7 +173,7 @@ const BodyWrapper = styled.p`
 	margin-bottom: 20px;
 `;
 
-const DiscussionByFollowedCats = ({ discussion, history, voteOnDiscussion, singleDiscussion, isDay, isTeam, toggleIsTeam, isShowImage, handleImageShow }) => {
+const DiscussionByFollowedCats = ({ discussion, history, voteOnDiscussion, singleDiscussion, isDay, isTeam, toggleIsTeam, isShowImage, handleImageShow, imageClickedId }) => {
 	const {
 		avatar,
 		body,
@@ -221,8 +221,8 @@ const DiscussionByFollowedCats = ({ discussion, history, voteOnDiscussion, singl
 			}</BodyWrapper>
 			{image ? 
 				<div className='show-image-wrapper'>
-					<a className='show-image' onClick={handleImageShow}/>
-					{isShowImage ? <img src={image} alt="uploaded image"/> : null}
+					<a className='show-image' onClick={() => handleImageShow(id)}/>
+					{isShowImage ? id === imageClickedId ? <img src={image} alt="uploaded image"/> : null : null }
 				</div> : null}
 			</div>
 			<div className = 'info-wrapper'>
