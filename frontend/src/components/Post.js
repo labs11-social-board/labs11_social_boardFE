@@ -184,7 +184,10 @@ const Post = ({
   //deleteReply,
   scrollTo,
   team_id, 
-  displayMessage
+  displayMessage,
+  isShowImage,
+  handleImageShow,
+  imageClickedId
 }) => {
   const {
     body,
@@ -253,9 +256,11 @@ console.log(user_type)
     <PostWrapper>
       <div>
         <BodyWrapper>{body}</BodyWrapper>
-        {image ? (
-          <img src={image} alt="uploaded image" height="42" width="42" />
-        ) : null}
+        {image ? 
+          <div className='show-image-wrapper'>
+            <a className='show-image' onClick={() => handleImageShow(id)}><i class="fas fa-camera"></i>{ isShowImage ? '-' : '+'}</a>
+					  {isShowImage ? id === imageClickedId ? <img src={image} alt="uploaded image"/> : null : null }
+          </div> : null}
       </div>
       <InfoWrapper>
         <div className="user-info">
@@ -319,6 +324,9 @@ console.log(user_type)
             team_id={team_id}
             handleFilterChange={handleFilterChange}
             handleTeamFilter={handleTeamFilter}
+            isShowImage={isShowImage}
+            handleImageShow={handleImageShow}
+            imageClickedId={imageClickedId}
           />
         ))}
         

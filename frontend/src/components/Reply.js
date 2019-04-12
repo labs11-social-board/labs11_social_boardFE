@@ -158,7 +158,10 @@ const Reply = ({
   handleFilterChange,
   handleTeamFilter,
   removeReply,
-  displayMessage
+  displayMessage,
+  isShowImage,
+  handleImageShow,
+  imageClickedId
 }) => {
   const {
     body,
@@ -203,9 +206,11 @@ const Reply = ({
     <ReplyWrapper>
       <div>
         <BodyWrapper>{body}</BodyWrapper>
-        {image ? (
-          <img src={image} alt="uploaded image" height="42" width="42" />
-        ) : null}
+        {image ? 
+          <div className='show-image-wrapper'>
+            <a className='show-image' onClick={() => handleImageShow(id)}><i class="fas fa-camera"></i>{ isShowImage ? '-' : '+'}</a>
+					  {isShowImage ? id === imageClickedId ? <img src={image} alt="uploaded image"/> : null : null }
+          </div> : null}
       </div>
       <InfoWrapper>
         <div className="user-info">
