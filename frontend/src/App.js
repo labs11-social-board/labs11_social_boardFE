@@ -102,7 +102,7 @@ const AppWrapper = styled.div`
 
       &:hover {
         background: white;
-        color: #418dcf;
+        color: ${props => props.theme.defaultColorOnHover};
       }
 
       i{
