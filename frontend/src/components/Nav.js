@@ -49,6 +49,7 @@ const DivAuth = styled.div`
     width: 100%;
     display: flex;
     justify-content: space-between;
+    align-items: center;
   }
 
   i {
@@ -79,6 +80,21 @@ const SearchContainer = styled.div`
     }
 `;
 
+const StyledNavButton = styled.button`
+  font-size: 28px;
+  height: 48%;
+  border: none;
+  background: none;
+  cursor: pointer;
+
+  &:focus {
+    outline: 0;
+  }
+  @media (min-width: 800px) {
+    display: none
+  }
+`
+
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
@@ -105,8 +121,9 @@ class Nav extends Component {
           {(this.props.isLoggedIn) ? (
             <DisplayUser history={this.props.history} isAvatarModalRaised={this.props.isAvatarModalRaised} setAvatarModalRaised={this.props.setAvatarModalRaised} isNotificationsModalRaised={this.props.isNotificationsModalRaised} setNotificationsModalRaised={this.props.setNotificationsModalRaised} />
           ) : (
-              <Auth history={this.props.history} isLoginDropdownModalRaised={this.props.isLoginDropdownModalRaised} setLoginDropdownModalRaised={this.props.setLoginDropdownModalRaised} toggleRegisterModal={this.props.toggleRegisterModal} />
-            )}
+            <Auth history={this.props.history} isLoginDropdownModalRaised={this.props.isLoginDropdownModalRaised} setLoginDropdownModalRaised={this.props.setLoginDropdownModalRaised} toggleRegisterModal={this.props.toggleRegisterModal} />
+          )}
+          {this.props.isSideNavOpen === true ? <StyledNavButton id='nav-button' className="fas fa-times" onClick={this.props.toggleSideNav}></StyledNavButton> : <StyledNavButton id='nav-button' className="fas fa-bars" onClick={this.props.toggleSideNav}></StyledNavButton>}
         </DivAuth>
       </DivWrapper>
     );

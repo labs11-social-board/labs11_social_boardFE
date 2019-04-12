@@ -12,7 +12,7 @@ import { Avatar } from "../index.js";
 import { phoneP } from '../../globals/globals.js';
 
 // action creators
-import { addPost, uploadImage, updatePostWithImage, removeUpload, resetImageState } from "../../store/actions/index.js";
+import { addPost, uploadImage, updatePostWithImage, removeUpload, resetImageState, displayMessage } from "../../store/actions/index.js";
 
 // components
 import { UploadImage } from '../index.js';
@@ -116,14 +116,25 @@ class AddPostForm extends Component {
   handleSubmit = e => {
     e.preventDefault();
     const { postBody } = this.state;
-    const { discussion_id, team_id, handleTeamFilter, handleFilterChange, toggleAddPostForm, updatePostWithImage, image } = this.props;
+    const { discussion_id, team_id, handleTeamFilter, handleFilterChange, toggleAddPostForm, updatePostWithImage, image, displayMessage } = this.props;
     
-    this.props.addPost(discussion_id, postBody, team_id).then( res => {
-      if(image){
-        updatePostWithImage(image, res.payload[0]);
-        this.props.resetImageState();
-      }
-    });
+    if(postBody.length > 0){
+      this.props.addPost(discussion_id, postBody, team_id).then( res => {
+        if(image){
+          updatePostWithImage(image, res.payload[0]);
+          this.props.resetImageState();
+        }
+      });
+    } else if(!postBody && image){
+      this.props.addPost(discussion_id, postBody, team_id).then( res => {
+        if(image){
+          updatePostWithImage(image, res.payload[0]);
+          this.props.resetImageState();
+        }
+      });
+    } else {
+      displayMessage('Please enter a message or upload an image');
+    }
 
     if (team_id) {
       toggleAddPostForm();
@@ -201,5 +212,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { addPost, uploadImage, updatePostWithImage, removeUpload, resetImageState }
+  { addPost, uploadImage, updatePostWithImage, removeUpload, resetImageState, displayMessage }
 )(AddPostForm);
