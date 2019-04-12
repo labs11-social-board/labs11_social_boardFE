@@ -36,8 +36,8 @@ const tammy = {
   email: null,
 }
 
-const user_id = localStorage.getItem('symposium_user_id');
-const token = localStorage.getItem('symposium_token');
+// const user_id = localStorage.getItem('symposium_user_id');
+// const token = localStorage.getItem('symposium_token');
 
 
 
@@ -48,11 +48,11 @@ class LandingView extends React.Component {
   constructor(props) {
     super(props)
 
-    this.state = {
-      verify: {
-        email: token
-      }
-    }
+    // this.state = {
+    //   verify: {
+    //     email: token
+    //   }
+    // }
     
   }
 
@@ -61,8 +61,8 @@ class LandingView extends React.Component {
     // setTimeout( () => {
     //   this.props.verifyEmail(this.state.verify.email);
     // }, 200);
-    
-    this.props.verifyEmail(this.state.verify.email);
+    const token = localStorage.getItem('symposium_token');
+    this.props.verifyEmail(token);
     
     console.log('mount',this.props.verified)
   }

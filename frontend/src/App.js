@@ -5,6 +5,7 @@ import { scroller } from 'react-scroll';
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
 import Admin from './views/Admin';
 import Upload from './views/Upload';
+import Analytics from './views/Analytics';
 
 // globals
 import {
@@ -397,6 +398,7 @@ class App extends Component {
                 <Route exact path="/home" component={LandingView} />
                 <Route exact path="/admin" component={Admin} />
                 <Route exact path="/upload" component={Upload} />
+                <Route path="/analytics" component={Analytics} />
                 <Route path="/profiles" component={Profiles} />
                 {/* <Route path='/profile/:id' component={Profile} /> commented out instead of deleted incase I need to change it back J.H*/}
                 <Route path='/profile/:id' render={props => <Profile {...props} setEditProfileModalRaised={this.setEditProfileModalRaised} isEditProfileModalRaised={this.state.isEditProfileModalRaised} toggleSearch={this.userToggleSearch} goTo={this.userGoTo} history={this.props.history} showSearch={this.state.showUsersSearch} setInviteFriendModalRaised={this.setInviteFriendModalRaised} isInviteFriendModalRaised={this.state.isInviteFriendModalRaise} />} />
