@@ -75,7 +75,7 @@ const SympLogo = styled.div`
     }
 `;
 
-const Header = ({ showSearch, scrollTo, pathname, goTo, isDay, history, isAuthenticated, toggleSearch, switched, isLoginDropdownModalRaised, setLoginDropdownModalRaised, isAvatarModalRaised, setAvatarModalRaised, isNotificationsModalRaised, setNotificationsModalRaised, toggleRegisterModal }) => {
+const Header = ({ showSearch, scrollTo, pathname, goTo, isDay, history, isAuthenticated, toggleSearch, switched, isLoginDropdownModalRaised, setLoginDropdownModalRaised, isAvatarModalRaised, setAvatarModalRaised, isNotificationsModalRaised, setNotificationsModalRaised, toggleRegisterModal, isSideNavOpen, toggleSideNav }) => {
   return (
     <StyledHeader>
       <Link className='LogoContainer' to='/home'><SympLogo isDay={isDay} /></Link>
@@ -96,6 +96,8 @@ const Header = ({ showSearch, scrollTo, pathname, goTo, isDay, history, isAuthen
           isNotificationsModalRaised={isNotificationsModalRaised}
           setNotificationsModalRaised={setNotificationsModalRaised}
           toggleRegisterModal={toggleRegisterModal}
+          isSideNavOpen={isSideNavOpen}
+          toggleSideNav={toggleSideNav}
         />
       </NavContainer>
     </StyledHeader >
