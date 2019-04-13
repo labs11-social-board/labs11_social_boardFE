@@ -227,13 +227,6 @@ class AddDiscussionForm extends Component {
       .then(() => getDiscussions());
 		}
 	};
-	// handleFileChange = e => {
-	// 	if (e.target.files.length) {
-  //     const { name } = e.target.files[0];
-	// 		return this.setState({ name });
-	// 	}
-	// 	return this.setState({ name: '' });
-  // };
   handleExit = e => {
     e.preventDefault();
     this.props.toggleAddDiscussionForm();
