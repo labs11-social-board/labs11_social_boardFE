@@ -36,7 +36,10 @@ const tammy = {
   email: null,
 }
 
-const user_id = localStorage.getItem('symposium_user_id');
+// const user_id = localStorage.getItem('symposium_user_id');
+// const token = localStorage.getItem('symposium_token');
+
+
 
 /***************************************************************************************************
  ********************************************* Component *******************************************
@@ -49,7 +52,6 @@ class LandingView extends React.Component {
     //   this.props.verifyEmail(this.state.verify.email);
     // }, 200);
     const token = localStorage.getItem('symposium_token');
-    console.log('token', token)
     this.props.verifyEmail(token);
     
     // console.log('mount',this.props.verified)
