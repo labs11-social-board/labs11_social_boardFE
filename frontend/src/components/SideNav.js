@@ -441,7 +441,8 @@ class SideNav extends Component {
                   to={`/team/discussions/${team.team_id}`}
                   islinkselected={(this.state.linkSelected === team.team_name).toString()}
                   onClick={() => this.selectLink(team.team_name)}
-                  className='browse-categories teams'>
+                  className='browse-categories teams'
+                  key={team.team_id}>
                   <span>
                     <img src={team.logo} alt='team logo' height='20px' width='20px'/>
                   </span>
