@@ -690,7 +690,7 @@ Profile.propTypes = {
   getProfile: PropTypes.func,
   getFollowers: PropTypes.func,
   getProfileFollowers: PropTypes.func,
-  removeFollower: PropTypes.func,
+  removeFollower : PropTypes.func, 
   addFollower: PropTypes.func,
   inviteFriend: PropTypes.func,
   followersCount: PropTypes.func,
@@ -707,13 +707,7 @@ Profile.propTypes = {
       username: PropTypes.string.isRequired,
       email: PropTypes.string,
     })),
-  followers: PropTypes.arrayOf(
-    PropTypes.shape({
-      avatar: PropTypes.string.isRequired,
-      following_id: PropTypes.number.isRequired,
-      username: PropTypes.string.isRequired
-    })
-  )
+  followers: PropTypes.object,
 };
 
 const mapStateToProps = state => ({

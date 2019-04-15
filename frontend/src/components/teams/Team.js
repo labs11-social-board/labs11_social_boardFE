@@ -51,6 +51,10 @@ const DivIcon = styled.div`
     height: 100%;
     border-radius: 50%;
   }
+
+  i {
+    font-size: 4rem;
+  }
 `;
 
 const DivTeamContainer = styled.div`
@@ -167,12 +171,16 @@ const DivTeamInfo = styled.div`
  ********************************************* Component *******************************************
  **************************************************************************************************/
 const Team = ({ team, history }) => {
-  const { id, team_name, created_at, discussion_count, post_count} = team;
+  const { id, team_name, created_at, discussion_count, post_count, team_id } = team;
   // const latestPostBodyElipsis = (latest_post_body) ? `${latest_post_body.slice(0, 25)}...` : 'none';
   const goToTeam = (ev) => {
     ev.preventDefault();
     ev.stopPropagation();
-    history.push(`/team/discussions/${id}`);
+    if(team_id){
+      history.push(`/team/discussions/${team_id}`);
+    } else {
+      history.push(`/team/discussions/${id}`);
+    }
   }
   // const lastPost = (ev) => {
   //   ev.preventDefault();
@@ -184,7 +192,7 @@ const Team = ({ team, history }) => {
     <DivRow onClick={() => history.push(`/team/discussions/${id}`)}>
       <DivTeamContainer>
         <DivIcon>
-          {(team.logo) ? <img className='team-logo' src={team.logo}/> : <img src={require('../../assets/img/CategoryBook2.png')} alt='Emoji' />}
+          {(team.logo) ? <img className='team-logo' src={team.logo}/> : <i className="fas fa-users"></i>}
         </DivIcon>
         <DivTeam>
           <div className = 'Team-name-follow-wrapper' onClick = {stopPropagation}>
