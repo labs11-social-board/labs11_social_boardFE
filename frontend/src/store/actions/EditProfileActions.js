@@ -7,7 +7,7 @@ import { handleError } from "../../helpers/index.js";
 import { backendUrl } from "../../globals/globals.js";
 
 //action creator
-import { getProfile } from "../../store/actions/index.js";
+// import { getProfile } from "../../store/actions/index.js";
 
 
 /***************************************************************************************************
