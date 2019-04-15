@@ -47,7 +47,8 @@ import {
   RegisterView,
   NonUserLandingView,
   TeamsView,
-  TeamDiscussionView
+  TeamDiscussionView,
+  UserTeamsView
 } from './views/index.js';
 
 // action creators
@@ -288,9 +289,9 @@ class App extends Component {
     if (user_id && token) return this.props.logBackIn(user_id, token);
   }
   componentDidUpdate(prevProps) {
-    // if (this.props.error.includes('expired')) {
-    //   localStorage.clear();
-    // }
+    if (this.props.error.includes('expired')) {
+      localStorage.clear();
+    }
     if (
       prevProps.location.hash.substring(1) !==
       this.props.location.hash.substring(1)
@@ -407,6 +408,7 @@ class App extends Component {
                 <Route path='/profile/:id' render={props => <Profile {...props} setEditProfileModalRaised={this.setEditProfileModalRaised} isEditProfileModalRaised={this.state.isEditProfileModalRaised} toggleSearch={this.userToggleSearch} goTo={this.userGoTo} history={this.props.history} showSearch={this.state.showUsersSearch} setInviteFriendModalRaised={this.setInviteFriendModalRaised} isInviteFriendModalRaised={this.state.isInviteFriendModalRaise} />} />
                 <Route path='/categories' render={() => <CategoriesView history={history} historyPush={this.props.history.push} setAddCatModalRaised={this.setAddCatModalRaised} isAddCatModalRaised={this.state.isAddCatModalRaised} />} />
                 <Route path='/teams' render={() => <TeamsView history={history} />} />
+                <Route path='/my-teams' render={() => <UserTeamsView history={history} />} />
                 <Route path='/team/discussions/:team_id' component={TeamBoard} />
                 <Route path='/team/posts/:id' render={props => <TeamDiscussionView {...props} scrollTo={this.scrollTo} />} />
                 <Route path='/discussion/:id' render={props => <DiscussionView {...props} scrollTo={this.scrollTo} />} />

@@ -422,6 +422,15 @@ class SideNav extends Component {
             </div>
             <div>
               <LinkBrowseCategories
+                to='/my-teams'
+                islinkselected={(this.state.linkSelected === 'MyTeams').toString()}
+                onClick={() => this.selectLink('MyTeams')}
+                className='browse-categories'
+              ><i className="fas fa-book-open" />My Teams</LinkBrowseCategories>
+
+            </div>
+            <div>
+              <LinkBrowseCategories
                 to={`/teamanalytics`}
                 islinkselected={(this.state.linkSelected === 'TeamAnalytics').toString()}
                 onClick={() => this.selectLink('TeamAnalytics')}
