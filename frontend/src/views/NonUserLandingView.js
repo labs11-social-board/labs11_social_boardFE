@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
 import {connect} from 'react-redux';
-import {background, computericon } from '../assets/index.js';
+import {background, computericon, example } from '../assets/index.js';
 import { Link } from 'react-router-dom';
 // import { register, isEmailTaken, isUsernameTaken } from '../store/actions/index.js';
 // import { RegisterDropdown } from './index.js';
@@ -129,6 +129,13 @@ const Woah = styled.section `
     margin-bottom: 10px;
   `;
 
+  const ExampleImage = styled.img `
+    display: flex; 
+    justify-content: center;
+    max-height: 600px;
+    max-width: 300px;
+  `;
+
     class NonUserLandingView extends Component {
       // constructor(props) {
         // super(props);
@@ -152,6 +159,7 @@ const Woah = styled.section `
               <LandingDiv>
                 <GetStartedButton onClick={toggleRegisterModal}> Get Started</GetStartedButton>
               </LandingDiv>
+              <ExampleImage src={example} alt="example" /> 
               </LandingDivBox>
             </BackgroundBox>
           <section>
