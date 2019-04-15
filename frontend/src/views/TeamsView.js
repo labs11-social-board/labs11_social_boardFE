@@ -127,23 +127,25 @@ class TeamsView extends Component {
         break;
     }
     return this.setState({ order, orderType }, () => {
-      return this.props.getTeams(this.state.order, this.state.orderType);
+      return this.props.getTeams(this.state.order, this.state.orderType).then(() => {
+        this.props.getUsersTeams(this.state.order, this.state.orderType);
+      });
     });
   };
-  sortHandler = ev => {
-    ev.preventDefault();
-    return Promise.resolve(
-      this.setState({ [ev.target.name]: ev.target.value })
-    ).then(() => {
-      this.props.getTeams(this.state.order, this.state.orderType);
-    });
-  };
+  // sortHandler = ev => {
+  //   ev.preventDefault();
+  //   return Promise.resolve(
+  //     this.setState({ [ev.target.name]: ev.target.value })
+  //   ).then(() => {
+  //     this.props.getTeams(this.state.order, this.state.orderType);
+  //   });
+  // };
   selectTab = e => {
     this.setState({ tab: e.target.textContent });
   }
   componentDidMount = () => {
     this.props.getTeams(this.state.order, this.state.orderType);
-    this.props.getUsersTeams();
+    this.props.getUsersTeams(this.state.order, this.state.orderType);
   }
   conditionalRender = () => {
     if(this.state.tab === 'Teams'){

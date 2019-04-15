@@ -163,10 +163,10 @@ export const addTeamMember = (team_member_id, team_id) => dispatch => {
     .catch(err => handleError(err, JOIN_TEAM_FAILURE)(dispatch));
 };
 
-export const getUsersTeams = () => dispatch => {
+export const getUsersTeams = (order, orderType) => dispatch => {
   const user_id = localStorage.getItem('symposium_user_id');
   const token = localStorage.getItem('symposium_token');
-  const headers = { headers: { Authorization: token } };
+  const headers = { headers: { Authorization: token, order, orderType } };
   dispatch({ type: GET_USERS_TEAMS_LOADING });
   return axios.get(`${backendUrl}/users/teams/${user_id}`, headers)
     .then(res => dispatch({ type: GET_USERS_TEAMS_SUCCESS, payload: res.data }))
