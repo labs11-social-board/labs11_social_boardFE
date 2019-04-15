@@ -231,6 +231,12 @@ const UserTeams = styled.div`
 
   .teams {
     padding-left: 20px;
+
+    img {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+    }
   }
 `;
 
@@ -444,7 +450,7 @@ class SideNav extends Component {
                   className='browse-categories teams'
                   key={team.team_id}>
                   <span>
-                    <img src={team.logo} alt='team logo' height='20px' width='20px'/>
+                    <img src={team.logo} alt='team logo' />
                   </span>
                   {team.team_name}
                 </LinkSideNav>
