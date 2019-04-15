@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { connect } from "react-redux";
 import Users from './Users';
 
-import {ApproveEmailForm, ApprovedEmails} from '../components'
+import {} from '../components'
 
 const MainWrapper = styled.div`
   display: flex;
@@ -21,9 +21,6 @@ const MainWrapper = styled.div`
     margin-top: 30px;
     margin-bottom: 5px;
   }
-
-  
-
 `;
 
 const InnerWrapper = styled.div`
@@ -47,7 +44,7 @@ margin-bottom: 10px;
 `;
 
 
-class Admin extends React.Component {
+class Analytics extends React.Component {
     constructor() {
         super()
 
@@ -58,6 +55,7 @@ class Admin extends React.Component {
     // }
 
     render() {
+
         //if (!this.props.isLoggedIn) return <h2>--Yo, dog.  You ain't logged in.  Do That <Link to="/">HERE</Link> </h2>;
 
         return(
@@ -66,29 +64,23 @@ class Admin extends React.Component {
                 <div >
                     <MainWrapper>   
                         <div>
-                            <h2>Admin Console</h2>
+                            <h2>Analytics View</h2>
                         </div>
 
                         <InnerWrapper>
                             <Boxed>
-                                <ApproveEmailForm histoy={this.props.history}/>
+                                <h4>Pageviews</h4>
+                                <p>In last 30 Days</p>
+                                
                             </Boxed>
-                            <Boxed>
-                            <ApprovedEmails/>
-                            </Boxed>
-                            <Boxed>
-                            <h4>Users</h4>
                             
-                            <Users />
+                            <Boxed>
+                                <h4>Users</h4>
+                                <p>In last 30 Days</p>
                             
                             </Boxed>
-                            <Boxed>
-                            <h4>Existing Moderators</h4>
-                            <p>Welcome to the admin page. Welcome to the admin page. Welcome to the admin page. Welcome to the admin page. 
-                            Welcome to the admin page. Welcome to the admin page. Welcome to the admin page. Welcome to the admin page. 
-                            Welcome to the admin page. Welcome to the admin page. Welcome to the admin page. Welcome to the admin page. 
-                            </p>
-                            </Boxed>
+                            
+                            
                         </InnerWrapper>
                     </MainWrapper>
                 </div>
@@ -97,11 +89,13 @@ class Admin extends React.Component {
     }
 }
 
-const mapStoreToProps = state => {
-    console.log('Admin State', state)
+const mapStateToProps = state => {
     return {
-      
+        
     };
   };
+
   
-  export default Admin;
+  export default connect(
+    mapStateToProps,{ } 
+  )(Analytics);

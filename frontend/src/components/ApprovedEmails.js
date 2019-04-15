@@ -7,19 +7,26 @@ import {
 } from 'react-redux';
 
 import {
-    getEmails
+    approveEmail,
+    getEmails,
+    denyEmail
 } from '../store/actions';
 
 import ReactTable from "react-table";
 import "react-table/react-table.css";
 
 class ApprovedEmails extends Component {
-    state = {
-        approvedEmails: this.props.approvedEmails,
-        selected: {index:0}
-    }
     componentDidMount(){
         this.props.getEmails();
+    }
+
+    handleClick(e, id){
+        e.preventDefault();
+        
+        this.props.denyEmail(id)
+        setTimeout(() => {
+            window.location.reload();
+        }, 800);
     }
     render() {
         return (
@@ -42,32 +49,22 @@ class ApprovedEmails extends Component {
                             }
                         ]
                     }
+                    SubComponent = {
+                        row => {
+                            console.log(row)
+                            return ( 
+                                <div>
+                                    <button
+                                        onClick={e => this.handleClick(e, row.original.id)}
+                                    >Deny Email</button>
+                                </div>
+                            );
+                        }
+                    }
                     defaultPageSize = {
                         5
                     }
                     className = "-striped -highlight"
-                    getTrProps = {
-                            (state, rowInfo) => {
-                                if (rowInfo && rowInfo.row) {
-                                    return {
-                                        onClick: e => {
-                                            this.setState({
-                                                selected: rowInfo.row._original
-                                            });
-                                        },
-                                        style: {
-                                            background: rowInfo.row.email === this.state.selected.email ?
-                                                "#418DCF" :
-                                                "white",
-                                            color: rowInfo.row.email === this.state.selected.email ?
-                                                "white" :
-                                                "black"
-                                        }
-                                    };
-                                } else {
-                                    return {};
-                                }
-                            }}
                 />
             </div>
         )
@@ -82,7 +79,9 @@ const mapStoreToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        getEmails: () => dispatch(getEmails())
+        approveEmail: email => dispatch(approveEmail(email)),
+        getEmails: () => dispatch(getEmails()),
+        denyEmail: id => dispatch(denyEmail(id))
     }
 }
 

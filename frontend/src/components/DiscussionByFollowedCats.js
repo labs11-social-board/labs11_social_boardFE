@@ -137,8 +137,8 @@ const DiscussionWrapper = styled.div`
 	&:hover {
 		${ ({ singleDiscussion, isDay }) => {
 			return !singleDiscussion && (isDay ?
-				'background-color: #ddd;cursor: pointer;' :
-				'background-color: #ddd;cursor: pointer;color: black;'
+				'background-color: #ddd;' :
+				'background-color: #ddd;color: black;'
 			)
 		} }
 
@@ -159,9 +159,14 @@ const DiscussionWrapper = styled.div`
 const BodyWrapper = styled.p`
 	text-align: justify;
 	margin-bottom: 20px;
+	cursor:pointer;
+
+	&:hover {
+		color: #418DCF;
+	}
 `;
 
-const DiscussionByFollowedCats = ({ discussion, history, voteOnDiscussion, singleDiscussion, isDay, isTeam, toggleIsTeam }) => {
+const DiscussionByFollowedCats = ({ discussion, history, voteOnDiscussion, singleDiscussion, isDay, isTeam, toggleIsTeam, isShowImage, handleImageShow, imageClickedId }) => {
 	const {
 		avatar,
 		body,
@@ -182,7 +187,9 @@ const DiscussionByFollowedCats = ({ discussion, history, voteOnDiscussion, singl
 	const handleDiscussionClick = () => {
 			if(isTeam){
 				history.push(`/team/posts/${ id }`);
-				toggleIsTeam();
+				if(toggleIsTeam){
+					toggleIsTeam();
+				}
 			} else {
 				history.push(`/discussion/${ id }`);
 			}
@@ -200,12 +207,16 @@ const DiscussionByFollowedCats = ({ discussion, history, voteOnDiscussion, singl
 		return voteOnDiscussion(id, type);
 	};
 	return(
-		<DiscussionWrapper isDay = { isDay } singleDiscussion = { singleDiscussion } onClick = { handleDiscussionClick }>
+		<DiscussionWrapper isDay = { isDay } singleDiscussion = { singleDiscussion } >
 			<div>
-			<BodyWrapper>{
+			<BodyWrapper onClick = { handleDiscussionClick }>{
 				!singleDiscussion ? body.length > 183 ? body.substr(0, 183) + '...' : body : body
 			}</BodyWrapper>
-			{image ? <img src={image} alt="uploaded image" height="42" width="42" /> : null}
+			{image ? 
+				<div className='show-image-wrapper'>
+					<a className='show-image' onClick={() => handleImageShow(id)}><i className="fas fa-camera"></i>{ isShowImage ? '-' : '+'}</a>
+					{isShowImage ? id === imageClickedId ? <img src={image} alt="uploaded image"/> : null : null }
+				</div> : null}
 			</div>
 			<div className = 'info-wrapper'>
 				<div className = 'user-info'>
@@ -229,9 +240,9 @@ const DiscussionByFollowedCats = ({ discussion, history, voteOnDiscussion, singl
 						/>
 					</div>
 					<div className = 'category-wrapper' onClick = { handleCategoryClick }>
-						<i className = { category_icon } />
-						<span className = 'category-name'>{ category_name }</span>
-					</div>
+							<i className = { category_icon } />
+							<span className = 'category-name'>{ category_name }</span>
+					</div> 
 					&nbsp;&nbsp;&nbsp;&nbsp;
 					<div className = 'date-views-comment tablet'>
 						<span>{moment(new Date(Number(created_at))).fromNow()}</span>

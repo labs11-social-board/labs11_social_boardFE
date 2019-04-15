@@ -2,6 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import styled from 'styled-components';
+import DeleteReply from './DeleteReply.js';
+
+
+// action creators
+import { removeReply, displayMessage } from '../store/actions/index.js';
 
 // components
 import { AddReplyForm, Avatar, VoteCount } from './index.js';
@@ -79,6 +84,15 @@ const InfoWrapper = styled.div`
       display: flex;
     }
 
+    .delete {
+      margin-left: 10px;
+      cursor:pointer;
+
+      &:hover {
+        color: #418dcf;
+      }
+    }
+
     @media (max-width: 830px) {
       justify-content: center;
 
@@ -142,7 +156,12 @@ const Reply = ({
   handleReplyVote,
   team_id,
   handleFilterChange,
-  handleTeamFilter
+  handleTeamFilter,
+  removeReply,
+  displayMessage,
+  isShowImage,
+  handleImageShow,
+  imageClickedId
 }) => {
   const {
     body,
@@ -152,6 +171,7 @@ const Reply = ({
     username,
     user_id,
     id,
+    user_type,
     discussion_id,
     upvotes,
     downvotes,
@@ -173,14 +193,25 @@ const Reply = ({
     e.stopPropagation();
     return historyPush(`/profile/${user_id}`);
   };
-
+  const deleteReply = (e, id) => {
+    e.preventDefault();
+    removeReply(id);
+    displayMessage('Reply deleted');
+    if (team_id) {
+      handleTeamFilter();
+    } else {
+      handleFilterChange();
+    }
+  }
   return (
     <ReplyWrapper>
       <div>
         <BodyWrapper>{body}</BodyWrapper>
-        {image ? (
-          <img src={image} alt="uploaded image" height="42" width="42" />
-        ) : null}
+        {image ? 
+          <div className='show-image-wrapper'>
+            <a className='show-image' onClick={()=> handleImageShow(id)}><i className="fas fa-camera"></i>{ isShowImage ? '-' : '+'}</a>
+					  {isShowImage ? id === imageClickedId ? <img src={image} alt="uploaded image"/> : null : null }
+          </div> : null}
       </div>
       <InfoWrapper>
         <div className="user-info">
@@ -205,6 +236,19 @@ const Reply = ({
           <div className="date tablet">
             <span>{moment(new Date(Number(created_at))).fromNow()}</span>
           </div>
+          {loggedInUserId === user_id ?
+            <div className='delete' onClick={e => deleteReply(e, id)}>Delete reply</div>
+            : null}
+          {/* <DeleteReply
+            deleteReply={deleteReply}
+            handleTeamFilter={handleTeamFilter}
+            handleFilterChange={handleFilterChange}
+            displayMessage={displayMessage}
+            id={id}
+            teamId={team_id}
+            user_id={user_id}
+            user_type={user_type}
+          /> */}
         </div>
       </InfoWrapper>
       {showAddReplyForm === id && (
@@ -227,10 +271,10 @@ const mapStateToProps = state => ({
   loggedInUserId: state.users.user_id,
   avatar: state.users.avatar,
   username: state.users.username,
-  user_id: state.users.user_id
+  user_type: state.users.user_type
 });
 
 export default connect(
   mapStateToProps,
-  {}
+  { removeReply, displayMessage }
 )(Reply);
