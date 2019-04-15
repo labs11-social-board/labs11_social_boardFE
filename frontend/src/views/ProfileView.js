@@ -647,6 +647,7 @@ class Profile extends Component {
                         {followListLength > 0 ? followList.map((user, id) =>
                           // user.following_id can be used to go to the users profile upon clicking on them currently not implemented. 
                           <DivFollowListItem key = {id}>
+                           <ContentDiv key = {id}>
                             <WrappedDiv
                               style={{ cursor: "pointer" }}
                               key={id}
@@ -662,6 +663,7 @@ class Profile extends Component {
                               <span>{user.username}</span>
 
                             </WrappedDiv>
+                            </ContentDiv>
                           </DivFollowListItem>
                         ) : <div>{profileId !== userId ? `${usernameForProfile} currently doesn't follow any users.` : "You are not currently following any users."}</div>}
 
