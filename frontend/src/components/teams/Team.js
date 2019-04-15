@@ -51,6 +51,10 @@ const DivIcon = styled.div`
     height: 100%;
     border-radius: 50%;
   }
+
+  i {
+    font-size: 4rem;
+  }
 `;
 
 const DivTeamContainer = styled.div`
@@ -188,7 +192,7 @@ const Team = ({ team, history }) => {
     <DivRow onClick={() => history.push(`/team/discussions/${id}`)}>
       <DivTeamContainer>
         <DivIcon>
-          {(team.logo) ? <img className='team-logo' src={team.logo}/> : <img src={require('../../assets/img/CategoryBook2.png')} alt='Emoji' />}
+          {(team.logo) ? <img className='team-logo' src={team.logo}/> : <i class="fas fa-users"></i>}
         </DivIcon>
         <DivTeam>
           <div className = 'Team-name-follow-wrapper' onClick = {stopPropagation}>

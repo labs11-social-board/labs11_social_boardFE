@@ -237,6 +237,10 @@ const UserTeams = styled.div`
       height: 20px;
       border-radius: 50%;
     }
+
+    .logo {
+      margin-left: 10px;
+    }
   }
 `;
 
@@ -450,7 +454,7 @@ class SideNav extends Component {
                   className='browse-categories teams'
                   key={team.team_id}>
                   <span>
-                    <img src={team.logo} alt='team logo' />
+                    { team.logo ? <img src={team.logo} alt='team logo' /> : <i class="fas fa-users logo"></i>}
                   </span>
                   {team.team_name}
                 </LinkSideNav>
