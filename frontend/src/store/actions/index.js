@@ -26,6 +26,21 @@ import {
 } from './CategoriesActions.js';
 
 import {
+  // Actions
+  PAVEVIEWS_STARTED,
+  PAVEVIEWS_SUCCESS,
+  PAVEVIEWS_FAIL,
+
+  GUSERS_STARTED,
+  GUSERS_SUCCESS,
+  GUSERS_FAIL,
+
+  // Action Creators
+  getPageViews,
+  getUsersAna,
+} from './analyticActions.js';
+
+import {
   // Teams
   //GET TEAMS
   GET_TEAMS_LOADING,
@@ -737,6 +752,17 @@ export {
   // Action Creators
   approveEmail,
   getEmails,
-  denyEmail
+  denyEmail,
+  // Analytics
+  PAVEVIEWS_STARTED,
+  PAVEVIEWS_SUCCESS,
+  PAVEVIEWS_FAIL,
+  GUSERS_STARTED,
+  GUSERS_SUCCESS,
+  GUSERS_FAIL,
+  // Analytic Creators
+  getPageViews,
+  getUsersAna,
+
 };
 

@@ -16,27 +16,21 @@ import ReactTable from "react-table";
 import "react-table/react-table.css";
 
 class ApprovedEmails extends Component {
-    state = {
-        approvedEmails: this.props.approvedEmails,
-        selected: {index:0}
-    }
     componentDidMount(){
         this.props.getEmails();
     }
 
-    handleClick(id){
+    handleClick(e, id){
+        e.preventDefault();
+        
         this.props.denyEmail(id)
         setTimeout(() => {
             window.location.reload();
         }, 800);
-        // alert('Approve or Deny')
     }
     render() {
         return (
             <div>
-                {/* <button onClick={() => {
-                    this.handleClick()
-                    }}>Deny Email</button> */}
                 <ReactTable
                     data={this.props.approvedEmails}
                     filterable
@@ -61,7 +55,7 @@ class ApprovedEmails extends Component {
                             return ( 
                                 <div>
                                     <button
-                                        onClick={() => this.handleClick(row.original.id)}
+                                        onClick={e => this.handleClick(e, row.original.id)}
                                     >Deny Email</button>
                                 </div>
                             );
@@ -71,30 +65,6 @@ class ApprovedEmails extends Component {
                         5
                     }
                     className = "-striped -highlight"
-                    // getTrProps = {
-                    //         (state, rowInfo) => {
-                    //             if (rowInfo && rowInfo.row) {
-                    //                 return {
-                    //                     onClick: async e => {
-                    //                         this.setState({
-                    //                             selected: rowInfo.row._original
-                    //                         });
-
-                    //                         // this.handleClick()
-                    //                     },
-                    //                     // style: {
-                    //                     //     background: rowInfo.row.email === this.state.selected.email ?
-                    //                     //         "#418DCF" :
-                    //                     //         "white",
-                    //                     //     color: rowInfo.row.email === this.state.selected.email ?
-                    //                     //         "white" :
-                    //                     //         "black"
-                    //                     // }
-                    //                 };
-                    //             } else {
-                    //                 return {};
-                    //             }
-                            // }}
                 />
             </div>
         )
