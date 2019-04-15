@@ -163,10 +163,7 @@ export const verifyEmail = token => dispatch => {
   dispatch({type: VERIFYUSER_LOADING});
   return axios
   .get(`${backendUrl}/emails/is-accepted-email`, headers)
-  .then(res =>{
-    console.log("results:",res) 
-    dispatch({ type: VERIFYUSER_SUCCESS, payload: res.data })
-  })
+  .then(res => dispatch({ type: VERIFYUSER_SUCCESS, payload: res.data }))
  .catch(err => handleError(err, VERIFYUSER_FAILURE)(dispatch));
  
 }

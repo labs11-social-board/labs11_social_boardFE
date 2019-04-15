@@ -284,7 +284,6 @@ class App extends Component {
     const user_id = localStorage.getItem('symposium_user_id');
     const token = localStorage.getItem('symposium_token');
     window.addEventListener('hashchange', this.handleHashChange, false);
-    console.log('token', token)
     this.props.verifyEmail(token);
     if (user_id && token) return this.props.logBackIn(user_id, token);
   }

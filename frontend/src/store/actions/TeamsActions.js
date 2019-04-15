@@ -180,6 +180,6 @@ export const updateTeamWithLogo = (image_id, team_id) => dispatch => {
 	const post_image = { image_id, team_id  };
 	return axios
 		.put(`${backendUrl}/posts/images/${user_id}`, post_image, headers)
-		.then(res => console.log(res.data))
+		.then(res => dispatch({ type: 'UPDATE_TEAM_WITH_LOGO' }))
 		.catch(err => handleError(err)(dispatch));
 }
