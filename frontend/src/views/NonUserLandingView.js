@@ -155,7 +155,10 @@ const Woah = styled.section `
             </BackgroundBox>
           <section>
             <BottomFillerDiv>
-              <h2>Our features</h2>
+              <h2>OUR SERVICES</h2>
+              </BottomFillerDiv>
+              <BottomFillerDiv>
+                <p>Our site has a wide range features for our users.</p>
               </BottomFillerDiv>
             <BottomFiller>
               <TextBlurb>
