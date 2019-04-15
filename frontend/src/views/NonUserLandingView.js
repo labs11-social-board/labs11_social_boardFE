@@ -129,11 +129,17 @@ const Woah = styled.section `
     margin-bottom: 10px;
   `;
 
-  const ExampleImage = styled.img `
-    display: flex; 
+  const ImageDiv = styled.div `
+    margin-top: 10px;
+    display: flex;
     justify-content: center;
-    max-height: 600px;
-    max-width: 300px;
+    height: 50vh;
+  `;
+
+  const ExampleImage = styled.img `
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
   `;
 
     class NonUserLandingView extends Component {
@@ -159,7 +165,9 @@ const Woah = styled.section `
               <LandingDiv>
                 <GetStartedButton onClick={toggleRegisterModal}> Get Started</GetStartedButton>
               </LandingDiv>
+              <ImageDiv>
               <ExampleImage src={example} alt="example" /> 
+                </ImageDiv>
               </LandingDivBox>
             </BackgroundBox>
           <section>
