@@ -251,7 +251,7 @@ const Post = ({
       handleFilterChange();
     }
   };
-console.log(user_type)
+
   return (
     <PostWrapper>
       <div>
@@ -285,19 +285,21 @@ console.log(user_type)
           <div className="date tablet">
             <span>{moment(new Date(Number(created_at))).fromNow()}</span>
           </div>
-          {(loggedInUserId === user_id || user_type === 'admin' || user_type === 'moderator') ? 
+          {
+            (loggedInUserId === user_id) ? 
             (<div className='delete'>
-              <a onClick={e => handleRemovePost(e, id)}>Delete comment</a>
-            </div>) 
-            : null}
-            {/* <DeletePost 
+              <a onClick={e => handleRemovePost(e, id)}>Delete post</a>
+            </div>) : 
+            (user_type === 'admin' || user_type === 'moderator') ? 
+            <DeletePost 
             handleRemovePost={handleRemovePost} 
             handleTeamFilter={handleTeamFilter} 
             handleFilterChange={handleFilterChange}
             id={id} 
             teamId={team_id} 
             user_id={user_id}
-            /> */}
+            />
+            : null}
         </div>
       </InfoWrapper>
       {showAddReplyForm === id && (
