@@ -686,7 +686,7 @@ Profile.propTypes = {
   toggleSearch : PropTypes.func.isRequired,
   showSearch : PropTypes.bool.isRequired,
   setInviteFriendModalRaised : PropTypes.func.isRequired, 
-  isInviteFriendModalRaised : PropTypes.bool.isRequired, 
+  isInviteFriendModalRaised : PropTypes.bool, 
 
   profile: PropTypes.arrayOf(
     PropTypes.shape({
@@ -694,13 +694,7 @@ Profile.propTypes = {
       username: PropTypes.string.isRequired,
       email: PropTypes.string,
     })),
-  followers: PropTypes.arrayOf(
-    PropTypes.shape({
-      avatar: PropTypes.string.isRequired, 
-      following_id: PropTypes.number.isRequired,
-      username: PropTypes.string.isRequired
-    })
-  )
+  followers: PropTypes.object,
 };
 
 const mapStateToProps = state => ({
