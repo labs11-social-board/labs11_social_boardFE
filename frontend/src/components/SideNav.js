@@ -535,6 +535,7 @@ class SideNav extends Component {
   }
 }
 
+
 const mapStateToProps = state => ({
   user_id: state.users.user_id,
   categoryFollows: state.users.categoryFollows,
