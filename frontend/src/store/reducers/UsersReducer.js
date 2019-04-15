@@ -136,6 +136,7 @@ const initialState = {
   newNotificationCount: 0,
   last_login: '',
   user_type: '',
+  user_permissions: '',
   uuid: '',
   signature: null,
   stripePaymentInfo: [],
