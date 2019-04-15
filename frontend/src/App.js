@@ -47,14 +47,16 @@ import {
   RegisterView,
   NonUserLandingView,
   TeamsView,
-  TeamDiscussionView
+  TeamDiscussionView,
+  UserTeamsView
 } from './views/index.js';
 
 // action creators
 import {
   logBackIn,
   markNotificationsAsRead,
-  toggleTheme
+  toggleTheme,
+  verifyEmail
 } from './store/actions/index.js';
 import EditProfileModal from './components/profile/EditProfileModal.js';
 import InviteFriendModal from './components/profile/InviteFriendModal.js';
@@ -282,12 +284,13 @@ class App extends Component {
     const user_id = localStorage.getItem('symposium_user_id');
     const token = localStorage.getItem('symposium_token');
     window.addEventListener('hashchange', this.handleHashChange, false);
+    this.props.verifyEmail(token);
     if (user_id && token) return this.props.logBackIn(user_id, token);
   }
   componentDidUpdate(prevProps) {
-    // if (this.props.error.includes('expired')) {
-    //   localStorage.clear();
-    // }
+    if (this.props.error.includes('expired')) {
+      localStorage.clear();
+    }
     if (
       prevProps.location.hash.substring(1) !==
       this.props.location.hash.substring(1)
@@ -464,5 +467,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { logBackIn, markNotificationsAsRead, toggleTheme }
+  { logBackIn, markNotificationsAsRead, toggleTheme, verifyEmail}
 )(App);
