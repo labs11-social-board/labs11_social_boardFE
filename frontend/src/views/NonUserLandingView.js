@@ -126,6 +126,7 @@ const Woah = styled.section `
   const BottomFillerDiv = styled.div `
     display: flex;
     justify-content: center;
+    margin-bottom: 10px;
   `;
 
     class NonUserLandingView extends Component {
@@ -216,6 +217,9 @@ const Woah = styled.section `
                 </p>
               </TextBlurb>
             </BottomFiller>
+            <BottomFillerDiv>
+              <GetStartedButton onClick={toggleRegisterModal}> Get Started</GetStartedButton>
+              </BottomFillerDiv>
             </section>
           </Woah>
         )
