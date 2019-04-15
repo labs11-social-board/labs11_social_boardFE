@@ -3,6 +3,10 @@ import {
 	ADD_POST_SUCCESS,
 	ADD_POST_FAILURE,
 
+	ADD_DELETED_POST_LOADING,
+  	ADD_DELETED_POST_SUCCESS,
+  	ADD_DELETED_POST_FAILURE,
+
 	EDIT_POST_LOADING,
 	EDIT_POST_SUCCESS,
 	EDIT_POST_FAILURE,
@@ -37,6 +41,13 @@ export const PostsReducer = (state = initialState, action) => {
 				post_id: action.payload
 			};
 		case ADD_POST_FAILURE:
+		case ADD_DELETED_POST_LOADING:
+		case ADD_DELETED_POST_SUCCESS:
+		  return {
+			  ...state,
+			  post_id: action.payload
+		  };
+  		case ADD_DELETED_POST_FAILURE:
 		case EDIT_POST_LOADING:
 		case EDIT_POST_SUCCESS:
 		case EDIT_POST_FAILURE:
