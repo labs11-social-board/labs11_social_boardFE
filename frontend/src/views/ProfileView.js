@@ -698,8 +698,8 @@ Profile.propTypes = {
   isEditProfileModalRaised: PropTypes.bool.isRequired,
   toggleSearch: PropTypes.func.isRequired,
   showSearch: PropTypes.bool.isRequired,
-  setInviteFriendModalRaised: PropTypes.func.isRequired,
-  isInviteFriendModalRaised: PropTypes.bool.isRequired,
+  setInviteFriendModalRaised: PropTypes.func,
+  isInviteFriendModalRaised: PropTypes.bool,
 
   profile: PropTypes.arrayOf(
     PropTypes.shape({
