@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import styled from 'styled-components';
 
-// components
-import { uploadImage, removeUpload, resetImageState } from "../store/actions/index.js";
+// action creators
+import { uploadImage, removeUpload, resetImageState, displayMessage } from "../store/actions/index.js";
 
 // globals
 import { phoneP } from '../globals/globals.js';
@@ -18,6 +18,10 @@ const FileUpload = styled.div `
     flex-direction: column;
   }
 
+  .imgprev {
+    width: 50px;
+    height: 50px;
+  }
   img {
     width: 100%;
     height: 100%;
@@ -168,42 +172,14 @@ const FileUpload = styled.div `
         color: grey;
       }
     }
-
-    .progress {
-      padding: 6px;
-      border-radius: 5px;
-      background: rgba(0, 0, 0, 0.25);  
-      position: absolute;
-      width: 127px;
-      margin: 37px 0px;
-    }
-    
-    .progress-bar {
-      height: 18px;
-      border-radius: 30px;
-      background-image: 
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.05));
-      transition: 0.4s linear;  
-      transition-property: width, background-color;    
-    }
-    
-    .progress-moved .progress-bar {
-      width: 85%; 
-      background-color: #EF476F;  
-      animation: progressAnimation 6s infinite;
-    }
-    
-    @keyframes progressAnimation {
-      0% { width: 5%; background-color: lightgreen;}
-      100% { width: 100%; background-color: green; }
-    }
 `;
 
 class UploadImage extends React.Component {
   state = {
     name: '',
     imagePreviewUrl: '',
-    dragging: false
+    dragging: false,
+    isUploading: false
   };
   handleFileChange = (e) => {
     e.preventDefault();
@@ -326,6 +302,18 @@ class UploadImage extends React.Component {
     if(this.props.imagePreviewUrl !== this.state.imagePreviewUrl && !prevProps.isUploadingImage){
       this.setState({ imagePreviewUrl: this.props.imagePreviewUrl });
     }
+
+    if(this.props.isUploadingImage && !this.state.isUploading){
+			this.setState({ isUploading: true }, () => {
+				this.props.displayMessage('Uploading Image')
+			})
+		} else if(this.state.isUploading && !this.props.isUploadingImage){
+			this.setState({ isUploading: false }, () => {
+				this.props.displayMessage('Image Uploaded!').then(() => {
+					setTimeout(() => this.props.displayMessage(''), 500);
+				})
+			})
+		}
   }
     render() {
       const { name, imagePreviewUrl } = this.state;
@@ -341,7 +329,10 @@ class UploadImage extends React.Component {
                 className = 'fileinput'
                 onChange = { this.handleFileChange }
               />
-              <label htmlFor='image-file' >{imagePreviewUrl ? <img src={imagePreviewUrl}/> : 'Upload a Image'}</label>
+              <label htmlFor='image-file' >
+                {this.props.image.id ? <img src={this.props.image.image} /> : null}
+                {imagePreviewUrl ? <img src={imagePreviewUrl}/> : 'Upload a Image'}
+              </label>
               {this.state.dragging &&
                 <div className='drag-zone-t-wrapper'>
                   <div className='drag-zone'>
@@ -367,7 +358,8 @@ class UploadImage extends React.Component {
                 </div>
               </div>
             }
-            <div className='progress progress-moved'><div className='progress-bar'></div></div>
+            {imagePreviewUrl ? <img src={imagePreviewUrl} className='imgprev'/> : null}
+            {this.props.image.id ? <img src={this.props.image.image} className='imgprev'/> : null}
             {/* {this.state.name ? this.props.isUploadingImage ? <p className='progressbar'>Uploading...</p> : null : null}  */}
             {/* {this.state.name ? this.props.isUploadingImage ? <p>Uploading...</p> : <p>Image Uploaded!</p> : null} */}
           </FileUpload>
@@ -386,5 +378,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { uploadImage, removeUpload, resetImageState }
+  { uploadImage, removeUpload, resetImageState, displayMessage }
 )(UploadImage);
