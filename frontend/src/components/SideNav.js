@@ -20,7 +20,7 @@ margin-top: 20px;
   width: 100%;
   user-select:none;
   overflow-y: auto;
-  height: calc(100% - 170px);
+  height: calc(100% - 81px);
   min-height: 10%;
   @media (max-width: 800px) {
     display: ${props => props.isOpen === 'true' ? 'flex' : 'none'};
@@ -185,6 +185,9 @@ border-left: ${props => props.islinkselected === 'true' ? `5px solid ${props.the
   text-decoration: none;
   // color: ${props => props.islinkselected === 'true' ? 'blue' : 'black'};
   color: ${props => props.islinkselected === 'true' ? `${props.theme.defaultColorOnHover}` : `${props.theme.defaultColor}`};
+  font-weight: 400;
+  display: flex;
+  align-items: center;
   span {
     width: 46px;
     display: inline-block;
@@ -218,7 +221,18 @@ color: ${props => props.islinkselected === 'true' ? props.theme.defaultColorOnHo
   cursor: pointer;
 }
 `
+const UserTeams = styled.div`
+  margin: 10px 0;
 
+  .myteams {
+    font-weight: 400;
+    margin: 10px 20px;
+  }
+
+  .teams {
+    padding-left: 20px;
+  }
+`;
 
 /***************************************************************************************************
  ********************************************* Component *******************************************
@@ -420,15 +434,21 @@ class SideNav extends Component {
               ><i className="fas fa-book-open" />Browse Teams</LinkBrowseCategories>
 
             </div>
-            <div>
-              <LinkBrowseCategories
-                to='/my-teams'
-                islinkselected={(this.state.linkSelected === 'MyTeams').toString()}
-                onClick={() => this.selectLink('MyTeams')}
-                className='browse-categories'
-              ><i className="fas fa-book-open" />My Teams</LinkBrowseCategories>
-
-            </div>
+            <UserTeams>
+              <div className='myteams'>My Teams</div>
+              {this.state.userTeams.length === 0 ? <div>You're not apart of any Teams Yet!</div> : this.state.userTeams.map(team => (
+                <LinkSideNav 
+                  to={`/team/discussions/${team.team_id}`}
+                  islinkselected={(this.state.linkSelected === team.team_name).toString()}
+                  onClick={() => this.selectLink(team.team_name)}
+                  className='browse-categories teams'>
+                  <span>
+                    <img src={team.logo} alt='team logo' height='20px' width='20px'/>
+                  </span>
+                  {team.team_name}
+                </LinkSideNav>
+              ))}
+            </UserTeams>
             <div>
               <LinkBrowseCategories
                 to={`/teamanalytics`}

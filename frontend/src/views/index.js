@@ -8,7 +8,6 @@ import RepliesView from './RepliesView.js';
 import NonUserLandingView from './NonUserLandingView.js';
 import TeamsView from './TeamsView.js';
 import TeamDiscussionView from './TeamDiscussionView.js';
-import UserTeamsView from './UserTeamsView';
 
 export {
   CategoriesView,
@@ -20,6 +19,5 @@ export {
   RepliesView,
   NonUserLandingView,
   TeamsView,
-  TeamDiscussionView,
-  UserTeamsView
+  TeamDiscussionView
 };
