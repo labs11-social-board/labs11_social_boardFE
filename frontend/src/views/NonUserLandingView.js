@@ -26,9 +26,11 @@ const Woah = styled.section `
   background-position: center center;
   height: 85vh;
   background: #838B8B;
+  margin-bottom: 20px;
 
   @media (max-width: 800px) {
     margin-bottom: 150px;
+
   }
 `;
 
@@ -95,13 +97,13 @@ const Woah = styled.section `
   `;
 
     const BottomFiller = styled.section `
-    margin-top: 30px;
     display: flex;
     justify-content: space-evenly
+    margin-top: 10px;
     width: 100%;
     height: 100%
     postion: fixed;
-    height: 45vh;
+    height: 25vh;
     @media(max-width: 1240px) {
         flex-direction: column;
         height: 60vh;
@@ -117,6 +119,11 @@ const Woah = styled.section `
   `;
 
   const LandingDiv = styled.div`
+    display: flex;
+    justify-content: center;
+  `;
+
+  const BottomFillerDiv = styled.div `
     display: flex;
     justify-content: center;
   `;
@@ -146,16 +153,17 @@ const Woah = styled.section `
               </LandingDiv>
               </LandingDivBox>
             </BackgroundBox>
-            
+          <section>
+            <BottomFillerDiv>
+              <h2>Our features</h2>
+              </BottomFillerDiv>
             <BottomFiller>
               <TextBlurb>
                 <img src={computericon} />
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
                   tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis
                   nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                  consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-                  dolore eu fugiat nulla pariatur.Excepteur sint occaecat cupidatat non proident,
-                  sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                  consequat.</p>
               </TextBlurb>
               <TextBlurb>
                 <img src={computericon} />
@@ -163,9 +171,7 @@ const Woah = styled.section `
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
                   incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis
                   nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                  consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-                  dolore eu fugiat nulla pariatur.Excepteur sint occaecat cupidatat non proident,
-                  sunt in culpa qui officia deserunt mollit anim id est laborum.
+                  consequat.
                 </p>
               </TextBlurb>
               <TextBlurb>
@@ -174,12 +180,40 @@ const Woah = styled.section `
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
                   incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis
                   nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                  consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-                  dolore eu fugiat nulla pariatur.Excepteur sint occaecat cupidatat non proident,
-                  sunt in culpa qui officia deserunt mollit anim id est laborum.
+                  consequat.
                 </p>
               </TextBlurb>
             </BottomFiller>
+            <BottomFiller>
+              <TextBlurb>
+                <img src={computericon} />
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                  incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis
+                  nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                  consequat.
+                </p>
+              </TextBlurb>
+              <TextBlurb>
+                <img src={computericon} />
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                  incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis
+                  nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                  consequat.
+                </p>
+              </TextBlurb>
+              <TextBlurb>
+                <img src={computericon} />
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                  incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis
+                  nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                  consequat.
+                </p>
+              </TextBlurb>
+            </BottomFiller>
+            </section>
           </Woah>
         )
       }
