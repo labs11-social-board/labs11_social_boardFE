@@ -37,7 +37,7 @@ export const getPageViews = () => dispatch => {
     });
 
     return axios
-        .post(`${backendUrl}/analytics/pageviews`)
+        .get(`https://social-board-3-back-end.herokuapp.com/analytics/pageviews`)
         .then(res => {
             dispatch({
                 type: PAVEVIEWS_SUCCESS,
@@ -56,7 +56,7 @@ export const getUsersAna = () => dispatch => {
     });
 
     return axios
-        .post(`${backendUrl}/analytics/users`)
+        .get(`https://social-board-3-back-end.herokuapp.com/analytics/users`)
         .then(res => {
             dispatch({
                 type: GUSERS_SUCCESS,
