@@ -56,13 +56,9 @@ class Analytics extends React.Component {
 
     async componentDidMount() {
         await this.props.getPageViews();
-        
-        let salamander = this.props.gPageviews
-        
-        //console.log(salamander)
-
+                
         this.setState({
-            pagev1: this.props.gPageviews.data
+            pagev1: this.props.gPageviews.data.totalsForAllResults['ga:pageviews']
         })
 
         //getUsersAna();
@@ -84,7 +80,7 @@ class Analytics extends React.Component {
                             <Boxed>
                                 <h4>Pageviews</h4>
                                 <p>In last 30 Days</p>
-                                <h2>0</h2>
+                                <h2>{this.state.pagev1}</h2>
                                 {console.log(this.props.gPageviews.data)}
                                 {console.log(this.state)}
                                 
