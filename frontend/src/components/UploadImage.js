@@ -168,6 +168,35 @@ const FileUpload = styled.div `
         color: grey;
       }
     }
+
+    .progress {
+      padding: 6px;
+      border-radius: 5px;
+      background: rgba(0, 0, 0, 0.25);  
+      position: absolute;
+      width: 127px;
+      margin: 37px 0px;
+    }
+    
+    .progress-bar {
+      height: 18px;
+      border-radius: 30px;
+      background-image: 
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.05));
+      transition: 0.4s linear;  
+      transition-property: width, background-color;    
+    }
+    
+    .progress-moved .progress-bar {
+      width: 85%; 
+      background-color: #EF476F;  
+      animation: progressAnimation 6s infinite;
+    }
+    
+    @keyframes progressAnimation {
+      0% { width: 5%; background-color: lightgreen;}
+      100% { width: 100%; background-color: green; }
+    }
 `;
 
 class UploadImage extends React.Component {
@@ -337,8 +366,10 @@ class UploadImage extends React.Component {
                   Drop file here
                 </div>
               </div>
-            } 
-            {this.state.name ? this.props.isUploadingImage ? <p>Uploading...</p> : <p>Image Uploaded!</p> : null}
+            }
+            <div className='progress progress-moved'><div className='progress-bar'></div></div>
+            {/* {this.state.name ? this.props.isUploadingImage ? <p className='progressbar'>Uploading...</p> : null : null}  */}
+            {/* {this.state.name ? this.props.isUploadingImage ? <p>Uploading...</p> : <p>Image Uploaded!</p> : null} */}
           </FileUpload>
         }
        </>
