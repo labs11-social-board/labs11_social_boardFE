@@ -18,7 +18,7 @@ class DeleteReply extends React.Component {
     }
 
     render() {
-        console.log(this.state.post_id)
+        console.log(this.props.user_type)
         return (
             <>
                 {(this.props.user_type === 'admin' || this.props.user_type === 'moderator') ?

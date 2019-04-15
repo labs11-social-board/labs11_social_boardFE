@@ -22,7 +22,7 @@ class DeletePost extends React.Component {
   }
 
   render() {
-    //    console.log(this.props)
+       console.log(this.props.user_type)
     return (
       <>
         {(this.props.user_type === 'admin' || this.props.user_type === 'moderator') ?
