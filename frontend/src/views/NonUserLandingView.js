@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
 import {connect} from 'react-redux';
-import {background, computericon } from '../assets/index.js';
+import {background, computericon, example } from '../assets/index.js';
 import { Link } from 'react-router-dom';
 // import { register, isEmailTaken, isUsernameTaken } from '../store/actions/index.js';
 // import { RegisterDropdown } from './index.js';
@@ -25,11 +25,18 @@ const Woah = styled.section `
   background-size: cover;
   background-position: center center;
   height: 85vh;
+  background: #838B8B;
+  margin-bottom: 20px;
 
-  @media(max-width: 1240px) {
-    background-image: none;
+  @media (max-width: 800px) {
+    margin-bottom: 150px;
+
   }
 `;
+
+  const LandingDivBox = styled.div`
+  margin-top: 160px;
+  `;
 
   const LandingText = styled.h1 `
   // height: 40%;
@@ -39,10 +46,14 @@ const Woah = styled.section `
   justify-content: center;
   align-text: center;
   color: black;
-  // @media (max-width: 1240px) {
-  //   width: 100%;
-  //   color: black;
-  // }
+  font-size: 42px;
+  margin-bottom: 15px;
+  @media (max-width: 1240px) {
+    width: 100%;
+    color: black;
+    font-size: 32px;
+    
+  }
 
   ${ ({
     loggedIn}) => loggedIn && '@media (max-width: 980px) {width: 100%;background-color: white;}'}
@@ -61,6 +72,12 @@ const Woah = styled.section `
     background-color: #418DCF;
     height: 35px;
     width: 100px;
+
+    &:hover {
+			cursor: pointer;
+      background-color: ${props => props.theme.profilesWrapperBgColorHov};
+
+  }
   `;
 
     // const VideoPlayer = styled.div`   position: relative;   @media (max-width:
@@ -80,16 +97,18 @@ const Woah = styled.section `
   `;
 
     const BottomFiller = styled.section `
-    margin-top: 30px;
     display: flex;
     justify-content: space-evenly
+    margin-top: 10px;
     width: 100%;
-    margin-top: 40px;
+    height: 100%
     postion: fixed;
-    height: 45vh;
+    height: 25vh;
     @media(max-width: 1240px) {
-        display: none;
+        flex-direction: column;
+        height: 60vh;
       }
+    
   `;
 
     const TextBlurb = styled.div `
@@ -102,6 +121,25 @@ const Woah = styled.section `
   const LandingDiv = styled.div`
     display: flex;
     justify-content: center;
+  `;
+
+  const BottomFillerDiv = styled.div `
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+  `;
+
+  const ImageDiv = styled.div `
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    height: 50vh;
+  `;
+
+  const ExampleImage = styled.img `
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
   `;
 
     class NonUserLandingView extends Component {
@@ -117,23 +155,35 @@ const Woah = styled.section `
         return (
           <Woah loggedIn={this.props.user_id !== 0}>
             <BackgroundBox>
+              <LandingDivBox>
               <LandingText loggedIn={this.props.user_id !== 0}>
-              Welcome, get started here.
+              Welcome to Social App 2
               </LandingText>
+              <LandingDiv>
+                <p>A place where discussions are built to further projects and encourage conversations.</p>
+              </LandingDiv>
               <LandingDiv>
                 <GetStartedButton onClick={toggleRegisterModal}> Get Started</GetStartedButton>
               </LandingDiv>
+              <ImageDiv>
+              <ExampleImage src={example} alt="example" /> 
+                </ImageDiv>
+              </LandingDivBox>
             </BackgroundBox>
-
+          <section>
+            <BottomFillerDiv>
+              <h2>OUR SERVICES</h2>
+              </BottomFillerDiv>
+              <BottomFillerDiv>
+                <p>Our site has a wide range features for our users.</p>
+              </BottomFillerDiv>
             <BottomFiller>
               <TextBlurb>
                 <img src={computericon} />
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
                   tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis
                   nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                  consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-                  dolore eu fugiat nulla pariatur.Excepteur sint occaecat cupidatat non proident,
-                  sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                  consequat.</p>
               </TextBlurb>
               <TextBlurb>
                 <img src={computericon} />
@@ -141,9 +191,7 @@ const Woah = styled.section `
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
                   incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis
                   nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                  consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-                  dolore eu fugiat nulla pariatur.Excepteur sint occaecat cupidatat non proident,
-                  sunt in culpa qui officia deserunt mollit anim id est laborum.
+                  consequat.
                 </p>
               </TextBlurb>
               <TextBlurb>
@@ -152,12 +200,43 @@ const Woah = styled.section `
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
                   incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis
                   nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                  consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-                  dolore eu fugiat nulla pariatur.Excepteur sint occaecat cupidatat non proident,
-                  sunt in culpa qui officia deserunt mollit anim id est laborum.
+                  consequat.
                 </p>
               </TextBlurb>
             </BottomFiller>
+            <BottomFiller>
+              <TextBlurb>
+                <img src={computericon} />
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                  incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis
+                  nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                  consequat.
+                </p>
+              </TextBlurb>
+              <TextBlurb>
+                <img src={computericon} />
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                  incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis
+                  nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                  consequat.
+                </p>
+              </TextBlurb>
+              <TextBlurb>
+                <img src={computericon} />
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                  incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis
+                  nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                  consequat.
+                </p>
+              </TextBlurb>
+            </BottomFiller>
+            <BottomFillerDiv>
+              <GetStartedButton onClick={toggleRegisterModal}> Get Started</GetStartedButton>
+              </BottomFillerDiv>
+            </section>
           </Woah>
         )
       }

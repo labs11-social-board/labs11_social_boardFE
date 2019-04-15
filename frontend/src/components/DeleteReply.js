@@ -3,12 +3,13 @@ import { connect } from 'react-redux';
 import { removeReply } from '../store/actions/RepliesActions.js'
 
 class DeleteReply extends React.Component {
-   
+
+
     deleteReply = (e, id) => {
-        // e.preventDefault();
+        e.preventDefault();
         this.props.removeReply(id);
         console.log('run :D');
-
+        this.props.displayMessage('Reply deleted')
         if (this.teamId) {
             this.props.handleTeamFilter();
         } else {
@@ -17,10 +18,10 @@ class DeleteReply extends React.Component {
     }
 
     render() {
-        //    console.log(this.props)
+        console.log(this.props.user_type)
         return (
             <>
-                {(this.props.loggedInUserId === this.props.discussion_id || this.props.loggedInUserId === this.props.discussions_id  || this.props.user_type === 'admin' || this.props.user_type === 'moderator') ?
+                {(this.props.user_type === 'admin' || this.props.user_type === 'moderator') ?
                     (<a onClick={e => this.deleteReply(e, this.props.id)}>Delete comment</a>) : null}
             </>
         )
@@ -30,10 +31,7 @@ class DeleteReply extends React.Component {
 const mapStateToProps = state => ({
     user_type: state.users.user_type,
     user_id: state.users.user_id,
-    team_id: state.teams.team_id,
-    loggedInUserId: state.users.user_id,
-    discussion_id: state.discussions.discussion.user_id,
-    discussions_id: state.discussions.id
+    team_id: state.teams.team_id
 })
 
 export default connect(mapStateToProps, { removeReply })(DeleteReply);
