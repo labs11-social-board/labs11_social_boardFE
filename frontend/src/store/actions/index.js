@@ -160,6 +160,9 @@ import {
   ADD_POST_LOADING,
   ADD_POST_SUCCESS,
   ADD_POST_FAILURE,
+  ADD_DELETED_POST_LOADING,
+  ADD_DELETED_POST_SUCCESS,
+  ADD_DELETED_POST_FAILURE,
   EDIT_POST_LOADING,
   EDIT_POST_SUCCESS,
   EDIT_POST_FAILURE,
@@ -172,6 +175,7 @@ import {
 
   // Action Creators
   addPost,
+  addDeletedPost,
   editPost,
   removePost,
   uploadImage,
@@ -573,6 +577,9 @@ export {
   ADD_POST_LOADING,
   ADD_POST_SUCCESS,
   ADD_POST_FAILURE,
+  ADD_DELETED_POST_LOADING,
+  ADD_DELETED_POST_SUCCESS,
+  ADD_DELETED_POST_FAILURE,
   EDIT_POST_LOADING,
   EDIT_POST_SUCCESS,
   EDIT_POST_FAILURE,
@@ -673,6 +680,7 @@ export {
   getProfile,
   // Posts Action Creators
   addPost,
+  addDeletedPost,
   editPost,
   removePost,
   uploadImage,
