@@ -23,10 +23,13 @@ margin-top: 20px;
   height: calc(100% - 180px);
   min-height: 10%;
 
-  span {
+  .section-select {
     display: flex;
     margin: 20px;
-
+    cursor:pointer;
+    &:hover {
+      color: ${props => props.theme.defaultColorOnHover};
+    }
     i {
       margin-left: 10px;
     }
@@ -379,7 +382,7 @@ class SideNav extends Component {
         </DivNavContainer>
 
 
-        <span onClick={() => this.setState({ isCatSectionDisplayed: !this.state.isCatSectionDisplayed })}>
+        <span className='section-select' onClick={() => this.setState({ isCatSectionDisplayed: !this.state.isCatSectionDisplayed })}>
           Categories
           {isCatSectionDisplayed ? <i className="fas fa-chevron-up"/>: <i className="fas fa-chevron-down"/>}
         </span>
@@ -451,7 +454,7 @@ class SideNav extends Component {
             </DivCategoriesFollowed>
           </DivNavContainer>
         </CatContent>
-        <span onClick={() => this.setState({ isTeamSectionDisplayed: !this.state.isTeamSectionDisplayed})}>
+        <span className='section-select' onClick={() => this.setState({ isTeamSectionDisplayed: !this.state.isTeamSectionDisplayed})}>
           Teams 
           {isTeamSectionDisplayed ? <i className="fas fa-chevron-up"/> : <i className="fas fa-chevron-down"/>}
         </span>
