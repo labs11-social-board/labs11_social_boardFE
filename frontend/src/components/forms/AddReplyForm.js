@@ -7,7 +7,7 @@ import { Avatar } from '../index.js';
 // globals
 import { topHeaderHeight, phoneP } from '../../globals/globals.js';
 // action creators
-import { addReply, uploadImage, updateReplyWithImage, removeUpload, resetImageState } from '../../store/actions/index.js';
+import { addReply, uploadImage, updateReplyWithImage, removeUpload, resetImageState, displayMessage } from '../../store/actions/index.js';
 
 // components 
 import { UploadImage } from '../index.js';
@@ -189,13 +189,25 @@ class AddReplyForm extends Component {
 	handleSubmit = e => {
 		e.preventDefault();
 		const { replyBody } = this.state;
-		const { post_id, team_id, handleFilterChange, handleTeamFilter, toggleAddReplyForm, updateReplyWithImage, image } = this.props;
-		this.props.addReply(post_id, team_id, replyBody).then((res) => {
-			if(image){
-				updateReplyWithImage(image, res.payload[0]);
-				this.props.resetImageState();
-       }
-		});
+		const { post_id, team_id, handleFilterChange, handleTeamFilter, toggleAddReplyForm, updateReplyWithImage, image, displayMessage } = this.props;
+
+		if(replyBody.length > 0){
+			this.props.addReply(post_id, team_id, replyBody).then((res) => {
+				if(image){
+					updateReplyWithImage(image, res.payload[0]);
+					this.props.resetImageState();
+				 }
+			});
+		} else if(!replyBody && image){
+			this.props.addReply(post_id, team_id, replyBody).then((res) => {
+				if(image){
+					updateReplyWithImage(image, res.payload[0]);
+					this.props.resetImageState();
+				 }
+			});
+		} else {
+			displayMessage('Please enter a message or upload an image');
+		}
 
 		if(team_id){
       toggleAddReplyForm();
@@ -263,4 +275,4 @@ const mapStateToProps = state => ({
 	image: state.posts.images.id
 });
 
-export default connect(mapStateToProps, { addReply, uploadImage, updateReplyWithImage, removeUpload, resetImageState })(AddReplyForm);
+export default connect(mapStateToProps, { addReply, uploadImage, updateReplyWithImage, removeUpload, resetImageState, displayMessage })(AddReplyForm);

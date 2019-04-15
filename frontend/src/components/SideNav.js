@@ -20,7 +20,7 @@ margin-top: 20px;
   width: 100%;
   user-select:none;
   overflow-y: auto;
-  height: calc(100% - 170px);
+  height: calc(100% - 180px);
   min-height: 10%;
   @media (max-width: 800px) {
     display: ${props => props.isOpen === 'true' ? 'flex' : 'none'};
@@ -185,6 +185,9 @@ border-left: ${props => props.islinkselected === 'true' ? `5px solid ${props.the
   text-decoration: none;
   // color: ${props => props.islinkselected === 'true' ? 'blue' : 'black'};
   color: ${props => props.islinkselected === 'true' ? `${props.theme.defaultColorOnHover}` : `${props.theme.defaultColor}`};
+  font-weight: 400;
+  display: flex;
+  align-items: center;
   span {
     width: 46px;
     display: inline-block;
@@ -218,8 +221,28 @@ color: ${props => props.islinkselected === 'true' ? props.theme.defaultColorOnHo
   cursor: pointer;
 }
 `
-const token = localStorage.getItem('symposium_token');
+const UserTeams = styled.div`
+  margin: 10px 0;
 
+  .myteams {
+    font-weight: 400;
+    margin: 10px 20px;
+  }
+
+  .teams {
+    padding-left: 20px;
+
+    img {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+    }
+
+    .logo {
+      margin-left: 10px;
+    }
+  }
+`;
 
 /***************************************************************************************************
  ********************************************* Component *******************************************
@@ -233,9 +256,6 @@ class SideNav extends Component {
       categoryFollows: [],
       userTeams: [],
       isFollowedCatsOpen: true,
-      verify: {
-        email: token
-      },
       setWrapperRef: this.setWrapperRef.bind(this),
       updated: this.props.verified
     }
@@ -251,12 +271,6 @@ class SideNav extends Component {
     });
 
     document.addEventListener('click', this.handleClick, false);
-
-    // this.props.verifyEmail(this.state.verify.email);
-    // this.setState({
-    //   ...this.state,
-    //   updated: this.props.verified
-    // })
   }
 
   componentDidUpdate = (prevProps) => {
@@ -430,6 +444,22 @@ class SideNav extends Component {
               ><i className="fas fa-book-open" />Browse Teams</LinkBrowseCategories>
 
             </div>
+            <UserTeams>
+              <div className='myteams'>My Teams</div>
+              {this.state.userTeams.length === 0 ? <div>You're not apart of any Teams Yet!</div> : this.state.userTeams.map(team => (
+                <LinkSideNav 
+                  to={`/team/discussions/${team.team_id}`}
+                  islinkselected={(this.state.linkSelected === team.team_name).toString()}
+                  onClick={() => this.selectLink(team.team_name)}
+                  className='browse-categories teams'
+                  key={team.team_id}>
+                  <span>
+                    { team.logo ? <img src={team.logo} alt='team logo' /> : <i className="fas fa-users logo"></i>}
+                  </span>
+                  {team.team_name}
+                </LinkSideNav>
+              ))}
+            </UserTeams>
             <div>
               <LinkBrowseCategories
                 to={`/teamanalytics`}

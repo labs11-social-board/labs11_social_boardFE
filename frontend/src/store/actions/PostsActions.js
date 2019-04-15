@@ -50,13 +50,7 @@ export const addPost = (discussion_id, postBody, team_id, repliedPostID) => disp
 };
 
 // edit a post
-export const editPost = (
-  user_id,
-  post_id,
-  postBody,
-  historyPush,
-  discussion_id
-) => dispatch => {
+export const editPost = (user_id, post_id, postBody, historyPush, discussion_id) => dispatch => {
   const token = localStorage.getItem('symposium_token');
   const headers = { headers: { Authorization: token } };
   const body = { post_id, postBody };
@@ -126,7 +120,7 @@ export const removeUpload = image_id => dispatch => {
   const headers = { headers: { Authorization: token } };
   return axios
     .delete(`${backendURL}/posts/images/${user_id}/${image_id}`, headers)
-    .then(res => console.log(res.data))
+    .then(res => dispatch({ type: 'REMOVE_UPLOAD' }))
     .catch(err => handleError(err)(dispatch));
 };
 

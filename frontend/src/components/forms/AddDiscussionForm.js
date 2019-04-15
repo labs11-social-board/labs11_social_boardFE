@@ -227,13 +227,6 @@ class AddDiscussionForm extends Component {
       .then(() => getDiscussions());
 		}
 	};
-	// handleFileChange = e => {
-	// 	if (e.target.files.length) {
-  //     const { name } = e.target.files[0];
-	// 		return this.setState({ name });
-	// 	}
-	// 	return this.setState({ name: '' });
-  // };
   handleExit = e => {
     e.preventDefault();
     this.props.toggleAddDiscussionForm();
@@ -243,7 +236,11 @@ class AddDiscussionForm extends Component {
 		}
   }
   getCategoryNames = () => this.setState({ categoryNames: this.props.categoriesFollowed, category_id: this.props.category_id || this.props.categoriesFollowed[0].id });
-  componentDidMount = () => this.getCategoryNames();
+  componentDidMount = () => {
+		if(!this.props.team_id){
+			this.getCategoryNames();
+		}
+	}
   render() {
     const { body, categoryNames, category_id } = this.state;
 		const { toggleAddDiscussionForm, username, avatar, user_id, isDay } = this.props;
