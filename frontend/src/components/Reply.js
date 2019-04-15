@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import styled from 'styled-components';
-import DeleteReply from './DeleteReply.js';
+import DeleteReply from './DeleteReply';
 
 
 // action creators
@@ -207,10 +207,10 @@ const Reply = ({
     <ReplyWrapper>
       <div>
         <BodyWrapper>{body}</BodyWrapper>
-        {image ? 
+        {image ?
           <div className='show-image-wrapper'>
-            <a className='show-image' onClick={()=> handleImageShow(id)}><i className="fas fa-camera"></i>{ isShowImage ? '-' : '+'}</a>
-					  {isShowImage ? id === imageClickedId ? <img src={image} alt="uploaded image"/> : null : null }
+            <a className='show-image' onClick={() => handleImageShow(id)}><i className="fas fa-camera"></i>{isShowImage ? '-' : '+'}</a>
+            {isShowImage ? id === imageClickedId ? <img src={image} alt="uploaded image" /> : null : null}
           </div> : null}
       </div>
       <InfoWrapper>
@@ -236,10 +236,13 @@ const Reply = ({
           <div className="date tablet">
             <span>{moment(new Date(Number(created_at))).fromNow()}</span>
           </div>
-          {loggedInUserId === user_id ?
-            <div className='delete' onClick={e => deleteReply(e, id)}>Delete reply</div>
-            : null}
-          {/* <DeleteReply
+          {
+            (loggedInUserId === user_id) ?
+            (<div className='delete'>
+              <a onClick={e => deleteReply(e, id)}>Delete reply</a>
+            </div>) :
+            (user_type === 'admin' || user_type === 'moderator') ?
+            <DeleteReply
             deleteReply={deleteReply}
             handleTeamFilter={handleTeamFilter}
             handleFilterChange={handleFilterChange}
@@ -248,7 +251,8 @@ const Reply = ({
             teamId={team_id}
             user_id={user_id}
             user_type={user_type}
-          /> */}
+            /> 
+            : null}
         </div>
       </InfoWrapper>
       {showAddReplyForm === id && (
