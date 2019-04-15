@@ -4,6 +4,7 @@ import {BrowserRouter as Router, Route, Link, NavLink} from "react-router-dom";
 import styled from 'styled-components';
 import { connect } from "react-redux";
 import Users from './Users';
+import { getPageViews, getUsersAna, } from './../store/actions/analyticActions';
 
 import {} from '../components'
 
@@ -45,14 +46,15 @@ margin-bottom: 10px;
 
 
 class Analytics extends React.Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
 
     }
 
-    // componentDidMount() {
-        
-    // }
+    componentDidMount() {
+        this.props.getPageViews(); 
+        //getUsersAna();
+    }
 
     render() {
 
@@ -71,6 +73,8 @@ class Analytics extends React.Component {
                             <Boxed>
                                 <h4>Pageviews</h4>
                                 <p>In last 30 Days</p>
+                                <h2>{this.props.gPageviews}</h2>
+                                {console.log(this.props.gPageviews)}
                                 
                             </Boxed>
                             
@@ -91,11 +95,14 @@ class Analytics extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        
+        gPageviews: state.gPageviews,
+        gUsers: state.gUsers,
+        gettingGPdata: state.gettingGPdata,
+        gettingGUdata: state.gettingGUdata
     };
   };
 
   
   export default connect(
-    mapStateToProps,{ } 
+    mapStateToProps,{ getPageViews, getUsersAna, } 
   )(Analytics);
