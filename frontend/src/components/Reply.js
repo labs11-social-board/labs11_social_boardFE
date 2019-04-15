@@ -161,7 +161,8 @@ const Reply = ({
   displayMessage,
   isShowImage,
   handleImageShow,
-  imageClickedId
+  imageClickedId,
+  user_type
 }) => {
   const {
     body,
@@ -171,7 +172,6 @@ const Reply = ({
     username,
     user_id,
     id,
-    user_type,
     discussion_id,
     upvotes,
     downvotes,
@@ -203,6 +203,8 @@ const Reply = ({
       handleFilterChange();
     }
   }
+
+  console.log(user_type)
   return (
     <ReplyWrapper>
       <div>
@@ -238,21 +240,21 @@ const Reply = ({
           </div>
           {
             (loggedInUserId === user_id) ?
-            (<div className='delete'>
-              <a onClick={e => deleteReply(e, id)}>Delete reply</a>
-            </div>) :
-            (user_type === 'admin' || user_type === 'moderator') ?
-            <DeleteReply
-            deleteReply={deleteReply}
-            handleTeamFilter={handleTeamFilter}
-            handleFilterChange={handleFilterChange}
-            displayMessage={displayMessage}
-            id={id}
-            teamId={team_id}
-            user_id={user_id}
-            user_type={user_type}
-            /> 
-            : null}
+              (<div className='delete'>
+                <a onClick={e => deleteReply(e, id)}>Delete reply</a>
+              </div>) :
+              (user_type === 'admin' || user_type === 'moderator') ?
+                <DeleteReply
+                  deleteReply={deleteReply}
+                  handleTeamFilter={handleTeamFilter}
+                  handleFilterChange={handleFilterChange}
+                  displayMessage={displayMessage}
+                  id={id}
+                  teamId={team_id}
+                  user_id={user_id}
+                  user_type={user_type}
+                />
+                : null}
         </div>
       </InfoWrapper>
       {showAddReplyForm === id && (
