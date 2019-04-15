@@ -49,16 +49,22 @@ class Analytics extends React.Component {
     constructor(props) {
         super(props)
 
+        this.state = {
+            pagev1: null
+        }
     }
 
     componentDidMount() {
-        this.props.getPageViews(); 
+        this.props.getPageViews();
+        
+        this.setState({
+            pagev1: [this.props.gPageviews.data]
+        })
+
         //getUsersAna();
     }
 
     render() {
-
-        //if (!this.props.isLoggedIn) return <h2>--Yo, dog.  You ain't logged in.  Do That <Link to="/">HERE</Link> </h2>;
 
         return(
             <div>
@@ -73,8 +79,9 @@ class Analytics extends React.Component {
                             <Boxed>
                                 <h4>Pageviews</h4>
                                 <p>In last 30 Days</p>
-                                <h2>{this.props.gPageviews}</h2>
-                                {console.log(this.props.gPageviews)}
+                                <h2>0</h2>
+                                {console.log(this.props.gPageviews.data)}
+                                {console.log(this.state)}
                                 
                             </Boxed>
                             
@@ -95,10 +102,10 @@ class Analytics extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        gPageviews: state.gPageviews,
-        gUsers: state.gUsers,
-        gettingGPdata: state.gettingGPdata,
-        gettingGUdata: state.gettingGUdata
+        gPageviews: state.analytics.gPageviews,
+        gUsers: state.analytics.gUsers,
+        gettingGPdata: state.analytics.gettingGPdata,
+        gettingGUdata: state.analytics.gettingGUdata
     };
   };
 
