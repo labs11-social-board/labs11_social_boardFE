@@ -646,7 +646,7 @@ class Profile extends Component {
                       <div>
                         {followListLength > 0 ? followList.map((user, id) =>
                           // user.following_id can be used to go to the users profile upon clicking on them currently not implemented. 
-                          <DivFollowListItem>
+                          <DivFollowListItem key = {id}>
                             <WrappedDiv
                               style={{ cursor: "pointer" }}
                               key={id}
