@@ -407,7 +407,7 @@ EditProfileModal.propTypes = {
   updateProfile: PropTypes.func.isRequired,
   getProfile: PropTypes.func.isRequired,
   setEditProfileModalRaised: PropTypes.func.isRequired,
-  history : PropTypes.func.isRequired
+  history : PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({
