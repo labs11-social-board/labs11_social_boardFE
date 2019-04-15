@@ -23,6 +23,9 @@ margin-top: 20px;
   height: calc(100% - 180px);
   min-height: 10%;
 
+  span {
+    margin-left: 20px;
+  }
   .section-select {
     display: flex;
     margin: 20px;
