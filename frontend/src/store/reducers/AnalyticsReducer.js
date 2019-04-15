@@ -10,8 +10,8 @@ import {
 const initialState = {
     gettingGPdata: false,
     gettingGUdata: false,
-    gPageviews: {},
-    gUsers: {},
+    gPageviews: [],
+    gUsers: [],
     gError: null
 }
 
@@ -28,14 +28,16 @@ export const AnalyticsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 gettingGPdata: false,
-                gPageViews: action.payload
+                gPageviews: action.payload,
+                
+                
             }
 
         case PAVEVIEWS_FAIL:
             return {
                 ...state,
                 gettingGPdata: false,
-                error: action.payload
+                gError: action.payload
             }
 
 
