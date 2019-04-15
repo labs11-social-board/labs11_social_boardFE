@@ -454,7 +454,7 @@ class SideNav extends Component {
                   className='browse-categories teams'
                   key={team.team_id}>
                   <span>
-                    { team.logo ? <img src={team.logo} alt='team logo' /> : <i class="fas fa-users logo"></i>}
+                    { team.logo ? <img src={team.logo} alt='team logo' /> : <i className="fas fa-users logo"></i>}
                   </span>
                   {team.team_name}
                 </LinkSideNav>

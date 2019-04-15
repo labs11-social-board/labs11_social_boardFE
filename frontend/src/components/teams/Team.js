@@ -192,7 +192,7 @@ const Team = ({ team, history }) => {
     <DivRow onClick={() => history.push(`/team/discussions/${id}`)}>
       <DivTeamContainer>
         <DivIcon>
-          {(team.logo) ? <img className='team-logo' src={team.logo}/> : <i class="fas fa-users"></i>}
+          {(team.logo) ? <img className='team-logo' src={team.logo}/> : <i className="fas fa-users"></i>}
         </DivIcon>
         <DivTeam>
           <div className = 'Team-name-follow-wrapper' onClick = {stopPropagation}>
