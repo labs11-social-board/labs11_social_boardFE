@@ -54,15 +54,20 @@ class Analytics extends React.Component {
         }
     }
 
-    componentDidMount() {
-        this.props.getPageViews();
+    async componentDidMount() {
+        await this.props.getPageViews();
         
+        let salamander = this.props.gPageviews
+        
+        //console.log(salamander)
+
         this.setState({
-            pagev1: [this.props.gPageviews.data]
+            pagev1: this.props.gPageviews.data
         })
 
         //getUsersAna();
     }
+
 
     render() {
 
