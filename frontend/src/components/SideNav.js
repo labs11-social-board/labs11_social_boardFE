@@ -252,11 +252,11 @@ class SideNav extends Component {
 
     document.addEventListener('click', this.handleClick, false);
 
-    this.props.verifyEmail(this.state.verify.email);
-    this.setState({
-      ...this.state,
-      updated: this.props.verified
-    })
+    // this.props.verifyEmail(this.state.verify.email);
+    // this.setState({
+    //   ...this.state,
+    //   updated: this.props.verified
+    // })
   }
 
   componentDidUpdate = (prevProps) => {
