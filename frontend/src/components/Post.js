@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import styled from 'styled-components';
+import DeletePost from './DeletePost';
 
 // components
 import {
@@ -170,6 +171,7 @@ const Post = ({
   post,
   loggedInUserId,
   historyPush,
+  user_type,
   // showEditPostForm,
   // updateEditPostForm,
   removePost,
@@ -182,7 +184,10 @@ const Post = ({
   //deleteReply,
   scrollTo,
   team_id, 
-  displayMessage
+  displayMessage,
+  isShowImage,
+  handleImageShow,
+  imageClickedId
 }) => {
   const {
     body,
@@ -237,7 +242,7 @@ const Post = ({
   };
 
   const handleRemovePost = (e, id) => {
-    // e.preventDefault();
+    e.preventDefault();
     removePost(id);
     displayMessage('Comment deleted');
     if (team_id) {
@@ -246,14 +251,16 @@ const Post = ({
       handleFilterChange();
     }
   };
-
+console.log(user_type)
   return (
     <PostWrapper>
       <div>
         <BodyWrapper>{body}</BodyWrapper>
-        {image ? (
-          <img src={image} alt="uploaded image" height="42" width="42" />
-        ) : null}
+        {image ? 
+          <div className='show-image-wrapper'>
+            <a className='show-image' onClick={() => handleImageShow(id)}><i className="fas fa-camera"></i>{ isShowImage ? '-' : '+'}</a>
+					  {isShowImage ? id === imageClickedId ? <img src={image} alt="uploaded image"/> : null : null }
+          </div> : null}
       </div>
       <InfoWrapper>
         <div className="user-info">
@@ -278,11 +285,19 @@ const Post = ({
           <div className="date tablet">
             <span>{moment(new Date(Number(created_at))).fromNow()}</span>
           </div>
-          {loggedInUserId === user_id ? 
-            <div className='delete'>
+          {(loggedInUserId === user_id || user_type === 'admin' || user_type === 'moderator') ? 
+            (<div className='delete'>
               <a onClick={e => handleRemovePost(e, id)}>Delete comment</a>
-            </div> 
+            </div>) 
             : null}
+            {/* <DeletePost 
+            handleRemovePost={handleRemovePost} 
+            handleTeamFilter={handleTeamFilter} 
+            handleFilterChange={handleFilterChange}
+            id={id} 
+            teamId={team_id} 
+            user_id={user_id}
+            /> */}
         </div>
       </InfoWrapper>
       {showAddReplyForm === id && (
@@ -297,7 +312,8 @@ const Post = ({
         />
       )}
       <div>
-        {replies.map((reply, i) => (
+        {replies.map((reply, i) => ( 
+          
           <Reply
             key={i}
             reply={reply}
@@ -308,8 +324,12 @@ const Post = ({
             team_id={team_id}
             handleFilterChange={handleFilterChange}
             handleTeamFilter={handleTeamFilter}
+            isShowImage={isShowImage}
+            handleImageShow={handleImageShow}
+            imageClickedId={imageClickedId}
           />
         ))}
+        
       </div>
     </PostWrapper>
   );
@@ -317,7 +337,8 @@ const Post = ({
 
 const mapStateToProps = state => ({
   loggedInUserId: state.users.user_id,
-  avatar: state.users.avatar
+  avatar: state.users.avatar,
+  user_type: state.users.user_type
 });
 
 export default connect(

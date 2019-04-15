@@ -5,34 +5,37 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import { createStore, applyMiddleware, combineReducers, compose } from "redux";
 import { Provider } from "react-redux";
 
+
 // middleware
 import thunk from "redux-thunk";
 import logger from "redux-logger";
 
 // reducers
 import {
-	UsersReducer,
-	PostsReducer,
-	DiscussionsReducer,
-	ProfilesReducer,
-	CategoriesReducer,
-	TeamsReducer,
+  UsersReducer,
+  PostsReducer,
+  DiscussionsReducer,
+  ProfilesReducer,
+  CategoriesReducer,
+  TeamsReducer,
   FollowersReducer,
   editProfileReducer,
   EmailReducer
 } from './store/reducers/index.js';
 
 const rootReducer = combineReducers({
-	users: UsersReducer,
-	posts: PostsReducer,
-	discussions: DiscussionsReducer,
-	profilesData: ProfilesReducer,
-	categories: CategoriesReducer,
-	teams: TeamsReducer,
-  followers : FollowersReducer,
-  editProfile : editProfileReducer,
+  users: UsersReducer,
+  posts: PostsReducer,
+  discussions: DiscussionsReducer,
+  profilesData: ProfilesReducer,
+  categories: CategoriesReducer,
+  teams: TeamsReducer,
+  followers: FollowersReducer,
+  editProfile: editProfileReducer,
   emails: EmailReducer
 });
+
+
 
 let store;
 if (process.env.NODE_ENV === "development") {
@@ -41,7 +44,7 @@ if (process.env.NODE_ENV === "development") {
     compose(
       applyMiddleware(thunk, logger),
       window.__REDUX_DEVTOOLS_EXTENSION__ &&
-        window.__REDUX_DEVTOOLS_EXTENSION__()
+      window.__REDUX_DEVTOOLS_EXTENSION__()
     )
   );
 } else {

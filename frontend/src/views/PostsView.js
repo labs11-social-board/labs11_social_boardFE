@@ -19,9 +19,14 @@ const PostsView = ({
 	handleFilterChange,
 	handleTeamFilter,
 	scrollTo,
-	team_id
+	team_id,
+  isShowImage,
+	handleImageShow,
+	imageClickedId
 }) => {
+	
 	return(
+		
 		<PostsViewWrapper>
 			{ posts.map((post, index) =>
 				<Post
@@ -37,6 +42,9 @@ const PostsView = ({
 					handleTeamFilter = { handleTeamFilter }
 					team_id = { team_id }
 					scrollTo = { scrollTo }
+					isShowImage = { isShowImage}
+					handleImageShow = { handleImageShow}
+					imageClickedId={imageClickedId}
 				/>)
 			}
 		</PostsViewWrapper>
