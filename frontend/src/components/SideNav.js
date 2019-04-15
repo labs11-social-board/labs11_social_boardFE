@@ -20,7 +20,7 @@ margin-top: 20px;
   width: 100%;
   user-select:none;
   overflow-y: auto;
-  height: calc(100% - 81px);
+  height: calc(100% - 180px);
   min-height: 10%;
   @media (max-width: 800px) {
     display: ${props => props.isOpen === 'true' ? 'flex' : 'none'};
