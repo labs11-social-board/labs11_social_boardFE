@@ -4,6 +4,7 @@ import {BrowserRouter as Router, Route, Link, NavLink} from "react-router-dom";
 import styled from 'styled-components';
 import { connect } from "react-redux";
 import Users from './Users';
+import { getPageViews, getUsersAna, } from './../store/actions/analyticActions';
 
 import {} from '../components'
 
@@ -45,18 +46,26 @@ margin-bottom: 10px;
 
 
 class Analytics extends React.Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
 
+        this.state = {
+            pagev1: null
+        }
     }
 
-    // componentDidMount() {
-        
-    // }
+    async componentDidMount() {
+        await this.props.getPageViews();
+                
+        this.setState({
+            pagev1: this.props.gPageviews.data.totalsForAllResults['ga:pageviews']
+        })
+
+        //getUsersAna();
+    }
+
 
     render() {
-
-        //if (!this.props.isLoggedIn) return <h2>--Yo, dog.  You ain't logged in.  Do That <Link to="/">HERE</Link> </h2>;
 
         return(
             <div>
@@ -71,6 +80,9 @@ class Analytics extends React.Component {
                             <Boxed>
                                 <h4>Pageviews</h4>
                                 <p>In last 30 Days</p>
+                                <h2>{this.state.pagev1}</h2>
+                                {console.log(this.props.gPageviews.data)}
+                                {console.log(this.state)}
                                 
                             </Boxed>
                             
@@ -91,11 +103,14 @@ class Analytics extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        
+        gPageviews: state.analytics.gPageviews,
+        gUsers: state.analytics.gUsers,
+        gettingGPdata: state.analytics.gettingGPdata,
+        gettingGUdata: state.analytics.gettingGUdata
     };
   };
 
   
   export default connect(
-    mapStateToProps,{ } 
+    mapStateToProps,{ getPageViews, getUsersAna, } 
   )(Analytics);
