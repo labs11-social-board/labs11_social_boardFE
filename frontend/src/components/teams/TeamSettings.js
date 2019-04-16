@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 // action creators
-import { updateTeam, deleteTeam, displayMessage, getUsersTeams, updateTeamWithLogo, resetImageState } from '../../store/actions/index.js';
+import { updateTeam, deleteTeam, displayMessage, getUsersTeams, resetImageState } from '../../store/actions/index.js';
 
 // components
 import { ToggleSwitch, UploadImage } from '../index.js';
