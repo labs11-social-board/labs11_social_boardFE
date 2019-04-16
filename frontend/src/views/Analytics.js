@@ -50,15 +50,18 @@ class Analytics extends React.Component {
         super(props)
 
         this.state = {
-            pagev1: null
+            pagev1: null,
+            pagev2: null,
         }
     }
 
     async componentDidMount() {
         await this.props.getPageViews();
+        await this.props.getUsersAna();
                 
         this.setState({
-            pagev1: this.props.gPageviews.data.totalsForAllResults['ga:pageviews']
+            pagev1: this.props.gPageviews.data.totalsForAllResults['ga:pageviews'],
+            pagev2: this.props.gUsers.data.totalsForAllResults['ga:users'],
         })
 
         //getUsersAna();
@@ -81,14 +84,14 @@ class Analytics extends React.Component {
                                 <h4>Pageviews</h4>
                                 <p>In last 30 Days</p>
                                 <h2>{this.state.pagev1}</h2>
-                                {console.log(this.props.gPageviews.data)}
-                                {console.log(this.state)}
                                 
                             </Boxed>
                             
                             <Boxed>
                                 <h4>Users</h4>
                                 <p>In last 30 Days</p>
+                                {/* {console.log(this.state)} */}
+                                <h2>{this.state.pagev2}</h2>
                             
                             </Boxed>
                             
