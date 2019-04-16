@@ -4,7 +4,7 @@ import {BrowserRouter as Router, Route, Link, NavLink} from "react-router-dom";
 import styled from 'styled-components';
 import { connect } from "react-redux";
 import Users from './Users';
-import { getPageViews, getUsersAna, } from './../store/actions/analyticActions';
+import { getPageViews, getUsersAna, getPageViews30, getUsersAna30, } from './../store/actions/analyticActions';
 
 import {} from '../components'
 
@@ -52,16 +52,21 @@ class Analytics extends React.Component {
         this.state = {
             pagev1: null,
             pagev2: null,
+            pagev3: null,
+            pagev4: null,
         }
     }
 
     async componentDidMount() {
-        await this.props.getPageViews();
-        await this.props.getUsersAna();
+        //await this.props.getPageViews();
+        //await this.props.getUsersAna();
+        await this.props.getPageViews30();
+        await this.props.getUsersAna30();
+        
                 
         this.setState({
-            pagev1: this.props.gPageviews.data.totalsForAllResults['ga:pageviews'],
-            pagev2: this.props.gUsers.data.totalsForAllResults['ga:users'],
+            pagev1: this.props.gPageviews30.data.totalsForAllResults['ga:pageviews'],
+            pagev2: this.props.gUsers.data30.totalsForAllResults['ga:users'],
         })
 
         //getUsersAna();
@@ -90,7 +95,6 @@ class Analytics extends React.Component {
                             <Boxed>
                                 <h4>Users</h4>
                                 <p>In last 30 Days</p>
-                                {/* {console.log(this.state)} */}
                                 <h2>{this.state.pagev2}</h2>
                             
                             </Boxed>
@@ -109,11 +113,15 @@ const mapStateToProps = state => {
         gPageviews: state.analytics.gPageviews,
         gUsers: state.analytics.gUsers,
         gettingGPdata: state.analytics.gettingGPdata,
-        gettingGUdata: state.analytics.gettingGUdata
+        gettingGUdata: state.analytics.gettingGUdata,
+        gPageviews30: state.analytics.gPageviews30,
+        gUsers30: state.analytics.gUsers30,
+        gettingGPdata30: state.analytics.gettingGPdata30,
+        gettingGUdata30: state.analytics.gettingGUdata30,
     };
   };
 
   
   export default connect(
-    mapStateToProps,{ getPageViews, getUsersAna, } 
+    mapStateToProps,{ getPageViews, getUsersAna, getPageViews30, getUsersAna30, } 
   )(Analytics);
