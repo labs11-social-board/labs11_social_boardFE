@@ -19,14 +19,18 @@ const FileUpload = styled.div `
   }
 
   .imgprev-wrapper {
-    width: 7%;
-    height: 10%;
+    width: 135px;
+    height: 93px;
     position: absolute;
     margin-top: 72px;
     border: 1px solid lightgrey;
     padding: 0 1%;
     border-radius: 5px;
     background: whitesmoke;
+
+    @media ${phoneP}{
+      display: none;
+    }
     .imgprev {
       border-radius: 0;
     }
@@ -367,7 +371,8 @@ class UploadImage extends React.Component {
                 </div>
               </div>
             }
-            {this.props.image.id ? <div className='imgprev-wrapper'><img src={this.props.image.image} className='imgprev'/></div> : null}
+            
+            {/* commenting out to implmenent a post preview {this.props.image.id ? <div className='imgprev-wrapper'><img src={this.props.image.image} className='imgprev'/></div> : null} */}
             {/* {this.state.name ? this.props.isUploadingImage ? <p>Uploading...</p> : <p>Image Uploaded!</p> : null} */}
           </FileUpload>
         }
