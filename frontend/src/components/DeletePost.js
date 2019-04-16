@@ -8,7 +8,6 @@ class DeletePost extends React.Component {
     // e.preventDefault();
     this.props.handleAddDeletedPost(e, id)
     this.props.removePost(id);
-    console.log('run :D');
 
     if (this.teamId) {
       this.props.handleTeamFilter();
@@ -22,7 +21,6 @@ class DeletePost extends React.Component {
   }
 
   render() {
-       console.log(this.props.user_type)
     return (
       <>
         {(this.props.user_type === 'admin' || this.props.user_type === 'moderator') ?

@@ -9,7 +9,7 @@ import NoGo2 from './NoGo2.js';
 import { getCategoriesFollowed, getUsersTeams, getUsers, verifyEmail } from '../store/actions/index.js';
 
 // globals
-import { phoneL, accountUserTypes, subSilverStartIndex } from '../globals/globals.js';
+import { accountUserTypes, subSilverStartIndex } from '../globals/globals.js';
 
 /***************************************************************************************************
  ********************************************** Styles *********************************************
@@ -224,10 +224,10 @@ const DivNavContainer = styled.div`
   color: ${props => props.islinkselected === 'true' ? props.theme.defaultColorOnHover : props.theme.defaultColor};
 `;
 
-const DropdownFollowing = styled.div`
-  display: flex;
-  text-align: center;
-`;
+// const DropdownFollowing = styled.div`
+//   display: flex;
+//   text-align: center;
+// `;
 
 const DivModalRaised = styled.div`
 font-weight: normal;
@@ -344,13 +344,13 @@ class SideNav extends Component {
       <DivSideNav isOpen={`${this.props.isOpen}`} ref={this.state.setWrapperRef}>
         <DivNavContainer>
           {
-            (user_type == 'admin') &&
+            (user_type === 'admin') &&
             <span>Admin</span>
           }
           <H4BrowseCategories>
             <div>
               {
-                (user_type == 'admin') &&
+                (user_type === 'admin') &&
                 <LinkBrowseCategories
                   to={`/admin`}
                   islinkselected={(this.state.linkSelected === 'Admin').toString()}
@@ -361,7 +361,7 @@ class SideNav extends Component {
             </div>
             <div>
               {
-                (user_type == 'admin') &&
+                (user_type === 'admin') &&
                 <LinkBrowseCategories
                   to={`/analytics`}
                   islinkselected={(this.state.linkSelected === 'Analytics').toString()}
@@ -372,7 +372,7 @@ class SideNav extends Component {
             </div>
             <div>
               {
-                (user_type == 'admin') &&
+                (user_type === 'admin') &&
                 <LinkBrowseCategories
                   to={`/resources`}
                   islinkselected={(this.state.linkSelected === 'Resources').toString()}
