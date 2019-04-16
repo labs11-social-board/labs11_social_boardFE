@@ -330,8 +330,13 @@ class UploadImage extends React.Component {
                 onChange = { this.handleFileChange }
               />
               <label htmlFor='image-file' >
+<<<<<<< HEAD
                 {/* {this.props.image.id ? <img src={this.props.image.image} alt='image'/> : null} */}
                 {imagePreviewUrl ? <img src={imagePreviewUrl} alt='preview'/> : 'Upload a Image'}
+=======
+                {this.props.image.id ? <img src={this.props.image.image} alt='image'/> : null}
+                {imagePreviewUrl ? <img src={imagePreviewUrl} alt='image'/> : 'Upload Image'}
+>>>>>>> 6f49e31c6c6fc7284312d430e6e50cde9ddd1632
               </label>
               {this.state.dragging &&
                 <div className='drag-zone-t-wrapper'>
