@@ -44,6 +44,10 @@ margin-bottom: 10px;
 
 `;
 
+const TableWrapper = styled.div`
+width: 90%;
+`;
+
 
 class Analytics extends React.Component {
     constructor(props) {
@@ -66,7 +70,7 @@ class Analytics extends React.Component {
                 
         this.setState({
             pagev1: this.props.gPageviews30.data.totalsForAllResults['ga:pageviews'],
-            pagev2: this.props.gUsers.data30.totalsForAllResults['ga:users'],
+            pagev2: this.props.gUsers30.data.totalsForAllResults['ga:users'],
         })
 
         //getUsersAna();
@@ -76,6 +80,7 @@ class Analytics extends React.Component {
     render() {
 
         return(
+            <TableWrapper>
             <div>
                 
                 <div >
@@ -104,6 +109,7 @@ class Analytics extends React.Component {
                     </MainWrapper>
                 </div>
             </div>
+            </TableWrapper>
         )
     }
 }
