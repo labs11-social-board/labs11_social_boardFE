@@ -75,20 +75,20 @@ class Admin extends React.Component {
 
                         <InnerWrapper>
                             <Boxed>
-                                <ApproveEmailForm histoy={this.props.history} />
+                                <ApproveEmailForm histoy={this.props.history} isDay={this.props.isDay} />
                             </Boxed>
                             <Boxed>
-                                <ApprovedEmails />
+                                <ApprovedEmails isDay={this.props.isDay}/>
                             </Boxed>
                             <Boxed>
                                 <h4>Users</h4>
 
-                                <Users />
+                                <Users isDay={this.props.isDay}/>
 
                             </Boxed>
                             <Boxed>
                                 <h4>Deleted Post</h4>
-                                <DeletedPostAndMods />
+                                <DeletedPostAndMods isDay={this.props.isDay}/>
                             </Boxed>
                         </InnerWrapper>
                     </MainWrapper>
