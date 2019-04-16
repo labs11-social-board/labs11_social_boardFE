@@ -287,7 +287,9 @@ class App extends Component {
     window.addEventListener('hashchange', this.handleHashChange, false);
     this.props.verifyEmail(token);
     if (user_id && token) return this.props.logBackIn(user_id, token).then(() => {
-      this.props.history.push('/home');
+      if(this.props.location.pathname === '/'){
+        this.props.history.push('/home');
+      }
     });
   }
   componentDidUpdate(prevProps) {

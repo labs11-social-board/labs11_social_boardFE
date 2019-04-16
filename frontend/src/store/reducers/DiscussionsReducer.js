@@ -92,16 +92,23 @@ const initialState = {
     }
   ],
   isGettingDiscussions: false,
-  isGettingAllFollowed: false
+  isGettingAllFollowed: false,
+  isGettingDiscussion: false
 };
 
 export const DiscussionsReducer = (state = initialState, action) => {
   switch (action.type) {
 
+    case GET_DISCUSSION_BY_ID_LOADING:
+      return {
+        ...state,
+        isGettingDiscussion: true
+      }
     case GET_DISCUSSION_BY_ID_SUCCESS:
       return {
         ...state,
-        discussion: action.payload
+        discussion: action.payload,
+        isGettingDiscussion: false
       };
 
     case TOP_DISCUSSIONS_SUCCESS:
