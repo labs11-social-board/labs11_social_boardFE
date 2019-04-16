@@ -137,7 +137,8 @@ class TeamSettings extends React.Component{
   state = {
     team_name: this.props.team.team_name,
     isPrivate: this.props.team.isPrivate,
-    image: ''
+    image: this.props.team.logo,
+    isUploading: false
   };
   handleInput = e => {
     e.preventDefault();
@@ -169,12 +170,24 @@ class TeamSettings extends React.Component{
   };
   componentDidUpdate(prevProps){
     if( prevProps.team.team_name !== this.props.team.team_name){
-      this.setState({ team_name: this.props.team.team_name, isPrivate: this.props.team.isPrivate });
+      this.setState({ team_name: this.props.team.team_name, isPrivate: this.props.team.isPrivate, image: this.props.team.logo });
     }
 
     if(prevProps.image !== this.props.image){
-      this.setState({ image: this.props.image });
+      this.setState({ image: this.props.image.image });
     }
+
+    if(this.props.isUploadingImage && !this.state.isUploading){
+			this.setState({ isUploading: true }, () => {
+				this.props.displayMessage('Uploading Image...')
+			})
+		} else if(this.state.isUploading && !this.props.isUploadingImage){
+			this.setState({ isUploading: false }, () => {
+				this.props.displayMessage('Image Uploaded!').then(() => {
+					setTimeout(() => this.props.displayMessage(''), 200);
+				})
+			})
+		}
   }
   render() {
     let isTeam = true;
@@ -187,7 +200,7 @@ class TeamSettings extends React.Component{
             <input id='team_name' type='text' name='team_name' value={this.state.team_name} onChange={this.handleInput} />
           </div>
           <div className='settings-upload'>
-           <UploadImage isTeam={isTeam} imagePreviewUrl={this.props.team.logo}/>
+           <UploadImage isTeam={isTeam} imagePreviewUrl={this.state.image}/>
           </div>
           <div className='toggle-switch'>
             <ToggleSwitch booleanValue={this.state.isPrivate} handleToggle={this.handleToggle} isDay={!this.props.isDay}/>
@@ -204,7 +217,8 @@ class TeamSettings extends React.Component{
 
 const mapStateToProps = state => ({
   image: state.posts.images,
-  isDay: state.users.isDay
+  isDay: state.users.isDay,
+  isUploadingImage: state.posts.isUploadingImage
 });
 
 export default connect(mapStateToProps, { updateTeam, deleteTeam, displayMessage, getUsersTeams, resetImageState })(TeamSettings);
