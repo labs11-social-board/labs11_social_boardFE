@@ -47,8 +47,7 @@ import {
   RegisterView,
   NonUserLandingView,
   TeamsView,
-  TeamDiscussionView,
-  UserTeamsView
+  TeamDiscussionView
 } from './views/index.js';
 
 // action creators
