@@ -22,6 +22,7 @@ class DeletedPostAndMods extends React.Component {
                         {
                             Header: 'Username',
                             accessor: 'username',
+                            minWidth: 20,
                         },
                         {
                             Header: 'Deleted Post',
