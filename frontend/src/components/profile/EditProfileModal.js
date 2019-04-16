@@ -266,39 +266,41 @@ class EditProfileModal extends React.Component {
     } else {
       callTheFunction = true;
     }
+
     if (twitter.length === 0 || twitter === this.props.profile[0].twitter) {
       twitter = null;
+    } 
+
+    if(!isUrl(twitter,true)) {
+      await this.handleUserMessage("twitter"); 
     } else {
-      if(!isUrl(twitter,true)) {
-        await this.handleUserMessage("twitter"); 
-      } else {
-        callTheFunction = true;
-        await this.handleUserMessage("twitter", true);
-      }
-      
+      callTheFunction = true;
+      await this.handleUserMessage("twitter", true);
     }
+      
+    
     if (github.length === 0 || github === this.props.profile[0].github) {
       github = null;
-    } else {
-      if(!isUrl(github,true)) {
-        await this.handleUserMessage("github"); 
-      } else {
-        callTheFunction = true;
-        await this.handleUserMessage("github", true); 
-      }
-      
     }
+
+    if(!isUrl(github,true)) {
+      await this.handleUserMessage("github"); 
+    } else {
+      callTheFunction = true;
+      await this.handleUserMessage("github", true); 
+    }
+  
     if (linkedin.length === 0 || linkedin === this.props.profile[0].linkedin) {
       linkedin = null;
-    } else {
-      if(!isUrl(linkedin,true)) {
-        await this.handleUserMessage("linkedin"); 
-      } else {
-        callTheFunction = true;
-        await this.handleUserMessage("linkedin", true);
-      }
-      
     }
+    
+    if(!isUrl(linkedin,true)) {
+        await this.handleUserMessage("linkedin"); 
+    } else {
+      callTheFunction = true;
+      await this.handleUserMessage("linkedin", true);
+    }
+  
 
     if (location.length === 0 || location === this.props.profile[0].location){
       location = null; 
