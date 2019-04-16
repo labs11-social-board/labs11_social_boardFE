@@ -1,8 +1,6 @@
 import React, { Component } from "react";
-import axios from "axios";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import PropTypes from "prop-types";
 //assets
 import { spinner2 } from "../assets/index.js";
 
@@ -252,7 +250,7 @@ class UserSearch extends Component {
   };
 
   render() {
-    const { showSearch, pathname, scrollTo } = this.props;
+    const { showSearch } = this.props;
     const { searchBy, searchText, searchResults, loading } = this.state;
     return (
       <SearchBox>

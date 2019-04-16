@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-import {BrowserRouter as Router, Route, Link, NavLink} from "react-router-dom";
+import {BrowserRouter as NavLink} from "react-router-dom";
 import styled from 'styled-components';
 import { connect } from "react-redux";
-import Users from './Users';
+// import Users from './Users';
 import CSVReader from "react-csv-reader";
 import { emailCSV } from './../store/actions/UsersActions';
-import { approveEmail } from './../store/actions/EmailActions';
+// import { approveEmail } from './../store/actions/EmailActions';
 
 const MainWrapper = styled.div`
   display: flex;
@@ -52,16 +52,16 @@ const ButtonY = styled.button `
     margin-left: 4px;
   `;
 
-  const ButtonX = styled.button `
-    border: 1px solid #418DCF;
-    border-radius: 3px;
-    color: white;
-    background-color: #418DCF;
-    height: 35px;
-    width: 100px;
-    margin-left: 24px;
+//   const ButtonX = styled.button `
+//     border: 1px solid #418DCF;
+//     border-radius: 3px;
+//     color: white;
+//     background-color: #418DCF;
+//     height: 35px;
+//     width: 100px;
+//     margin-left: 24px;
     
-  `;
+//   `;
   
   const StyledLink = styled(NavLink)`
     color: white;  
