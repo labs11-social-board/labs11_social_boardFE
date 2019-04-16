@@ -68,5 +68,8 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
 
 
-### User Test Doc (Social Team 2)
+### User Test Doc (Social Board 2)
 https://docs.google.com/document/d/19Xk2JsAndH-D3nPuWLIsCg1oMiI9h_cY1cfByQDt9Yg/edit?usp=sharing
+
+### Social Board 2 Video Presentation (youtube video link)
+https://www.youtube.com/watch?v=4xUJDxbjx80

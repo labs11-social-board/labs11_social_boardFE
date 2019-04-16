@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { connect } from "react-redux";
 
 // actions
-import { getTeams } from "../store/actions/index.js";
+import { getTeams, getUsersTeams } from "../store/actions/index.js";
 
 // components
 import { Teams } from "../components/index.js";
@@ -32,8 +32,23 @@ const TeamsHeader = styled.div`
   .name-wrapper {
     display: flex;
     align-items: center;
+    width: 90%;
+    justify-content: center;
+    h2{
+      cursor: pointer;
+      &:hover {
+        color: ${ props => props.theme.defaultColorOnHover}
+      }
+    }
     .name {
       font-size: 24px;
+      margin-right: 40px;
+      color: ${props => props.tab === 'Teams' ? 'dodgerblue' : null};
+      border-bottom: ${props => props.tab === 'Teams' ? '1px solid dodgerblue' : null }
+    }
+    .userTeams {
+      color: ${props => props.tab === 'My Teams' ? 'dodgerblue' : null };
+      border-bottom: ${props => props.tab === 'My Teams' ? '1px solid dodgerblue' : null }
     }
   }
 
@@ -87,7 +102,8 @@ class TeamsView extends Component {
     super(props);
     this.state = {
       order: "team_name", // possible values: 'name', 'discussion_count', 'created_at'
-      orderType: "" // possible values: 'asc', 'desc'
+      orderType: "", // possible values: 'asc', 'desc'
+      tab: 'Teams'
     };
   }
 
@@ -111,25 +127,48 @@ class TeamsView extends Component {
         break;
     }
     return this.setState({ order, orderType }, () => {
-      return this.props.getTeams(this.state.order, this.state.orderType);
+      return this.props.getTeams(this.state.order, this.state.orderType).then(() => {
+        this.props.getUsersTeams(this.state.order, this.state.orderType);
+      });
     });
   };
-  sortHandler = ev => {
-    ev.preventDefault();
-    return Promise.resolve(
-      this.setState({ [ev.target.name]: ev.target.value })
-    ).then(() => {
-      this.props.getTeams(this.state.order, this.state.orderType);
-    });
-  };
-  componentDidMount = () =>
+  // sortHandler = ev => {
+  //   ev.preventDefault();
+  //   return Promise.resolve(
+  //     this.setState({ [ev.target.name]: ev.target.value })
+  //   ).then(() => {
+  //     this.props.getTeams(this.state.order, this.state.orderType);
+  //   });
+  // };
+  selectTab = e => {
+    this.setState({ tab: e.target.textContent });
+  }
+  componentDidMount = () => {
     this.props.getTeams(this.state.order, this.state.orderType);
+    this.props.getUsersTeams(this.state.order, this.state.orderType);
+  }
+  conditionalRender = () => {
+    if(this.state.tab === 'Teams'){
+      return (
+        <DivTeamsComponent>
+            <Teams teams={this.props.teams} history={this.props.history} />
+        </DivTeamsComponent>
+      );
+    } else {
+      return (
+        <DivTeamsComponent>
+            <Teams teams={this.props.usersTeams} history={this.props.history} />
+        </DivTeamsComponent>
+      );
+    } 
+  }
   render() {
     return (
       <TeamsWrapper>
-        <TeamsHeader>
+        <TeamsHeader tab={this.state.tab}>
           <div className="name-wrapper">
-            <h2 className="name">Teams</h2>
+            <h2 className="name" onClick={this.selectTab}>Teams</h2>
+            <h2 className="userTeams" onClick={this.selectTab}>My Teams</h2>
           </div>
           <div className="filter-wrapper">
             <i className="fab fa-mix" />
@@ -145,19 +184,20 @@ class TeamsView extends Component {
             </select>
           </div>
         </TeamsHeader>
-        <DivTeamsComponent>
-          <Teams teams={this.props.teams} history={this.props.history} />
-        </DivTeamsComponent>
+        <div className='tabs-content'>
+          {this.conditionalRender()}
+        </div>
       </TeamsWrapper>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  teams: state.teams.teams
+  teams: state.teams.teams,
+  usersTeams: state.teams.userTeams
 });
 
 export default connect(
   mapStateToProps,
-  { getTeams }
+  { getTeams, getUsersTeams }
 )(TeamsView);
