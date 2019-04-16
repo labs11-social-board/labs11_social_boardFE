@@ -400,7 +400,7 @@ class App extends Component {
                 }
                 <Route exact path="/" render={() => <NonUserLandingView toggleRegisterModal={this.toggleRegisterModal} />} />
                 <Route exact path="/home" component={LandingView} />
-                <Route exact path="/admin" render={() => <Admin history={history} />} />
+                <Route exact path="/admin" render={props => <Admin {...props} isDay={isDay} history={this.props.history} />} />
                 <Route exact path="/upload" component={Upload} />
                 <Route path="/analytics" component={Analytics} />
                 <Route path="/profiles" component={Profiles} />
