@@ -204,7 +204,7 @@ const Reply = ({
     }
   }
 
-  console.log(user_type)
+  
   return (
     <ReplyWrapper>
       <div>
@@ -253,6 +253,7 @@ const Reply = ({
                   teamId={team_id}
                   user_id={user_id}
                   user_type={user_type}
+                  className='delete'
                 />
                 : null}
         </div>
