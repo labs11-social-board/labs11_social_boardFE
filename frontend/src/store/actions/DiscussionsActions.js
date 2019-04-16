@@ -99,14 +99,8 @@ export const followDiscussion = (discussion_id, user_id, historyPush) => dispatc
   const headers = { headers: { Authorization: token } };
   dispatch({ type: FOLLOW_DISCUSSION_LOADING });
   return axios
-    .post(
-      `${backendURL}/discussion-follows/${user_id}/${discussion_id}`,
-      {},
-      headers
-    )
-    .then(res =>
-      dispatch({ type: FOLLOW_DISCUSSION_SUCCESS, payload: res.data })
-    )
+    .post(`${backendURL}/discussion-follows/${user_id}/${discussion_id}`, {}, headers)
+    .then(res => dispatch({ type: FOLLOW_DISCUSSION_SUCCESS, payload: res.data }))
     .then(() => historyPush && historyPush('/'))
     .then(() => historyPush && historyPush(`/discussion/${discussion_id}`))
     .catch(err => handleError(err, FOLLOW_DISCUSSION_FAILURE)(dispatch));
@@ -168,6 +162,6 @@ export const updateDiscussionWithImage = (image_id, discussion_id) => dispatch =
 	const post_image = { image_id, discussion_id  };
 	return axios
 		.put(`${backendURL}/posts/images/${user_id}`, post_image, headers)
-		.then(res => console.log(res.data))
+		.then(res => dispatch({ type: 'UPDATE_DISCUSSION_WITH_IMAGE' }))
 		.catch(err => handleError(err)(dispatch));
 };
