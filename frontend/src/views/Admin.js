@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { connect } from "react-redux";
 import Users from './Users';
 
-import { ApproveEmailForm, ApprovedEmails } from '../components'
+import { ApproveEmailForm, ApprovedEmails, DeletedPostAndMods } from '../components'
 
 const MainWrapper = styled.div`
   display: flex;
@@ -84,10 +84,7 @@ class Admin extends React.Component {
                             </Boxed>
                             <Boxed>
                                 <h4>Deleted Post</h4>
-                                <p>Welcome to the admin page. Welcome to the admin page. Welcome to the admin page. Welcome to the admin page.
-                                Welcome to the admin page. Welcome to the admin page. Welcome to the admin page. Welcome to the admin page.
-                                Welcome to the admin page. Welcome to the admin page. Welcome to the admin page. Welcome to the admin page.
-                            </p>
+                                <DeletedPostAndMods />
                             </Boxed>
                         </InnerWrapper>
                     </MainWrapper>

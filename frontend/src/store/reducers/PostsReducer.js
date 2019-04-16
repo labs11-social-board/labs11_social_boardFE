@@ -33,7 +33,10 @@ import {
 const initialState = {
 	images: {},
 	post_id: {},
-	isUploadingImage: false
+	deletedPost: [],
+	fetchingDeletedPost: false,
+	isUploadingImage: false,
+	error: null
 };
 
 export const PostsReducer = (state = initialState, action) => {
@@ -49,8 +52,22 @@ export const PostsReducer = (state = initialState, action) => {
 		case ADD_DELETED_POST_SUCCESS:
 		case ADD_DELETED_POST_FAILURE:
 		case GET_DELETED_POST_LOADING:
+			return {
+				...state,
+				fetchingDeletedPost: true
+			}
 		case GET_DELETED_POST_SUCCESS:
+			return {
+				...state,
+				fetchingDeletedPost: false,
+				deletedPost: action.payload
+			}
 		case GET_DELETED_POST_FAILURE:
+			return {
+				...state,
+				fetchingDeletedPost: false,
+				error: action.payload
+			}
 		case EDIT_POST_LOADING:
 		case EDIT_POST_SUCCESS:
 		case EDIT_POST_FAILURE:
