@@ -100,12 +100,12 @@ const FormContent = styled.form`
   }
 `;
 
-const DivLeft = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 34%;
-  align-items: center;
-`;
+// const DivLeft = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   width: 34%;
+//   align-items: center;
+// `;
 
 const DivRight = styled.div`
   display: flex;
