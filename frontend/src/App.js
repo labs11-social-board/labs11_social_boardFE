@@ -286,7 +286,9 @@ class App extends Component {
     const token = localStorage.getItem('symposium_token');
     window.addEventListener('hashchange', this.handleHashChange, false);
     this.props.verifyEmail(token);
-    if (user_id && token) return this.props.logBackIn(user_id, token);
+    if (user_id && token) return this.props.logBackIn(user_id, token).then(() => {
+      this.props.history.push('/home');
+    });
   }
   componentDidUpdate(prevProps) {
     if (this.props.error && this.props.error.includes('expired')) {
