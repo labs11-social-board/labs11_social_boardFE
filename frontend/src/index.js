@@ -20,7 +20,8 @@ import {
   TeamsReducer,
   FollowersReducer,
   editProfileReducer,
-  EmailReducer
+  EmailReducer,
+  AnalyticsReducer,
 } from './store/reducers/index.js';
 
 const rootReducer = combineReducers({
@@ -32,7 +33,8 @@ const rootReducer = combineReducers({
   teams: TeamsReducer,
   followers: FollowersReducer,
   editProfile: editProfileReducer,
-  emails: EmailReducer
+  emails: EmailReducer,
+  analytics: AnalyticsReducer,
 });
 
 

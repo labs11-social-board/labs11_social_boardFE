@@ -12,6 +12,10 @@ export const ADD_POST_LOADING = 'ADD_POST_LOADING';
 export const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS';
 export const ADD_POST_FAILURE = 'ADD_POST_FAILURE';
 
+export const ADD_DELETED_POST_LOADING = 'ADD_DELETED_POST_LOADING';
+export const ADD_DELETED_POST_SUCCESS = 'ADD_DELETED_POST_SUCCESS';
+export const ADD_DELETED_POST_FAILURE = 'ADD_DELETED_POST_FAILURE';
+
 export const EDIT_POST_LOADING = 'EDIT_POST_LOADING';
 export const EDIT_POST_SUCCESS = 'EDIT_POST_SUCCESS';
 export const EDIT_POST_FAILURE = 'EDIT_POST_FAILURE';
@@ -49,14 +53,18 @@ export const addPost = (discussion_id, postBody, team_id, repliedPostID) => disp
     .catch(err => handleError(err, ADD_POST_FAILURE)(dispatch));
 };
 
+export const addDeletedPost = (postBody) => dispatch => {
+  const user_id = localStorage.getItem('symposium_user_id')
+  const body = {postBody}
+
+  dispatch({type: ADD_DELETED_POST_LOADING});
+  return axios.post(`${backendURL}/posts/${user_id}`, body)
+  .then(res => console.log(res.data))
+  .catch(err => handleError(err, ADD_DELETED_POST_FAILURE)(dispatch));
+}
+
 // edit a post
-export const editPost = (
-  user_id,
-  post_id,
-  postBody,
-  historyPush,
-  discussion_id
-) => dispatch => {
+export const editPost = (user_id, post_id, postBody, historyPush, discussion_id) => dispatch => {
   const token = localStorage.getItem('symposium_token');
   const headers = { headers: { Authorization: token } };
   const body = { post_id, postBody };
@@ -126,7 +134,7 @@ export const removeUpload = image_id => dispatch => {
   const headers = { headers: { Authorization: token } };
   return axios
     .delete(`${backendURL}/posts/images/${user_id}/${image_id}`, headers)
-    .then(res => console.log(res.data))
+    .then(res => dispatch({ type: 'REMOVE_UPLOAD' }))
     .catch(err => handleError(err)(dispatch));
 };
 
