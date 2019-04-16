@@ -527,7 +527,7 @@ class Profile extends Component {
               </WrappedDivSearch>
               <br />
               <br />
-              <h4>Below lists what you are following click a tab to check it out.</h4>
+              <h4>The tabs below list what you are following. Click a tab to check it out.</h4>
               <Tabs>
                 <TabList>
                   <Tab> Followed Posts</Tab>
