@@ -204,7 +204,7 @@ const Reply = ({
     }
   }
 
-  console.log(user_type)
+  
   return (
     <ReplyWrapper>
       <div>
