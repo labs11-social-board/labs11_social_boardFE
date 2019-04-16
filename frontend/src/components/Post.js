@@ -183,7 +183,7 @@ const Post = ({
   handleReplyVote,
   //deleteReply,
   scrollTo,
-  team_id, 
+  team_id,
   displayMessage,
   isShowImage,
   handleImageShow,
@@ -256,10 +256,10 @@ const Post = ({
     <PostWrapper>
       <div>
         <BodyWrapper>{body}</BodyWrapper>
-        {image ? 
+        {image ?
           <div className='show-image-wrapper'>
-            <a className='show-image' onClick={() => handleImageShow(id)}><i className="fas fa-camera"></i>{ isShowImage ? '-' : '+'}</a>
-					  {isShowImage ? id === imageClickedId ? <img src={image} alt="uploaded image"/> : null : null }
+            <a className='show-image' onClick={() => handleImageShow(id)}><i className="fas fa-camera"></i>{isShowImage ? '-' : '+'}</a>
+            {isShowImage ? id === imageClickedId ? <img src={image} alt="uploaded image" /> : null : null}
           </div> : null}
       </div>
       <InfoWrapper>
@@ -286,20 +286,21 @@ const Post = ({
             <span>{moment(new Date(Number(created_at))).fromNow()}</span>
           </div>
           {
-            (loggedInUserId === user_id) ? 
-            (<div className='delete'>
-              <a onClick={e => handleRemovePost(e, id)}>Delete post</a>
-            </div>) : 
-            (user_type === 'admin' || user_type === 'moderator') ? 
-            <DeletePost 
-            handleRemovePost={handleRemovePost} 
-            handleTeamFilter={handleTeamFilter} 
-            handleFilterChange={handleFilterChange}
-            id={id} 
-            teamId={team_id} 
-            user_id={user_id}
-            />
-            : null}
+            (loggedInUserId === user_id) ?
+              (<div className='delete'>
+                <a onClick={e => handleRemovePost(e, id)}>Delete post</a>
+              </div>) :
+              (user_type === 'admin' || user_type === 'moderator') ?
+                <DeletePost
+                  handleRemovePost={handleRemovePost}
+                  handleTeamFilter={handleTeamFilter}
+                  handleFilterChange={handleFilterChange}
+                  displayMessage={displayMessage}
+                  id={id}
+                  teamId={team_id}
+                  user_id={user_id}
+                />
+                : null}
         </div>
       </InfoWrapper>
       {showAddReplyForm === id && (
@@ -314,8 +315,8 @@ const Post = ({
         />
       )}
       <div>
-        {replies.map((reply, i) => ( 
-          
+        {replies.map((reply, i) => (
+
           <Reply
             key={i}
             reply={reply}
@@ -331,7 +332,7 @@ const Post = ({
             imageClickedId={imageClickedId}
           />
         ))}
-        
+
       </div>
     </PostWrapper>
   );

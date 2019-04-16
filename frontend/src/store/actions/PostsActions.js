@@ -53,14 +53,15 @@ export const addPost = (discussion_id, postBody, team_id, repliedPostID) => disp
     .catch(err => handleError(err, ADD_POST_FAILURE)(dispatch));
 };
 
-export const addDeletedPost = (postBody) => dispatch => {
+export const addDeletedPost = (post_id, post) => dispatch => {
   const user_id = localStorage.getItem('symposium_user_id')
-  const body = {postBody}
+  const body = { post_id, post }
 
-  dispatch({type: ADD_DELETED_POST_LOADING});
-  return axios.post(`${backendURL}/posts/${user_id}`, body)
-  .then(res => console.log(res.data))
-  .catch(err => handleError(err, ADD_DELETED_POST_FAILURE)(dispatch));
+  dispatch({ type: ADD_DELETED_POST_LOADING });
+  return axios
+    .post(`${backendURL}/posts/insert-deleted-post/${user_id}`, body)
+    .then(res => dispatch({ type: ADD_DELETED_POST_SUCCESS, payload: res.data }))
+    .catch(err => handleError(err, ADD_DELETED_POST_FAILURE)(dispatch));
 }
 
 // edit a post
