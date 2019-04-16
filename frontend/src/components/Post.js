@@ -293,39 +293,22 @@ const Post = ({
             <span>{moment(new Date(Number(created_at))).fromNow()}</span>
           </div>
           {
-<<<<<<< HEAD
             (loggedInUserId === user_id) ? 
             (<div className='delete'>
               <a href='# ' onClick={e => handleRemovePost(e, id)}>Delete post</a>
             </div>) : 
             (user_type === 'admin' || user_type === 'moderator') ? 
             <DeletePost 
-            handleRemovePost={handleRemovePost} 
-            handleTeamFilter={handleTeamFilter} 
+            handleRemovePost={handleRemovePost}
+            handleTeamFilter={handleTeamFilter}
             handleFilterChange={handleFilterChange}
-            id={id} 
-            teamId={team_id} 
+            displayMessage={displayMessage}
+            id={id}
+            teamId={team_id}
             user_id={user_id}
+            className='delete'
             />
             : null}
-=======
-            (loggedInUserId === user_id) ?
-              (<div className='delete'>
-                <a onClick={e => handleRemovePost(e, id)}>Delete post</a>
-              </div>) :
-              (user_type === 'admin' || user_type === 'moderator') ?
-                <DeletePost
-                  handleRemovePost={handleRemovePost}
-                  handleTeamFilter={handleTeamFilter}
-                  handleFilterChange={handleFilterChange}
-                  displayMessage={displayMessage}
-                  id={id}
-                  teamId={team_id}
-                  user_id={user_id}
-                  className='delete'
-                />
-                : null}
->>>>>>> 12035b9ff16eb03469d2515e9d15de6dfe468477
         </div>
       </InfoWrapper>
       {showAddReplyForm === id && (
