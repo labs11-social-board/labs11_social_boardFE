@@ -65,6 +65,15 @@ class ApprovedEmails extends Component {
                         5
                     }
                     className = "-striped -highlight"
+                    style={
+                        this.props.isDay ?
+                        {
+                            color: 'black'
+                        }
+                        : {
+                            color: 'white'
+                        }
+                    }
                 />
             </div>
         )
