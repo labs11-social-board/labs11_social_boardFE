@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import {phoneP, tabletP, } from '../globals/globals';
@@ -32,9 +32,9 @@ const LandingViewWrapper = styled.div`
   }
 `;
 
-const tammy = {
-  email: null,
-}
+// const tammy = {
+//   email: null,
+// }
 
 // const user_id = localStorage.getItem('symposium_user_id');
 // const token = localStorage.getItem('symposium_token');
