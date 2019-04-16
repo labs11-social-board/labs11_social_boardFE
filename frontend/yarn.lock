@@ -8627,6 +8627,11 @@ rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
+react-analytics-widget@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/react-analytics-widget/-/react-analytics-widget-1.2.0.tgz#e43df22e9224f252002a1229ad720c3d41fa9c07"
+  integrity sha512-cix+qOBL3HmvxGqrkr01hUVVvhlKSipwlt3xvmNwAZfZ3z06lMScVq7OKHAyCj/Ekwj9wohPwVzLeQ33uDA5Zw==
+
 react-app-polyfill@^0.2.1:
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/react-app-polyfill/-/react-app-polyfill-0.2.2.tgz#a903b61a8bfd9c5e5f16fc63bebe44d6922a44fb"
