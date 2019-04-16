@@ -54,6 +54,14 @@ const InfoWrapper = styled.div`
   font-size: 0.9rem;
   color: #a7a7a7;
 
+  a{
+    text-decoration: none;
+    color: #a7a7a7
+    &:hover {
+      color: ${ props => props.theme.defaultColorOnHover};
+    }
+  }
+
   .user-info {
     display: flex;
     justify-content: flex-start;
@@ -258,8 +266,8 @@ const Post = ({
         <BodyWrapper>{body}</BodyWrapper>
         {image ? 
           <div className='show-image-wrapper'>
-            <a className='show-image' onClick={() => handleImageShow(id)}><i className="fas fa-camera"></i>{ isShowImage ? '-' : '+'}</a>
-					  {isShowImage ? id === imageClickedId ? <img src={image} alt="uploaded image"/> : null : null }
+            <a href='# ' className='show-image' onClick={() => handleImageShow(id)}><i className="fas fa-camera"></i>{ isShowImage ? '-' : '+'}</a>
+					  {isShowImage ? id === imageClickedId ? <img src={image} alt="uploaded"/> : null : null }
           </div> : null}
       </div>
       <InfoWrapper>
@@ -288,7 +296,7 @@ const Post = ({
           {
             (loggedInUserId === user_id) ? 
             (<div className='delete'>
-              <a onClick={e => handleRemovePost(e, id)}>Delete post</a>
+              <a href='# ' onClick={e => handleRemovePost(e, id)}>Delete post</a>
             </div>) : 
             (user_type === 'admin' || user_type === 'moderator') ? 
             <DeletePost 

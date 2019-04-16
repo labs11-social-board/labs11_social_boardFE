@@ -75,6 +75,9 @@ const GlobalStyle = createGlobalStyle`
     background: ${props => props.theme.appBgColor};
     width: 100%;
     min-height: 100vh;
+    a{
+      text-decoration: none;
+    }
   }
 `;
 
