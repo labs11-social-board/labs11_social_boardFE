@@ -5,11 +5,51 @@ import {
 import {
     NavLink
 } from 'react-router-dom';
-
+import styled from 'styled-components';
 import {
     approveEmail,
     getEmails
 } from '../../store/actions';
+
+const ButtonY = styled.button `
+    border: 1px solid #418DCF;
+    border-radius: 3px;
+    color: white;
+    background-color: #418DCF;
+    height: 35px;
+    width: 100px;
+    margin-left: 4px;
+  `;
+
+  const ButtonX = styled.button `
+    border: 1px solid #418DCF;
+    border-radius: 3px;
+    color: white;
+    background-color: #418DCF;
+    height: 35px;
+    width: 100px;
+    margin-left: 24px;
+    
+  `;
+  
+  const StyledLink = styled(NavLink)`
+    color: white;  
+    text-decoration: none;
+
+    &:focus, &:hover, &:visited, &:link, &:active {
+        text-decoration: none;
+    }
+`;
+
+const InputY = styled.input`
+  padding-left: 5px;
+  height: 35px;
+  width: 350px;
+  color: #000000;
+  background: dcdcdc;
+  border: 1px solid black;
+  border-radius: 3px;
+`;
 
 class ApproveEmailForm extends Component {
     state = {
@@ -40,9 +80,10 @@ class ApproveEmailForm extends Component {
 
         return ( 
             <div>
-                <h2>Emails</h2>
+                <h2>Add Approved Emails</h2>
+                <p>(Add one at a time, or upload a CSV file)</p>
 
-                <input
+                <InputY
                     placeholder = 'E-mail Address'
                     name = 'email'
                     type='email'
@@ -54,16 +95,18 @@ class ApproveEmailForm extends Component {
                     }
                 />
 
-                <button type='submit'
+                <ButtonY type='submit'
                 onClick={
                     this.handleSubmit
-                }>Add</button>
+                }>Add</ButtonY>
 
-                <button>
-                    <NavLink to='/upload'>
+                
+                    <ButtonX>
+                    <StyledLink to='/upload'>
                         Import CSV
-                    </NavLink>
-                </button>
+                    </StyledLink>
+                    </ButtonX>
+                
 
             </div>
         );

@@ -36,8 +36,8 @@ const tammy = {
   email: null,
 }
 
-const user_id = localStorage.getItem('symposium_user_id');
-const token = localStorage.getItem('symposium_token');
+// const user_id = localStorage.getItem('symposium_user_id');
+// const token = localStorage.getItem('symposium_token');
 
 
 
@@ -45,30 +45,16 @@ const token = localStorage.getItem('symposium_token');
  ********************************************* Component *******************************************
  **************************************************************************************************/
 class LandingView extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      verify: {
-        email: token
-      }
-    }
-    
-  }
 
   
   componentDidMount() {
     // setTimeout( () => {
     //   this.props.verifyEmail(this.state.verify.email);
     // }, 200);
+    const token = localStorage.getItem('symposium_token');
+    this.props.verifyEmail(token);
     
-    this.props.verifyEmail(this.state.verify.email);
-    
-    console.log('mount',this.props.verified)
-  }
-
-  componentDidUpdate(){
-    console.log('update',this.props.verified)
+    // console.log('mount',this.props.verified)
   }
 
   conditionalRender(){

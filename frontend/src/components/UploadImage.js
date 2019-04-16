@@ -1,9 +1,9 @@
-import React, { Component } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import styled from 'styled-components';
 
-// components
-import { uploadImage, removeUpload, resetImageState } from "../store/actions/index.js";
+// action creators
+import { uploadImage, removeUpload, resetImageState, displayMessage } from "../store/actions/index.js";
 
 // globals
 import { phoneP } from '../globals/globals.js';
@@ -18,6 +18,23 @@ const FileUpload = styled.div `
     flex-direction: column;
   }
 
+  .imgprev-wrapper {
+    width: 135px;
+    height: 93px;
+    position: absolute;
+    margin-top: 72px;
+    border: 1px solid lightgrey;
+    padding: 0 1%;
+    border-radius: 5px;
+    background: whitesmoke;
+
+    @media ${phoneP}{
+      display: none;
+    }
+    .imgprev {
+      border-radius: 0;
+    }
+  }
   img {
     width: 100%;
     height: 100%;
@@ -174,11 +191,12 @@ class UploadImage extends React.Component {
   state = {
     name: '',
     imagePreviewUrl: '',
-    dragging: false
+    dragging: false,
+    isUploading: false
   };
   handleFileChange = (e) => {
     e.preventDefault();
-    const { uploadImage, removeUpload, image } = this.props;
+    const { removeUpload, image } = this.props;
     let reader = new FileReader();
     let file = e.target.files[0];
     if(image.id && file !== this.state.name) {
@@ -297,6 +315,18 @@ class UploadImage extends React.Component {
     if(this.props.imagePreviewUrl !== this.state.imagePreviewUrl && !prevProps.isUploadingImage){
       this.setState({ imagePreviewUrl: this.props.imagePreviewUrl });
     }
+
+    if(this.props.isUploadingImage && !this.state.isUploading){
+			this.setState({ isUploading: true }, () => {
+				this.props.displayMessage('Uploading Image')
+			})
+		} else if(this.state.isUploading && !this.props.isUploadingImage){
+			this.setState({ isUploading: false }, () => {
+				this.props.displayMessage('Image Uploaded!').then(() => {
+					setTimeout(() => this.props.displayMessage(''), 500);
+				})
+			})
+		}
   }
     render() {
       const { name, imagePreviewUrl } = this.state;
@@ -312,7 +342,10 @@ class UploadImage extends React.Component {
                 className = 'fileinput'
                 onChange = { this.handleFileChange }
               />
-              <label htmlFor='image-file' >{imagePreviewUrl ? <img src={imagePreviewUrl}/> : 'Upload a Image'}</label>
+              <label htmlFor='image-file' >
+                {this.props.image.id ? <img src={this.props.image.image} alt='image'/> : null}
+                {imagePreviewUrl ? <img src={imagePreviewUrl} alt='image'/> : 'Upload a Image'}
+              </label>
               {this.state.dragging &&
                 <div className='drag-zone-t-wrapper'>
                   <div className='drag-zone'>
@@ -337,8 +370,10 @@ class UploadImage extends React.Component {
                   Drop file here
                 </div>
               </div>
-            } 
-            {this.state.name ? this.props.isUploadingImage ? <p>Uploading...</p> : <p>Image Uploaded!</p> : null}
+            }
+            
+            {/* commenting out to implmenent a post preview {this.props.image.id ? <div className='imgprev-wrapper'><img src={this.props.image.image} className='imgprev'/></div> : null} */}
+            {/* {this.state.name ? this.props.isUploadingImage ? <p>Uploading...</p> : <p>Image Uploaded!</p> : null} */}
           </FileUpload>
         }
        </>
@@ -355,5 +390,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { uploadImage, removeUpload, resetImageState }
+  { uploadImage, removeUpload, resetImageState, displayMessage }
 )(UploadImage);
