@@ -7,6 +7,8 @@ import Users from './Users';
 
 import { ApproveEmailForm, ApprovedEmails, DeletedPostAndMods } from '../components'
 
+import '../components/css/Admin.css'
+
 const MainWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -36,12 +38,11 @@ align-content: center;
 const Boxed = styled.div`
 width: 100%;
 padding: 10px;
-border: 2px solid black;
+border: 2px solid #418dcf;
 border-radius: 5px;
 flex-direction: column;
 justify-content: space-around;
 margin-bottom: 10px;
-
 `;
 
 const TableWrapper = styled.div`
