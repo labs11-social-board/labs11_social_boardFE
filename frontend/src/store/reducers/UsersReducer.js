@@ -146,6 +146,7 @@ const initialState = {
   isListUploading: false,
   isVerifyingEmail: false,
   verified: false,
+  uploadDone: false,
 };
 
 export const UsersReducer = (state = initialState, action) => {
@@ -215,7 +216,8 @@ export const UsersReducer = (state = initialState, action) => {
     case UPLOAD_LIST_SUCCESS: 
       return {
         ...state,
-        isListUploading: false
+        isListUploading: false,
+        uploadDone: true
       };
 
     case UPLOAD_LIST_FAILURE: 
