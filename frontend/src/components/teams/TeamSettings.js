@@ -137,8 +137,10 @@ class TeamSettings extends React.Component{
   state = {
     team_name: this.props.team.team_name,
     isPrivate: this.props.team.isPrivate,
-    image: this.props.team.logo,
-    isUploading: false
+    image: '',
+    isUploading: false,
+    imagePrev: this.props.team.logo,
+    newImg: ''
   };
   handleInput = e => {
     e.preventDefault();
@@ -150,12 +152,14 @@ class TeamSettings extends React.Component{
   };
   updateTeam = e => {
     e.preventDefault();
-    const changes = { ...this.state };
+    const { team_name, isPrivate, image } = this.state;
+    const changes = { team_name, isPrivate, image };
+    // const changes = {...this.state};
     const { team, updateTeam, displayMessage, resetImageState } = this.props;
-
     updateTeam(team.id, changes)
       .then(() => {
         displayMessage('Team Settings Updated!');
+        this.setState({ newImg: this.props.image.image });
         resetImageState();
       })
       .then(() => setTimeout(() => this.props.getDiscussions(), 150));
@@ -174,9 +178,11 @@ class TeamSettings extends React.Component{
     }
 
     if(prevProps.image !== this.props.image){
-      this.setState({ image: this.props.image.image });
+      this.setState({ image: this.props.image, imagePrev: this.props.image.image });
     }
-
+    if(this.state.imagePrev === undefined && !this.props.isGettingTeamDiscussons){
+      this.setState({ imagePrev: this.state.newImg })
+    }
     if(this.props.isUploadingImage && !this.state.isUploading){
 			this.setState({ isUploading: true }, () => {
 				this.props.displayMessage('Uploading Image...')
@@ -200,7 +206,7 @@ class TeamSettings extends React.Component{
             <input id='team_name' type='text' name='team_name' value={this.state.team_name} onChange={this.handleInput} />
           </div>
           <div className='settings-upload'>
-           <UploadImage isTeam={isTeam} imagePreviewUrl={this.state.image}/>
+           <UploadImage isTeam={isTeam} imagePreviewUrl={this.state.imagePrev}/>
           </div>
           <div className='toggle-switch'>
             <ToggleSwitch booleanValue={this.state.isPrivate} handleToggle={this.handleToggle} isDay={!this.props.isDay}/>
@@ -218,7 +224,8 @@ class TeamSettings extends React.Component{
 const mapStateToProps = state => ({
   image: state.posts.images,
   isDay: state.users.isDay,
-  isUploadingImage: state.posts.isUploadingImage
+  isUploadingImage: state.posts.isUploadingImage,
+  isGettingTeamDiscussons: state.teams.isGettingTeamDiscussons
 });
 
 export default connect(mapStateToProps, { updateTeam, deleteTeam, displayMessage, getUsersTeams, resetImageState })(TeamSettings);
