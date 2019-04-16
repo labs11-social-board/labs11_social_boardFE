@@ -18,9 +18,18 @@ const FileUpload = styled.div `
     flex-direction: column;
   }
 
-  .imgprev {
-    width: 50px;
-    height: 50px;
+  .imgprev-wrapper {
+    width: 7%;
+    height: 10%;
+    position: absolute;
+    margin-top: 72px;
+    border: 1px solid lightgrey;
+    padding: 0 1%;
+    border-radius: 5px;
+    background: whitesmoke;
+    .imgprev {
+      border-radius: 0;
+    }
   }
   img {
     width: 100%;
@@ -358,9 +367,7 @@ class UploadImage extends React.Component {
                 </div>
               </div>
             }
-            {imagePreviewUrl ? <img src={imagePreviewUrl} className='imgprev'/> : null}
-            {this.props.image.id ? <img src={this.props.image.image} className='imgprev'/> : null}
-            {/* {this.state.name ? this.props.isUploadingImage ? <p className='progressbar'>Uploading...</p> : null : null}  */}
+            {this.props.image.id ? <div className='imgprev-wrapper'><img src={this.props.image.image} className='imgprev'/></div> : null}
             {/* {this.state.name ? this.props.isUploadingImage ? <p>Uploading...</p> : <p>Image Uploaded!</p> : null} */}
           </FileUpload>
         }
