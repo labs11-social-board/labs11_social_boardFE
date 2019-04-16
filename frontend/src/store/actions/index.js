@@ -163,6 +163,9 @@ import {
   ADD_DELETED_POST_LOADING,
   ADD_DELETED_POST_SUCCESS,
   ADD_DELETED_POST_FAILURE,
+  GET_DELETED_POST_LOADING,
+  GET_DELETED_POST_SUCCESS,
+  GET_DELETED_POST_FAILURE,
   EDIT_POST_LOADING,
   EDIT_POST_SUCCESS,
   EDIT_POST_FAILURE,
@@ -181,7 +184,8 @@ import {
   uploadImage,
   updatePostWithImage,
   removeUpload,
-  resetImageState
+  resetImageState,
+  getDeletedPost
 } from './PostsActions.js';
 
 import {
@@ -580,6 +584,9 @@ export {
   ADD_DELETED_POST_LOADING,
   ADD_DELETED_POST_SUCCESS,
   ADD_DELETED_POST_FAILURE,
+  GET_DELETED_POST_LOADING,
+  GET_DELETED_POST_SUCCESS,
+  GET_DELETED_POST_FAILURE,
   EDIT_POST_LOADING,
   EDIT_POST_SUCCESS,
   EDIT_POST_FAILURE,
@@ -681,6 +688,7 @@ export {
   // Posts Action Creators
   addPost,
   addDeletedPost,
+  getDeletedPost,
   editPost,
   removePost,
   uploadImage,

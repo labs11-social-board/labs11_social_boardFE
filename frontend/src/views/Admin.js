@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 
-import {BrowserRouter as Router, Route, Link, NavLink} from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, NavLink } from "react-router-dom";
 import styled from 'styled-components';
 import { connect } from "react-redux";
 import Users from './Users';
 
-import {ApproveEmailForm, ApprovedEmails} from '../components'
+import { ApproveEmailForm, ApprovedEmails } from '../components'
 
 const MainWrapper = styled.div`
   display: flex;
@@ -54,39 +54,39 @@ class Admin extends React.Component {
     }
 
     // componentDidMount() {
-        
+
     // }
 
     render() {
         //if (!this.props.isLoggedIn) return <h2>--Yo, dog.  You ain't logged in.  Do That <Link to="/">HERE</Link> </h2>;
 
-        return(
+        return (
             <div>
-                
+
                 <div >
-                    <MainWrapper>   
+                    <MainWrapper>
                         <div>
                             <h2>Admin Console</h2>
                         </div>
 
                         <InnerWrapper>
                             <Boxed>
-                                <ApproveEmailForm histoy={this.props.history}/>
+                                <ApproveEmailForm histoy={this.props.history} />
                             </Boxed>
                             <Boxed>
-                            <ApprovedEmails/>
+                                <ApprovedEmails />
                             </Boxed>
                             <Boxed>
-                            <h4>Users</h4>
-                            
-                            <Users />
-                            
+                                <h4>Users</h4>
+
+                                <Users />
+
                             </Boxed>
                             <Boxed>
-                            <h4>Existing Moderators</h4>
-                            <p>Welcome to the admin page. Welcome to the admin page. Welcome to the admin page. Welcome to the admin page. 
-                            Welcome to the admin page. Welcome to the admin page. Welcome to the admin page. Welcome to the admin page. 
-                            Welcome to the admin page. Welcome to the admin page. Welcome to the admin page. Welcome to the admin page. 
+                                <h4>Deleted Post</h4>
+                                <p>Welcome to the admin page. Welcome to the admin page. Welcome to the admin page. Welcome to the admin page.
+                                Welcome to the admin page. Welcome to the admin page. Welcome to the admin page. Welcome to the admin page.
+                                Welcome to the admin page. Welcome to the admin page. Welcome to the admin page. Welcome to the admin page.
                             </p>
                             </Boxed>
                         </InnerWrapper>
@@ -100,8 +100,8 @@ class Admin extends React.Component {
 const mapStoreToProps = state => {
     console.log('Admin State', state)
     return {
-      
+
     };
-  };
-  
-  export default Admin;
+};
+
+export default Admin;

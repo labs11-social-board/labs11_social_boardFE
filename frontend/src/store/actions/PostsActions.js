@@ -16,6 +16,10 @@ export const ADD_DELETED_POST_LOADING = 'ADD_DELETED_POST_LOADING';
 export const ADD_DELETED_POST_SUCCESS = 'ADD_DELETED_POST_SUCCESS';
 export const ADD_DELETED_POST_FAILURE = 'ADD_DELETED_POST_FAILURE';
 
+export const GET_DELETED_POST_LOADING = 'GET_DELETED_POST_LOADING';
+export const GET_DELETED_POST_SUCCESS = 'GET_DELETED_POST_SUCCESS';
+export const GET_DELETED_POST_FAILURE = 'GET_DELETED_POST_FAILURE';
+
 export const EDIT_POST_LOADING = 'EDIT_POST_LOADING';
 export const EDIT_POST_SUCCESS = 'EDIT_POST_SUCCESS';
 export const EDIT_POST_FAILURE = 'EDIT_POST_FAILURE';
@@ -53,6 +57,7 @@ export const addPost = (discussion_id, postBody, team_id, repliedPostID) => disp
     .catch(err => handleError(err, ADD_POST_FAILURE)(dispatch));
 };
 
+// insert deleted post 
 export const addDeletedPost = (post_id, post) => dispatch => {
   const user_id = localStorage.getItem('symposium_user_id')
   const body = { post_id, post }
@@ -62,6 +67,15 @@ export const addDeletedPost = (post_id, post) => dispatch => {
     .post(`${backendURL}/posts/insert-deleted-post/${user_id}`, body)
     .then(res => dispatch({ type: ADD_DELETED_POST_SUCCESS, payload: res.data }))
     .catch(err => handleError(err, ADD_DELETED_POST_FAILURE)(dispatch));
+}
+
+// get deleted post
+export const getDeletedPost = () => dispatch => {
+  dispatch({ type: GET_DELETED_POST_LOADING });
+  return axios
+    .get(`${backendURL}/posts/get-deleted-post`)
+    .then(res => dispatch({ type: GET_DELETED_POST_SUCCESS, payload: res.data }))
+    .catch(err => handleError(err, GET_DELETED_POST_FAILURE)(dispatch));
 }
 
 // edit a post
