@@ -22,8 +22,6 @@ const MainWrapper = styled.div`
     margin-bottom: 5px;
   }
 
-  
-
 `;
 
 const InnerWrapper = styled.div`
@@ -46,6 +44,12 @@ margin-bottom: 10px;
 
 `;
 
+const TableWrapper = styled.div`
+width: 90%;
+`;
+
+
+
 
 class Admin extends React.Component {
     constructor() {
@@ -61,9 +65,9 @@ class Admin extends React.Component {
         //if (!this.props.isLoggedIn) return <h2>--Yo, dog.  You ain't logged in.  Do That <Link to="/">HERE</Link> </h2>;
 
         return (
-            <div>
+            <TableWrapper>
 
-                <div >
+                <div>
                     <MainWrapper>
                         <div>
                             <h2>Admin Console</h2>
@@ -89,7 +93,7 @@ class Admin extends React.Component {
                         </InnerWrapper>
                     </MainWrapper>
                 </div>
-            </div>
+            </TableWrapper>
         )
     }
 }
