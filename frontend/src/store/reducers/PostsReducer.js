@@ -4,8 +4,12 @@ import {
 	ADD_POST_FAILURE,
 
 	ADD_DELETED_POST_LOADING,
-  	ADD_DELETED_POST_SUCCESS,
-  	ADD_DELETED_POST_FAILURE,
+	ADD_DELETED_POST_SUCCESS,
+	ADD_DELETED_POST_FAILURE,
+
+	GET_DELETED_POST_LOADING,
+	GET_DELETED_POST_SUCCESS,
+	GET_DELETED_POST_FAILURE,
 
 	EDIT_POST_LOADING,
 	EDIT_POST_SUCCESS,
@@ -29,7 +33,10 @@ import {
 const initialState = {
 	images: {},
 	post_id: {},
-	isUploadingImage: false
+	deletedPost: [],
+	fetchingDeletedPost: false,
+	isUploadingImage: false,
+	error: null
 };
 
 export const PostsReducer = (state = initialState, action) => {
@@ -43,11 +50,24 @@ export const PostsReducer = (state = initialState, action) => {
 		case ADD_POST_FAILURE:
 		case ADD_DELETED_POST_LOADING:
 		case ADD_DELETED_POST_SUCCESS:
-		  return {
-			  ...state,
-			  post_id: action.payload
-		  };
-  		case ADD_DELETED_POST_FAILURE:
+		case ADD_DELETED_POST_FAILURE:
+		case GET_DELETED_POST_LOADING:
+			return {
+				...state,
+				fetchingDeletedPost: true
+			}
+		case GET_DELETED_POST_SUCCESS:
+			return {
+				...state,
+				fetchingDeletedPost: false,
+				deletedPost: action.payload
+			}
+		case GET_DELETED_POST_FAILURE:
+			return {
+				...state,
+				fetchingDeletedPost: false,
+				error: action.payload
+			}
 		case EDIT_POST_LOADING:
 		case EDIT_POST_SUCCESS:
 		case EDIT_POST_FAILURE:
@@ -69,14 +89,14 @@ export const PostsReducer = (state = initialState, action) => {
 				images: action.payload,
 				isUploadingImage: false
 			};
-		
-		case RESET_IMAGE_STATE: 
+
+		case RESET_IMAGE_STATE:
 			return {
 				...state,
 				images: {}
 			};
-			
+
 		default:
-		return state;
+			return state;
 	}
 };
