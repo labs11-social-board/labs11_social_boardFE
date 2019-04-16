@@ -190,7 +190,7 @@ const Post = ({
   handleReplyVote,
   //deleteReply,
   scrollTo,
-  team_id, 
+  team_id,
   displayMessage,
   isShowImage,
   handleImageShow,
@@ -263,7 +263,7 @@ const Post = ({
     <PostWrapper>
       <div>
         <BodyWrapper>{body}</BodyWrapper>
-        {image ? 
+        {image ?
           <div className='show-image-wrapper'>
             <a href='# ' className='show-image' onClick={() => handleImageShow(id)}><i className="fas fa-camera"></i>{ isShowImage ? '-' : '+'}</a>
 					  {isShowImage ? id === imageClickedId ? <img src={image} alt="uploaded"/> : null : null }
@@ -293,6 +293,7 @@ const Post = ({
             <span>{moment(new Date(Number(created_at))).fromNow()}</span>
           </div>
           {
+<<<<<<< HEAD
             (loggedInUserId === user_id) ? 
             (<div className='delete'>
               <a href='# ' onClick={e => handleRemovePost(e, id)}>Delete post</a>
@@ -307,6 +308,24 @@ const Post = ({
             user_id={user_id}
             />
             : null}
+=======
+            (loggedInUserId === user_id) ?
+              (<div className='delete'>
+                <a onClick={e => handleRemovePost(e, id)}>Delete post</a>
+              </div>) :
+              (user_type === 'admin' || user_type === 'moderator') ?
+                <DeletePost
+                  handleRemovePost={handleRemovePost}
+                  handleTeamFilter={handleTeamFilter}
+                  handleFilterChange={handleFilterChange}
+                  displayMessage={displayMessage}
+                  id={id}
+                  teamId={team_id}
+                  user_id={user_id}
+                  className='delete'
+                />
+                : null}
+>>>>>>> 12035b9ff16eb03469d2515e9d15de6dfe468477
         </div>
       </InfoWrapper>
       {showAddReplyForm === id && (
@@ -321,8 +340,8 @@ const Post = ({
         />
       )}
       <div>
-        {replies.map((reply, i) => ( 
-          
+        {replies.map((reply, i) => (
+
           <Reply
             key={i}
             reply={reply}
@@ -338,7 +357,7 @@ const Post = ({
             imageClickedId={imageClickedId}
           />
         ))}
-        
+
       </div>
     </PostWrapper>
   );
