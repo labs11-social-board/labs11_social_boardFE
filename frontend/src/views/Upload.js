@@ -142,6 +142,7 @@ class Upload extends React.Component {
                         <InnerWrapper>
                             <Boxed>
                             <h4>Add Email List via CSV upload</h4>
+                            <p>[ CSV FORMAT: firstname, lastname, email ]</p>
                             
                             <div className="container">
                             <CSVReader
@@ -149,7 +150,7 @@ class Upload extends React.Component {
                                 label="Upload a CSV file full of Authorized E-Mails!"
                                 onFileLoaded={this.handleUppy}
                             />
-                            <p>Upload Status:</p>
+                            <p>Upload Status (Upload Starts Automatically After File Selected):</p>
                             {(this.props.uploadDone === true) ?
                             (<h4>Done</h4>) : <h4>Not Started</h4>}
                             {console.log(this.props.uploadDone)}

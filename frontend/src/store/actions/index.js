@@ -35,9 +35,20 @@ import {
   GUSERS_SUCCESS,
   GUSERS_FAIL,
 
+  PAVEv30_STARTED,
+  PAVEv30_SUCCESS,
+  PAVEv30_FAIL,
+
+  GUSERSv30_STARTED,
+  GUSERSv30_SUCCESS,
+  GUSERSv30_FAIL,
+
+
   // Action Creators
   getPageViews,
   getUsersAna,
+  getPageViews30,
+  getUsersAna30,
 } from './analyticActions.js';
 
 import {
@@ -760,9 +771,16 @@ export {
   GUSERS_STARTED,
   GUSERS_SUCCESS,
   GUSERS_FAIL,
+  PAVEv30_STARTED,
+  PAVEv30_SUCCESS,
+  PAVEv30_FAIL,
+  GUSERSv30_STARTED,
+  GUSERSv30_SUCCESS,
+  GUSERSv30_FAIL,
   // Analytic Creators
   getPageViews,
   getUsersAna,
-
+  getPageViews30,
+  getUsersAna30,
 };
 
