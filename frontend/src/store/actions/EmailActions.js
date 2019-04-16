@@ -50,7 +50,7 @@ export const approveEmail = emailInfo => dispatch => {
             })
         })
         .catch(err => handleError(
-            err, 
+            err,
             EMAIL_APPROVAL_FAIL
         )(dispatch));
 }
