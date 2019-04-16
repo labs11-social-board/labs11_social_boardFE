@@ -390,7 +390,7 @@ class TeamBoard extends Component {
       }
     }
     if(!team){
-      return (<h1>Loading..</h1>)
+      return (<img src={require('../../assets/gif/spinner2.gif')} alt='spinner'/>)
     } else {
       return (
         <DiscussionsWrapper>
@@ -435,7 +435,7 @@ class TeamBoard extends Component {
           </DiscussionHeader>
           <hr />
           <div id='discussions' className='content tab-content selected'>
-            {isGettingTeamDiscussions ? <div>Loading...</div> : discussions.map((discussion, i) =>
+            {isGettingTeamDiscussions ? <img src={require('../../assets/gif/spinner2.gif')} alt='spinner'/> : discussions.map((discussion, i) =>
               <DiscussionByFollowedCats
                 key={i}
                 discussion={discussion}

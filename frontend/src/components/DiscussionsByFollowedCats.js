@@ -182,7 +182,7 @@ class AllDiscussionsByFollowedCats extends Component {
         </DiscussionHeader>
         <hr />
         <div className='content'>
-          {isGettingAllFollowed ? <div>Loading...</div> : followedDiscussions.map((discussion, i) =>
+          {isGettingAllFollowed ? <img src={require('../assets/gif/spinner2.gif')} alt='spinner'/> : followedDiscussions.map((discussion, i) =>
             <DiscussionByFollowedCats
               key={i}
               discussion={discussion}

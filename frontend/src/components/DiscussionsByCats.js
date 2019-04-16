@@ -216,7 +216,7 @@ class DiscussionsByCats extends Component {
         </DiscussionHeader>
         <hr />
         <div className='content'>
-          {isGettingDiscussions ? <div>Loading...</div> : discussions.map((discussion, i) =>
+          {isGettingDiscussions ? <img src={require('../assets/gif/spinner2.gif')} alt='spinner'/> : discussions.map((discussion, i) =>
             <DiscussionByFollowedCats
               key={i}
               discussion={discussion}
