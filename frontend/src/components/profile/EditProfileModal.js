@@ -267,11 +267,12 @@ class EditProfileModal extends React.Component {
       callTheFunction = true;
     }
 
-    if (twitter.length === 0 || twitter === this.props.profile[0].twitter) {
+    // if (twitter.length === 0 || twitter === this.props.profile[0].twitter) {
+      if (twitter === this.props.profile[0].twitter) {
       twitter = null;
     } 
 
-    if(!isUrl(twitter,true)) {
+    if(twitter !== null && !isUrl(twitter,true)) {
       await this.handleUserMessage("twitter"); 
     } else {
       callTheFunction = true;
@@ -283,7 +284,7 @@ class EditProfileModal extends React.Component {
       github = null;
     }
 
-    if(!isUrl(github,true)) {
+    if(github !== null && !isUrl(github,true)) {
       await this.handleUserMessage("github"); 
     } else {
       callTheFunction = true;
@@ -293,8 +294,8 @@ class EditProfileModal extends React.Component {
     if (linkedin.length === 0 || linkedin === this.props.profile[0].linkedin) {
       linkedin = null;
     }
-    
-    if(!isUrl(linkedin,true)) {
+
+    if(linkedin !== null && !isUrl(linkedin,true)) {
         await this.handleUserMessage("linkedin"); 
     } else {
       callTheFunction = true;
