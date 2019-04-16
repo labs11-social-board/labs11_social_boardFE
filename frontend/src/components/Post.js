@@ -55,7 +55,6 @@ const InfoWrapper = styled.div`
   color: #a7a7a7;
 
   a{
-    text-decoration: none;
     color: #a7a7a7
     &:hover {
       color: ${ props => props.theme.defaultColorOnHover};
