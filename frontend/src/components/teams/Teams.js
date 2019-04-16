@@ -25,9 +25,13 @@ const Teams = ({ teams, history }) => {
   return (
     <DivTeams>
       <DivTeamRows>
-        {teams.map((team, index) => (
-          <Team key={team.id} team={team} history={history} />
-        ))}
+        {teams.map(team => {
+          if(team.team_id){
+            return <Team key={team.team_id} team={team} history={history} />
+          } else {
+            return <Team key={team.id} team={team} history={history} />
+          }
+        })}
       </DivTeamRows>
     </DivTeams>
   );
