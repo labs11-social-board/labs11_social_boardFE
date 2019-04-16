@@ -90,7 +90,6 @@ import {
   SENDING_INVITE,
   SENDING_INVITE_FAILURE,
   SENDING_INVITE_SUCCESSFUL,
-  inviteFriend,
   GET_USERS_LOADING,
   GET_USERS_SUCCESS,
 
@@ -531,6 +530,9 @@ export const UsersReducer = (state = initialState, action) => {
     case EDIT_USER_FAILURE:
     case SENDING_INVITE:
     case SENDING_INVITE_FAILURE:
+      return {
+        ...state
+      }
    
   
     default:
