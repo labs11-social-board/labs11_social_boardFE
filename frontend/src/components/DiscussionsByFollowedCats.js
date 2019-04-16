@@ -143,12 +143,17 @@ class AllDiscussionsByFollowedCats extends Component {
   handleSelectChange = e => this.setState({
     [e.target.name]: e.target.value,
   }, () => this.handleFilterChange());
-  getDiscussions = () => this.props.getAllDiscussionsByFollowedCategories()
-    .then(() => this.setState({ followedDiscussions: this.props.followedDiscussions }));
+  getDiscussions = () => {
+    this.props.getAllDiscussionsByFollowedCategories().then(() => {
+      this.setState({ followedDiscussions: this.props.followedDiscussions })
+    });
+  }
   voteOnDiscussion = (id, type) => this.props.handleDiscussionVote(id, type)
     .then(() => this.getDiscussions())
     .then(() => this.handleFilterChange());
-  componentDidMount = () => this.getDiscussions();
+  componentDidMount = () => {
+    this.getDiscussions();
+  };
   render() {
     const { followedDiscussions, showAddDiscussionForm } = this.state;
     const { history, match } = this.props;
@@ -201,6 +206,8 @@ class AllDiscussionsByFollowedCats extends Component {
 
 const mapStateToProps = state => ({
   followedDiscussions: state.discussions.followedDiscussions,
+  verified: state.users.verified,
+  isVerifyingEmail: state.users.isVerifyingEmail
 });
 
 export default connect(mapStateToProps, { getAllDiscussionsByFollowedCategories, handleDiscussionVote })(AllDiscussionsByFollowedCats);

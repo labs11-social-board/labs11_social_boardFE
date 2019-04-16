@@ -192,7 +192,6 @@ class UploadImage extends React.Component {
     name: '',
     imagePreviewUrl: '',
     dragging: false,
-    isUploading: false
   };
   handleFileChange = (e) => {
     e.preventDefault();
@@ -315,18 +314,6 @@ class UploadImage extends React.Component {
     if(this.props.imagePreviewUrl !== this.state.imagePreviewUrl && !prevProps.isUploadingImage){
       this.setState({ imagePreviewUrl: this.props.imagePreviewUrl });
     }
-
-    if(this.props.isUploadingImage && !this.state.isUploading){
-			this.setState({ isUploading: true }, () => {
-				this.props.displayMessage('Uploading Image')
-			})
-		} else if(this.state.isUploading && !this.props.isUploadingImage){
-			this.setState({ isUploading: false }, () => {
-				this.props.displayMessage('Image Uploaded!').then(() => {
-					setTimeout(() => this.props.displayMessage(''), 500);
-				})
-			})
-		}
   }
     render() {
       const { name, imagePreviewUrl } = this.state;
@@ -343,8 +330,8 @@ class UploadImage extends React.Component {
                 onChange = { this.handleFileChange }
               />
               <label htmlFor='image-file' >
-                {this.props.image.id ? <img src={this.props.image.image} alt='image'/> : null}
-                {imagePreviewUrl ? <img src={imagePreviewUrl} alt='image'/> : 'Upload Image'}
+                {/* {this.props.image.id ? <img src={this.props.image.image} alt='image'/> : null} */}
+                {imagePreviewUrl ? <img src={imagePreviewUrl} alt='preview'/> : 'Upload a Image'}
               </label>
               {this.state.dragging &&
                 <div className='drag-zone-t-wrapper'>
