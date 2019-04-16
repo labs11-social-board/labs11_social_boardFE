@@ -45,16 +45,6 @@ const tammy = {
  ********************************************* Component *******************************************
  **************************************************************************************************/
 class LandingView extends React.Component {
-  constructor(props) {
-    super(props)
-
-    // this.state = {
-    //   verify: {
-    //     email: token
-    //   }
-    // }
-    
-  }
 
   
   componentDidMount() {
@@ -64,11 +54,7 @@ class LandingView extends React.Component {
     const token = localStorage.getItem('symposium_token');
     this.props.verifyEmail(token);
     
-    console.log('mount',this.props.verified)
-  }
-
-  componentDidUpdate(){
-    console.log('update',this.props.verified)
+    // console.log('mount',this.props.verified)
   }
 
   conditionalRender(){

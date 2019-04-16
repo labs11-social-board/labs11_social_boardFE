@@ -130,6 +130,10 @@ const DiscussionHeader = styled.div`
     margin-right: 10%;
   }
   
+  .logo {
+    font-size: 4rem;
+    margin-right: 10%;
+  }
   .name-follow-wrapper {
     display: flex;
     align-items: center;
@@ -393,7 +397,7 @@ class TeamBoard extends Component {
           {isAddTeamMemberModalRaised && <UsersListModal setTeamMemberModal={this.setTeamMemberModal} team_id={team.id}/> }
           <DiscussionHeader>
             <div className='name-follow-wrapper'>
-              {team.logo ? <img src={team.logo} /> : null}
+              {team.logo ? <img src={team.logo} /> : <i className="fas fa-users logo"></i>}
               <h2 className='name'>{team.team_name}</h2>
               <FollowCat
                 team_id={match.params.team_id}

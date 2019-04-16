@@ -119,9 +119,9 @@ export const EDIT_USER_FAILURE = 'EDIT_USER_FAILURE';
 
 export const TOGGLE_THEME = 'TOGGLE_THEME';
 
-export const SENDING_INVITE = 'SENDING_INVITE'; 
+export const SENDING_INVITE = 'SENDING_INVITE';
 export const SENDING_INVITE_SUCCESSFUL = 'SENDING_INVITE_SUCCESSFUL';
-export const SENDING_INVITE_FAILURE = 'SENDING_INVITE_FAILURE'; 
+export const SENDING_INVITE_FAILURE = 'SENDING_INVITE_FAILURE';
 export const GET_USERS_LOADING = 'GET_USERS_LOADING';
 export const GET_USERS_SUCCESS = 'GET_USERS_SUCCESS';
 export const GET_USERS_FAILURE = 'GET_USERS_FAILURE';
@@ -151,37 +151,34 @@ export const getUsersNMods = () => dispatch => {
   return axios
     .get(`${backendUrl}/moderators`)
     .then(res => dispatch({
-       type: GET_USERSnMODS_SUCCESS, payload: res.data
-      }))
+      type: GET_USERSnMODS_SUCCESS, payload: res.data
+    }))
     .catch(err => handleError(err, GET_USERSnMODS_FAILURE)(dispatch));
 
 }
 
 export const verifyEmail = token => dispatch => {
-  
-  const headers = { headers: { Email: token} };
-  dispatch({type: VERIFYUSER_LOADING});
+
+  const headers = { headers: { Email: token } };
+  dispatch({ type: VERIFYUSER_LOADING });
   return axios
-  .get(`${backendUrl}/emails/is-accepted-email`, headers)
-  .then(res =>{
-    console.log("results:",res) 
-    dispatch({ type: VERIFYUSER_SUCCESS, payload: res.data })
-  })
- .catch(err => handleError(err, VERIFYUSER_FAILURE)(dispatch));
- 
+    .get(`${backendUrl}/emails/is-accepted-email`, headers)
+    .then(res => dispatch({ type: VERIFYUSER_SUCCESS, payload: res.data }))
+    .catch(err => handleError(err, VERIFYUSER_FAILURE)(dispatch));
+
 }
 
 export const makeMod = newMod => dispatch => {
   dispatch({ type: UPDATE_MODS_LOADING });
   console.log(newMod)
   return axios
-    
+
     .get(`${backendUrl}/moderators/changeToMod/${newMod}`)
-    
+
     .then(res => dispatch({
-       type: UPDATE_MODS_SUCCESS, payload: res.data
-      }))
-    
+      type: UPDATE_MODS_SUCCESS, payload: res.data
+    }))
+
     .catch(err => handleError(err, UPDATE_MODS_FAILURE)(dispatch));
 }
 
@@ -189,26 +186,26 @@ export const makeBas = newMod => dispatch => {
   dispatch({ type: UPDATE_MODS_LOADING });
   console.log(newMod)
   return axios
-    
+
     .get(`${backendUrl}/moderators/changeToBasic/${newMod}`)
-    
+
     .then(res => dispatch({
-       type: UPDATE_MODS_SUCCESS, payload: res.data
-      }))
-    
+      type: UPDATE_MODS_SUCCESS, payload: res.data
+    }))
+
     .catch(err => handleError(err, UPDATE_MODS_FAILURE)(dispatch));
 }
 
 export const emailCSV = newbies => dispatch => {
   dispatch({ type: UPLOAD_LIST_LOADING });
   return axios
-    
+
     .post(`${backendUrl}/emails/`, newbies)
-    
+
     .then(res => dispatch({
-       type: UPLOAD_LIST_SUCCESS, payload: res.data
-      }))
-    
+      type: UPLOAD_LIST_SUCCESS, payload: res.data
+    }))
+
     .catch(err => handleError(err, UPLOAD_LIST_FAILURE)(dispatch));
 }
 
@@ -244,7 +241,11 @@ export const logBackIn = (id, token) => dispatch => {
       dispatch({ type: USER_LOG_BACK_IN_SUCCESS, payload: res.data[0] });
       handlePusher.subscribeToPusher(res.data[0].uuid)(dispatch);
     })
-    .catch(err => handleError(err, USER_LOG_BACK_IN_FAILURE)(dispatch));
+    .catch(err => {
+      console.log(err);
+      localStorage.clear();
+      handleError(err, USER_LOG_BACK_IN_FAILURE)(dispatch);
+    });
 };
 
 export const auth0Login = (accessToken, history) => dispatch => {
@@ -510,14 +511,14 @@ export const resetPassword = (password, token) => dispatch => {
 
 export const inviteFriend = (email) => dispatch => {
   const token = localStorage.getItem("symposium_token");
-  const headers = { headers : { Authorization: token } };
-  dispatch({type : SENDING_INVITE});
-  const body = { email }; 
-  return axios 
+  const headers = { headers: { Authorization: token } };
+  dispatch({ type: SENDING_INVITE });
+  const body = { email };
+  return axios
     .post(`${backendUrl}/users/invite`, body, headers)
     .then(response => {
       return dispatch({
-        type: SENDING_INVITE_SUCCESSFUL, 
+        type: SENDING_INVITE_SUCCESSFUL,
         payload: response.data
       });
     })

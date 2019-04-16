@@ -47,14 +47,16 @@ import {
   RegisterView,
   NonUserLandingView,
   TeamsView,
-  TeamDiscussionView
+  TeamDiscussionView,
+  UserTeamsView
 } from './views/index.js';
 
 // action creators
 import {
   logBackIn,
   markNotificationsAsRead,
-  toggleTheme
+  toggleTheme,
+  verifyEmail
 } from './store/actions/index.js';
 import EditProfileModal from './components/profile/EditProfileModal.js';
 import InviteFriendModal from './components/profile/InviteFriendModal.js';
@@ -151,13 +153,13 @@ const DivSideNav = styled.div`
   height: 100%;
 
   @media (max-width: 800px) {
-    display: ${props => (props.isSideNavOpen ? 'flex': 'none')}
+    display: ${props => (props.isSideNavOpen ? 'flex' : 'none')}
     position: fixed;
     height: 90%;
     width: 80%;
     min-height: 0;
     border:none;
-    background: ${props => (props.isSideNavOpen ? 'white' : 'none' )};
+    background: ${props => (props.isSideNavOpen ? 'white' : 'none')};
   }
 `;
 
@@ -223,7 +225,6 @@ class App extends Component {
       { isNotificationsModalRaised: status },
       () => this.props.newNotifications && this.props.markNotificationsAsRead()
     );
-    console.log(this.state.isNotificationsModalRaised)
   };
 
   setChangeSubModalRaised = (ev, status) => {
@@ -282,12 +283,13 @@ class App extends Component {
     const user_id = localStorage.getItem('symposium_user_id');
     const token = localStorage.getItem('symposium_token');
     window.addEventListener('hashchange', this.handleHashChange, false);
+    this.props.verifyEmail(token);
     if (user_id && token) return this.props.logBackIn(user_id, token);
   }
   componentDidUpdate(prevProps) {
-    // if (this.props.error.includes('expired')) {
-    //   localStorage.clear();
-    // }
+    if (this.props.error && this.props.error.includes('expired')) {
+      localStorage.clear();
+    }
     if (
       prevProps.location.hash.substring(1) !==
       this.props.location.hash.substring(1)
@@ -394,9 +396,9 @@ class App extends Component {
                     />
                   )
                 }
-                <Route exact path="/" render={ () => <NonUserLandingView toggleRegisterModal={this.toggleRegisterModal}/>}/>
+                <Route exact path="/" render={() => <NonUserLandingView toggleRegisterModal={this.toggleRegisterModal} />} />
                 <Route exact path="/home" component={LandingView} />
-                <Route exact path="/admin" render={() => <Admin history={history}/>} />
+                <Route exact path="/admin" render={() => <Admin history={history} />} />
                 <Route exact path="/upload" component={Upload} />
                 <Route path="/analytics" component={Analytics} />
                 <Route path="/profiles" component={Profiles} />
@@ -410,7 +412,7 @@ class App extends Component {
                 <Route path='/settings/:id' render={props => <Settings {...props} setChangeSubModalRaised={this.setChangeSubModalRaised} />} />
                 <Route path='/discussions/category/:category_id' component={DiscussionsByCats} />
                 <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} />
-                
+
               </DivPage>
             </DivBody>
             <Footer
@@ -441,7 +443,7 @@ class App extends Component {
                   <Route path='/request-reset-pw' component={RequestResetPWForm} />
                   <Route path='/reset/:reset_pw_token' component={ResetPWForm} />
                   <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} />
-                  <Route render={ () => <NonUserLandingView toggleRegisterModal={this.toggleRegisterModal}/>} />
+                  <Route render={() => <NonUserLandingView toggleRegisterModal={this.toggleRegisterModal} />} />
                 </Switch>
               </DivPage>
             </DivBody>
@@ -464,5 +466,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { logBackIn, markNotificationsAsRead, toggleTheme }
+  { logBackIn, markNotificationsAsRead, toggleTheme, verifyEmail }
 )(App);
