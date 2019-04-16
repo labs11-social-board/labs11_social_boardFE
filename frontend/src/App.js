@@ -153,13 +153,13 @@ const DivSideNav = styled.div`
   height: 100%;
 
   @media (max-width: 800px) {
-    display: ${props => (props.isSideNavOpen ? 'flex': 'none')}
+    display: ${props => (props.isSideNavOpen ? 'flex' : 'none')}
     position: fixed;
     height: 90%;
     width: 80%;
     min-height: 0;
     border:none;
-    background: ${props => (props.isSideNavOpen ? 'white' : 'none' )};
+    background: ${props => (props.isSideNavOpen ? 'white' : 'none')};
   }
 `;
 
@@ -225,7 +225,6 @@ class App extends Component {
       { isNotificationsModalRaised: status },
       () => this.props.newNotifications && this.props.markNotificationsAsRead()
     );
-    console.log(this.state.isNotificationsModalRaised)
   };
 
   setChangeSubModalRaised = (ev, status) => {
@@ -397,9 +396,9 @@ class App extends Component {
                     />
                   )
                 }
-                <Route exact path="/" render={ () => <NonUserLandingView toggleRegisterModal={this.toggleRegisterModal}/>}/>
+                <Route exact path="/" render={() => <NonUserLandingView toggleRegisterModal={this.toggleRegisterModal} />} />
                 <Route exact path="/home" component={LandingView} />
-                <Route exact path="/admin" render={() => <Admin history={history}/>} />
+                <Route exact path="/admin" render={() => <Admin history={history} />} />
                 <Route exact path="/upload" component={Upload} />
                 <Route path="/analytics" component={Analytics} />
                 <Route path="/profiles" component={Profiles} />
@@ -413,7 +412,7 @@ class App extends Component {
                 <Route path='/settings/:id' render={props => <Settings {...props} setChangeSubModalRaised={this.setChangeSubModalRaised} />} />
                 <Route path='/discussions/category/:category_id' component={DiscussionsByCats} />
                 <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} />
-                
+
               </DivPage>
             </DivBody>
             <Footer
@@ -444,7 +443,7 @@ class App extends Component {
                   <Route path='/request-reset-pw' component={RequestResetPWForm} />
                   <Route path='/reset/:reset_pw_token' component={ResetPWForm} />
                   <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} />
-                  <Route render={ () => <NonUserLandingView toggleRegisterModal={this.toggleRegisterModal}/>} />
+                  <Route render={() => <NonUserLandingView toggleRegisterModal={this.toggleRegisterModal} />} />
                 </Switch>
               </DivPage>
             </DivBody>
@@ -467,5 +466,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { logBackIn, markNotificationsAsRead, toggleTheme, verifyEmail}
+  { logBackIn, markNotificationsAsRead, toggleTheme, verifyEmail }
 )(App);
