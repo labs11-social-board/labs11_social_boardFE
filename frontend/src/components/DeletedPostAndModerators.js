@@ -29,13 +29,18 @@ class DeletedPostAndMods extends React.Component {
                             accessor: 'post',
                         }
                     ]}
-                    style={
+                    defaultPageSize={5}
+                    className='-striped -highlight'
+                    style = {
+                        this.props.isDay ? {
+                            color: 'black',
+                            width: '100%'
+                        } :
                         {
+                            color: 'white',
                             width: '100%'
                         }
                     }
-                    defaultPageSize={5}
-                    className='-striped -highlight'
                 />
             </>
         )
