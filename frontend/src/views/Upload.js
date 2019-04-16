@@ -17,34 +17,59 @@ const MainWrapper = styled.div`
   justify-items: center;
   align-items: center;
   align-content: center;
-
   .title {
     margin-top: 30px;
     margin-bottom: 5px;
   }
-
-  
-
 `;
 
 const InnerWrapper = styled.div`
-width: 90%;
-font-size: 1.1rem;
-justify-content: space-around;
-justify-items: center;
-align-items: center;
-align-content: center;
+    width: 90%;
+    font-size: 1.1rem;
+    justify-content: space-around;
+    justify-items: center;
+    align-items: center;
+    align-content: center;
 `;
 
 const Boxed = styled.div`
-width: 100%;
-padding: 10px;
-border: 2px solid black;
-border-radius: 5px;
-flex-direction: column;
-justify-content: space-around;
-margin-bottom: 10px;
+    width: 100%;
+    padding: 10px;
+    border: 2px solid black;
+    border-radius: 5px;
+    flex-direction: column;
+    justify-content: space-around;
+    margin-bottom: 10px;
+`;
 
+const ButtonY = styled.button `
+    border: 1px solid #418DCF;
+    border-radius: 3px;
+    color: white;
+    background-color: #418DCF;
+    height: 35px;
+    width: 200px;
+    margin-left: 4px;
+  `;
+
+  const ButtonX = styled.button `
+    border: 1px solid #418DCF;
+    border-radius: 3px;
+    color: white;
+    background-color: #418DCF;
+    height: 35px;
+    width: 100px;
+    margin-left: 24px;
+    
+  `;
+  
+  const StyledLink = styled(NavLink)`
+    color: white;  
+    text-decoration: none;
+
+    &:focus, &:hover, &:visited, &:link, &:active {
+        text-decoration: none;
+    }
 `;
 
 
@@ -53,15 +78,16 @@ margin-bottom: 10px;
   
   
 class Upload extends React.Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
 
         this.state ={
             newEmail: {
                 first_name:"",
                 last_name:"",
                 email:""
-            }
+            },
+            done: this.props.uploadDone,
         }
 
     }
@@ -89,6 +115,7 @@ class Upload extends React.Component {
 
             
         }
+
     }
 
     // componentDidMount() {
@@ -114,11 +141,20 @@ class Upload extends React.Component {
                             
                             <div className="container">
                             <CSVReader
-                                cssClass="react-csv-input"
+                                cssClass="ButtonY"
                                 label="Upload a CSV file full of Authorized E-Mails!"
                                 onFileLoaded={this.handleUppy}
                             />
-                            <p>and then open the console</p>
+                            <p>Upload Status:</p>
+                            {(this.props.uploadDone === 'true') ?
+                            (<h4>Done</h4>) : <h4>Not Started</h4>}
+                            {console.log(this.props.uploadDone)}
+                            <hr></hr>
+                            <ButtonY>
+                                <StyledLink to='/admin'>
+                                    Back to User Management
+                                </StyledLink>
+                            </ButtonY>
                             </div>
                             </Boxed>
                             
@@ -132,6 +168,7 @@ class Upload extends React.Component {
 
 const mapStateToProps = state => {
     return {
+        uploadDone: state.users.uploadDone
         
     };
   };
