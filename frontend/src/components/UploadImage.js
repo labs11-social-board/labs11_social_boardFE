@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import styled from 'styled-components';
 
@@ -196,7 +196,7 @@ class UploadImage extends React.Component {
   };
   handleFileChange = (e) => {
     e.preventDefault();
-    const { uploadImage, removeUpload, image } = this.props;
+    const { removeUpload, image } = this.props;
     let reader = new FileReader();
     let file = e.target.files[0];
     if(image.id && file !== this.state.name) {
@@ -343,8 +343,8 @@ class UploadImage extends React.Component {
                 onChange = { this.handleFileChange }
               />
               <label htmlFor='image-file' >
-                {this.props.image.id ? <img src={this.props.image.image} /> : null}
-                {imagePreviewUrl ? <img src={imagePreviewUrl}/> : 'Upload a Image'}
+                {this.props.image.id ? <img src={this.props.image.image} alt='image'/> : null}
+                {imagePreviewUrl ? <img src={imagePreviewUrl} alt='image'/> : 'Upload a Image'}
               </label>
               {this.state.dragging &&
                 <div className='drag-zone-t-wrapper'>
