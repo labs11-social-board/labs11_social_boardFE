@@ -299,6 +299,7 @@ const Post = ({
                   id={id}
                   teamId={team_id}
                   user_id={user_id}
+                  className='delete'
                 />
                 : null}
         </div>
