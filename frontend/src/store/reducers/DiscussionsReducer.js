@@ -91,6 +91,8 @@ const initialState = {
       views: 0,
     }
   ],
+  isGettingDiscussions: false,
+  isGettingAllFollowed: false
 };
 
 export const DiscussionsReducer = (state = initialState, action) => {
@@ -107,18 +109,29 @@ export const DiscussionsReducer = (state = initialState, action) => {
         ...state,
         topDiscussions: action.payload
       };
-
+    
+    case GET_DISCUSSIONS_LOADING:
+      return {
+        ...state,
+        isGettingDiscussions: true
+      }
     case GET_DISCUSSIONS_SUCCESS:
       return {
         ...state,
         discussions: action.payload.discussions,
         category: action.payload.category,
+        isGettingDiscussions: false
       };
-
+    case GET_ALL_DISCS_BY_FOLLOWED_CATS_LOADING: 
+      return {
+        ...state,
+        isGettingAllFollowed: true
+      };
     case GET_ALL_DISCS_BY_FOLLOWED_CATS_SUCCESS:
       return {
         ...state,
         followedDiscussions: action.payload,
+        isGettingAllFollowed: false
       };
 
     case GET_ALL_DISCS_BY_FOLLOWED_CATS_LOADING:
