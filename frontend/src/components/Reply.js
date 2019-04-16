@@ -19,6 +19,7 @@ const ReplyWrapper = styled.div`
   margin-left: 50px;
   border-left: 1px solid #ccc;
   padding-left: 10px;
+  
 `;
 
 const BodyWrapper = styled.p`
@@ -33,6 +34,13 @@ const InfoWrapper = styled.div`
   align-items: flex-end;
   font-size: 0.9rem;
   color: #a7a7a7;
+
+  a{
+    color: #a7a7a7
+    &:hover {
+      color: ${ props => props.theme.defaultColorOnHover};
+    }
+  }
 
   .user-info {
     display: flex;
@@ -204,15 +212,15 @@ const Reply = ({
     }
   }
 
-  console.log(user_type)
+  
   return (
     <ReplyWrapper>
       <div>
         <BodyWrapper>{body}</BodyWrapper>
         {image ?
           <div className='show-image-wrapper'>
-            <a className='show-image' onClick={() => handleImageShow(id)}><i className="fas fa-camera"></i>{isShowImage ? '-' : '+'}</a>
-            {isShowImage ? id === imageClickedId ? <img src={image} alt="uploaded image" /> : null : null}
+            <a href='# ' className='show-image' onClick={() => handleImageShow(id)}><i className="fas fa-camera"></i>{isShowImage ? '-' : '+'}</a>
+            {isShowImage ? id === imageClickedId ? <img src={image} alt="uploaded" /> : null : null}
           </div> : null}
       </div>
       <InfoWrapper>
@@ -241,7 +249,7 @@ const Reply = ({
           {
             (loggedInUserId === user_id) ?
               (<div className='delete'>
-                <a onClick={e => deleteReply(e, id)}>Delete reply</a>
+                <a href='# ' onClick={e => deleteReply(e, id)}>Delete reply</a>
               </div>) :
               (user_type === 'admin' || user_type === 'moderator') ?
                 <DeleteReply
@@ -253,6 +261,7 @@ const Reply = ({
                   teamId={team_id}
                   user_id={user_id}
                   user_type={user_type}
+                  className='delete'
                 />
                 : null}
         </div>

@@ -2,12 +2,6 @@ import React from 'react';
 import moment from 'moment';
 import styled from 'styled-components';
 
-// components
-import { FollowCat } from '../index.js';
-
-// Globals
-// import { tabletL } from '../../globals/globals.js';
-
 /***************************************************************************************************
  ********************************************** Styles *********************************************
  **************************************************************************************************/
@@ -192,16 +186,11 @@ const Team = ({ team, history }) => {
     <DivRow onClick={() => history.push(`/team/discussions/${id}`)}>
       <DivTeamContainer>
         <DivIcon>
-          {(team.logo) ? <img className='team-logo' src={team.logo}/> : <i className="fas fa-users"></i>}
+          {(team.logo) ? <img className='team-logo' src={team.logo} alt='team logo'/> : <i className="fas fa-users"></i>}
         </DivIcon>
         <DivTeam>
           <div className = 'Team-name-follow-wrapper' onClick = {stopPropagation}>
             <SpanTeam className='link' onClick={(ev) => goToTeam(ev)}>{team_name}</SpanTeam>
-            {/* <FollowCat
-              Team_id={Team.id}
-              historyPush={history.push}
-              onCategoriesPage={true}
-            /> */}
           </div>
           <DivTeamInfo>
             <p><span>Created:</span>&nbsp;{moment(new Date(created_at)).fromNow()}</p>

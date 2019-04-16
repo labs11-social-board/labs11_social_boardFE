@@ -28,18 +28,30 @@ export const editProfileReducer = (state = {}, action) => {
     case UPDATE_PROFILE:
     case UPDATE_PROFILE_SUCCESSFUL:
     case UPDATE_PROFILE_FAILURE:
+      return {
+        ...state
+      }
     
-    case UPDATE_BIO: 
+    case UPDATE_BIO:
     case UPDATE_BIO_SUCCESSFUL:
     case UPDATE_BIO_FAILURE:
+      return {
+        ...state
+      }
 
     case UPDATE_LINKEDIN: 
     case UPDATE_LINKEDIN_SUCCESSFUL:
     case UPDATE_LINKEDIN_FAILURE:
+      return {
+        ...state
+      }
 
     case UPDATE_GITHUB: 
     case UPDATE_GITHUB_SUCCESSFUL:
     case UPDATE_GITHUB_FAILURE:
+      return {
+        ...state
+      }
 
     case UPDATE_TWITTER: 
     case UPDATE_TWITTER_SUCCESSFUL:

@@ -18,11 +18,11 @@ class DeleteReply extends React.Component {
     }
 
     render() {
-        console.log(this.props.user_type)
+        
         return (
             <>
                 {(this.props.user_type === 'admin' || this.props.user_type === 'moderator') ?
-                    (<a onClick={e => this.deleteReply(e, this.props.id)}>Delete comment</a>) : null}
+                    (<a className='delete' onClick={e => this.deleteReply(e, this.props.id)}>Delete comment</a>) : null}
             </>
         )
     }
