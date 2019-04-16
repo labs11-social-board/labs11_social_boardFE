@@ -269,7 +269,7 @@ class EditProfileModal extends React.Component {
     if (twitter.length === 0 || twitter === this.props.profile[0].twitter) {
       twitter = null;
     } else {
-      if(!isUrl(twitter)) {
+      if(!isUrl(twitter,true)) {
         await this.handleUserMessage("twitter"); 
       } else {
         callTheFunction = true;
@@ -280,7 +280,7 @@ class EditProfileModal extends React.Component {
     if (github.length === 0 || github === this.props.profile[0].github) {
       github = null;
     } else {
-      if(!isUrl(github)) {
+      if(!isUrl(github,true)) {
         await this.handleUserMessage("github"); 
       } else {
         callTheFunction = true;
@@ -291,7 +291,7 @@ class EditProfileModal extends React.Component {
     if (linkedin.length === 0 || linkedin === this.props.profile[0].linkedin) {
       linkedin = null;
     } else {
-      if(!isUrl(linkedin)) {
+      if(!isUrl(linkedin,true)) {
         await this.handleUserMessage("linkedin"); 
       } else {
         callTheFunction = true;
