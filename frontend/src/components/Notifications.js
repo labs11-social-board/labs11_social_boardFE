@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 
-// globals
-import { phoneL } from '../globals/globals.js';
-
 // action creators
 import { removeNotification } from '../store/actions/index.js';
 

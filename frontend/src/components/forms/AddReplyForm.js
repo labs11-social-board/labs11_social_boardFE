@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { Avatar } from '../index.js';
 
 // globals
-import { topHeaderHeight, phoneP } from '../../globals/globals.js';
+import { phoneP } from '../../globals/globals.js';
 // action creators
 import { addReply, uploadImage, updateReplyWithImage, removeUpload, resetImageState, displayMessage } from '../../store/actions/index.js';
 
