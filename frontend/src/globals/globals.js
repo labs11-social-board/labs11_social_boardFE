@@ -268,7 +268,11 @@ const nightTheme = {
   skyColor: '#2c3e50',
   symposiumBorderColor: '#eaeff2',
 }
-const isUrl = (str) => {
+const isUrl = (str, profileLink = false) => {
+  /*if it is a profileLink meaning set to true check if str is null if it is return true. This will allow  for a user to reset their profile link to null
+   this would also make sure that isUrl when used in other areas is not changed. 
+  */
+ if (profileLink === false && str === null) return true; 
   var pattern = new RegExp('^((ft|htt)ps?:\\/\\/)?' + // protocol
     '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name and extension
     '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
