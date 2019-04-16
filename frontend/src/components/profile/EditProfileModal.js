@@ -261,7 +261,8 @@ class EditProfileModal extends React.Component {
 
     let callTheFunction = false;
     let { userId, bio, twitter, github, linkedin, location } = this.state;
-    if (bio.length === 0 || bio === this.props.profile[0].bio) {
+    console.log(github); 
+    if (bio === this.props.profile[0].bio) {
       bio = null;
     } else {
       callTheFunction = true;
@@ -280,7 +281,8 @@ class EditProfileModal extends React.Component {
     }
       
     
-    if (github.length === 0 || github === this.props.profile[0].github) {
+    if (github === this.props.profile[0].github) {
+      console.log("first condition set");
       github = null;
     }
 
@@ -291,7 +293,7 @@ class EditProfileModal extends React.Component {
       await this.handleUserMessage("github", true); 
     }
   
-    if (linkedin.length === 0 || linkedin === this.props.profile[0].linkedin) {
+    if (linkedin === this.props.profile[0].linkedin) {
       linkedin = null;
     }
 
@@ -303,7 +305,7 @@ class EditProfileModal extends React.Component {
     }
   
 
-    if (location.length === 0 || location === this.props.profile[0].location){
+    if (location === this.props.profile[0].location){
       location = null; 
     } else {
       callTheFunction = true; 
