@@ -95,7 +95,6 @@ class Analytics extends React.Component {
                             <Boxed>
                                 <h4>Users</h4>
                                 <p>In last 30 Days</p>
-                                {/* {console.log(this.state)} */}
                                 <h2>{this.state.pagev2}</h2>
                             
                             </Boxed>
