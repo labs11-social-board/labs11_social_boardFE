@@ -116,6 +116,10 @@ class Upload extends React.Component {
             
         }
 
+        this.setState({
+            ...this.state,
+            done: this.props.uploadDone,
+        })
     }
 
     // componentDidMount() {
@@ -146,7 +150,7 @@ class Upload extends React.Component {
                                 onFileLoaded={this.handleUppy}
                             />
                             <p>Upload Status:</p>
-                            {(this.props.uploadDone === 'true') ?
+                            {(this.props.uploadDone === true) ?
                             (<h4>Done</h4>) : <h4>Not Started</h4>}
                             {console.log(this.props.uploadDone)}
                             <hr></hr>
