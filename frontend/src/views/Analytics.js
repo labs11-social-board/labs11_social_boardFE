@@ -58,15 +58,15 @@ class Analytics extends React.Component {
     }
 
     async componentDidMount() {
-        await this.props.getPageViews();
-        await this.props.getUsersAna();
-        //await this.props.getPageViews30();
-        //await this.props.getUsersAna30();
+        //await this.props.getPageViews();
+        //await this.props.getUsersAna();
+        await this.props.getPageViews30();
+        await this.props.getUsersAna30();
         
                 
         this.setState({
-            pagev1: this.props.gPageviews.data.totalsForAllResults['ga:pageviews'],
-            pagev2: this.props.gUsers.data.totalsForAllResults['ga:users'],
+            pagev1: this.props.gPageviews30.data.totalsForAllResults['ga:pageviews'],
+            pagev2: this.props.gUsers.data30.totalsForAllResults['ga:users'],
         })
 
         //getUsersAna();
