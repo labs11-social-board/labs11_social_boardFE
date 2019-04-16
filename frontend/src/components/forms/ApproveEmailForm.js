@@ -87,6 +87,7 @@ class ApproveEmailForm extends Component {
                     placeholder = 'E-mail Address'
                     name = 'email'
                     type='email'
+                    required="required"
                     value = {
                         email
                     }
