@@ -392,4 +392,3 @@ export default connect(
   mapStateToProps,
   { uploadImage, removeUpload, resetImageState, displayMessage }
 )(UploadImage);
-
