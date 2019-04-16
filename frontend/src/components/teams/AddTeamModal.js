@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 // action creators
-import { addTeam, getUsersTeams, updateTeamWithLogo, resetImageState } from '../../store/actions/index.js';
+import { addTeam, getUsersTeams, updateTeamWithLogo, resetImageState, displayMessage } from '../../store/actions/index.js';
 
 // components 
 import { ToggleSwitch, UploadImage } from '../index.js';
@@ -245,7 +245,8 @@ class AddTeamModal extends React.Component {
     isPrivate: false,
     wiki: '',
     name: '',
-    imagePreviewUrl: ''
+    imagePreviewUrl: '',
+    isUploading: false
   };
 
   handleSubmit = e => {
@@ -283,6 +284,19 @@ class AddTeamModal extends React.Component {
       this.props.resetImageState();
 		}
   }
+  componentDidUpdate = prevProps => {
+		if(this.props.isUploadingImage && !this.state.isUploading){
+			this.setState({ isUploading: true }, () => {
+				this.props.displayMessage('Uploading Image...')
+			})
+		} else if(this.state.isUploading && !this.props.isUploadingImage){
+			this.setState({ isUploading: false }, () => {
+				this.props.displayMessage('Image Uploaded!').then(() => {
+					setTimeout(() => this.props.displayMessage(''), 200);
+				})
+			})
+		}
+	}
   render() {
     const { setAddTeamModalRaised } = this.props;
     const { team_name, wiki, isPrivate, imagePreviewUrl } = this.state;
@@ -338,7 +352,8 @@ class AddTeamModal extends React.Component {
 };
 
 const mapStateToProps = state => ({
-  image: state.posts.images
+  image: state.posts.images,
+  isUploadingImage: state.posts.isUploadingImage
 });
 
-export default connect(mapStateToProps, { addTeam, getUsersTeams, updateTeamWithLogo, resetImageState })(AddTeamModal);
+export default connect(mapStateToProps, { addTeam, getUsersTeams, updateTeamWithLogo, resetImageState, displayMessage })(AddTeamModal);

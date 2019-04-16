@@ -251,19 +251,19 @@ class AddDiscussionForm extends Component {
 			this.getCategoryNames();
 		}
 	}
-	// componentDidUpdate = prevProps => {
-	// 	if(this.props.isUploadingImage && !this.state.isUploading){
-	// 		this.setState({ isUploading: true }, () => {
-	// 			this.props.displayMessage('Uploading Image...')
-	// 		})
-	// 	} else if(this.state.isUploading && !this.props.isUploadingImage){
-	// 		this.setState({ isUploading: false }, () => {
-	// 			this.props.displayMessage('Image Uploaded!').then(() => {
-	// 				setTimeout(() => this.props.displayMessage(''), 200);
-	// 			})
-	// 		})
-	// 	}
-	// }
+	componentDidUpdate = prevProps => {
+		if(this.props.isUploadingImage && !this.state.isUploading){
+			this.setState({ isUploading: true }, () => {
+				this.props.displayMessage('Uploading Image...')
+			})
+		} else if(this.state.isUploading && !this.props.isUploadingImage){
+			this.setState({ isUploading: false }, () => {
+				this.props.displayMessage('Image Uploaded!').then(() => {
+					setTimeout(() => this.props.displayMessage(''), 200);
+				})
+			})
+		}
+	}
 
   render() {
     const { body, categoryNames, category_id } = this.state;

@@ -184,7 +184,7 @@ const UserActions = styled.div`
 // };
 
 class AddReplyForm extends Component {
-	state = { replyBody: '', name: '' };
+	state = { replyBody: '', name: '', isUploading: false };
 	handleChange = e => this.setState({ [e.target.name]: e.target.value });
 	handleSubmit = e => {
 		e.preventDefault();
@@ -231,7 +231,20 @@ class AddReplyForm extends Component {
 			this.props.removeUpload(this.props.image);
 			this.props.resetImageState();
 		}
-  }
+	}
+	componentDidUpdate = prevProps => {
+		if(this.props.isUploadingImage && !this.state.isUploading){
+			this.setState({ isUploading: true }, () => {
+				this.props.displayMessage('Uploading Image...')
+			})
+		} else if(this.state.isUploading && !this.props.isUploadingImage){
+			this.setState({ isUploading: false }, () => {
+				this.props.displayMessage('Image Uploaded!').then(() => {
+					setTimeout(() => this.props.displayMessage(''), 200);
+				})
+			})
+		}
+	}
 	render() {
 		const { replyBody } = this.state;
 		const{ username, user_id, avatar } = this.props;
@@ -272,7 +285,8 @@ const mapStateToProps = state => ({
 	username: state.users.username,
 	user_id: state.users.user_id,
 	avatar: state.users.avatar,
-	image: state.posts.images.id
+	image: state.posts.images.id,
+	isUploadingImage: state.posts.isUploadingImage
 });
 
 export default connect(mapStateToProps, { addReply, uploadImage, updateReplyWithImage, removeUpload, resetImageState, displayMessage })(AddReplyForm);
