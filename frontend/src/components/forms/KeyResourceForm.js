@@ -6,10 +6,7 @@ import {
     NavLink
 } from 'react-router-dom';
 import styled from 'styled-components';
-import {
-    approveEmail,
-    getEmails
-} from '../../store/actions';
+import { putKeyResource } from '../../store/actions';
 
 const ButtonY = styled.button `
     border: 1px solid #418DCF;
@@ -18,7 +15,8 @@ const ButtonY = styled.button `
     background-color: #418DCF;
     height: 35px;
     width: 100px;
-    margin-left: 4px;
+    margin-left: 1px;
+    margin-top: 5px;
   `;
 
   const ButtonX = styled.button `
@@ -51,10 +49,16 @@ const InputY = styled.input`
   border-radius: 3px;
 `;
 
-class ApproveEmailForm extends Component {
-    state = {
-        email: ''
+class KeyResourceForm extends Component {
+    constructor(props) {
+        super(props);
+
+    this.state = {
+        link: '',
+        title: '',
+        info: ''
     };
+}
 
     handleChange = e => this.setState({
         [e.target.name]: e.target.value
@@ -64,7 +68,7 @@ class ApproveEmailForm extends Component {
         e.preventDefault();
 
         // handle submit logic
-        this.props.approveEmail(this.state);
+        this.props.putKeyResource(this.state);
 
         setTimeout(() => {
             window.location.reload();
@@ -73,42 +77,59 @@ class ApproveEmailForm extends Component {
 
     render() {
         const {
-            email,
-            first_name,
-            last_name
+            link,
+            title,
+            info
         } = this.state;
 
         return ( 
             <div>
-                <h2>Add Approved Emails</h2>
-                <p>(Add one at a time, or upload a CSV file)</p>
+                <h2>Add A Key Resource</h2>
+                <p>(All Info Required To Add)</p>
 
                 <InputY
-                    placeholder = 'E-mail Address'
-                    name = 'email'
-                    type='email'
+                    placeholder = 'Web Link'
+                    name = 'link'
+                    type='link'
                     required="required"
                     value = {
-                        email
+                        link
                     }
                     onChange = {
                         this.handleChange
                     }
                 />
-
+                <br></br>
+                <InputY
+                    placeholder = 'Link Title'
+                    name = 'title'
+                    type='title'
+                    required="required"
+                    value = {
+                        title
+                    }
+                    onChange = {
+                        this.handleChange
+                    }
+                />
+                <br></br>
+                <InputY
+                    placeholder = 'Link Info'
+                    name = 'info'
+                    type='info'
+                    required="required"
+                    value = {
+                        info
+                    }
+                    onChange = {
+                        this.handleChange
+                    }
+                />
+                <br></br>
                 <ButtonY type='submit'
                 onClick={
                     this.handleSubmit
                 }>Add</ButtonY>
-
-                
-                    <ButtonX>
-                    <NavLink to='/upload'>
-                        Import CSV
-                    </NavLink>
-                    </ButtonX>
-                
-
             </div>
         );
     }
@@ -116,18 +137,13 @@ class ApproveEmailForm extends Component {
 
 const mapStoreToProps = state => {
     return {
-        approvedEmails: state.emails.approvedEmails
+        
+        addingResource: state.emails.addingResource
     }
 }
 
-const mapDispatchToProps = dispatch => {
-    return {
-        approveEmail: email => dispatch(approveEmail(email)),
-        getEmails: () => dispatch(getEmails())
-    }
-}
 
 export default connect(
     mapStoreToProps,
-    mapDispatchToProps
-)(ApproveEmailForm);
+    { putKeyResource }
+)(KeyResourceForm);

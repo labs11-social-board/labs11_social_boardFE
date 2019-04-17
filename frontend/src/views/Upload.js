@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {BrowserRouter as NavLink} from "react-router-dom";
+import { NavLink}  from "react-router-dom";
 import styled from 'styled-components';
 import { connect } from "react-redux";
 // import Users from './Users';
@@ -140,7 +140,7 @@ class Upload extends React.Component {
                         </div>
 
                         <InnerWrapper>
-                            <Boxed>
+                        <Boxed>
                             <h4>Add Email List via CSV upload</h4>
                             <p>[ CSV FORMAT: firstname, lastname, email ]</p>
                             
@@ -156,7 +156,7 @@ class Upload extends React.Component {
                             {console.log(this.props.uploadDone)}
                             <hr></hr>
                             <ButtonY>
-                                <StyledLink to='/admin'>
+                            <StyledLink to='/admin'>
                                     Back to User Management
                                 </StyledLink>
                             </ButtonY>
