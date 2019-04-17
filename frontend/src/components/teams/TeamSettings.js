@@ -215,6 +215,21 @@ class TeamSettings extends React.Component{
             <button onClick={this.updateTeam}>Update Team</button>
             <button className='delete' onClick={this.deleteTeam}>Delete Team</button>
           </form>
+          <div>
+            <h2>Change User Role</h2>
+            <span>
+              <select></select>
+            </span>
+            <span>
+              <select>
+                <option value = "0">Select role:</option>
+                <option value = "1">co_owner</option>
+                <option value = "2">member</option>
+              </select>
+            </span>
+            <br/>
+            <button>Update User Role</button>
+          </div>
         </Settings>
       </div>
     );
