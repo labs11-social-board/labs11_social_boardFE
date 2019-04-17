@@ -218,7 +218,7 @@ class TeamSettings extends React.Component{
     const selectedUserId = Number(document.getElementById("memberToChange").value);
     const chosenRole = document.getElementById("chosenRole").value; 
     
-    this.setState({ selectedUserId, chosenRole}, () => console.log(`updated state`, this.state)); 
+    this.setState({ selectedUserId, chosenRole}); 
   };
 
   render() {
@@ -258,7 +258,7 @@ class TeamSettings extends React.Component{
               </select>
             </span>
             <br/>
-            <SubmitButton>Update User Role</SubmitButton>
+            {members.length > 0 ? <SubmitButton>Update User Role</SubmitButton> : <span></span>}
           </div>
         </Settings>
       </div>
