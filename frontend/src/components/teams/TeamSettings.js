@@ -122,12 +122,14 @@ const Settings = styled.div `
         .fileinput + label {
           @media (max-width: 1440px) {
             width: 132px;
+            height: 132px;
             margin: 0px 0% 0 5.5%;
           }
 
           @media (max-width: 480px) {
             margin: 14px 0% 0 9%;
             width: 116px;
+            height: 116px;
           }
         }
       }
