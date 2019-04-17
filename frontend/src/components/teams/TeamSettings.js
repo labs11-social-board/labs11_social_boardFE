@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 // action creators
-import { updateTeam, deleteTeam, displayMessage, getUsersTeams, resetImageState } from '../../store/actions/index.js';
+import { updateTeam, deleteTeam, displayMessage, getUsersTeams, resetImageState, updateUserRole } from '../../store/actions/index.js';
 
 // components
 import { ToggleSwitch, UploadImage } from '../index.js';
@@ -221,6 +221,20 @@ class TeamSettings extends React.Component{
     this.setState({ selectedUserId, chosenRole}); 
   };
 
+  handleSubmit = () => {
+    console.log("Submit was clicked");
+    const role = this.state.chosenRole;
+    let teamId; 
+    const changingId = this.state.selectedUserId; 
+    for(let member of this.props.members){
+      if(member.user_id === changingId){
+        teamId = member.team_id;
+        break; 
+      }
+    }
+    this.props.updateUserRole(teamId, changingId, role); 
+  };
+
   render() {
     let isTeam = true;
     const userId = localStorage.getItem("symposium_user_id");
@@ -258,7 +272,7 @@ class TeamSettings extends React.Component{
               </select>
             </span>
             <br/>
-            {members.length > 0 ? <SubmitButton>Update User Role</SubmitButton> : <span></span>}
+            {members.length > 0 ? <SubmitButton onClick = {this.handleSubmit}>Update User Role</SubmitButton> : <span></span>}
           </div>
         </Settings>
       </div>
@@ -274,6 +288,6 @@ const mapStateToProps = state => ({
   members: state.teams.team_members,
 });
 
-export default connect(mapStateToProps, { updateTeam, deleteTeam, displayMessage, getUsersTeams, resetImageState })(TeamSettings);
+export default connect(mapStateToProps, { updateTeam, deleteTeam, displayMessage, getUsersTeams, resetImageState, updateUserRole })(TeamSettings);
 
 

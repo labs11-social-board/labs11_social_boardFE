@@ -11,9 +11,7 @@ import {
   UPDATE_TEAM_SUCCESS,
   DELETE_TEAM_SUCCESS,
   GET_USERS_TEAMS_SUCCESS,
-  UPDATE_USER_ROLE,
   UPDATE_USER_ROLE_SUCCESS,
-  UPDATE_USER_ROLE_FAILURE,
 } from '../actions/index.js';
 
 const initialState = {

@@ -188,6 +188,7 @@ export const updateTeamWithLogo = (image_id, team_id) => dispatch => {
 };
 
 export const updateUserRole = (team_id, changing_id, role) => dispatch => {
+  console.log("inside action");
   const user_id = localStorage.getItem('symposium_user_id');
   const token = localStorage.getItem('symposium_token');
   const headers = { headers: { Authorization: token } };
