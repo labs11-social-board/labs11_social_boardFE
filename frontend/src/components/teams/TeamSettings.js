@@ -156,12 +156,13 @@ const SelectOptions = styled.select`
   margin-left: 10px;
   padding: 10px 15px;
   border-radius: 5px;
-  border: 1px solid #418DCF;
-  background-color: #418DCF;
-  color: white;
+
+  
   cursor: pointer;
 `;
-
+  // border: 1px solid #418DCF;
+  // background-color: #418DCF;
+  // color: white;
 class TeamSettings extends React.Component{
   state = {
     team_name: this.props.team.team_name,
