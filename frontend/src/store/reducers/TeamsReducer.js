@@ -10,7 +10,10 @@ import {
   LEAVE_TEAM_SUCCESS,
   UPDATE_TEAM_SUCCESS,
   DELETE_TEAM_SUCCESS,
-  GET_USERS_TEAMS_SUCCESS
+  GET_USERS_TEAMS_SUCCESS,
+  UPDATE_USER_ROLE,
+  UPDATE_USER_ROLE_SUCCESS,
+  UPDATE_USER_ROLE_FAILURE,
 } from '../actions/index.js';
 
 const initialState = {
@@ -99,6 +102,13 @@ export const TeamsReducer = (state = initialState, action) => {
         ...state,
         userTeams: action.payload
       }
+    
+    case UPDATE_USER_ROLE_SUCCESS:
+      return {
+        ...state, 
+        team_members: action.payload
+      }
+    
     default : 
       return state;
   };
