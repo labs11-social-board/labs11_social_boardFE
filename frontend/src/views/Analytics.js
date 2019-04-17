@@ -51,6 +51,10 @@ width: 90%;
 `;
 
 
+function tom() {
+        
+}
+
 
 class Analytics extends React.Component {
     constructor(props) {
@@ -60,8 +64,10 @@ class Analytics extends React.Component {
             pagev1: null,
             pagev2: null,
             pagev3: null,
+            isLoaded: false,
             dataA: [],
             dataB: [],
+            
             
         }
     }
@@ -71,17 +77,17 @@ class Analytics extends React.Component {
         //await this.props.getUsersAna();
         await this.props.getPageViews30();
         await this.props.getUsersAna30();
-        
-                
+
         this.setState({
             pagev1: this.props.gPageviews30.data.totalsForAllResults['ga:pageviews'],
             pagev2: this.props.gUsers30.data.totalsForAllResults['ga:users'],
             pagev3: this.props.gPageviews30.data.rows,
         })
 
-
         //console.log(this.state.pagev3)
-        
+
+        //await tom();
+
         for( let i =0; i < this.state.pagev3.length; i++) {
             let part1 = this.state.pagev3[i][0];
             let part2 = this.state.pagev3[i][1];
@@ -91,12 +97,26 @@ class Analytics extends React.Component {
             this.state.dataB.push(part2);
             
         }
-        
-        
+
+        this.setState ({
+            isLoaded: true,
+        })
+
+    }
+
+    componentDidUpdate(prevProps) {
+        if(prevProps.gPageviews30 != this.props.gPageviews30) {
+
+            
+        }
+
+
     }
 
 
     render() {
+
+        
 
 
 
@@ -132,22 +152,7 @@ class Analytics extends React.Component {
                                         options={{
                                             responsive:true
                                         }}
-                                        data={{
-                                            
-                                                labels: this.state.dataA,
-                                                datasets:[
-                                                    {
-                                                        label: "PAGEVIEWS",
-                                                        backgroundColor: "#093938",
-                                                        data: this.state.dataB
-                                                    },
-                                                    {
-                                                        label: "SOMETHING ELSE!!!",
-                                                        backgroundColor: "#D93921",
-                                                        data:[1,5,61,4,12]
-                                                    }
-                                                ]
-                                            }}
+                                        data={this.state.fullChartData}
                                         
                                     />
                                 </div>
