@@ -85,8 +85,8 @@ export const addFollower = (userId, following_id) => dispatch => {
 
 //Get count of users following a user 
 export const followersCount = (userId) => dispatch => {
-  const token = localStorage.getItem("symposium_token");
-  const headers = { headers: {Authorization: token }};
+  // const token = localStorage.getItem("symposium_token");
+  // const headers = { headers: {Authorization: token }};
   dispatch ({type: GET_FOLLOWING})
   return axios
     .get(`${backendURL}/followers/following/${userId}`)

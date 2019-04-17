@@ -67,7 +67,7 @@ export const UPDATE_LOCATION_FAILURE = "UPDATE_LOCATION_FAILURE";
  **************************************************************************************************/
 
 
-
+//Will update profile  idea behind null checks if it is null there has not been a change so no reason to update it. Update what has changed only. 
 export const updateProfile = (
   userId,
   bio,
