@@ -93,7 +93,7 @@ class Analytics extends React.Component {
             let part2 = this.state.pagev3[i][1];
             
             this.state.dataA.push(part1);
-            console.log(this.state.dataA)
+            //console.log(this.state.dataA)
             this.state.dataB.push(part2);
             
         }
@@ -154,18 +154,18 @@ class Analytics extends React.Component {
                                         }}
                                         data={{
                                             
-                                                labels: ["1","2","3","4","5","6"],
+                                                labels: this.state.dataA,
                                                 datasets: [
                                                     {
-                                                        label: "Dummy Data",
-                                                        backgroundColor: "#863546",
-                                                        data: [12,8,2,4,8,9,6,3]
-                                                    },
-                                                    {
                                                         label: "Page Views",
-                                                        backgroundColor: "#473146",
-                                                        data: [1,18,12,24,2,19,6,13]
-                                                    }
+                                                        backgroundColor: "#863546",
+                                                        data: this.state.dataB
+                                                    },
+                                                    // {
+                                                    //     label: "Dummy Data",
+                                                    //     backgroundColor: "#473146",
+                                                    //     data: [1,18,12,24,2,19,6,13]
+                                                    // }
                                                 
                                                 ]
                                             
@@ -175,6 +175,7 @@ class Analytics extends React.Component {
                                 </div>
                             </Boxed>
                             {console.log(this.state.dataA)}
+                            {console.log(this.state.dataB)}
                             
                         </InnerWrapper>
                     </MainWrapper>
@@ -184,6 +185,8 @@ class Analytics extends React.Component {
         )
     }
 }
+
+
 
 const mapStateToProps = state => {
     return {
