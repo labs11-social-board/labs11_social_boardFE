@@ -54,21 +54,31 @@ class KeyResourceForm extends Component {
         super(props);
 
     this.state = {
+        newResource: {
         link: '',
-        title: '',
+        resource: '',
         info: ''
+        }
     };
 }
 
-    handleChange = e => this.setState({
-        [e.target.name]: e.target.value
+handleChange = e => {
+    this.setState({
+      ...this.state,
+      
+      newResource: {
+      ...this.state.newResource,
+      [e.target.name]: e.target.value
+      }
     });
+    console.log(this.state.newResource)
+  };
 
     handleSubmit = e => {
         e.preventDefault();
 
         // handle submit logic
-        this.props.putKeyResource(this.state);
+        this.props.putKeyResource(this.state.newResource);
 
         setTimeout(() => {
             window.location.reload();
@@ -76,41 +86,34 @@ class KeyResourceForm extends Component {
     };
 
     render() {
-        const {
-            link,
-            title,
-            info
-        } = this.state;
+        // const {
+        //     link,
+        //     resource,
+        //     info
+        // } = this.state;
 
         return ( 
             <div>
                 <h2>Add A Key Resource</h2>
                 <p>(All Info Required To Add)</p>
+                <form onSubmit ={this.handleSubmit}>
 
                 <InputY
                     placeholder = 'Web Link'
                     name = 'link'
                     type='link'
                     required="required"
-                    value = {
-                        link
-                    }
-                    onChange = {
-                        this.handleChange
-                    }
+                    value = {this.state.newResource.link}
+                    onChange = {this.handleChange}
                 />
                 <br></br>
                 <InputY
-                    placeholder = 'Link Title'
-                    name = 'title'
-                    type='title'
+                    placeholder = 'Web Resource'
+                    name = 'resource'
+                    type='resource'
                     required="required"
-                    value = {
-                        title
-                    }
-                    onChange = {
-                        this.handleChange
-                    }
+                    value = {this.state.newResource.resource}
+                    onChange = {this.handleChange}
                 />
                 <br></br>
                 <InputY
@@ -118,18 +121,16 @@ class KeyResourceForm extends Component {
                     name = 'info'
                     type='info'
                     required="required"
-                    value = {
-                        info
-                    }
-                    onChange = {
-                        this.handleChange
-                    }
+                    value = {this.state.newResource.info}
+                    onChange = {this.handleChange}
                 />
                 <br></br>
                 <ButtonY type='submit'
                 onClick={
                     this.handleSubmit
                 }>Add</ButtonY>
+                
+                </form>
             </div>
         );
     }
