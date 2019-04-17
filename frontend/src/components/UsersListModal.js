@@ -152,7 +152,7 @@ class UsersListModal extends React.Component {
                 value={this.state.searchText} 
                 onChange={this.handleInputChange} 
                 placeholder='Search for a User'
-                autocomplete='off'
+                autoComplete='off'
               />
             </div>
             <div className='users-list-wrapper'>

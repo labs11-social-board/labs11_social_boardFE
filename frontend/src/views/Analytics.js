@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Line} from 'react-chartjs-2';
 
 import {BrowserRouter as Router, Route, Link, NavLink} from "react-router-dom";
 import styled from 'styled-components';
@@ -50,6 +51,10 @@ width: 90%;
 `;
 
 
+function tom() {
+        
+}
+
 
 class Analytics extends React.Component {
     constructor(props) {
@@ -59,7 +64,11 @@ class Analytics extends React.Component {
             pagev1: null,
             pagev2: null,
             pagev3: null,
-            pagev4: null,
+            isLoaded: false,
+            dataA: [],
+            dataB: [],
+            
+            
         }
     }
 
@@ -68,20 +77,51 @@ class Analytics extends React.Component {
         //await this.props.getUsersAna();
         await this.props.getPageViews30();
         await this.props.getUsersAna30();
-        
-                
+
         this.setState({
             pagev1: this.props.gPageviews30.data.totalsForAllResults['ga:pageviews'],
             pagev2: this.props.gUsers30.data.totalsForAllResults['ga:users'],
+            pagev3: this.props.gPageviews30.data.rows,
         })
 
-        //getUsersAna();
+        //console.log(this.state.pagev3)
+
+        //await tom();
+
+        for( let i =0; i < this.state.pagev3.length; i++) {
+            let part1 = this.state.pagev3[i][0];
+            let part2 = this.state.pagev3[i][1];
+            
+            this.state.dataA.push(part1);
+            //console.log(this.state.dataA)
+            this.state.dataB.push(part2);
+            
+        }
+
+        this.setState ({
+            isLoaded: true,
+        })
+
+    }
+
+    componentDidUpdate(prevProps) {
+        if(prevProps.gPageviews30 != this.props.gPageviews30) {
+
+            
+        }
+
+
     }
 
 
     render() {
 
+        
+
+
+
         return(
+            
             <TableWrapper>
             <div>
                 
@@ -107,9 +147,35 @@ class Analytics extends React.Component {
                             </Boxed>
 
                             <Boxed>
-                            
+                                <div style={{position: "relative", width:800, height: 700}}>
+                                    <Line
+                                        options={{
+                                            responsive:true
+                                        }}
+                                        data={{
+                                            
+                                                labels: this.state.dataA,
+                                                datasets: [
+                                                    {
+                                                        label: "Page Views",
+                                                        backgroundColor: "#863546",
+                                                        data: this.state.dataB
+                                                    },
+                                                    // {
+                                                    //     label: "Dummy Data",
+                                                    //     backgroundColor: "#473146",
+                                                    //     data: [1,18,12,24,2,19,6,13]
+                                                    // }
+                                                
+                                                ]
+                                            
+                                        }}
+                                        
+                                    />
+                                </div>
                             </Boxed>
-                            
+                            {console.log(this.state.dataA)}
+                            {console.log(this.state.dataB)}
                             
                         </InnerWrapper>
                     </MainWrapper>
@@ -119,6 +185,8 @@ class Analytics extends React.Component {
         )
     }
 }
+
+
 
 const mapStateToProps = state => {
     return {
