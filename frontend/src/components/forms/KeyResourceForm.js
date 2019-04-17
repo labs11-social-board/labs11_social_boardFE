@@ -80,9 +80,9 @@ handleChange = e => {
         // handle submit logic
         this.props.putKeyResource(this.state.newResource);
 
-        setTimeout(() => {
-            window.location.reload();
-        }, 800);
+        // setTimeout(() => {
+        //     window.location.reload();
+        // }, 800);
     };
 
     render() {
