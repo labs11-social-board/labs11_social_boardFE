@@ -55,7 +55,7 @@ class KeyResourceForm extends Component {
 
     this.state = {
         newResource: {
-        link: '',
+        title: '',
         resource: '',
         info: ''
         }
@@ -87,7 +87,7 @@ handleChange = e => {
 
     render() {
         // const {
-        //     link,
+        //     title,
         //     resource,
         //     info
         // } = this.state;
@@ -99,11 +99,11 @@ handleChange = e => {
                 <form onSubmit ={this.handleSubmit}>
 
                 <InputY
-                    placeholder = 'Web Link'
-                    name = 'link'
-                    type='link'
+                    placeholder = 'Web title'
+                    name = 'title'
+                    type='title'
                     required="required"
-                    value = {this.state.newResource.link}
+                    value = {this.state.newResource.title}
                     onChange = {this.handleChange}
                 />
                 <br></br>
