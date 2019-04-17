@@ -422,11 +422,15 @@ import {
   DELETING_EMAIL_APPROVAL,
   EMAIL_REMOVAL_SUCCESS,
   EMAIL_REMOVAL_FAIL,
+  KEYRESOURCES_SUBMITTED,
+  KEYRESOURCES_SUCCESS,
+  KEYRESOURCES_FAIL,
 
   // Action Creators
   approveEmail,
   getEmails,
-  denyEmail
+  denyEmail,
+  putKeyResource
 } from '../actions/EmailActions';
 
 //*************************************************************************************************
@@ -768,10 +772,14 @@ export {
   DELETING_EMAIL_APPROVAL,
   EMAIL_REMOVAL_SUCCESS,
   EMAIL_REMOVAL_FAIL,
+  KEYRESOURCES_SUBMITTED,
+  KEYRESOURCES_SUCCESS,
+  KEYRESOURCES_FAIL,
   // Action Creators
   approveEmail,
   getEmails,
   denyEmail,
+  putKeyResource,
   // Analytics
   PAVEVIEWS_STARTED,
   PAVEVIEWS_SUCCESS,
