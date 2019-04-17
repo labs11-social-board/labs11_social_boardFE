@@ -122,12 +122,14 @@ const Settings = styled.div `
         .fileinput + label {
           @media (max-width: 1440px) {
             width: 132px;
+            height: 132px;
             margin: 0px 0% 0 5.5%;
           }
 
           @media (max-width: 480px) {
             margin: 14px 0% 0 9%;
             width: 116px;
+            height: 116px;
           }
         }
       }
@@ -174,7 +176,7 @@ class TeamSettings extends React.Component{
   };
   componentDidUpdate(prevProps){
     if( prevProps.team.team_name !== this.props.team.team_name){
-      this.setState({ team_name: this.props.team.team_name, isPrivate: this.props.team.isPrivate, image: this.props.team.logo });
+      this.setState({ team_name: this.props.team.team_name, isPrivate: this.props.team.isPrivate, imagePrev: this.props.team.logo });
     }
 
     if(prevProps.image !== this.props.image){
