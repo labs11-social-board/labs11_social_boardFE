@@ -152,7 +152,24 @@ class Analytics extends React.Component {
                                         options={{
                                             responsive:true
                                         }}
-                                        data={this.state.fullChartData}
+                                        data={{
+                                            
+                                                labels: ["1","2","3","4","5","6"],
+                                                datasets: [
+                                                    {
+                                                        label: "Dummy Data",
+                                                        backgroundColor: "#863546",
+                                                        data: [12,8,2,4,8,9,6,3]
+                                                    },
+                                                    {
+                                                        label: "Page Views",
+                                                        backgroundColor: "#473146",
+                                                        data: [1,18,12,24,2,19,6,13]
+                                                    }
+                                                
+                                                ]
+                                            
+                                        }}
                                         
                                     />
                                 </div>
