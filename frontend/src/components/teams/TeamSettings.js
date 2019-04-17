@@ -235,7 +235,6 @@ class TeamSettings extends React.Component{
   };
 
   handleSubmit = () => {
-    console.log("Submit was clicked");
     const role = this.state.chosenRole;
     let teamId; 
     const changingId = this.state.selectedUserId; 
@@ -252,7 +251,7 @@ class TeamSettings extends React.Component{
     let isTeam = true;
     const userId = localStorage.getItem("symposium_user_id");
     const members = this.props.members ? this.props.members.filter(user => Number(user.user_id) !== Number(userId) ) : []; //making it so that the user that owns the team cannot change their own rule also done on the backend. 
-    console.log(members, userId);
+  
     return(
       <div id='settings' className='team-settings tab-content'>
         <h1>Settings</h1>
