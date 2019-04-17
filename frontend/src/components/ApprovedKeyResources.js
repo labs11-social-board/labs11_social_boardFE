@@ -67,7 +67,7 @@ class ApprovedKeyResources extends Component {
                     //     }
                     // }
                     defaultPageSize={
-                        10
+                        5
                     }
                     className="-striped -highlight"
                 />
