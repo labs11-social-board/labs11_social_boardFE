@@ -197,6 +197,9 @@ class TeamSettings extends React.Component{
   }
   render() {
     let isTeam = true;
+    const userId = localStorage.getItem("symposium_user_id");
+    const members = this.props.members ? this.props.members.filter(user => Number(user.user_id) !== Number(userId) ) : []; //making it so that the user that owns the team cannot change their own rule also done on the backend. 
+    console.log(members, userId);
     return(
       <div id='settings' className='team-settings tab-content'>
         <h1>Settings</h1>
@@ -240,7 +243,8 @@ const mapStateToProps = state => ({
   image: state.posts.images,
   isDay: state.users.isDay,
   isUploadingImage: state.posts.isUploadingImage,
-  isGettingTeamDiscussons: state.teams.isGettingTeamDiscussons
+  isGettingTeamDiscussons: state.teams.isGettingTeamDiscussons,
+  members: state.teams.team_members,
 });
 
 export default connect(mapStateToProps, { updateTeam, deleteTeam, displayMessage, getUsersTeams, resetImageState })(TeamSettings);
