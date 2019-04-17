@@ -271,8 +271,8 @@ class TeamSettings extends React.Component{
             <button onClick={this.updateTeam}>Update Team</button>
             <button className='delete' onClick={this.deleteTeam}>Delete Team</button>
           </form>
-          <div>
-            <h2>Change User Role</h2>
+          <div className = "team-name-wrapper">
+            <label>Change User Role</label>
             <span>
               <SelectOptions id ="memberToChange" onChange = {this.handleChange}>
                 {members.map((member, id) => <option key = {id} value = {member.user_id}>{`${member.username} - ${member.role}`}</option>)}
