@@ -253,7 +253,6 @@ class TeamSettings extends React.Component{
     let isTeam = true;
     const userId = localStorage.getItem("symposium_user_id");
     const members = this.props.members ? this.props.members.filter(user => Number(user.user_id) !== Number(userId) ) : []; //making it so that the user that owns the team cannot change their own rule also done on the backend. 
-  
     return(
       <div id='settings' className='team-settings tab-content'>
         <h1>Settings</h1>
@@ -272,7 +271,7 @@ class TeamSettings extends React.Component{
             <button onClick={this.updateTeam}>Update Team</button>
             <button className='delete' onClick={this.deleteTeam}>Delete Team</button>
           </form>
-          <div className = "team-name-wrapper">
+          {members.length > 0 ? <div className = "team-name-wrapper">
             <label>Change User Role</label>
             <span>
               <SelectOptions id ="memberToChange" onChange = {this.handleChange}>
@@ -286,8 +285,8 @@ class TeamSettings extends React.Component{
               </SelectOptions>
             </span>
             <br/>
-            {members.length > 0 ? <SubmitButton onClick = {this.handleSubmit}>Update User Role</SubmitButton> : <span></span>}
-          </div>
+            <SubmitButton onClick = {this.handleSubmit}>Update User Role</SubmitButton>
+          </div> : <div></div>}
         </Settings>
       </div>
     );
