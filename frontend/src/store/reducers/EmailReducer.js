@@ -10,6 +10,10 @@ import {
     DELETING_EMAIL_APPROVAL,
     EMAIL_REMOVAL_SUCCESS,
     EMAIL_REMOVAL_FAIL,
+
+    KEYRESOURCES_SUBMITTED,
+    KEYRESOURCES_SUCCESS,
+    KEYRESOURCES_FAIL,
 } from '../actions';
 
 const initialState = {
@@ -17,6 +21,7 @@ const initialState = {
     fetchingEmails: false,
     approvedEmails: [],
     deletingEmail: false,
+    addingResource: false,
     error: null
 }
 
@@ -80,6 +85,29 @@ export const EmailReducer = (state = initialState, action) => {
                 deletingEmail: false,
                 error: action.payload
             }
+
+        /////////////////////////////////////////////
+
+        case KEYRESOURCES_SUBMITTED:
+            return {
+                ...state,
+                addingResource: true
+            };
+
+        case KEYRESOURCES_SUCCESS:
+            return {
+                ...state,
+                addingResource: false,
+                error: null
+            }
+
+        case KEYRESOURCES_FAIL:
+            return {
+                ...state,
+                addingResource: false,
+                error: action.payload
+            }    
+
         default:
             return state;
     }
