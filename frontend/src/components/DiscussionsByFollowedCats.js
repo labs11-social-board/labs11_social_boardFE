@@ -156,7 +156,7 @@ class AllDiscussionsByFollowedCats extends Component {
   };
   render() {
     const { followedDiscussions, showAddDiscussionForm } = this.state;
-    const { history, match } = this.props;
+    const { history, match, isGettingAllFollowed } = this.props;
     return (
       <DiscussionsWrapper>
         <DiscussionHeader>
@@ -182,7 +182,7 @@ class AllDiscussionsByFollowedCats extends Component {
         </DiscussionHeader>
         <hr />
         <div className='content'>
-          {followedDiscussions.map((discussion, i) =>
+          {isGettingAllFollowed ? <img src={require('../assets/gif/spinner2.gif')} alt='spinner'/> : followedDiscussions.map((discussion, i) =>
             <DiscussionByFollowedCats
               key={i}
               discussion={discussion}
@@ -207,7 +207,8 @@ class AllDiscussionsByFollowedCats extends Component {
 const mapStateToProps = state => ({
   followedDiscussions: state.discussions.followedDiscussions,
   verified: state.users.verified,
-  isVerifyingEmail: state.users.isVerifyingEmail
+  isVerifyingEmail: state.users.isVerifyingEmail,
+  isGettingAllFollowed: state.discussions.isGettingAllFollowed
 });
 
 export default connect(mapStateToProps, { getAllDiscussionsByFollowedCategories, handleDiscussionVote })(AllDiscussionsByFollowedCats);

@@ -220,29 +220,14 @@ class Users extends React.Component {
           ]}
           defaultPageSize={10}
           className="-striped -highlight"
-          // getTrProps={(state, rowInfo) => {
-          //   if (rowInfo && rowInfo.row) {
-          //     return {
-          //       onClick: e => {
-          //         this.setState({
-          //           selected: rowInfo.row._original
-          //         });
-          //       },
-          //       style: {
-          //         background:
-          //           rowInfo.row.email === this.state.selected.email
-          //             ? "#418DCF"
-          //             : "white",
-          //         color:
-          //           rowInfo.row.email === this.state.selected.email
-          //             ? "white"
-          //             : "black"
-          //       }
-          //     };
-          //   } else {
-          //     return {};
-          //   }
-          // }}
+          style = {
+            this.props.isDay ? {
+              color: 'black'
+            } :
+            {
+              color: 'white'
+            }
+          }
         />
       </div>
     ); 
