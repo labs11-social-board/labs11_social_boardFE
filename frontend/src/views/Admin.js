@@ -38,7 +38,7 @@ align-content: center;
 const Boxed = styled.div`
 width: 100%;
 padding: 10px;
-border: 2px solid #418dcf;
+border: 1px solid #418dcf;
 border-radius: 5px;
 flex-direction: column;
 justify-content: space-around;
@@ -76,20 +76,20 @@ class Admin extends React.Component {
 
                         <InnerWrapper>
                             <Boxed>
-                                <ApproveEmailForm histoy={this.props.history} />
+                                <ApproveEmailForm histoy={this.props.history} isDay={this.props.isDay} />
                             </Boxed>
                             <Boxed>
-                                <ApprovedEmails />
+                                <ApprovedEmails isDay={this.props.isDay} />
                             </Boxed>
                             <Boxed>
                                 <h4>Users</h4>
 
-                                <Users />
+                                <Users isDay={this.props.isDay} />
 
                             </Boxed>
                             <Boxed>
                                 <h4>Deleted Post</h4>
-                                <DeletedPostAndMods />
+                                <DeletedPostAndMods isDay={this.props.isDay} />
                             </Boxed>
                         </InnerWrapper>
                     </MainWrapper>

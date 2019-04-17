@@ -261,46 +261,51 @@ class EditProfileModal extends React.Component {
 
     let callTheFunction = false;
     let { userId, bio, twitter, github, linkedin, location } = this.state;
-    if (bio.length === 0 || bio === this.props.profile[0].bio) {
+    console.log(github); 
+    if (bio === this.props.profile[0].bio) {
       bio = null;
     } else {
       callTheFunction = true;
     }
-    if (twitter.length === 0 || twitter === this.props.profile[0].twitter) {
+
+    // if (twitter.length === 0 || twitter === this.props.profile[0].twitter) {
+      if (twitter === this.props.profile[0].twitter) {
       twitter = null;
+    } 
+
+    if(twitter !== null && !isUrl(twitter,true)) {
+      await this.handleUserMessage("twitter"); 
     } else {
-      if(!isUrl(twitter)) {
-        await this.handleUserMessage("twitter"); 
-      } else {
-        callTheFunction = true;
-        await this.handleUserMessage("twitter", true);
-      }
-      
+      callTheFunction = true;
+      await this.handleUserMessage("twitter", true);
     }
-    if (github.length === 0 || github === this.props.profile[0].github) {
+      
+    
+    if (github === this.props.profile[0].github) {
+      console.log("first condition set");
       github = null;
-    } else {
-      if(!isUrl(github)) {
-        await this.handleUserMessage("github"); 
-      } else {
-        callTheFunction = true;
-        await this.handleUserMessage("github", true); 
-      }
-      
-    }
-    if (linkedin.length === 0 || linkedin === this.props.profile[0].linkedin) {
-      linkedin = null;
-    } else {
-      if(!isUrl(linkedin)) {
-        await this.handleUserMessage("linkedin"); 
-      } else {
-        callTheFunction = true;
-        await this.handleUserMessage("linkedin", true);
-      }
-      
     }
 
-    if (location.length === 0 || location === this.props.profile[0].location){
+    if(github !== null && !isUrl(github,true)) {
+      await this.handleUserMessage("github"); 
+    } else {
+      callTheFunction = true;
+      await this.handleUserMessage("github", true); 
+    }
+  
+    if (linkedin === this.props.profile[0].linkedin) {
+      linkedin = null;
+    }
+
+    if(linkedin !== null && !isUrl(linkedin,true)) {
+        await this.handleUserMessage("linkedin"); 
+    } else {
+      callTheFunction = true;
+      await this.handleUserMessage("linkedin", true);
+    }
+  
+
+    if (location === this.props.profile[0].location){
       location = null; 
     } else {
       callTheFunction = true; 

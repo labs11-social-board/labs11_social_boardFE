@@ -48,8 +48,7 @@ import {
   RegisterView,
   NonUserLandingView,
   TeamsView,
-  TeamDiscussionView,
-  UserTeamsView
+  TeamDiscussionView
 } from './views/index.js';
 
 // action creators
@@ -77,6 +76,9 @@ const GlobalStyle = createGlobalStyle`
     background: ${props => props.theme.appBgColor};
     width: 100%;
     min-height: 100vh;
+    a{
+      text-decoration: none;
+    }
   }
 `;
 
@@ -285,7 +287,11 @@ class App extends Component {
     const token = localStorage.getItem('symposium_token');
     window.addEventListener('hashchange', this.handleHashChange, false);
     this.props.verifyEmail(token);
-    if (user_id && token) return this.props.logBackIn(user_id, token);
+    if (user_id && token) return this.props.logBackIn(user_id, token).then(() => {
+      if(this.props.location.pathname === '/'){
+        this.props.history.push('/home');
+      }
+    });
   }
   componentDidUpdate(prevProps) {
     if (this.props.error && this.props.error.includes('expired')) {
@@ -399,7 +405,7 @@ class App extends Component {
                 }
                 <Route exact path="/" render={() => <NonUserLandingView toggleRegisterModal={this.toggleRegisterModal} />} />
                 <Route exact path="/home" component={LandingView} />
-                <Route exact path="/admin" render={() => <Admin history={history} />} />
+                <Route exact path="/admin" render={props => <Admin {...props} isDay={isDay} history={this.props.history} />} />
                 <Route exact path="/upload" component={Upload} />
                 <Route path="/analytics" component={Analytics} />
                 <Route path="/profiles" component={Profiles} />
