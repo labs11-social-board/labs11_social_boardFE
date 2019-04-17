@@ -74,6 +74,9 @@ import {
   DELETE_TEAM_SUCCESS,
   GET_USERS_TEAMS_LOADING,
   GET_USERS_TEAMS_SUCCESS,
+  UPDATE_USER_ROLE,
+  UPDATE_USER_ROLE_SUCCESS,
+  UPDATE_USER_ROLE_FAILURE,
 
   //Action Creators
   getTeams,
@@ -87,7 +90,8 @@ import {
   addTeamMember,
   deleteTeam,
   getUsersTeams,
-  updateTeamWithLogo
+  updateTeamWithLogo,
+  updateUserRole,
 } from './TeamsActions.js';
 
 import {
@@ -474,6 +478,9 @@ export {
   DELETE_TEAM_SUCCESS,
   GET_USERS_TEAMS_LOADING,
   GET_USERS_TEAMS_SUCCESS,
+  UPDATE_USER_ROLE,
+  UPDATE_USER_ROLE_SUCCESS,
+  UPDATE_USER_ROLE_FAILURE,
   // Discussion Actions
   GET_DISCUSSIONS_LOADING,
   GET_DISCUSSIONS_SUCCESS,
@@ -648,6 +655,7 @@ export {
   deleteTeam,
   getUsersTeams,
   updateTeamWithLogo,
+  updateUserRole,
   // Discussion Action Creators
   getTopDiscussions,
   getDiscussionsByCat,
@@ -798,5 +806,6 @@ export {
   getUsersAna,
   getPageViews30,
   getUsersAna30,
+  
 };
 
