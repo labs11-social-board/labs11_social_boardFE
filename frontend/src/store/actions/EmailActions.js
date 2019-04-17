@@ -31,6 +31,12 @@ export const DELETING_EMAIL_APPROVAL = 'DELETING_EMAIL_APPROVAL';
 export const EMAIL_REMOVAL_SUCCESS = 'EMAIL_REMOVAL_SUCCESS';
 export const EMAIL_REMOVAL_FAIL = 'EMAIL_REMOVAL_FAIL';
 
+// Key Resources Puts
+export const KEYRESOURCES_SUBMITTED = 'KEYRESOURCES_SUBMITTED';
+export const KEYRESOURCES_SUCCESS = 'KEYRESOURCES_SUCCESS';
+export const KEYRESOURCES_FAIL = 'KEYRESOURCES_FAIL';
+
+
 
 /***************************************************************************************************
  ****************************************** Action Creators ****************************************
@@ -93,5 +99,26 @@ export const denyEmail = id => async dispatch => {
                 payload: err
             });
         });
+}
 
+/////////////////////////////////////////////////// KEY RESOURCES
+
+export const putKeyResource = resourceInfo => dispatch => {
+    const user = localStorage.getItem('symposium_user_id')
+    dispatch({
+        type: KEYRESOURCES_SUBMITTED
+    });
+
+    return axios
+        .post(`${backendUrl}/insert-resources/${user}`, resourceInfo)
+        .then(res => {
+            dispatch({
+                type: KEYRESOURCES_SUBMITTED,
+                payload: res.data
+            })
+        })
+        .catch(err => handleError(
+            err,
+            KEYRESOURCES_SUBMITTED
+        )(dispatch));
 }
