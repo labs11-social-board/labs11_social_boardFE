@@ -157,7 +157,9 @@ class TeamSettings extends React.Component{
     image: '',
     isUploading: false,
     imagePrev: this.props.team.logo,
-    newImg: ''
+    newImg: '',
+    selectedUserId: null, 
+    chosenRole: null, 
   };
   handleInput = e => {
     e.preventDefault();
@@ -212,7 +214,12 @@ class TeamSettings extends React.Component{
 			})
 		}
   }
-
+  handleChange = (event) => {
+    const selectedUserId = Number(document.getElementById("memberToChange").value);
+    const chosenRole = document.getElementById("chosenRole").value; 
+    
+    this.setState({ selectedUserId, chosenRole}, () => console.log(`updated state`, this.state)); 
+  };
 
   render() {
     let isTeam = true;
@@ -240,15 +247,14 @@ class TeamSettings extends React.Component{
           <div>
             <h2>Change User Role</h2>
             <span>
-              <select>
-                {members.map((member, id) => <option key = {id} value = {String(id)}>{`${member.username} - ${member.role}`}</option>)}
+              <select id ="memberToChange" onChange = {this.handleChange}>
+                {members.map((member, id) => <option key = {id} value = {member.user_id}>{`${member.username} - ${member.role}`}</option>)}
               </select>
             </span>
             <span>
-              <select>
-                <option value = "0">Select role:</option>
-                <option value = "1">co_owner</option>
-                <option value = "2">member</option>
+              <select id = "chosenRole" onChange = {this.handleChange}>
+                <option value = "member">member</option>
+                <option value = "co_owner">co_owner</option>
               </select>
             </span>
             <br/>
