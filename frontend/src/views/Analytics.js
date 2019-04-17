@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { connect } from "react-redux";
 import Users from './Users';
 import { getPageViews, getUsersAna, getPageViews30, getUsersAna30, } from './../store/actions/analyticActions';
+import { GoogleProvider, GoogleDataChart } from 'react-analytics-widget';
 
 import {} from '../components'
 
@@ -47,6 +48,51 @@ margin-bottom: 10px;
 const TableWrapper = styled.div`
 width: 90%;
 `;
+
+;(function(w, d, s, g, js, fjs) {
+    g = w.gapi || (w.gapi = {})
+    g.analytics = {
+      q: [],
+      ready: function(cb) {
+        this.q.push(cb)
+      }
+    }
+    js = d.createElement(s)
+    fjs = d.getElementsByTagName(s)[0]
+    js.src = "https://apis.google.com/js/platform.js"
+    fjs.parentNode.insertBefore(js, fjs)
+    js.onload = function() {
+      g.load("analytics")
+    }
+  })(window, document, "script")
+
+  const authClient = process.env.CLIENTG;
+  
+  const CLIENT_ID = '338748654790-mrdntpnj4ddjetcjqgss9b64f4j1vn1s.apps.googleusercontent.com';
+
+  const last30days = {
+    reportType: "ga",
+    query: {
+      dimensions: "ga:date",
+      metrics: "ga:pageviews",
+      "start-date": "30daysAgo",
+      "end-date": "yesterday"
+    },
+    chart: {
+      type: "LINE",
+      options: {
+        // options for google charts
+        // https://google-developers.appspot.com/chart/interactive/docs/gallery
+        title: "Last 30 days pageviews"
+      }
+    }
+  }
+
+  const views = {
+    query: {
+      ids: "ga:193170741"
+    }
+  }
 
 
 class Analytics extends React.Component {
@@ -102,6 +148,13 @@ class Analytics extends React.Component {
                                 <p>In last 30 Days</p>
                                 <h2>{this.state.pagev2}</h2>
                             
+                            </Boxed>
+
+                            <Boxed>
+                            <GoogleProvider clientId={CLIENT_ID}>
+                                <GoogleDataChart views={views} config={last30days} />
+                               
+                            </GoogleProvider>
                             </Boxed>
                             
                             
