@@ -42,14 +42,16 @@ const DivAuth = styled.div`
   @media ${tabletL}{
     width: ${ ({ user_id }) => user_id !== 0 ? '50%' : '100%'};
     display: flex;
-    justify-content: ${ ({ user_id }) => user_id !== 0 ? 'space-between' : 'flex-end'};
+    justify-content: ${ ({ user_id }) => user_id !== 0 ? 'flex-end' : 'space-between'};
+    align-items: center;
   }
 
+  @media (max-width: 800px){
+    justify-content: space-evenly;
+  }
   @media ${phoneL}{
-    width: 100%;
     display: flex;
     justify-content: space-between;
-    align-items: center;
   }
 
   i {

@@ -204,14 +204,8 @@ const DivName = styled.div`
         }
         .fileinput + label {
           margin: 0px 0% 0 9.5%;
-          height: 17vh;
+          height: 140px;
           line-height: 9;
-        }
-      }
-
-      @media (max-width: 1024px) {
-        .fileinput + label {
-          line-height: 8;
         }
       }
 
@@ -225,6 +219,7 @@ const DivName = styled.div`
 
         .fileinput + label {
           line-height: 7;
+          height: 117px;
         }
       }
     }
