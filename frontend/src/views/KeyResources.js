@@ -5,9 +5,9 @@ import styled from 'styled-components';
 import { connect } from "react-redux";
 import Users from './Users';
 
-import { ApproveEmailForm, ApprovedEmails, DeletedPostAndMods } from '../components'
-
 import '../components/css/Admin.css'
+import KeyResourceForm from '../components/forms/KeyResourceForm';
+import ApprovedKeyResources from '../components/ApprovedKeyResources';
 
 const MainWrapper = styled.div`
   display: flex;
@@ -38,7 +38,7 @@ align-content: center;
 const Boxed = styled.div`
 width: 100%;
 padding: 10px;
-border: 1px solid #418dcf;
+border: 2px solid #418dcf;
 border-radius: 5px;
 flex-direction: column;
 justify-content: space-around;
@@ -52,7 +52,7 @@ width: 90%;
 
 
 
-class Admin extends React.Component {
+class KeyResources extends React.Component {
     constructor() {
         super()
 
@@ -63,8 +63,7 @@ class Admin extends React.Component {
     // }
 
     render() {
-        //if (!this.props.isLoggedIn) return <h2>--Yo, dog.  You ain't logged in.  Do That <Link to="/">HERE</Link> </h2>;
-
+        
         return (
             <TableWrapper>
 
@@ -76,21 +75,12 @@ class Admin extends React.Component {
 
                         <InnerWrapper>
                             <Boxed>
-                                <ApproveEmailForm histoy={this.props.history} isDay={this.props.isDay} />
+                                <KeyResourceForm histoy={this.props.history} />
                             </Boxed>
                             <Boxed>
-                                <ApprovedEmails isDay={this.props.isDay} />
+                                <ApprovedKeyResources />
                             </Boxed>
-                            <Boxed>
-                                <h4>Users</h4>
-
-                                <Users isDay={this.props.isDay} />
-
-                            </Boxed>
-                            <Boxed>
-                                <h4>Deleted Post</h4>
-                                <DeletedPostAndMods isDay={this.props.isDay} />
-                            </Boxed>
+                                                        
                         </InnerWrapper>
                     </MainWrapper>
                 </div>
@@ -106,4 +96,4 @@ const mapStoreToProps = state => {
     };
 };
 
-export default Admin;
+export default KeyResources;

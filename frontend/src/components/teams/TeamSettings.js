@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 // action creators
-import { updateTeam, deleteTeam, displayMessage, getUsersTeams, resetImageState } from '../../store/actions/index.js';
+import { updateTeam, deleteTeam, displayMessage, getUsersTeams, resetImageState, updateUserRole } from '../../store/actions/index.js';
 
 // components
 import { ToggleSwitch, UploadImage } from '../index.js';
@@ -122,17 +122,49 @@ const Settings = styled.div `
         .fileinput + label {
           @media (max-width: 1440px) {
             width: 132px;
+            height: 132px;
             margin: 0px 0% 0 5.5%;
           }
 
           @media (max-width: 480px) {
             margin: 14px 0% 0 9%;
             width: 116px;
+            height: 116px;
           }
         }
       }
     }
 `; 
+const SubmitButton = styled.button`
+  margin-top: 5%;
+  margin-right: 5%;
+  margin-left: 10px;
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: 1px solid #418DCF;
+  background-color: #418DCF;
+  color: white;
+  cursor: pointer;
+
+  &:hover {
+    color: #418DCF;
+    border: 1px solid #418DCF;
+    background-color: white;
+  }
+`;
+const SelectOptions = styled.select`
+  margin-top: 5%;
+  margin-right: 5%;
+  margin-left: 10px;
+  padding: 10px 15px;
+  border-radius: 5px;
+
+  
+  cursor: pointer;
+`;
+  // border: 1px solid #418DCF;
+  // background-color: #418DCF;
+  // color: white;
 class TeamSettings extends React.Component{
   state = {
     team_name: this.props.team.team_name,
@@ -140,7 +172,9 @@ class TeamSettings extends React.Component{
     image: '',
     isUploading: false,
     imagePrev: this.props.team.logo,
-    newImg: ''
+    newImg: '',
+    selectedUserId: null, 
+    chosenRole: null, 
   };
   handleInput = e => {
     e.preventDefault();
@@ -174,7 +208,7 @@ class TeamSettings extends React.Component{
   };
   componentDidUpdate(prevProps){
     if( prevProps.team.team_name !== this.props.team.team_name){
-      this.setState({ team_name: this.props.team.team_name, isPrivate: this.props.team.isPrivate, image: this.props.team.logo });
+      this.setState({ team_name: this.props.team.team_name, isPrivate: this.props.team.isPrivate, imagePrev: this.props.team.logo });
     }
 
     if(prevProps.image !== this.props.image){
@@ -195,8 +229,30 @@ class TeamSettings extends React.Component{
 			})
 		}
   }
+  handleChange = (event) => {
+    const selectedUserId = Number(document.getElementById("memberToChange").value);
+    const chosenRole = document.getElementById("chosenRole").value; 
+    
+    this.setState({ selectedUserId, chosenRole}); 
+  };
+
+  handleSubmit = () => {
+    const role = this.state.chosenRole;
+    let teamId; 
+    const changingId = this.state.selectedUserId; 
+    for(let member of this.props.members){
+      if(member.user_id === changingId){
+        teamId = member.team_id;
+        break; 
+      }
+    }
+    this.props.updateUserRole(teamId, changingId, role); 
+  };
+
   render() {
     let isTeam = true;
+    const userId = localStorage.getItem("symposium_user_id");
+    const members = this.props.members ? this.props.members.filter(user => Number(user.user_id) !== Number(userId) ) : []; //making it so that the user that owns the team cannot change their own rule also done on the backend. 
     return(
       <div id='settings' className='team-settings tab-content'>
         <h1>Settings</h1>
@@ -215,6 +271,22 @@ class TeamSettings extends React.Component{
             <button onClick={this.updateTeam}>Update Team</button>
             <button className='delete' onClick={this.deleteTeam}>Delete Team</button>
           </form>
+          {members.length > 0 ? <div className = "team-name-wrapper">
+            <label>Change User Role</label>
+            <span>
+              <SelectOptions id ="memberToChange" onChange = {this.handleChange}>
+                {members.map((member, id) => <option key = {id} value = {member.user_id}>{`${member.username} - ${member.role}`}</option>)}
+              </SelectOptions>
+            </span>
+            <span>
+              <SelectOptions id = "chosenRole" onChange = {this.handleChange}>
+                <option value = "member">member</option>
+                <option value = "co_owner">co_owner</option>
+              </SelectOptions>
+            </span>
+            <br/>
+            <SubmitButton onClick = {this.handleSubmit}>Update User Role</SubmitButton>
+          </div> : <div></div>}
         </Settings>
       </div>
     );
@@ -225,9 +297,10 @@ const mapStateToProps = state => ({
   image: state.posts.images,
   isDay: state.users.isDay,
   isUploadingImage: state.posts.isUploadingImage,
-  isGettingTeamDiscussons: state.teams.isGettingTeamDiscussons
+  isGettingTeamDiscussons: state.teams.isGettingTeamDiscussons,
+  members: state.teams.team_members,
 });
 
-export default connect(mapStateToProps, { updateTeam, deleteTeam, displayMessage, getUsersTeams, resetImageState })(TeamSettings);
+export default connect(mapStateToProps, { updateTeam, deleteTeam, displayMessage, getUsersTeams, resetImageState, updateUserRole })(TeamSettings);
 
 

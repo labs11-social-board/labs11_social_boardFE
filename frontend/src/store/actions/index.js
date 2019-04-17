@@ -74,6 +74,9 @@ import {
   DELETE_TEAM_SUCCESS,
   GET_USERS_TEAMS_LOADING,
   GET_USERS_TEAMS_SUCCESS,
+  UPDATE_USER_ROLE,
+  UPDATE_USER_ROLE_SUCCESS,
+  UPDATE_USER_ROLE_FAILURE,
 
   //Action Creators
   getTeams,
@@ -87,7 +90,8 @@ import {
   addTeamMember,
   deleteTeam,
   getUsersTeams,
-  updateTeamWithLogo
+  updateTeamWithLogo,
+  updateUserRole,
 } from './TeamsActions.js';
 
 import {
@@ -422,11 +426,15 @@ import {
   DELETING_EMAIL_APPROVAL,
   EMAIL_REMOVAL_SUCCESS,
   EMAIL_REMOVAL_FAIL,
+  KEYRESOURCES_SUBMITTED,
+  KEYRESOURCES_SUCCESS,
+  KEYRESOURCES_FAIL,
 
   // Action Creators
   approveEmail,
   getEmails,
-  denyEmail
+  denyEmail,
+  putKeyResource
 } from '../actions/EmailActions';
 
 //*************************************************************************************************
@@ -470,6 +478,9 @@ export {
   DELETE_TEAM_SUCCESS,
   GET_USERS_TEAMS_LOADING,
   GET_USERS_TEAMS_SUCCESS,
+  UPDATE_USER_ROLE,
+  UPDATE_USER_ROLE_SUCCESS,
+  UPDATE_USER_ROLE_FAILURE,
   // Discussion Actions
   GET_DISCUSSIONS_LOADING,
   GET_DISCUSSIONS_SUCCESS,
@@ -644,6 +655,7 @@ export {
   deleteTeam,
   getUsersTeams,
   updateTeamWithLogo,
+  updateUserRole,
   // Discussion Action Creators
   getTopDiscussions,
   getDiscussionsByCat,
@@ -768,10 +780,14 @@ export {
   DELETING_EMAIL_APPROVAL,
   EMAIL_REMOVAL_SUCCESS,
   EMAIL_REMOVAL_FAIL,
+  KEYRESOURCES_SUBMITTED,
+  KEYRESOURCES_SUCCESS,
+  KEYRESOURCES_FAIL,
   // Action Creators
   approveEmail,
   getEmails,
   denyEmail,
+  putKeyResource,
   // Analytics
   PAVEVIEWS_STARTED,
   PAVEVIEWS_SUCCESS,
@@ -790,5 +806,6 @@ export {
   getUsersAna,
   getPageViews30,
   getUsersAna30,
+  
 };
 

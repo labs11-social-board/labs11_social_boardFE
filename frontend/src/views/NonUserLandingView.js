@@ -184,7 +184,7 @@ class NonUserLandingView extends Component {
         <section>
           <BottomFillerDiv>
           <h2>OUR FEATURES</h2>
-            <p>Get more done with our team based disscussion board. Easily create disscussions, follow posts and people, and join teams. This is a must have for Team developers. We offer a free basic subcription as well as paid solutions.</p>
+            <p>Get more done with our team based discussion board. Easily create discussions, follow posts and people, and join teams. This is a must have for Team developers. We offer a free basic subcription as well as paid solutions.</p>
           </BottomFillerDiv>
           <ImageDiv>
           <h2>OUR SUBSCRIPTION TIERS</h2>
