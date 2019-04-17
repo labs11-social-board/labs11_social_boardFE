@@ -214,8 +214,8 @@ const DiscussionByFollowedCats = ({ discussion, history, voteOnDiscussion, singl
 			}</BodyWrapper>
 			{image ? 
 				<div className='show-image-wrapper'>
-					<a className='show-image' onClick={() => handleImageShow(id)}><i className="fas fa-camera"></i>{ isShowImage ? '-' : '+'}</a>
-					{isShowImage ? id === imageClickedId ? <img src={image} alt="uploaded image"/> : null : null }
+					<a href='# ' className='show-image' onClick={() => handleImageShow(id)}><i className="fas fa-camera"></i>{ isShowImage ? '-' : '+'}</a>
+					{isShowImage ? id === imageClickedId ? <img src={image} alt="uploaded"/> : null : null }
 				</div> : null}
 			</div>
 			<div className = 'info-wrapper'>

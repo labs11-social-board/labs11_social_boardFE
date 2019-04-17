@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import {phoneP, tabletP, } from '../globals/globals';
@@ -32,9 +32,9 @@ const LandingViewWrapper = styled.div`
   }
 `;
 
-const tammy = {
-  email: null,
-}
+// const tammy = {
+//   email: null,
+// }
 
 // const user_id = localStorage.getItem('symposium_user_id');
 // const token = localStorage.getItem('symposium_token');
@@ -45,24 +45,24 @@ const tammy = {
  ********************************************* Component *******************************************
  **************************************************************************************************/
 class LandingView extends React.Component {
-
   
   componentDidMount() {
     // setTimeout( () => {
     //   this.props.verifyEmail(this.state.verify.email);
     // }, 200);
-    const token = localStorage.getItem('symposium_token');
-    this.props.verifyEmail(token);
-    
+    if(!this.props.verified){
+      const token = localStorage.getItem('symposium_token');
+      this.props.verifyEmail(token);
+    }
     // console.log('mount',this.props.verified)
   }
 
   conditionalRender(){
-    if (!this.props.verified) {
+    if (!this.props.verified ) {
       return(
         <NoGo />
       )
-    } else {
+    } else if(this.props.verified && !this.props.isVerifyingEmail){
       return(
         <LandingViewWrapper>
         <DiscussionsByFollowedCats history = { this.props.history } match = { this.props.match } />

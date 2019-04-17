@@ -197,6 +197,11 @@ const CommentSort = styled.div`
     align-items: flex-start;
   }
 `;
+const Spinner = styled.div`
+  position: absolute;
+  top: 100%;
+  left: 43%;
+`;
 
 const newest = 'newest';
 const oldest = 'oldest';
@@ -280,7 +285,8 @@ class Discussion extends Component {
       history,
       historyPush,
       loggedInUserId,
-      scrollTo
+      scrollTo,
+      isGettingDiscussion
     } = this.props;
     const {
       // body,
@@ -299,6 +305,9 @@ class Discussion extends Component {
       // username,
       // user_vote,
     } = discussion;
+   if(isGettingDiscussion){
+    return (<Spinner><img src={require('../assets/gif/spinner2.gif')} alt='spinner'/></Spinner>)
+   } else {
     return (
       <Wrapper>
         <div className="back-follow-wrapper">
@@ -387,12 +396,14 @@ class Discussion extends Component {
         </DiscussionWrapper>
       </Wrapper>
     );
+   }
   }
 }
 
 const mapStateToProps = state => ({
   discussion: state.discussions.discussion,
-  loggedInUserId: state.users.user_id
+  loggedInUserId: state.users.user_id,
+  isGettingDiscussion: state.discussions.isGettingDiscussion
 });
 
 export default connect(

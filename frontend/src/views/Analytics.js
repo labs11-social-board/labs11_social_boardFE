@@ -4,7 +4,8 @@ import {BrowserRouter as Router, Route, Link, NavLink} from "react-router-dom";
 import styled from 'styled-components';
 import { connect } from "react-redux";
 import Users from './Users';
-import { getPageViews, getUsersAna, } from './../store/actions/analyticActions';
+import { getPageViews, getUsersAna, getPageViews30, getUsersAna30, } from './../store/actions/analyticActions';
+import { GoogleProvider, GoogleDataChart } from 'react-analytics-widget';
 
 import {} from '../components'
 
@@ -44,6 +45,55 @@ margin-bottom: 10px;
 
 `;
 
+const TableWrapper = styled.div`
+width: 90%;
+`;
+
+;(function(w, d, s, g, js, fjs) {
+    g = w.gapi || (w.gapi = {})
+    g.analytics = {
+      q: [],
+      ready: function(cb) {
+        this.q.push(cb)
+      }
+    }
+    js = d.createElement(s)
+    fjs = d.getElementsByTagName(s)[0]
+    js.src = "https://apis.google.com/js/platform.js"
+    fjs.parentNode.insertBefore(js, fjs)
+    js.onload = function() {
+      g.load("analytics")
+    }
+  })(window, document, "script")
+
+  const authClient = process.env.CLIENTG;
+  
+  const CLIENT_ID = '338748654790-mrdntpnj4ddjetcjqgss9b64f4j1vn1s.apps.googleusercontent.com';
+
+  const last30days = {
+    reportType: "ga",
+    query: {
+      dimensions: "ga:date",
+      metrics: "ga:pageviews",
+      "start-date": "30daysAgo",
+      "end-date": "yesterday"
+    },
+    chart: {
+      type: "LINE",
+      options: {
+        // options for google charts
+        // https://google-developers.appspot.com/chart/interactive/docs/gallery
+        title: "Last 30 days pageviews"
+      }
+    }
+  }
+
+  const views = {
+    query: {
+      ids: "ga:193170741"
+    }
+  }
+
 
 class Analytics extends React.Component {
     constructor(props) {
@@ -52,16 +102,21 @@ class Analytics extends React.Component {
         this.state = {
             pagev1: null,
             pagev2: null,
+            pagev3: null,
+            pagev4: null,
         }
     }
 
     async componentDidMount() {
-        await this.props.getPageViews();
-        await this.props.getUsersAna();
+        //await this.props.getPageViews();
+        //await this.props.getUsersAna();
+        await this.props.getPageViews30();
+        await this.props.getUsersAna30();
+        
                 
         this.setState({
-            pagev1: this.props.gPageviews.data.totalsForAllResults['ga:pageviews'],
-            pagev2: this.props.gUsers.data.totalsForAllResults['ga:users'],
+            pagev1: this.props.gPageviews30.data.totalsForAllResults['ga:pageviews'],
+            pagev2: this.props.gUsers30.data.totalsForAllResults['ga:users'],
         })
 
         //getUsersAna();
@@ -71,6 +126,7 @@ class Analytics extends React.Component {
     render() {
 
         return(
+            <TableWrapper>
             <div>
                 
                 <div >
@@ -90,9 +146,15 @@ class Analytics extends React.Component {
                             <Boxed>
                                 <h4>Users</h4>
                                 <p>In last 30 Days</p>
-                                {/* {console.log(this.state)} */}
                                 <h2>{this.state.pagev2}</h2>
                             
+                            </Boxed>
+
+                            <Boxed>
+                            <GoogleProvider clientId={CLIENT_ID}>
+                                <GoogleDataChart views={views} config={last30days} />
+                               
+                            </GoogleProvider>
                             </Boxed>
                             
                             
@@ -100,6 +162,7 @@ class Analytics extends React.Component {
                     </MainWrapper>
                 </div>
             </div>
+            </TableWrapper>
         )
     }
 }
@@ -109,11 +172,15 @@ const mapStateToProps = state => {
         gPageviews: state.analytics.gPageviews,
         gUsers: state.analytics.gUsers,
         gettingGPdata: state.analytics.gettingGPdata,
-        gettingGUdata: state.analytics.gettingGUdata
+        gettingGUdata: state.analytics.gettingGUdata,
+        gPageviews30: state.analytics.gPageviews30,
+        gUsers30: state.analytics.gUsers30,
+        gettingGPdata30: state.analytics.gettingGPdata30,
+        gettingGUdata30: state.analytics.gettingGUdata30,
     };
   };
 
   
   export default connect(
-    mapStateToProps,{ getPageViews, getUsersAna, } 
+    mapStateToProps,{ getPageViews, getUsersAna, getPageViews30, getUsersAna30, } 
   )(Analytics);

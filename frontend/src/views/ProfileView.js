@@ -6,12 +6,12 @@ import { getProfile } from '../store/actions/index';
 import { getFollowers, getProfileFollowers, removeFollower, addFollower, inviteFriend, followersCount } from '../store/actions/index';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { phoneP, phoneL, tabletP, tabletL } from '../globals/globals';
+import { phoneP, phoneL, tabletP } from '../globals/globals';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import moment from 'moment';
 import "react-tabs/style/react-tabs.css";
 
-import { Search, UserSearch } from '../components/index.js';
+import { UserSearch } from '../components/index.js';
 // components
 import { Avatar, Deleted } from '../components/index.js';
 
@@ -173,27 +173,27 @@ color: ${props => props.theme.defaultColor};
 }
 `;
 
-const WrappedDiv2 = styled.div`
-display: flex;
-flex-direction: row;
-justify-content: space-between;
-width: 90%;
-margin: 0 auto;
-margin-bottom : 15px; 
-margin-right : 20px;
-color: ${props => props.theme.defaultColor};
-.back {
-  margin-right: 5px;
-  width: 7%;
-  height: 50px;
-  font-size: 1rem;
-  color: ${props => props.theme.defaultColor};
+// const WrappedDiv2 = styled.div`
+// display: flex;
+// flex-direction: row;
+// justify-content: space-between;
+// width: 90%;
+// margin: 0 auto;
+// margin-bottom : 15px; 
+// margin-right : 20px;
+// color: ${props => props.theme.defaultColor};
+// .back {
+//   margin-right: 5px;
+//   width: 7%;
+//   height: 50px;
+//   font-size: 1rem;
+//   color: ${props => props.theme.defaultColor};
   
-  &:hover{
-    cursor: pointer;
-  }
-}
-`;
+//   &:hover{
+//     cursor: pointer;
+//   }
+// }
+// `;
 
 const Button = styled.button`
   padding: 10px 15px;
@@ -337,14 +337,14 @@ const SearchContainer = styled.div`
     }
 `;
 
-const InviteFriendLink = styled.p`
-  cursor: pointer;
-  textDecoration: underline;
+// const InviteFriendLink = styled.p`
+//   cursor: pointer;
+//   textDecoration: underline;
 
-  &:hover {
+//   &:hover {
 
-  }
-`;
+//   }
+// `;
 
 const SpanLabel = styled.span`
   font-weight: 900;
@@ -527,7 +527,7 @@ class Profile extends Component {
               </WrappedDivSearch>
               <br />
               <br />
-              <h4>Below lists what you are following click a tab to check it out.</h4>
+              <h4>The tabs below list what you are following. Click a tab to check it out.</h4>
               <Tabs>
                 <TabList>
                   <Tab> Followed Posts</Tab>

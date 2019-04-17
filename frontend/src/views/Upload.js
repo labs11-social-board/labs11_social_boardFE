@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-import {BrowserRouter as Router, Route, Link, NavLink} from "react-router-dom";
+import {BrowserRouter as NavLink} from "react-router-dom";
 import styled from 'styled-components';
 import { connect } from "react-redux";
-import Users from './Users';
+// import Users from './Users';
 import CSVReader from "react-csv-reader";
 import { emailCSV } from './../store/actions/UsersActions';
-import { approveEmail } from './../store/actions/EmailActions';
+// import { approveEmail } from './../store/actions/EmailActions';
 
 const MainWrapper = styled.div`
   display: flex;
@@ -52,16 +52,16 @@ const ButtonY = styled.button `
     margin-left: 4px;
   `;
 
-  const ButtonX = styled.button `
-    border: 1px solid #418DCF;
-    border-radius: 3px;
-    color: white;
-    background-color: #418DCF;
-    height: 35px;
-    width: 100px;
-    margin-left: 24px;
+//   const ButtonX = styled.button `
+//     border: 1px solid #418DCF;
+//     border-radius: 3px;
+//     color: white;
+//     background-color: #418DCF;
+//     height: 35px;
+//     width: 100px;
+//     margin-left: 24px;
     
-  `;
+//   `;
   
   const StyledLink = styled(NavLink)`
     color: white;  
@@ -116,6 +116,10 @@ class Upload extends React.Component {
             
         }
 
+        this.setState({
+            ...this.state,
+            done: this.props.uploadDone,
+        })
     }
 
     // componentDidMount() {
@@ -138,6 +142,7 @@ class Upload extends React.Component {
                         <InnerWrapper>
                             <Boxed>
                             <h4>Add Email List via CSV upload</h4>
+                            <p>[ CSV FORMAT: firstname, lastname, email ]</p>
                             
                             <div className="container">
                             <CSVReader
@@ -145,8 +150,8 @@ class Upload extends React.Component {
                                 label="Upload a CSV file full of Authorized E-Mails!"
                                 onFileLoaded={this.handleUppy}
                             />
-                            <p>Upload Status:</p>
-                            {(this.props.uploadDone === 'true') ?
+                            <p>Upload Status (Upload Starts Automatically After File Selected):</p>
+                            {(this.props.uploadDone === true) ?
                             (<h4>Done</h4>) : <h4>Not Started</h4>}
                             {console.log(this.props.uploadDone)}
                             <hr></hr>

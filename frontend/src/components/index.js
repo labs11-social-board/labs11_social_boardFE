@@ -55,6 +55,7 @@ import UsersListModal from './UsersListModal.js';
 import User from './User.js';
 import SearchTeamResult from './SearchTeamResult.js';
 import UploadImage from './UploadImage.js';
+import DeletedPostAndMods from './DeletedPostAndModerators.js'
 
 // forms
 import AddPostForm from './forms/AddPostForm.js';
@@ -73,7 +74,7 @@ import ApproveEmailForm from './forms/ApproveEmailForm.js';
 import ApprovedEmails from './ApprovedEmails.js'
 
 
-import UserSearch from './UserSearch.js'; 
+import UserSearch from './UserSearch.js';
 import SearchUserResults from './SearchUserResults.js';
 
 export {
@@ -151,5 +152,6 @@ export {
 
   UserSearch,
   SearchUserResults,
-  ApprovedEmails
+  ApprovedEmails,
+  DeletedPostAndMods
 };
