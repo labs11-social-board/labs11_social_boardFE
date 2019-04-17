@@ -103,9 +103,9 @@ class ApproveEmailForm extends Component {
 
                 
                     <ButtonX>
-                    <StyledLink to='/upload'>
+                    <NavLink to='/upload'>
                         Import CSV
-                    </StyledLink>
+                    </NavLink>
                     </ButtonX>
                 
 
