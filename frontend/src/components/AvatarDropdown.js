@@ -43,7 +43,7 @@ const DivAvatarDropdown = styled.div`
 
   .spacer {
     font-size: .7rem;
-    margin: 0 0 5px 10px;
+    margin: 10px 0 15px 10px;
     color: grey;
   }
   .line-break {
@@ -58,22 +58,24 @@ const DivAvatarDropdown = styled.div`
 
 const LinkItem = styled(Link)`
   display: flex;
-  align-items: baseline;
-  margin-top: 5px;
+  align-items: center;
+  margin-bottom: 5px;
   user-select: none;
   width: 100%;
-  text-decoration: none;
   color: ${props => props.theme.notificationFontColor};
   background-color: ${props => props.theme.notificationBackgroundColor};
-  width: 100%;
   cursor: pointer;
+  height: 31px;
+  justify-content: start;
+  padding-left: 10px
+
   &:hover {
     color: black;
     background-color: ${props => props.theme.borderColor};
   }
 
   i {
-    margin: 0 7px 0px 15px;
+    margin-right: 7px;
   }
 
   @media(max-width: 750px){
@@ -89,13 +91,17 @@ const Item = styled.a`
   user-select: none;
   width: 100%;
   cursor: pointer;
+  height: 31px;
+  align-items: center;
+  padding-left: 10px;
+
   &:hover {
     color: black;
     background-color: ${props => props.theme.borderColor};
   }
 
   i {
-    margin: 0 7px 0px 15px;
+    margin-right: 7px;
   }
 
   @media(max-width: 750px){
@@ -107,9 +113,12 @@ const Item = styled.a`
 
 const NightModeToggle = styled.div`
   display: flex;
-  margin-bottom: 10px;
-  justify-content: center;
+  margin-bottom: 5px;
+  padding-left: 10px;
+  justify-content: start;
   cursor:pointer;
+  height: 31px;
+  align-items: center;
 
   &:hover {
     color: black;
@@ -122,9 +131,6 @@ const NightModeToggle = styled.div`
 
   i {
     color: ${props => props.theme.notificationFontColor};
-    margin-left: -33px;
-    display: flex;
-    align-items: center;
   }
 
   p {
