@@ -41,7 +41,7 @@ export const updateReplyWithImage = (image_id, reply_id) => dispatch => {
   const post_image = { image_id, reply_id };
   return axios
     .put(`${backendURL}/posts/images/${user_id}`, post_image, headers)
-    .then(res => console.log(res.data))
+    .then(res => dispatch({ type: 'UPDATE_REPLY_WITH_IMAGE_SUCCESS' }))
     .catch(err => handleError(err)(dispatch));
 };
 
