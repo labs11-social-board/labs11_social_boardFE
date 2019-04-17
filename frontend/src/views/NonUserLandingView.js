@@ -151,7 +151,6 @@ const Woah = styled.section `
 
       render() {
         const { toggleRegisterModal } = this.props;
-        console.log(toggleRegisterModal);
         return (
           <Woah loggedIn={this.props.user_id !== 0}>
             <BackgroundBox>

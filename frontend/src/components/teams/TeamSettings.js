@@ -174,7 +174,7 @@ class TeamSettings extends React.Component{
   };
   componentDidUpdate(prevProps){
     if( prevProps.team.team_name !== this.props.team.team_name){
-      this.setState({ team_name: this.props.team.team_name, isPrivate: this.props.team.isPrivate, image: this.props.team.logo });
+      this.setState({ team_name: this.props.team.team_name, isPrivate: this.props.team.isPrivate, imagePrev: this.props.team.logo });
     }
 
     if(prevProps.image !== this.props.image){
