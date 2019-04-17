@@ -78,12 +78,17 @@ class KeyResourceForm extends Component {
         e.preventDefault();
 
         // handle submit logic
-        this.props.putKeyResource(this.state.newResource);
-        this.props.displayMessage('Resource added')
+        if (this.state.newResource.title !== '' && this.state.newResource.resource !== '' && this.state.newResource.info !== '') {
+            this.props.putKeyResource(this.state.newResource);
+            this.props.displayMessage('Resource added')
 
-        setTimeout(() => {
-            window.location.reload();
-        }, 500);
+            setTimeout(() => {
+                window.location.reload();
+            }, 300);
+        } else {
+            this.props.displayMessage('Please fill out all fields')
+        }
+
     };
 
     render() {
@@ -103,7 +108,7 @@ class KeyResourceForm extends Component {
                         placeholder='Web title'
                         name='title'
                         type='title'
-                        required="required"
+                        required
                         value={this.state.newResource.title}
                         onChange={this.handleChange}
                     />
@@ -112,7 +117,7 @@ class KeyResourceForm extends Component {
                         placeholder='Web Resource'
                         name='resource'
                         type='resource'
-                        required="required"
+                        required
                         value={this.state.newResource.resource}
                         onChange={this.handleChange}
                     />
@@ -121,7 +126,7 @@ class KeyResourceForm extends Component {
                         placeholder='Link Info'
                         name='info'
                         type='info'
-                        required="required"
+                        required
                         value={this.state.newResource.info}
                         onChange={this.handleChange}
                     />
