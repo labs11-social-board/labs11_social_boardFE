@@ -221,7 +221,9 @@ class TeamSettings extends React.Component{
           <div>
             <h2>Change User Role</h2>
             <span>
-              <select></select>
+              <select>
+                {members.map((member, id) => <option key = {id} value = {String(id)}>{`${member.username} - ${member.role}`}</option>)}
+              </select>
             </span>
             <span>
               <select>
