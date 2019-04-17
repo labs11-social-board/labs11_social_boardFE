@@ -374,7 +374,7 @@ class TeamBoard extends Component {
     };
   };
   render() {
-    const { discussions, history, team, match, team_members, user_id} = this.props;
+    const { discussions, history, team, match, team_members, user_id, isGettingTeamDiscussions } = this.props;
     const { showAddDiscussionForm, isTeamMembersTab, isAddTeamMemberModalRaised } = this.state;
     const member = this.props.team_members.filter(member => member.user_id === user_id);
     let isTeamOwner;
@@ -390,7 +390,7 @@ class TeamBoard extends Component {
       }
     }
     if(!team){
-      return (<h1>Loading..</h1>)
+      return (<img src={require('../../assets/gif/spinner2.gif')} alt='spinner'/>)
     } else {
       return (
         <DiscussionsWrapper>
@@ -435,7 +435,7 @@ class TeamBoard extends Component {
           </DiscussionHeader>
           <hr />
           <div id='discussions' className='content tab-content selected'>
-            {discussions.map((discussion, i) =>
+            {isGettingTeamDiscussions ? <img src={require('../../assets/gif/spinner2.gif')} alt='spinner'/> : discussions.map((discussion, i) =>
               <DiscussionByFollowedCats
                 key={i}
                 discussion={discussion}
@@ -482,7 +482,8 @@ const mapStateToProps = state => ({
   discussions: state.teams.teamDiscussions.discussions,
   team: state.teams.teamDiscussions.team,
   team_members: state.teams.team_members,
-  user_id: state.users.user_id
+  user_id: state.users.user_id,
+  isGettingTeamDiscussions: state.teams.isGettingTeamDiscussions
 });
 
 export default connect(mapStateToProps, { getTeamDiscussions, handleDiscussionVote, getTeamMembers })(TeamBoard);
