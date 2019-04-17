@@ -52,7 +52,7 @@ const FileUpload = styled.div `
 
   .fileinput + label {
     width: 153px;
-    height: 16vh;
+    height: 153px;
     border-radius: 50%;
     text-align: center;
     border: 1px solid;
@@ -62,6 +62,7 @@ const FileUpload = styled.div `
 
     @media (max-width: 1440px){
       width: 200px;
+      height: 200px;
       line-height: 8;
       margin: 0 23% 0 9%;
     }
@@ -69,6 +70,7 @@ const FileUpload = styled.div `
     @media ${phoneP} {
       line-height: 7;
       width: 117px;
+      height: 117px;
       margin: 14px 9% 0 9%;
     }
   }
