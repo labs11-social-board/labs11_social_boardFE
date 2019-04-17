@@ -422,16 +422,25 @@ import {
   DELETING_EMAIL_APPROVAL,
   EMAIL_REMOVAL_SUCCESS,
   EMAIL_REMOVAL_FAIL,
-  KEYRESOURCES_SUBMITTED,
-  KEYRESOURCES_SUCCESS,
-  KEYRESOURCES_FAIL,
 
   // Action Creators
   approveEmail,
   getEmails,
   denyEmail,
-  putKeyResource
+
+  //actions
+  KEYRESOURCES_SUBMITTED,
+  KEYRESOURCES_SUCCESS,
+  KEYRESOURCES_FAIL,
+  GET_KEYRESOURCES_LOADING,
+  GET_KEYRESOURCES_SUCCESS,
+  GET_KEYRESOURCES_FAIL,
+
+  // Action Creators
+  putKeyResource,
+  getKeyResources,
 } from '../actions/EmailActions';
+
 
 //*************************************************************************************************
 //*************************************************************************************************
@@ -772,14 +781,23 @@ export {
   DELETING_EMAIL_APPROVAL,
   EMAIL_REMOVAL_SUCCESS,
   EMAIL_REMOVAL_FAIL,
-  KEYRESOURCES_SUBMITTED,
-  KEYRESOURCES_SUCCESS,
-  KEYRESOURCES_FAIL,
+
   // Action Creators
   approveEmail,
   getEmails,
   denyEmail,
+
+  //Key Resources
+  KEYRESOURCES_SUBMITTED,
+  KEYRESOURCES_SUCCESS,
+  KEYRESOURCES_FAIL,
+  GET_KEYRESOURCES_LOADING,
+  GET_KEYRESOURCES_SUCCESS,
+  GET_KEYRESOURCES_FAIL,
+  // Action Creators
   putKeyResource,
+  getKeyResources,
+
   // Analytics
   PAVEVIEWS_STARTED,
   PAVEVIEWS_SUCCESS,
