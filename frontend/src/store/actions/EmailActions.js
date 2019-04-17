@@ -110,15 +110,15 @@ export const putKeyResource = resourceInfo => dispatch => {
     });
 
     return axios
-        .post(`${backendUrl}/insert-resources/${user}`, resourceInfo)
+        .post(`${backendUrl}/resources/insert-resources/${user}`, resourceInfo)
         .then(res => {
             dispatch({
-                type: KEYRESOURCES_SUBMITTED,
+                type: KEYRESOURCES_SUCCESS,
                 payload: res.data
             })
         })
         .catch(err => handleError(
             err,
-            KEYRESOURCES_SUBMITTED
+            KEYRESOURCES_FAIL
         )(dispatch));
 }
