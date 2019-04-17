@@ -6,6 +6,7 @@ import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
 import Admin from './views/Admin';
 import Upload from './views/Upload';
 import Analytics from './views/Analytics';
+import KeyResources from './views/KeyResources';
 
 // globals
 import {
@@ -47,8 +48,7 @@ import {
   RegisterView,
   NonUserLandingView,
   TeamsView,
-  TeamDiscussionView,
-  UserTeamsView
+  TeamDiscussionView
 } from './views/index.js';
 
 // action creators
@@ -76,6 +76,9 @@ const GlobalStyle = createGlobalStyle`
     background: ${props => props.theme.appBgColor};
     width: 100%;
     min-height: 100vh;
+    a{
+      text-decoration: none;
+    }
   }
 `;
 
@@ -284,7 +287,11 @@ class App extends Component {
     const token = localStorage.getItem('symposium_token');
     window.addEventListener('hashchange', this.handleHashChange, false);
     this.props.verifyEmail(token);
-    if (user_id && token) return this.props.logBackIn(user_id, token);
+    if (user_id && token) return this.props.logBackIn(user_id, token).then(() => {
+      if(this.props.location.pathname === '/'){
+        this.props.history.push('/home');
+      }
+    });
   }
   componentDidUpdate(prevProps) {
     if (this.props.error && this.props.error.includes('expired')) {
@@ -402,6 +409,7 @@ class App extends Component {
                 <Route exact path="/upload" component={Upload} />
                 <Route path="/analytics" component={Analytics} />
                 <Route path="/profiles" component={Profiles} />
+                <Route path="/resources" component={KeyResources} />
                 {/* <Route path='/profile/:id' component={Profile} /> commented out instead of deleted incase I need to change it back J.H*/}
                 <Route path='/profile/:id' render={props => <Profile {...props} setEditProfileModalRaised={this.setEditProfileModalRaised} isEditProfileModalRaised={this.state.isEditProfileModalRaised} toggleSearch={this.userToggleSearch} goTo={this.userGoTo} history={this.props.history} showSearch={this.state.showUsersSearch} setInviteFriendModalRaised={this.setInviteFriendModalRaised} isInviteFriendModalRaised={this.state.isInviteFriendModalRaise} />} />
                 <Route path='/categories' render={() => <CategoriesView history={history} historyPush={this.props.history.push} setAddCatModalRaised={this.setAddCatModalRaised} isAddCatModalRaised={this.state.isAddCatModalRaised} />} />

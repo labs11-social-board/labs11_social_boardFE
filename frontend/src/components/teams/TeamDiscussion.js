@@ -198,6 +198,12 @@ const CommentSort = styled.div`
   }
 `;
 
+const Spinner = styled.div`
+  position: absolute;
+  top: 100%;
+  left: 43%;
+`;
+
 const newest = 'newest';
 const oldest = 'oldest';
 const mostUpvotes = 'most upvotes';
@@ -279,7 +285,8 @@ class TeamDiscussion extends Component {
       history,
       historyPush,
       loggedInUserId,
-      scrollTo
+      scrollTo, 
+      isGettingPosts
     } = this.props;
     const {
       // body,
@@ -298,107 +305,112 @@ class TeamDiscussion extends Component {
       // username,
       // user_vote,
     } = discussion;
-    return (
-      <Wrapper>
-        <div className="back-follow-wrapper">
-          <Link className="back" to={`/team/discussions/${team_id}`}>
-            <i className="far fa-arrow-alt-circle-left" />
-          </Link>
-          <Follow discussion_id={id} historyPush={historyPush} />
-        </div>
-        <DiscussionWrapper>
-          <SubWrapper>
-            <DiscussionByFollowedCats
-              discussion={discussion}
-              history={history}
-              voteOnDiscussion={this.handleVote}
-              singleDiscussion={true}
-              isTeam={true}
-              isShowImage={this.state.isShowImage}
-              handleImageShow={this.handleImageShow}
-              imageClickedId={this.state.imageClickedId}
-            />
-            <CommentWrapper>
-              <CommentSort>
-                <div className="comment-sort-wrapper">
-                  <div className="title-add-wrapper">
-                    <span className="title">Comments</span>
-                    <button
-                      onClick={this.toggleAddPostForm}
-                      className="add-post-btn desktop"
-                    >
-                      <i className="fas fa-plus-circle" />
-                      &nbsp;Add Comment
-                    </button>
-                  </div>
-                  <div className="sort">
-                    <div className="filter-wrapper">
-                      <i className="fab fa-mix" />
-                      <span className="filter-by">Filter by &nbsp;</span>
-                      <select
-                        className="filter"
-                        onChange={this.handleSelectChange}
-                        name="filter"
+    if(isGettingPosts){
+      return(<Spinner><img src={require('../../assets/gif/spinner2.gif')} alt='spinner'/></Spinner>)
+    } else {
+      return (
+        <Wrapper>
+          <div className="back-follow-wrapper">
+            <Link className="back" to={`/team/discussions/${team_id}`}>
+              <i className="far fa-arrow-alt-circle-left" />
+            </Link>
+            <Follow discussion_id={id} historyPush={historyPush} />
+          </div>
+          <DiscussionWrapper>
+            <SubWrapper>
+              <DiscussionByFollowedCats
+                discussion={discussion}
+                history={history}
+                voteOnDiscussion={this.handleVote}
+                singleDiscussion={true}
+                isTeam={true}
+                isShowImage={this.state.isShowImage}
+                handleImageShow={this.handleImageShow}
+                imageClickedId={this.state.imageClickedId}
+              />
+              <CommentWrapper>
+                <CommentSort>
+                  <div className="comment-sort-wrapper">
+                    <div className="title-add-wrapper">
+                      <span className="title">Comments</span>
+                      <button
+                        onClick={this.toggleAddPostForm}
+                        className="add-post-btn desktop"
                       >
-                        <option value={newest}>{newest}</option>
-                        <option value={oldest}>{oldest}</option>
-                        <option value={mostUpvotes}>{mostUpvotes}</option>
-                      </select>
+                        <i className="fas fa-plus-circle" />
+                        &nbsp;Add Comment
+                      </button>
+                    </div>
+                    <div className="sort">
+                      <div className="filter-wrapper">
+                        <i className="fab fa-mix" />
+                        <span className="filter-by">Filter by &nbsp;</span>
+                        <select
+                          className="filter"
+                          onChange={this.handleSelectChange}
+                          name="filter"
+                        >
+                          <option value={newest}>{newest}</option>
+                          <option value={oldest}>{oldest}</option>
+                          <option value={mostUpvotes}>{mostUpvotes}</option>
+                        </select>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <button
-                  onClick={this.toggleAddPostForm}
-                  className="add-post-btn tablet-btn"
-                >
-                  <i className="fas fa-plus-circle" />
-                  &nbsp;Add Comment
-                </button>
-              </CommentSort>
-              {showAddPostForm && (
-                <AddPostForm
-                  user_id={loggedInUserId}
-                  discussion_id={id}
-                  historyPush={historyPush}
-                  toggleAddPostForm={this.toggleAddPostForm}
-                  team_id={team_id}
-                  handleTeamFilter={this.handleTeamFilter}
-                />
-              )}
-              {posts ? (
-                <Posts>
-                  <PostsView
-                    posts={posts}
-                    showEditPostForm={showEditPostForm}
-                    updateEditPostForm={this.updateEditPostForm}
-                    handleRemovePost={this.handleRemovePost}
-                    showAddReplyForm={showAddReplyForm}
-                    toggleAddReplyForm={this.toggleAddReplyForm}
+                  <button
+                    onClick={this.toggleAddPostForm}
+                    className="add-post-btn tablet-btn"
+                  >
+                    <i className="fas fa-plus-circle" />
+                    &nbsp;Add Comment
+                  </button>
+                </CommentSort>
+                {showAddPostForm && (
+                  <AddPostForm
+                    user_id={loggedInUserId}
                     discussion_id={id}
                     historyPush={historyPush}
-                    repliedPost={posts.find(
-                      post => post.id === showAddReplyForm
-                    )}
-                    handleTeamFilter={this.handleTeamFilter}
+                    toggleAddPostForm={this.toggleAddPostForm}
                     team_id={team_id}
-                    scrollTo={scrollTo}
-                    isShowImage={this.state.isShowImage}
-                    handleImageShow={this.handleImageShow}
-                    imageClickedId={this.state.imageClickedId}
+                    handleTeamFilter={this.handleTeamFilter}
                   />
-                </Posts>
-              ) : null}
-            </CommentWrapper>
-          </SubWrapper>
-        </DiscussionWrapper>
-      </Wrapper>
-    );
+                )}
+                {posts ? (
+                  <Posts>
+                    <PostsView
+                      posts={posts}
+                      showEditPostForm={showEditPostForm}
+                      updateEditPostForm={this.updateEditPostForm}
+                      handleRemovePost={this.handleRemovePost}
+                      showAddReplyForm={showAddReplyForm}
+                      toggleAddReplyForm={this.toggleAddReplyForm}
+                      discussion_id={id}
+                      historyPush={historyPush}
+                      repliedPost={posts.find(
+                        post => post.id === showAddReplyForm
+                      )}
+                      handleTeamFilter={this.handleTeamFilter}
+                      team_id={team_id}
+                      scrollTo={scrollTo}
+                      isShowImage={this.state.isShowImage}
+                      handleImageShow={this.handleImageShow}
+                      imageClickedId={this.state.imageClickedId}
+                    />
+                  </Posts>
+                ) : null}
+              </CommentWrapper>
+            </SubWrapper>
+          </DiscussionWrapper>
+        </Wrapper>
+      );
+    }
   }
 }
 
 const mapStateToProps = state => ({
   discussion: state.teams.posts,
-  loggedInUserId: state.users.user_id
+  loggedInUserId: state.users.user_id,
+  isGettingPosts: state.teams.isGettingPosts
 });
 
 export default connect(

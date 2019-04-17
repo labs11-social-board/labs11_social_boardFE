@@ -181,7 +181,7 @@ class DiscussionsByCats extends Component {
     this.setState({ isShowImage: !this.state.isShowImage, imageClickedId: id });
   }
   render() {
-    const { discussions, history, category_name, match } = this.props;
+    const { discussions, history, category_name, match, isGettingDiscussions } = this.props;
     const { showAddDiscussionForm } = this.state;
     return (
       <DiscussionsWrapper>
@@ -216,7 +216,7 @@ class DiscussionsByCats extends Component {
         </DiscussionHeader>
         <hr />
         <div className='content'>
-          {discussions.map((discussion, i) =>
+          {isGettingDiscussions ? <img src={require('../assets/gif/spinner2.gif')} alt='spinner'/> : discussions.map((discussion, i) =>
             <DiscussionByFollowedCats
               key={i}
               discussion={discussion}
@@ -244,6 +244,7 @@ class DiscussionsByCats extends Component {
 const mapStateToProps = state => ({
   discussions: state.discussions.discussions,
   category_name: state.discussions.category.name,
+  isGettingDiscussions: state.discussions.isGettingDiscussions
 });
 
 export default connect(mapStateToProps, { getDiscussionsByCat, handleDiscussionVote })(DiscussionsByCats);

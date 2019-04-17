@@ -111,7 +111,7 @@ const UserActions = styled.div`
 `;
 
 class AddPostForm extends Component {
-  state = { postBody: "", name: "" };
+  state = { postBody: "", name: "", isUploading: false };
   handleChange = e => this.setState({ [e.target.name]: e.target.value });
   handleSubmit = e => {
     e.preventDefault();
@@ -162,7 +162,19 @@ class AddPostForm extends Component {
       this.setState({ name: '' });
     }
   };
-
+  componentDidUpdate = prevProps => {
+		if(this.props.isUploadingImage && !this.state.isUploading){
+			this.setState({ isUploading: true }, () => {
+				this.props.displayMessage('Uploading Image...')
+			})
+		} else if(this.state.isUploading && !this.props.isUploadingImage){
+			this.setState({ isUploading: false }, () => {
+				this.props.displayMessage('Image Uploaded!').then(() => {
+					setTimeout(() => this.props.displayMessage(''), 200);
+				})
+			})
+		}
+	}
   render() {
     const { postBody } = this.state;
     const { username, user_id, avatar } = this.props;

@@ -54,6 +54,13 @@ const InfoWrapper = styled.div`
   font-size: 0.9rem;
   color: #a7a7a7;
 
+  a{
+    color: #a7a7a7
+    &:hover {
+      color: ${ props => props.theme.defaultColorOnHover};
+    }
+  }
+
   .user-info {
     display: flex;
     justify-content: flex-start;
@@ -258,8 +265,8 @@ const Post = ({
         <BodyWrapper>{body}</BodyWrapper>
         {image ?
           <div className='show-image-wrapper'>
-            <a className='show-image' onClick={() => handleImageShow(id)}><i className="fas fa-camera"></i>{isShowImage ? '-' : '+'}</a>
-            {isShowImage ? id === imageClickedId ? <img src={image} alt="uploaded image" /> : null : null}
+            <a href='# ' className='show-image' onClick={() => handleImageShow(id)}><i className="fas fa-camera"></i>{ isShowImage ? '-' : '+'}</a>
+					  {isShowImage ? id === imageClickedId ? <img src={image} alt="uploaded"/> : null : null }
           </div> : null}
       </div>
       <InfoWrapper>
@@ -286,22 +293,22 @@ const Post = ({
             <span>{moment(new Date(Number(created_at))).fromNow()}</span>
           </div>
           {
-            (loggedInUserId === user_id) ?
-              (<div className='delete'>
-                <a onClick={e => handleRemovePost(e, id)}>Delete post</a>
-              </div>) :
-              (user_type === 'admin' || user_type === 'moderator') ?
-                <DeletePost
-                  handleRemovePost={handleRemovePost}
-                  handleTeamFilter={handleTeamFilter}
-                  handleFilterChange={handleFilterChange}
-                  displayMessage={displayMessage}
-                  id={id}
-                  teamId={team_id}
-                  user_id={user_id}
-                  className='delete'
-                />
-                : null}
+            (loggedInUserId === user_id) ? 
+            (<div className='delete'>
+              <a href='# ' onClick={e => handleRemovePost(e, id)}>Delete post</a>
+            </div>) : 
+            (user_type === 'admin' || user_type === 'moderator') ? 
+            <DeletePost 
+            handleRemovePost={handleRemovePost}
+            handleTeamFilter={handleTeamFilter}
+            handleFilterChange={handleFilterChange}
+            displayMessage={displayMessage}
+            id={id}
+            teamId={team_id}
+            user_id={user_id}
+            className='delete'
+            />
+            : null}
         </div>
       </InfoWrapper>
       {showAddReplyForm === id && (
