@@ -133,6 +133,23 @@ const Settings = styled.div `
       }
     }
 `; 
+const SubmitButton = styled.button`
+  margin-right: 5%;
+  margin-left: 10px;
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: 1px solid #418DCF;
+  background-color: #418DCF;
+  color: white;
+  cursor: pointer;
+
+  &:hover {
+    color: #418DCF;
+    border: 1px solid #418DCF;
+    background-color: white;
+  }
+`;
+
 class TeamSettings extends React.Component{
   state = {
     team_name: this.props.team.team_name,
@@ -195,6 +212,8 @@ class TeamSettings extends React.Component{
 			})
 		}
   }
+
+
   render() {
     let isTeam = true;
     const userId = localStorage.getItem("symposium_user_id");
@@ -233,7 +252,7 @@ class TeamSettings extends React.Component{
               </select>
             </span>
             <br/>
-            <button>Update User Role</button>
+            <SubmitButton>Update User Role</SubmitButton>
           </div>
         </Settings>
       </div>
