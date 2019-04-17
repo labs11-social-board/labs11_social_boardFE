@@ -93,7 +93,8 @@ export const PostsReducer = (state = initialState, action) => {
 		case RESET_IMAGE_STATE:
 			return {
 				...state,
-				images: {}
+				images: {},
+				isUploadingImage: false
 			};
 
 		default:
