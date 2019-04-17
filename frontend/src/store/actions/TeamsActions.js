@@ -49,6 +49,9 @@ export const GET_USERS_TEAMS_LOADING = 'GET_USERS_TEAMS_LOADING';
 export const GET_USERS_TEAMS_SUCCESS = 'GET_USERS_TEAMS_SUCCESS';
 export const GET_USERS_TEAMS_FAILURE= 'GET_USERS_TEAMS_FAILURE';
 
+export const UPDATE_USER_ROLE = 'UPDATE_USER_ROLE'; 
+export const UPDATE_USER_ROLE_SUCCESS = 'UPDATE_USER_ROLE_SUCCESS';
+export const UPDATE_USER_ROLE_FAILURE = 'UPDATE_USER_ROLE_FAILURE';
 
 /***************************************************************************************************
  ********************************************* Action Creators *************************************
@@ -182,4 +185,16 @@ export const updateTeamWithLogo = (image_id, team_id) => dispatch => {
 		.put(`${backendUrl}/posts/images/${user_id}`, post_image, headers)
 		.then(res => dispatch({ type: 'UPDATE_TEAM_WITH_LOGO' }))
 		.catch(err => handleError(err)(dispatch));
+};
+
+export const updateUserRole = (team_id, changing_id, role) => dispatch => {
+  const user_id = localStorage.getItem('symposium_user_id');
+  const token = localStorage.getItem('symposium_token');
+  const headers = { headers: { Authorization: token } };
+  const body = { role }
+  dispatch({type: UPDATE_USER_ROLE})
+  return axios
+    .put(`${backendUrl}/team/update_role/${team_id}/${user_id}/${changing_id}`, body, headers)
+    .then(res => dispatch({type: UPDATE_USER_ROLE_SUCCESS, payload: res.data}))
+    .catch(err => handleError(err, UPDATE_USER_ROLE_FAILURE)(dispatch));
 }
