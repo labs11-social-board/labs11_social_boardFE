@@ -134,6 +134,7 @@ const Settings = styled.div `
     }
 `; 
 const SubmitButton = styled.button`
+  margin-top: 5%;
   margin-right: 5%;
   margin-left: 10px;
   padding: 10px 15px;
@@ -148,6 +149,17 @@ const SubmitButton = styled.button`
     border: 1px solid #418DCF;
     background-color: white;
   }
+`;
+const SelectOptions = styled.select`
+  margin-top: 5%;
+  margin-right: 5%;
+  margin-left: 10px;
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: 1px solid #418DCF;
+  background-color: #418DCF;
+  color: white;
+  cursor: pointer;
 `;
 
 class TeamSettings extends React.Component{
@@ -261,15 +273,15 @@ class TeamSettings extends React.Component{
           <div>
             <h2>Change User Role</h2>
             <span>
-              <select id ="memberToChange" onChange = {this.handleChange}>
+              <SelectOptions id ="memberToChange" onChange = {this.handleChange}>
                 {members.map((member, id) => <option key = {id} value = {member.user_id}>{`${member.username} - ${member.role}`}</option>)}
-              </select>
+              </SelectOptions>
             </span>
             <span>
-              <select id = "chosenRole" onChange = {this.handleChange}>
+              <SelectOptions id = "chosenRole" onChange = {this.handleChange}>
                 <option value = "member">member</option>
                 <option value = "co_owner">co_owner</option>
-              </select>
+              </SelectOptions>
             </span>
             <br/>
             {members.length > 0 ? <SubmitButton onClick = {this.handleSubmit}>Update User Role</SubmitButton> : <span></span>}
