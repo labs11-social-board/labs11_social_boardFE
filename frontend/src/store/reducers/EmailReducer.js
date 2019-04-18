@@ -18,6 +18,9 @@ import {
     GET_KEYRESOURCES_LOADING,
     GET_KEYRESOURCES_SUCCESS,
     GET_KEYRESOURCES_FAIL,
+    DELETING_KEYRESOURCE,
+    DELETE_KEYRESOURCE_SUCCESS,
+    DELETE_KEYRESOURCE_FAIL,
 } from '../actions';
 
 const initialState = {
@@ -27,6 +30,7 @@ const initialState = {
     deletingEmail: false,
     addingResource: false,
     fetchingKeyResources: false,
+    deletingResource: false,
     resources: [],
     error: null
 }
@@ -131,6 +135,24 @@ export const EmailReducer = (state = initialState, action) => {
             return {
                 ...state,
                 fetchingKeyResources: false,
+                error: action.payload
+            }
+
+        case DELETING_KEYRESOURCE:
+            return {
+                ...state,
+                deletingResource: true
+            }
+        case DELETE_KEYRESOURCE_SUCCESS:
+            return {
+                ...state,
+                deletingResource: false,
+                resources: action.payload
+            }
+        case DELETE_KEYRESOURCE_FAIL:
+            return {
+                ...state,
+                deletingResource: false,
                 error: action.payload
             }
 

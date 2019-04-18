@@ -75,8 +75,17 @@ export const PostsReducer = (state = initialState, action) => {
 		case REMOVE_POST_SUCCESS:
 		case REMOVE_POST_FAILURE:
 		case HANDLE_POST_VOTE_LOADING:
+			return {
+				...state
+			}
 		case HANDLE_POST_VOTE_SUCCESS:
+			return {
+				...state
+			}
 		case HANDLE_POST_VOTE_FAILURE:
+			return {
+				...state
+			}
 		case UPLOAD_IMAGE_LOADING:
 			return {
 				...state,

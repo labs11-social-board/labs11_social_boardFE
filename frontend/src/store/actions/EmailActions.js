@@ -41,6 +41,11 @@ export const GET_KEYRESOURCES_LOADING = 'GET_KEYRESOURCES_SUBMITTED';
 export const GET_KEYRESOURCES_SUCCESS = 'GET_KEYRESOURCES_SUCCESS';
 export const GET_KEYRESOURCES_FAIL = 'GET_KEYRESOURCES_FAIL';
 
+// Key Resources Delete
+export const DELETING_KEYRESOURCE = 'DELETING_KEYRESOURCE';
+export const DELETE_KEYRESOURCE_SUCCESS = 'DELETE_KEYRESOURCE_SUCCESS';
+export const DELETE_KEYRESOURCE_FAIL = 'DELETE_KEYRESOURCE_FAIL';
+
 /***************************************************************************************************
  ****************************************** Action Creators ****************************************
  **************************************************************************************************/
@@ -135,4 +140,22 @@ export const getKeyResources = () => dispatch => {
             dispatch({ type: GET_KEYRESOURCES_SUCCESS, payload: res.data })
         })
         .catch(err => handleError(err, GET_KEYRESOURCES_FAIL)(dispatch))
+}
+
+export const deleteResource = id => async dispatch => {
+    dispatch({
+        type: DELETING_KEYRESOURCE
+    });
+
+    return axios
+        .delete(`${backendUrl}/resources/delete-resources/${id}`)
+        .then(async res => {
+            dispatch({
+                type: DELETE_KEYRESOURCE_SUCCESS,
+                payload: res.data
+            });
+        })
+        .catch(err => {
+            handleError(err, DELETE_KEYRESOURCE_FAIL)(dispatch)
+        });
 }

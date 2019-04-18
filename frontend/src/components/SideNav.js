@@ -28,15 +28,23 @@ margin-top: 20px;
     margin-left: 20px;
   }
   .section-select {
-    font-size: 12px;
+    font-size: .93rem;
     display: flex;
     margin: 20px;
     cursor:pointer;
+    color:grey;
     &:hover {
       color: ${props => props.theme.defaultColorOnHover};
     }
     i {
       margin-left: 10px;
+    }
+  }
+  
+  .admin {
+    cursor:default;
+    &:hover {
+      color:grey;
     }
   }
   @media (max-width: 800px) {
@@ -66,9 +74,6 @@ const H4BrowseCategories = styled.h4`
     width: 95%;
     margin-top: 6px;
     margin-bottom: 36px;
-    .browse-categories {
-      font-size: 0.9rem;
-    }
 `;
 
 const LinkBrowseCategories = styled(Link)`
@@ -77,12 +82,20 @@ const LinkBrowseCategories = styled(Link)`
   color: ${props => props.islinkselected === 'true' ? props.theme.defaultColorOnHover : props.theme.defaultColor};
   border-left: ${props => props.islinkselected === 'true' ? `5px solid ${props.theme.defaultColorOnHover}` : '6px solid transparent'};
   font-weight: normal;
+  display: flex;
+  align-items: center;
+  height: 35px;
   i {
     cursor: pointer;
-    margin-left: 20px;
-    padding: 10px 12px 10px 0;
+    padding: 10px 8px 6px 0;
     color: inherit;
     margin-left: 15px;
+  }
+  .fa-male {
+    padding: 10px 13px 6px 6px;
+  }
+  .admin-icons {
+    padding: 10px 10px 6px 0;
   }
   &:hover {
     color: ${ props => props.theme.defaultColorOnHover};
@@ -132,7 +145,6 @@ const LinkAllPosts = styled(Link)`
   margin-left: -1px;
   margin-right: 41px;
   margin-top: -65px;
-  font-size: 0.9rem;
   display: flex;
   align-items: center;
   margin-bottom: 9px;
@@ -159,7 +171,7 @@ const DivWindows = styled.div`
   height: 18px;
   padding-top: 1.8px;
   margin-left: 15px;
-  margin-right: 13px;
+  margin-right: 9px;
   margin-bottom: 0px;
   div {
     background-color: ${props => props.theme.defaultColor};
@@ -205,14 +217,20 @@ border-left: ${props => props.islinkselected === 'true' ? `5px solid ${props.the
   font-weight: 400;
   display: flex;
   align-items: center;
+  height: 35px;
+
   span {
-    width: 46px;
+    width: 30px;
     display: inline-block;
     text-align: center;
     margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 4px 0px 6px;
     i {
       cursor: pointer;
-      padding: 10px 10px 10px 0;
+      padding: 10px 10px 9px 0;
       color: inherit;
       margin-left: 15px;
     }
@@ -240,15 +258,12 @@ color: ${props => props.islinkselected === 'true' ? props.theme.defaultColorOnHo
 }
 `
 const UserTeams = styled.div`
-  margin: 10px 0;
-
-  .myteams {
-    font-weight: 400;
-    margin: 10px 20px;
-  }
-
   .teams {
-    padding-left: 20px;
+    padding-left: 4px;
+
+    span {
+      padding: 0px 1px 0px 6px;
+    }
 
     img {
       width: 20px;
@@ -356,7 +371,7 @@ class SideNav extends Component {
         <DivNavContainer>
           {
             (user_type === 'admin') &&
-            <span>Admin</span>
+            <span className='section-select admin'>Admin</span>
           }
           <H4BrowseCategories>
             <div>
@@ -378,7 +393,7 @@ class SideNav extends Component {
                   islinkselected={(this.state.linkSelected === 'Analytics').toString()}
                   onClick={() => this.selectLink('Analytics')}
                   className='browse-categories'
-                ><i className="fas fa-chart-line" />Analytics</LinkBrowseCategories>
+                ><i className="fas fa-chart-line admin-icons" />Analytics</LinkBrowseCategories>
               }
             </div>
             <div>
@@ -389,7 +404,7 @@ class SideNav extends Component {
                   islinkselected={(this.state.linkSelected === 'Resources').toString()}
                   onClick={() => this.selectLink('Resources')}
                   className='browse-categories'
-                ><i className="fas fa-comment" />Resources</LinkBrowseCategories>
+                ><i className="fas fa-comment admin-icons" />Resources</LinkBrowseCategories>
               }
             </div>
           </H4BrowseCategories>
@@ -406,7 +421,7 @@ class SideNav extends Component {
             <div onClick={(ev) => this.props.setAddCatModalRaised(ev, true)}>
               {(accountUserTypes.indexOf(user_type) >= subSilverStartIndex) &&
                 <DivModalRaised>
-                  <i style={{ marginLeft: 22 + 'px', marginTop: 15 + 'px', marginRight: 10 + 'px', marginBottom: 7 + 'px' }} className="fas fa-plus-circle" />
+                  <i style={{ marginLeft: 22 + 'px', marginTop: 15 + 'px', marginRight: 9 + 'px', marginBottom: 4 + 'px' }} className="fas fa-plus-circle" />
                   Create Category
               </DivModalRaised>
               }
@@ -476,7 +491,7 @@ class SideNav extends Component {
           <DivNavContainer>
             <H4BrowseCategories>
               <DivModalRaised onClick={(ev) => this.props.setAddTeamModalRaised(ev, true)}>
-                <i style={{ marginLeft: 22 + 'px', marginTop: 10 + 'px', marginRight: 10 + 'px', marginBottom: 10 + 'px' }} className="fas fa-plus-circle" />
+                <i style={{ marginLeft: 22 + 'px', marginTop: 10 + 'px', marginRight: 9 + 'px', marginBottom: 9 + 'px' }} className="fas fa-plus-circle" />
                 Create Team
               </DivModalRaised>
               <div>
@@ -488,6 +503,21 @@ class SideNav extends Component {
                 ><i className="fas fa-book-open" />Browse Teams</LinkBrowseCategories>
 
               </div>
+              <UserTeams>
+                {this.state.userTeams.length === 0 ? <div>You're not apart of any Teams Yet!</div> : this.state.userTeams.map(team => (
+                  <LinkSideNav 
+                    to={`/team/discussions/${team.team_id}`}
+                    islinkselected={(this.state.linkSelected === team.team_name).toString()}
+                    onClick={() => this.selectLink(team.team_name)}
+                    className='browse-categories teams'
+                    key={team.team_id}>
+                    <span>
+                      { team.logo ? <img src={team.logo} alt='team logo' /> : <i className="fas fa-users logo"></i>}
+                    </span>
+                    {team.team_name}
+                  </LinkSideNav>
+                ))}
+              </UserTeams>
               <div>
                 <LinkBrowseCategories
                   to={`/teamanalytics`}
@@ -522,23 +552,6 @@ class SideNav extends Component {
             </H4BrowseCategories>
           </DivNavContainer>  
         </ResourcesContent>
-
-
-        { /*
-        <ul>
-          {this.state.userTeams.length === 0 ? <div>No teams yet!</div> : (this.state.userTeams.map(team => (
-            <LiCategoryFollowed key={team.team_id}
-              isfollowedcatsopen={(this.state.isFollowedCatsOpen).toString()}
-              islinkselected={(this.state.linkSelected === team.team_name).toString()}>
-              <LinkSideNav onClick={() => this.selectLink(team.team_name)}
-                islinkselected={(this.state.linkSelected === team.team_name).toString()}
-                to={`/team/discussions/${team.team_id}`}>
-                {team.team_name}
-              </LinkSideNav>
-            </LiCategoryFollowed>
-          )))}
-        </ul>
-          */}
       </DivSideNav>
     );
   }
