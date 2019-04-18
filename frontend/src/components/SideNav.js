@@ -27,15 +27,23 @@ margin-top: 20px;
     margin-left: 20px;
   }
   .section-select {
-    font-size: 12px;
+    font-size: .93rem;
     display: flex;
     margin: 20px;
     cursor:pointer;
+    color:grey;
     &:hover {
       color: ${props => props.theme.defaultColorOnHover};
     }
     i {
       margin-left: 10px;
+    }
+  }
+  
+  .admin {
+    cursor:default;
+    &:hover {
+      color:grey;
     }
   }
   @media (max-width: 800px) {
@@ -346,7 +354,7 @@ class SideNav extends Component {
         <DivNavContainer>
           {
             (user_type === 'admin') &&
-            <span>Admin</span>
+            <span className='section-select admin'>Admin</span>
           }
           <H4BrowseCategories>
             <div>
