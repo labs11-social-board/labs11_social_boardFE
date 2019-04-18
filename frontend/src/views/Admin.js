@@ -49,6 +49,35 @@ const TableWrapper = styled.div`
 width: 90%;
 `;
 
+const ButtonY = styled.button `
+    border: 1px solid #418DCF;
+    border-radius: 3px;
+    color: white;
+    background-color: #418DCF;
+    height: 35px;
+    width: 100px;
+    margin-left: 4px;
+  `;
+
+  const ButtonX = styled.button `
+    border: 1px solid #418DCF;
+    border-radius: 3px;
+    color: white;
+    background-color: #418DCF;
+    height: 35px;
+    width: 100px;
+    margin-left: 24px;
+    
+  `;
+  
+  const StyledLink = styled(NavLink)`
+    color: white;  
+    text-decoration: none;
+
+    &:focus, &:hover, &:visited, &:link, &:active {
+        text-decoration: none;
+    }
+`;
 
 
 
@@ -89,6 +118,16 @@ class Admin extends React.Component {
                             <Boxed>
                                 <h4>Deleted Post</h4>
                                 <DeletedPostAndMods isDay={this.props.isDay} />
+                            </Boxed>
+                            <Boxed>
+                                <h2>Demo Site</h2>
+                                <p>Make use of all Admin (and moderator) site functionality on a demo site!</p>
+                                <p>Login with: </p>
+                                <ButtonY>
+                                <StyledLink to='/upload'>
+                                    Import CSV
+                                </StyledLink>
+                                </ButtonY>
                             </Boxed>
                         </InnerWrapper>
                     </MainWrapper>
