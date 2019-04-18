@@ -275,7 +275,8 @@ class TeamBoard extends Component {
     isAddTeamMemberModalRaised: false,
     isMember: false,
     isShowImage: false,
-    imageClickedId: ''
+    imageClickedId: '',
+    isVoting: false
   };
   toggleIsTeam = () => this.setState({ isTeam: !this.state.isTeam });
   toggleAddDiscussionForm = () => this.setState({
@@ -284,8 +285,11 @@ class TeamBoard extends Component {
   handleDiscussionVote = (discussion_id, type) => {
     const { order, orderType } = this.state;
     const { getTeamDiscussions, handleDiscussionVote, match } = this.props;
+    this.setState({ isVoting: true });
     return handleDiscussionVote(discussion_id, type)
-      .then(() => getTeamDiscussions(match.params.team_id, order, orderType));
+      .then(() => getTeamDiscussions(match.params.team_id, order, orderType)
+        .then(() => this.setState({ isVoting: false }))
+      );
   };
   handleImageShow = id => {
     this.setState({ isShowImage: !this.state.isShowImage, imageClickedId: id });
@@ -370,9 +374,112 @@ class TeamBoard extends Component {
       getTeamMembers(team_id);
     };
   };
+  conditionalRender() {
+    const { discussions, history, team, match, team_members, user_id, isGettingTeamDiscussions } = this.props;
+    const { showAddDiscussionForm, isTeamMembersTab, isAddTeamMemberModalRaised, isVoting } = this.state;
+    const member = this.props.team_members.filter(member => member.user_id === user_id);
+    let isTeamOwner;
+    let isMember;
+    if(member.length === 0 ){
+      isMember = false;
+    } else {
+      isMember = true;
+      if(member[0].role === 'team_owner'){
+        isTeamOwner=true;
+      } else {
+        isTeamOwner=false;
+      }
+    }
+    if(isGettingTeamDiscussions && !isVoting){
+      return <img src={require('../../assets/gif/spinner2.gif')} alt='spinner'/>
+    } else {
+      return (
+        <DiscussionsWrapper>
+            {isAddTeamMemberModalRaised && <UsersListModal setTeamMemberModal={this.setTeamMemberModal} team_id={team.id}/> }
+            <DiscussionHeader>
+              <div className='name-follow-wrapper'>
+                {team.logo ? <img src={team.logo} alt='team logo'/> : <i className="fas fa-users logo"></i>}
+                <h2 className='name'>{team.team_name}</h2>
+                <FollowCat
+                  team_id={match.params.team_id}
+                  historyPush={history.push}
+                  team_members={team_members}
+                />
+              </div>
+              <div className = 'team-tabs'>
+                <h3 className='tab tab-selected' onClick={this.handleTab}>Discussions</h3>
+                <h3 className='tab' onClick={this.handleTab}>Wiki</h3>
+                <h3 className='tab' onClick={this.handleTab}>Team Members</h3>
+                {isTeamOwner ? <h3 className='tab' onClick={this.handleTab}>Settings</h3> : null}
+              </div>
+              <div className='filter-add-btn-wrapper'>
+                <div className='filter-wrapper'>
+                  <i className='fab fa-mix' />
+                  <span>Filter by</span>
+                  <select
+                    className='filter'
+                    onChange={this.handleSelectChange}
+                    name='filter'
+                  >
+                    <option value={newest}>{newest}</option>
+                    <option value={oldest}>{oldest}</option>
+                    <option value={mostUpvotes}>{mostUpvotes}</option>
+                    <option value={mostViews}>{mostViews}</option>
+                    <option value={mostComments}>{mostComments}</option>
+                  </select>
+                </div>
+                <button onClick={this.toggleAddDiscussionForm} className='add-post-btn'>
+                  <i className='fas fa-plus-circle' />&nbsp;Add Post
+                </button>
+              </div>
+            </DiscussionHeader>
+            <hr />
+            <div id='discussions' className='content tab-content selected'>
+              { discussions.map((discussion, i) =>
+                <DiscussionByFollowedCats
+                  key={i}
+                  discussion={discussion}
+                  history={history}
+                  voteOnDiscussion={this.handleDiscussionVote}
+                  isTeam={this.state.isTeam}
+                  toggleIsTeam={this.toggleIsTeam}                
+                  isShowImage={this.state.isShowImage}
+                  handleImageShow={this.handleImageShow}
+                  imageClickedId={this.state.imageClickedId}
+                />)
+              }
+            </div>
+            <TeamWiki wiki={team.wiki} isTeamOwner={isTeamOwner} team_id={team.id} getDiscussions={this.getDiscussions}/>
+            <div id='team members' className='team-members tab-content'>
+            {!isMember ? null : isTeamMembersTab ? <InviteButton onClick={e => this.setTeamMemberModal(e, true)}>Invite Team Member</InviteButton> : null}
+              {team_members.map( (member, i)=> {
+                return (
+                  <div key={i} className='member-wrapper' onClick={e => this.handleUserClick(e, member.user_id)}>
+                    <Avatar height='60px' width='65px' src={ member.avatar }/>
+                    <h2>{member.username}</h2>
+                    <p className='member_role'>{member.role}</p>
+                  </div>
+                );
+              })}
+            </div>
+            {isTeamOwner ? 
+              <TeamSettings team={team} getDiscussions={this.getDiscussions} history={history} /> : null
+            }
+            {
+              showAddDiscussionForm &&
+              <AddDiscussionForm
+                toggleAddDiscussionForm={this.toggleAddDiscussionForm}
+                getDiscussions={this.getDiscussions}
+                team_id={match.params.team_id}
+              />
+            }
+            </DiscussionsWrapper>
+      );
+    }
+  }
   render() {
     const { discussions, history, team, match, team_members, user_id, isGettingTeamDiscussions } = this.props;
-    const { showAddDiscussionForm, isTeamMembersTab, isAddTeamMemberModalRaised } = this.state;
+    const { showAddDiscussionForm, isTeamMembersTab, isAddTeamMemberModalRaised, isVoting } = this.state;
     const member = this.props.team_members.filter(member => member.user_id === user_id);
     let isTeamOwner;
     let isMember;
@@ -390,6 +497,7 @@ class TeamBoard extends Component {
       return (<img src={require('../../assets/gif/spinner2.gif')} alt='spinner'/>)
     } else {
       return (
+        // this.conditionalRender()
         <>
           {isGettingTeamDiscussions ? <img src={require('../../assets/gif/spinner2.gif')} alt='spinner'/>
           : <DiscussionsWrapper>
