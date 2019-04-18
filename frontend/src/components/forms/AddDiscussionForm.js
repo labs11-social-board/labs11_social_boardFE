@@ -101,10 +101,6 @@ const AddDiscussionFormBox = styled.form`
 		margin-top: 10px;
 		align-items: center;
 
-		#drop-zone {
-			margin-top: 31px;
-		}
-
 		@media (max-width: 1024px) {
 			flex-direction: column;
 			justify-content: center;
