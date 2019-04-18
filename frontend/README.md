@@ -76,5 +76,5 @@ https://docs.google.com/document/d/19Xk2JsAndH-D3nPuWLIsCg1oMiI9h_cY1cfByQDt9Yg/
 https://docs.google.com/document/d/1dEinF2XC4LxbvUVlECg8OV3GogXpvJxe_x48M8NgrZc/edit?usp=sharing
 
 ### Social Board 2 Video Presentation (youtube video link)
-https://youtu.be/8PkIZcFmu24
+https://youtu.be/tBcCOniR8Xw
 
