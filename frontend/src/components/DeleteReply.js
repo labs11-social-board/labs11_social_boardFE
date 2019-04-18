@@ -18,10 +18,10 @@ class DeleteReply extends React.Component {
     }
 
     render() {
-        
+
         return (
             <>
-                {(this.props.user_type === 'admin' || this.props.user_type === 'moderator') ?
+                {(this.props.user_type === 'admin' || this.props.user_type === 'moderator' || this.props.user_permissions === 'moderator') ?
                     (<a className='delete' onClick={e => this.deleteReply(e, this.props.id)}>Delete comment</a>) : null}
             </>
         )
@@ -30,6 +30,7 @@ class DeleteReply extends React.Component {
 
 const mapStateToProps = state => ({
     user_type: state.users.user_type,
+    user_permissions: state.users.user_permissions,
     user_id: state.users.user_id,
     team_id: state.teams.team_id
 })
