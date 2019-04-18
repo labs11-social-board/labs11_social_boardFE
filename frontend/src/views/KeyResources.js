@@ -70,7 +70,7 @@ class KeyResources extends React.Component {
                 <div>
                     <MainWrapper>
                         <div>
-                            <h2>Admin Console</h2>
+                            <h2>Key Resources Admin/Changes</h2>
                         </div>
 
                         <InnerWrapper>
