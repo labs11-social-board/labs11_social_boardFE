@@ -376,6 +376,8 @@ class TeamBoard extends Component {
     const member = this.props.team_members.filter(member => member.user_id === user_id);
     let isTeamOwner;
     let isMember;
+    let isCoOwner;
+    
     if(member.length === 0 ){
       isMember = false;
     } else {
@@ -384,6 +386,11 @@ class TeamBoard extends Component {
         isTeamOwner=true;
       } else {
         isTeamOwner=false;
+      }
+      if(member[0].role === 'co_owner'){
+        isCoOwner = true; 
+      }else {
+        isCoOwner = false; 
       }
     }
     if(!team){
