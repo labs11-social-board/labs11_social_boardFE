@@ -179,6 +179,7 @@ const Post = ({
   loggedInUserId,
   historyPush,
   user_type,
+  user_permissions,
   // showEditPostForm,
   // updateEditPostForm,
   removePost,
@@ -259,6 +260,8 @@ const Post = ({
     }
   };
 
+  console.log(user_permissions)
+
   return (
     <PostWrapper>
       <div>
@@ -297,7 +300,7 @@ const Post = ({
             (<div className='delete'>
               <a href='# ' onClick={e => handleRemovePost(e, id)}>Delete post</a>
             </div>) : 
-            (user_type === 'admin' || user_type === 'moderator') ? 
+            (user_type === 'admin' || user_type === 'moderator' || user_permissions === 'moderator') ? 
             <DeletePost 
             handleRemovePost={handleRemovePost}
             handleTeamFilter={handleTeamFilter}
@@ -306,6 +309,8 @@ const Post = ({
             id={id}
             teamId={team_id}
             user_id={user_id}
+            user_type={user_type}
+            user_permissions={user_permissions}
             className='delete'
             />
             : null}
@@ -349,7 +354,8 @@ const Post = ({
 const mapStateToProps = state => ({
   loggedInUserId: state.users.user_id,
   avatar: state.users.avatar,
-  user_type: state.users.user_type
+  user_type: state.users.user_type,
+  user_permissions: state.users.user_permissions
 });
 
 export default connect(
