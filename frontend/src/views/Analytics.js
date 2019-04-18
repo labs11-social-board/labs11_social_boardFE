@@ -66,10 +66,11 @@ class Analytics extends React.Component {
             pagev1: null,
             pagev2: null,
             pagev3: null,
+            pagev4: null,
             isLoaded: false,
             dataA: [],
             dataB: [],
-            
+            dataC: [],
             
         }
     }
@@ -84,6 +85,7 @@ class Analytics extends React.Component {
             pagev1: this.props.gPageviews30.data.totalsForAllResults['ga:pageviews'],
             pagev2: this.props.gUsers30.data.totalsForAllResults['ga:users'],
             pagev3: this.props.gPageviews30.data.rows,
+            pagev4: this.props.gUsers30.data.rows
         })
 
         //console.log(this.state.pagev3)
@@ -97,6 +99,15 @@ class Analytics extends React.Component {
             this.state.dataA.push(part1);
             //console.log(this.state.dataA)
             this.state.dataB.push(part2);  
+        }
+
+        for( let i =0; i < this.state.pagev4.length; i++) {
+            //let part1 = this.state.pagev4[i][0];
+            let part2 = Number(this.state.pagev4[i][1]);
+            
+            //this.state.dataA.push(part1);
+            //console.log(this.state.dataA)
+            this.state.dataC.push(part2);  
         }
 
         this.setState ({
@@ -146,7 +157,7 @@ class Analytics extends React.Component {
                                 <h2>{this.state.pagev2}</h2>
                             
                             </Boxed>
-                            <div style={{position: "relative", width:800, height: 700}}>
+                            <div style={{position: "relative", width:800, height: 800}}>
                                 <Bar
                                     options={{
                                         responsive:true
@@ -155,8 +166,8 @@ class Analytics extends React.Component {
                                             labels: ['30','29','28','27','26','25','24','23','22','21','20','19','18','17','16','15','14','13','12','11','10','9','8','7','6','5','4','3','2','1','0'],
                                             datasets: [
                                                 {
-                                                    label: "Page Views",
-                                                    backgroundColor: "#863546",
+                                                    label: "Page Views Per Day",
+                                                    backgroundColor: "#418dcf",
                                                     data: [
                                                         this.state.dataB[0],
                                                         this.state.dataB[1],
@@ -193,9 +204,41 @@ class Analytics extends React.Component {
                                                 
                                                 },
                                                 {
-                                                    label: "Dummy Data",
-                                                    backgroundColor: "#473146",
-                                                    data: [1,18,12,24,2,19,6,13]
+                                                    label: "Users Per Day",
+                                                    backgroundColor: "#75a5f8",
+                                                    data: [
+                                                        this.state.dataC[0],
+                                                        this.state.dataC[1],
+                                                        this.state.dataC[2],
+                                                        this.state.dataC[3],
+                                                        this.state.dataC[4],
+                                                        this.state.dataC[5],
+                                                        this.state.dataC[6],
+                                                        this.state.dataC[7],
+                                                        this.state.dataC[8],
+                                                        this.state.dataC[9],
+                                                        this.state.dataC[10],
+                                                        this.state.dataC[11],
+                                                        this.state.dataC[12],
+                                                        this.state.dataC[13],
+                                                        this.state.dataC[14],
+                                                        this.state.dataC[15],
+                                                        this.state.dataC[16],
+                                                        this.state.dataC[17],
+                                                        this.state.dataC[18],
+                                                        this.state.dataC[19],
+                                                        this.state.dataC[20],
+                                                        this.state.dataC[21],
+                                                        this.state.dataC[22],
+                                                        this.state.dataC[23],
+                                                        this.state.dataC[24],
+                                                        this.state.dataC[25],
+                                                        this.state.dataC[26],
+                                                        this.state.dataC[27],
+                                                        this.state.dataC[28],
+                                                        this.state.dataC[29],
+                                                        this.state.dataC[30],
+                                                    ]
                                                 }
                                             ]
                                     }}
