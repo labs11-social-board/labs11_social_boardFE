@@ -6,9 +6,9 @@ import {
     NavLink
 } from 'react-router-dom';
 import styled from 'styled-components';
-import { putKeyResource } from '../../store/actions';
+import { putKeyResource, displayMessage } from '../../store/actions';
 
-const ButtonY = styled.button `
+const ButtonY = styled.button`
     border: 1px solid #418DCF;
     border-radius: 3px;
     color: white;
@@ -19,7 +19,7 @@ const ButtonY = styled.button `
     margin-top: 5px;
   `;
 
-  const ButtonX = styled.button `
+const ButtonX = styled.button`
     border: 1px solid #418DCF;
     border-radius: 3px;
     color: white;
@@ -29,8 +29,8 @@ const ButtonY = styled.button `
     margin-left: 24px;
     
   `;
-  
-  const StyledLink = styled(NavLink)`
+
+const StyledLink = styled(NavLink)`
     color: white;  
     text-decoration: none;
 
@@ -53,36 +53,42 @@ class KeyResourceForm extends Component {
     constructor(props) {
         super(props);
 
-    this.state = {
-        newResource: {
-        title: '',
-        resource: '',
-        info: ''
-        }
-    };
-}
+        this.state = {
+            newResource: {
+                title: '',
+                resource: '',
+                info: ''
+            }
+        };
+    }
 
-handleChange = e => {
-    this.setState({
-      ...this.state,
-      
-      newResource: {
-      ...this.state.newResource,
-      [e.target.name]: e.target.value
-      }
-    });
-    console.log(this.state.newResource)
-  };
+    handleChange = e => {
+        this.setState({
+            ...this.state,
+
+            newResource: {
+                ...this.state.newResource,
+                [e.target.name]: e.target.value
+            }
+        });
+        console.log(this.state.newResource)
+    };
 
     handleSubmit = e => {
         e.preventDefault();
 
         // handle submit logic
-        this.props.putKeyResource(this.state.newResource);
+        if (this.state.newResource.title !== '' && this.state.newResource.resource !== '' && this.state.newResource.info !== '') {
+            this.props.putKeyResource(this.state.newResource);
+            this.props.displayMessage('Resource added')
 
-        // setTimeout(() => {
-        //     window.location.reload();
-        // }, 800);
+            setTimeout(() => {
+                window.location.reload();
+            }, 300);
+        } else {
+            this.props.displayMessage('Please fill out all fields')
+        }
+
     };
 
     render() {
@@ -92,44 +98,44 @@ handleChange = e => {
         //     info
         // } = this.state;
 
-        return ( 
+        return (
             <div>
                 <h2>Add A Key Resource</h2>
                 <p>(All Info Required To Add)</p>
-                <form onSubmit ={this.handleSubmit}>
+                <form onSubmit={this.handleSubmit}>
 
-                <InputY
-                    placeholder = 'Web title'
-                    name = 'title'
-                    type='title'
-                    required="required"
-                    value = {this.state.newResource.title}
-                    onChange = {this.handleChange}
-                />
-                <br></br>
-                <InputY
-                    placeholder = 'Web Resource'
-                    name = 'resource'
-                    type='resource'
-                    required="required"
-                    value = {this.state.newResource.resource}
-                    onChange = {this.handleChange}
-                />
-                <br></br>
-                <InputY
-                    placeholder = 'Link Info'
-                    name = 'info'
-                    type='info'
-                    required="required"
-                    value = {this.state.newResource.info}
-                    onChange = {this.handleChange}
-                />
-                <br></br>
-                <ButtonY type='submit'
-                onClick={
-                    this.handleSubmit
-                }>Add</ButtonY>
-                
+                    <InputY
+                        placeholder='Web title'
+                        name='title'
+                        type='title'
+                        required
+                        value={this.state.newResource.title}
+                        onChange={this.handleChange}
+                    />
+                    <br></br>
+                    <InputY
+                        placeholder='Web Resource'
+                        name='resource'
+                        type='resource'
+                        required
+                        value={this.state.newResource.resource}
+                        onChange={this.handleChange}
+                    />
+                    <br></br>
+                    <InputY
+                        placeholder='Link Info'
+                        name='info'
+                        type='info'
+                        required
+                        value={this.state.newResource.info}
+                        onChange={this.handleChange}
+                    />
+                    <br></br>
+                    <ButtonY type='submit'
+                        onClick={
+                            this.handleSubmit
+                        }>Add</ButtonY>
+
                 </form>
             </div>
         );
@@ -138,7 +144,7 @@ handleChange = e => {
 
 const mapStoreToProps = state => {
     return {
-        
+
         addingResource: state.emails.addingResource
     }
 }
@@ -146,5 +152,5 @@ const mapStoreToProps = state => {
 
 export default connect(
     mapStoreToProps,
-    { putKeyResource }
+    { putKeyResource, displayMessage }
 )(KeyResourceForm);

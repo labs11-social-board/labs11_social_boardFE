@@ -171,60 +171,60 @@ export const UsersReducer = (state = initialState, action) => {
         isVerifyingEmail: true
       };
 
-    case VERIFYUSER_SUCCESS: 
+    case VERIFYUSER_SUCCESS:
       return {
         ...state,
         isVerifyingEmail: false,
         verified: action.payload
       };
 
-    case VERIFYUSER_FAILURE: 
+    case VERIFYUSER_FAILURE:
       return {
         ...state,
         isVerifyingEmail: false,
-        
+
       };
 
 
     case UPDATE_MODS_LOADING:
       return {
         ...state,
-        isFetchingNewMods:true
+        isFetchingNewMods: true
       };
 
-    case UPDATE_MODS_SUCCESS: 
+    case UPDATE_MODS_SUCCESS:
       return {
         ...state,
-        isFetchingNewMods:false
-        
+        isFetchingNewMods: false
+
       };
 
-    case UPDATE_MODS_FAILURE: 
+    case UPDATE_MODS_FAILURE:
       return {
         ...state,
-        isFetchingNewMods:false
-        
+        isFetchingNewMods: false
+
       };
 
-      case UPLOAD_LIST_LOADING:
+    case UPLOAD_LIST_LOADING:
       return {
         ...state,
         isListUploading: true
       };
 
-    case UPLOAD_LIST_SUCCESS: 
+    case UPLOAD_LIST_SUCCESS:
       return {
         ...state,
         isListUploading: false,
         uploadDone: true
       };
 
-    case UPLOAD_LIST_FAILURE: 
+    case UPLOAD_LIST_FAILURE:
       return {
         ...state,
         isListUploading: false
       };
-     
+
 
     case GET_USERSnMODS_LOADING:
       return {
@@ -232,22 +232,26 @@ export const UsersReducer = (state = initialState, action) => {
         isGettingUsers: true
       };
 
-    case GET_USERSnMODS_SUCCESS: 
+    case GET_USERSnMODS_SUCCESS:
       return {
         ...state,
         isGettingUsers: false,
         usersNmods: action.payload
       };
 
-    case GET_USERSnMODS_FAILURE: 
+    case GET_USERSnMODS_FAILURE:
       return {
         ...state,
         isGettingUsers: false,
-        
+
       };
 
     case RESET_PASSWORD_SUCCESS:
     case USER_AUTH0_LOGIN_SUCCESS:
+      return {
+        ...state,
+        user_permissions: action.payload.user_permissions
+      }
     case USER_LOG_BACK_IN_SUCCESS:
     case USER_LOGIN_SUCCESS:
       {
@@ -281,6 +285,7 @@ export const UsersReducer = (state = initialState, action) => {
           message: action.payload.message ? action.payload.message : state.message,
           uuid: action.payload.uuid,
           last_login: action.payload.last_login,
+          user_permissions: action.payload.user_permissions,
           user_type: action.payload.user_type,
           signature: action.payload.signature,
           isLoggedIn: true
@@ -477,14 +482,14 @@ export const UsersReducer = (state = initialState, action) => {
         ...state,
         signature: action.payload.signature,
       };
-    
+
     case GET_USERS_LOADING:
       return {
         ...state,
         isGettingUsers: true
       };
 
-    case GET_USERS_SUCCESS: 
+    case GET_USERS_SUCCESS:
       return {
         ...state,
         isGettingUsers: false,
@@ -492,10 +497,10 @@ export const UsersReducer = (state = initialState, action) => {
       };
     case SENDING_INVITE_SUCCESSFUL:
       return {
-        ...state, 
-        message: action.payload.message, 
-      }   
-      
+        ...state,
+        message: action.payload.message,
+      }
+
 
     case CHANGE_USER_TYPE_LOADING:
     case CHANGE_USER_TYPE_FAILURE:
@@ -533,8 +538,8 @@ export const UsersReducer = (state = initialState, action) => {
       return {
         ...state
       }
-   
-  
+
+
     default:
       return state;
   }
