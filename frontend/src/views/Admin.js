@@ -77,8 +77,7 @@ class Admin extends React.Component {
                         <InnerWrapper>
                             <Boxed>
                                 <ApproveEmailForm histoy={this.props.history} isDay={this.props.isDay} />
-                            </Boxed>
-                            <Boxed>
+                                <br></br>
                                 <ApprovedEmails isDay={this.props.isDay} />
                             </Boxed>
                             <Boxed>
