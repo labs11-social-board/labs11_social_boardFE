@@ -454,7 +454,7 @@ class TeamBoard extends Component {
                 />)
               }
             </div>
-            <TeamWiki wiki={team.wiki} isTeamOwner={isTeamOwner} team_id={team.id} getDiscussions={this.getDiscussions}/>
+            <TeamWiki wiki={team.wiki} isCoOwner = {isCoOwner} isTeamOwner={isTeamOwner} team_id={team.id} getDiscussions={this.getDiscussions}/>
             <div id='team members' className='team-members tab-content'>
             {!isMember ? null : isTeamMembersTab ? <InviteButton onClick={e => this.setTeamMemberModal(e, true)}>Invite Team Member</InviteButton> : null}
               {team_members.map( (member, i)=> {
