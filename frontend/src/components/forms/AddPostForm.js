@@ -117,7 +117,7 @@ class AddPostForm extends Component {
     e.preventDefault();
     const { postBody } = this.state;
     const { discussion_id, team_id, handleTeamFilter, handleFilterChange, toggleAddPostForm, updatePostWithImage, image, displayMessage } = this.props;
-    
+    this.props.handleisVoting();
     if(postBody.length > 0){
       this.props.addPost(discussion_id, postBody, team_id).then( res => {
         if(image){

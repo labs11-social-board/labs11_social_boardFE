@@ -330,6 +330,7 @@ const Post = ({
           team_id={team_id}
           handleFilterChange={handleFilterChange}
           handleTeamFilter={handleTeamFilter}
+          handleisVoting={handleisVoting}
         />
       )}
       <div>
