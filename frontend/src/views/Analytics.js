@@ -157,6 +157,7 @@ class Analytics extends React.Component {
                                 <h2>{this.state.pagev2}</h2>
                             
                             </Boxed>
+                            <Boxed>
                             <div style={{position: "relative", width:800, height: 800}}>
                                 <Bar
                                     options={{
@@ -244,9 +245,8 @@ class Analytics extends React.Component {
                                     }}
                                 />
                             </div>
-                            <Boxed>
-                                <ChartAnalytics dataB={this.state.dataB} />
                             </Boxed>
+                            
                             {/* {console.log(this.state.dataA)}
                             {console.log(this.state.dataB)} */}
                             
