@@ -77,6 +77,7 @@ class TeamWiki extends React.Component {
   toggleEditting = e => {
     e.preventDefault();
     this.setState({ isEditting: !this.state.isEditting, });
+    this.props.handleisVoting();
   };
   updateWiki = e => {
     e.preventDefault();

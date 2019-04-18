@@ -288,7 +288,7 @@ class TeamBoard extends Component {
     this.setState({ isVoting: true });
     return handleDiscussionVote(discussion_id, type)
       .then(() => getTeamDiscussions(match.params.team_id, order, orderType)
-        .then(() => this.setState({ isVoting: false }))
+        
       );
   };
   handleImageShow = id => {
@@ -354,7 +354,7 @@ class TeamBoard extends Component {
   getDiscussions = () => {
     const { order, orderType } = this.state;
     const { getTeamDiscussions, match } = this.props;
-    return getTeamDiscussions(match.params.team_id, order, orderType);
+    return getTeamDiscussions(match.params.team_id, order, orderType).then(() => this.setState({ isVoting: false }));
   };
   setTeamMemberModal = (e, status) => {
     e.stopPropagation();
@@ -374,6 +374,9 @@ class TeamBoard extends Component {
       getTeamMembers(team_id);
     };
   };
+  handleisVoting = () => {
+    this.setState({ isVoting: true })
+  }
   conditionalRender() {
     const { discussions, history, team, match, team_members, user_id, isGettingTeamDiscussions } = this.props;
     const { showAddDiscussionForm, isTeamMembersTab, isAddTeamMemberModalRaised, isVoting } = this.state;
@@ -449,7 +452,7 @@ class TeamBoard extends Component {
                 />)
               }
             </div>
-            <TeamWiki wiki={team.wiki} isTeamOwner={isTeamOwner} team_id={team.id} getDiscussions={this.getDiscussions}/>
+            <TeamWiki wiki={team.wiki} isTeamOwner={isTeamOwner} team_id={team.id} getDiscussions={this.getDiscussions} handleisVoting={this.handleisVoting}/>
             <div id='team members' className='team-members tab-content'>
             {!isMember ? null : isTeamMembersTab ? <InviteButton onClick={e => this.setTeamMemberModal(e, true)}>Invite Team Member</InviteButton> : null}
               {team_members.map( (member, i)=> {
@@ -463,7 +466,7 @@ class TeamBoard extends Component {
               })}
             </div>
             {isTeamOwner ? 
-              <TeamSettings team={team} getDiscussions={this.getDiscussions} history={history} /> : null
+              <TeamSettings team={team} getDiscussions={this.getDiscussions} history={history} handleisVoting={this.handleisVoting} /> : null
             }
             {
               showAddDiscussionForm &&
