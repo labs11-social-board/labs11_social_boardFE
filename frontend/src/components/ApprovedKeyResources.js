@@ -7,64 +7,69 @@ import {
 } from 'react-redux';
 
 import {
-    approveEmail,
-    getEmails,
-    denyEmail
+    getKeyResources
 } from '../store/actions';
 
 import ReactTable from "react-table";
 import "react-table/react-table.css";
 
 class ApprovedKeyResources extends Component {
-    componentDidMount(){
-        this.props.getEmails();
+    componentDidMount() {
+        this.props.getKeyResources()
     }
 
-    handleClick(e, id){
-        e.preventDefault();
-        
-        this.props.denyEmail(id)
-        setTimeout(() => {
-            window.location.reload();
-        }, 800);
-    }
+    // handleClick(e, id) {
+    //     e.preventDefault();
+
+    //     this.props.denyEmail(id)
+    //     setTimeout(() => {
+    //         window.location.reload();
+    //     }, 800);
+    // }
     render() {
         return (
             <div>
                 <ReactTable
-                    data={this.props.approvedEmails}
-                    filterable
-                    defaultFilterMethod = {
-                        (filter, row) =>
-                        String(row[filter.id]) === filter.value
-                    }
-                    columns = {
+                    data={this.props.resources}
+                    columns={
                         [
                             {
-                                Header: "E-Mail",
-                                accessor: "email",
-                                filterMethod: (filter, row) =>
-                                    row[filter.id].startsWith(filter.value) &&
-                                    row[filter.id].endsWith(filter.value)
+                                Header: "Title",
+                                accessor: "title",
+                                minWidth: 40
+                            },
+                            {
+                                Header: "Username",
+                                accessor: "username",
+                                minWidth: 20
+                            },
+                            {
+                                Header: "Info",
+                                accessor: "info",
+                                minWidth: 40
+                            },
+                            {
+                                Header: "Resource",
+                                accessor: 'resource'
                             }
                         ]
                     }
-                    SubComponent = {
-                        row => {
-                            console.log(row)
-                            return ( 
-                                <div>
-                                    <button
-                                        onClick={e => this.handleClick(e, row.original.id)}
-                                    >Deny Email</button>
-                                </div>
-                            );
-                        }
-                    }
-                    defaultPageSize = {
+                    // SubComponent={
+                    //     row => {
+                    //         console.log(row)
+                    //         return (
+                    //             <div>
+                    //                 <button
+                    //                     onClick={e => this.handleClick(e, row.original.id)}
+                    //                 >Deny Email</button>
+                    //             </div>
+                    //         );
+                    //     }
+                    // }
+                    defaultPageSize={
                         5
                     }
-                    className = "-striped -highlight"
+                    className="-striped -highlight"
                 />
             </div>
         )
@@ -73,19 +78,19 @@ class ApprovedKeyResources extends Component {
 
 const mapStoreToProps = state => {
     return {
-        approvedEmails: state.emails.approvedEmails
+        resources: state.emails.resources
     }
 }
 
-const mapDispatchToProps = dispatch => {
-    return {
-        approveEmail: email => dispatch(approveEmail(email)),
-        getEmails: () => dispatch(getEmails()),
-        denyEmail: id => dispatch(denyEmail(id))
-    }
-}
+// const mapDispatchToProps = dispatch => {
+//     return {
+//         approveEmail: email => dispatch(approveEmail(email)),
+//         getEmails: () => dispatch(getEmails()),
+//         denyEmail: id => dispatch(denyEmail(id))
+//     }
+// }
 
 export default connect(
     mapStoreToProps,
-    mapDispatchToProps
+    { getKeyResources }
 )(ApprovedKeyResources);
