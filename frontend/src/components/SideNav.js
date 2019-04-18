@@ -28,6 +28,7 @@ margin-top: 20px;
     margin-left: 20px;
   }
   .section-select {
+    font-size: 12px;
     display: flex;
     margin: 20px;
     cursor:pointer;
@@ -285,9 +286,8 @@ class SideNav extends Component {
       isFollowedCatsOpen: true,
       setWrapperRef: this.setWrapperRef.bind(this),
       updated: this.props.verified,
-      isTeamSectionDisplayed : true,
-      isCatSectionDisplayed: true,
-      isResourcesSectionDisplayed: true,
+      isTeamSectionDisplayed: true,
+      isCatSectionDisplayed: true
     }
   }
 
@@ -323,7 +323,7 @@ class SideNav extends Component {
   }
   selectLink = (linkName) => {
     this.setState({ linkSelected: linkName });
-    if(this.props.isOpen){
+    if (this.props.isOpen) {
       this.props.toggleSideNav();
     }
   }
@@ -337,7 +337,7 @@ class SideNav extends Component {
       this.props.toggleSideNav();
     }
   }
-  setWrapperRef(node){
+  setWrapperRef(node) {
     this.wrapperRef = node;
   }
 
@@ -346,7 +346,7 @@ class SideNav extends Component {
     const { isTeamSectionDisplayed, isCatSectionDisplayed, isResourcesSectionDisplayed } = this.state;
     //console.log(this.props.verified)
     if (!this.props.verified) {
-      return(
+      return (
         <NoGo2 />
       )
     }
@@ -398,7 +398,7 @@ class SideNav extends Component {
 
         <span className='section-select' onClick={() => this.setState({ isCatSectionDisplayed: !this.state.isCatSectionDisplayed })}>
           Categories
-          {isCatSectionDisplayed ? <i className="fas fa-chevron-up"/>: <i className="fas fa-chevron-down"/>}
+          {isCatSectionDisplayed ? <i className="fas fa-chevron-up" /> : <i className="fas fa-chevron-down" />}
         </span>
         <CatContent section={isCatSectionDisplayed}>
           <DivNavContainer>
@@ -468,9 +468,9 @@ class SideNav extends Component {
             </DivCategoriesFollowed>
           </DivNavContainer>
         </CatContent>
-        <span className='section-select' onClick={() => this.setState({ isTeamSectionDisplayed: !this.state.isTeamSectionDisplayed})}>
-          Teams 
-          {isTeamSectionDisplayed ? <i className="fas fa-chevron-up"/> : <i className="fas fa-chevron-down"/>}
+        <span className='section-select' onClick={() => this.setState({ isTeamSectionDisplayed: !this.state.isTeamSectionDisplayed })}>
+          Teams
+          {isTeamSectionDisplayed ? <i className="fas fa-chevron-up" /> : <i className="fas fa-chevron-down" />}
         </span>
         <TeamsContent section={isTeamSectionDisplayed}>
           <DivNavContainer>
@@ -488,22 +488,6 @@ class SideNav extends Component {
                 ><i className="fas fa-book-open" />Browse Teams</LinkBrowseCategories>
 
               </div>
-              <UserTeams>
-                <div className='myteams'>My Teams</div>
-                {this.state.userTeams.length === 0 ? <div>You're not apart of any Teams Yet!</div> : this.state.userTeams.map(team => (
-                  <LinkSideNav 
-                    to={`/team/discussions/${team.team_id}`}
-                    islinkselected={(this.state.linkSelected === team.team_name).toString()}
-                    onClick={() => this.selectLink(team.team_name)}
-                    className='browse-categories teams'
-                    key={team.team_id}>
-                    <span>
-                      { team.logo ? <img src={team.logo} alt='team logo' /> : <i className="fas fa-users logo"></i>}
-                    </span>
-                    {team.team_name}
-                  </LinkSideNav>
-                ))}
-              </UserTeams>
               <div>
                 <LinkBrowseCategories
                   to={`/teamanalytics`}

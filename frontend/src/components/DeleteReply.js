@@ -1,6 +1,13 @@
 import React from 'react';
+import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { removeReply } from '../store/actions/RepliesActions.js'
+
+const DeleteButton = styled.a`
+    color: red !important;
+    margin-left: 15px;
+    cursor: pointer;
+`
 
 class DeleteReply extends React.Component {
 
@@ -22,7 +29,7 @@ class DeleteReply extends React.Component {
         return (
             <>
                 {(this.props.user_type === 'admin' || this.props.user_type === 'moderator' || this.props.user_permissions === 'moderator') ?
-                    (<a className='delete' onClick={e => this.deleteReply(e, this.props.id)}>Delete comment</a>) : null}
+                    (<DeleteButton  onClick={e => this.deleteReply(e, this.props.id)}>Delete comment</DeleteButton>) : null}
             </>
         )
     }
