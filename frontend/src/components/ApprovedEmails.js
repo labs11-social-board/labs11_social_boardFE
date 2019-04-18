@@ -18,6 +18,7 @@ import "react-table/react-table.css";
 class ApprovedEmails extends Component {
     componentDidMount(){
         this.props.getEmails();
+        this.addFilterPlaceholder();
     }
 
     handleClick(e, id){
@@ -28,6 +29,14 @@ class ApprovedEmails extends Component {
             window.location.reload();
         }, 800);
     }
+
+    addFilterPlaceholder = () => {
+        const filters = document.querySelectorAll("div.rt-th > input");
+          for (let filter of filters) {
+            filter.placeholder = "Search...";
+          }
+        }
+
     render() {
         return (
             <div>
@@ -41,7 +50,7 @@ class ApprovedEmails extends Component {
                     columns = {
                         [
                             {
-                                Header: "E-Mail",
+                                Header: "Approved E-Mails",
                                 accessor: "email",
                                 filterMethod: (filter, row) =>
                                     row[filter.id].startsWith(filter.value) &&
