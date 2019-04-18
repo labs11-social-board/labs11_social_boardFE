@@ -144,6 +144,7 @@ border-top: 1px solid black;
     text-align: center;
     justify-content: center;
     height: 50vh;
+    
   `;
 
 const ExampleImage = styled.img`
@@ -151,6 +152,38 @@ const ExampleImage = styled.img`
     max-height: 100%;
     object-fit: contain;
   `;
+
+const TeamContainer = styled.div`
+  padding: 20px;
+        text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin-bottom: 10px;
+      //width: 100px;
+      border-top: 1px solid black;
+      margin-top: 90px;
+    `;
+
+const TeamList = styled.div`
+      display: flex;
+      justify-content: space-evenly;
+      flex-wrap: wrap;
+`;
+const TeamMember = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  background-color: white;
+  border: 2px solid lightgray;
+
+
+  img {
+    width: 256px;
+    height: 256px;
+    
+  }
+`;
 
 class NonUserLandingView extends Component {
   // constructor(props) {
@@ -183,17 +216,39 @@ class NonUserLandingView extends Component {
         </BackgroundBox>
         <section>
           <BottomFillerDiv>
-          <h2>OUR FEATURES</h2>
+            <h2>OUR FEATURES</h2>
             <p>Get more done with our team based discussion board. Easily create discussions, follow posts and people, and join teams. This is a must have for Team developers. We offer a free basic subcription as well as paid solutions.</p>
           </BottomFillerDiv>
           <ImageDiv>
-          <h2>OUR SUBSCRIPTION TIERS</h2>
+            <h2>OUR SUBSCRIPTION TIERS</h2>
 
-          <ExampleImage src={subscriptions} alt="subscriptions"/>
+            <ExampleImage src={subscriptions} alt="subscriptions" />
           </ImageDiv>
-          <BottomFillerDiv>
+          <TeamContainer>
+            <h2>TEAM MEMBERS</h2>
+            <TeamList>
+              <TeamMember>
+                <h2>Modesto Tamayo</h2>
+                <img src='https://avatars2.githubusercontent.com/u/32940785?s=400&v=4' alt='Member' />
+              </TeamMember>
 
-          </BottomFillerDiv>
+              <TeamMember>
+                <h2>Jonathan Holloway</h2>
+                <img src='https://avatars2.githubusercontent.com/u/38900224?s=400&v=4' alt='Member' />
+              </TeamMember>
+
+              <TeamMember>
+                <h2>Marco Guzman</h2>
+                <img src='https://avatars0.githubusercontent.com/u/17074832?s=460&v=4' alt='Member' />
+              </TeamMember>
+
+              <TeamMember>
+                <h2>Jeffery Artrip</h2>
+                <img src='https://avatars1.githubusercontent.com/u/9707341?s=460&v=4' alt='Member' />
+              </TeamMember>
+
+            </TeamList>
+          </TeamContainer>
         </section>
       </Woah>
     )
