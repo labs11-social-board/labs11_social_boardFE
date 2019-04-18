@@ -215,7 +215,8 @@ class Discussion extends Component {
     showAddReplyForm: null, // post_id
     filter: newest,
     isShowImage: false,
-    imageClickedId: ''
+    imageClickedId: '',
+    isVoting: false
   };
   handleSelectChange = e =>
     this.setState(
@@ -229,13 +230,13 @@ class Discussion extends Component {
     const { getDiscussionById, id } = this.props;
     switch (filter) {
       case newest: {
-        return getDiscussionById(id, 'created_at', 'desc');
+        return getDiscussionById(id, 'created_at', 'desc').then(() => this.setState({ isVoting: false }));
       }
       case oldest: {
-        return getDiscussionById(id, 'created_at', 'asc');
+        return getDiscussionById(id, 'created_at', 'asc').then(() => this.setState({ isVoting: false }));
       }
       case mostUpvotes: {
-        return getDiscussionById(id, 'upvotes', 'desc');
+        return getDiscussionById(id, 'upvotes', 'desc').then(() => this.setState({ isVoting: false }));
       }
       default:
         return;
@@ -274,12 +275,16 @@ class Discussion extends Component {
   };
   handleVote = (id, type) => {
     this.handleDiscussionVote(id, type);
+    this.setState({ isVoting: true })
   };
   handleImageShow = id => {
     this.setState({ isShowImage: !this.state.isShowImage, imageClickedId: id });
   }
+  handleisVoting = () => {
+    this.setState({ isVoting: true });
+  }
   render() {
-    const { showAddPostForm, showEditPostForm, showAddReplyForm } = this.state;
+    const { showAddPostForm, showEditPostForm, showAddReplyForm, isVoting } = this.state;
     const {
       discussion,
       history,
@@ -305,7 +310,7 @@ class Discussion extends Component {
       // username,
       // user_vote,
     } = discussion;
-   if(isGettingDiscussion){
+   if(isGettingDiscussion && !isVoting){
     return (<Spinner><img src={require('../assets/gif/spinner2.gif')} alt='spinner'/></Spinner>)
    } else {
     return (
@@ -389,6 +394,7 @@ class Discussion extends Component {
                   isShowImage={this.state.isShowImage}
                   handleImageShow={this.handleImageShow}
                   imageClickedId={this.state.imageClickedId}
+                  handleisVoting={this.handleisVoting}
                 />
               </Posts>
             </CommentWrapper>
