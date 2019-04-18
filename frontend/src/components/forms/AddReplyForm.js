@@ -190,7 +190,7 @@ class AddReplyForm extends Component {
 		e.preventDefault();
 		const { replyBody } = this.state;
 		const { post_id, team_id, handleFilterChange, handleTeamFilter, toggleAddReplyForm, updateReplyWithImage, image, displayMessage } = this.props;
-
+		this.props.handleisVoting();
 		if(replyBody.length > 0){
 			this.props.addReply(post_id, team_id, replyBody).then((res) => {
 				if(image){

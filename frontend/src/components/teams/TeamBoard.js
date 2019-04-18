@@ -474,6 +474,7 @@ class TeamBoard extends Component {
                 toggleAddDiscussionForm={this.toggleAddDiscussionForm}
                 getDiscussions={this.getDiscussions}
                 team_id={match.params.team_id}
+                handleisVoting={this.handleisVoting}
               />
             }
             </DiscussionsWrapper>
