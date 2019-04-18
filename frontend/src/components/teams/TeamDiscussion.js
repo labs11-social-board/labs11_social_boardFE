@@ -216,7 +216,8 @@ class TeamDiscussion extends Component {
     showAddReplyForm: null, // post_id
     filter: newest,
     isShowImage: false,
-    imageClickedId: ''
+    imageClickedId: '',
+    isVoting: false
   };
   handleSelectChange = e =>
     this.setState(
@@ -230,13 +231,13 @@ class TeamDiscussion extends Component {
     const { getTeamDiscussionsById, id } = this.props;
     switch (filter) {
       case newest: {
-        return getTeamDiscussionsById(id, 'created_at', 'desc');
+        return getTeamDiscussionsById(id, 'created_at', 'desc').then(() => this.setState({ isVoting: false }));
       }
       case oldest: {
-        return getTeamDiscussionsById(id, 'created_at', 'asc');
+        return getTeamDiscussionsById(id, 'created_at', 'asc').then(() => this.setState({ isVoting: false }));
       }
       case mostUpvotes: {
-        return getTeamDiscussionsById(id, 'upvotes', 'desc');
+        return getTeamDiscussionsById(id, 'upvotes', 'desc').then(() => this.setState({ isVoting: false }));
       }
       default:
         return;
@@ -274,12 +275,16 @@ class TeamDiscussion extends Component {
   };
   handleVote = (id, type) => {
     this.handleDiscussionVote(id, type);
+    this.setState({ isVoting: true });
   };
   handleImageShow = id => {
     this.setState({ isShowImage: !this.state.isShowImage, imageClickedId: id });
   }
+  handleisVoting = () => {
+    this.setState({ isVoting: true });
+  }
   render() {
-    const { showAddPostForm, showEditPostForm, showAddReplyForm } = this.state;
+    const { showAddPostForm, showEditPostForm, showAddReplyForm, isVoting } = this.state;
     const {
       discussion,
       history,
@@ -305,7 +310,7 @@ class TeamDiscussion extends Component {
       // username,
       // user_vote,
     } = discussion;
-    if(isGettingPosts){
+    if(isGettingPosts && !isVoting){
       return(<Spinner><img src={require('../../assets/gif/spinner2.gif')} alt='spinner'/></Spinner>)
     } else {
       return (
@@ -373,6 +378,7 @@ class TeamDiscussion extends Component {
                     toggleAddPostForm={this.toggleAddPostForm}
                     team_id={team_id}
                     handleTeamFilter={this.handleTeamFilter}
+                    handleisVoting={this.handleisVoting}
                   />
                 )}
                 {posts ? (
@@ -395,6 +401,7 @@ class TeamDiscussion extends Component {
                       isShowImage={this.state.isShowImage}
                       handleImageShow={this.handleImageShow}
                       imageClickedId={this.state.imageClickedId}
+                      handleisVoting={this.handleisVoting}
                     />
                   </Posts>
                 ) : null}

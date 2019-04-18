@@ -439,10 +439,14 @@ import {
   GET_KEYRESOURCES_LOADING,
   GET_KEYRESOURCES_SUCCESS,
   GET_KEYRESOURCES_FAIL,
+  DELETING_KEYRESOURCE,
+  DELETE_KEYRESOURCE_SUCCESS,
+  DELETE_KEYRESOURCE_FAIL,
 
   // Action Creators
   putKeyResource,
   getKeyResources,
+  deleteResource
 } from '../actions/EmailActions';
 
 
@@ -802,9 +806,13 @@ export {
   GET_KEYRESOURCES_LOADING,
   GET_KEYRESOURCES_SUCCESS,
   GET_KEYRESOURCES_FAIL,
+  DELETING_KEYRESOURCE,
+  DELETE_KEYRESOURCE_SUCCESS,
+  DELETE_KEYRESOURCE_FAIL,
   // Action Creators
   putKeyResource,
   getKeyResources,
+  deleteResource,
 
   // Analytics
   PAVEVIEWS_STARTED,
