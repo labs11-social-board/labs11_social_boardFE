@@ -14,6 +14,10 @@ import {
     KEYRESOURCES_SUBMITTED,
     KEYRESOURCES_SUCCESS,
     KEYRESOURCES_FAIL,
+
+    GET_KEYRESOURCES_LOADING,
+    GET_KEYRESOURCES_SUCCESS,
+    GET_KEYRESOURCES_FAIL,
 } from '../actions';
 
 const initialState = {
@@ -22,11 +26,13 @@ const initialState = {
     approvedEmails: [],
     deletingEmail: false,
     addingResource: false,
+    fetchingKeyResources: false,
+    resources: [],
     error: null
 }
 
 export const EmailReducer = (state = initialState, action) => {
-    switch(action.type){
+    switch (action.type) {
         case EMAIL_APPROVAL_SUBMITTED:
             return {
                 ...state,
@@ -106,7 +112,27 @@ export const EmailReducer = (state = initialState, action) => {
                 ...state,
                 addingResource: false,
                 error: action.payload
-            }    
+            }
+
+        case GET_KEYRESOURCES_LOADING:
+            return {
+                ...state,
+                fetchingKeyResources: true,
+            }
+
+        case GET_KEYRESOURCES_SUCCESS:
+            return {
+                ...state,
+                fetchingKeyResources: false,
+                resources: action.payload
+            }
+
+        case GET_KEYRESOURCES_FAIL:
+            return {
+                ...state,
+                fetchingKeyResources: false,
+                error: action.payload
+            }
 
         default:
             return state;
