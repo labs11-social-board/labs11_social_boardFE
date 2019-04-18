@@ -265,7 +265,6 @@ const Post = ({
     }
   };
 
-  console.log(user_permissions)
 
   return (
     <PostWrapper>
