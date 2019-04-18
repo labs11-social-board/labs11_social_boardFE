@@ -121,11 +121,13 @@ class TeamWiki extends React.Component {
   }
   
   render(){
-  const { isTeamOwner } = this.props;
+  const { isTeamOwner, isCoOwner } = this.props;
+
+  const ownership = isTeamOwner || isCoOwner; 
 
   return (
    <>
-     {this.conditionalRender(isTeamOwner)}
+     {this.conditionalRender(ownership)}
    </>
   );
   }
