@@ -2,30 +2,49 @@ import React, {
     Component
 } from 'react';
 
+import styled from 'styled-components';
+
 import {
     connect
 } from 'react-redux';
 
 import {
-    getKeyResources
+    getKeyResources,
+    deleteResource
 } from '../store/actions';
 
 import ReactTable from "react-table";
 import "react-table/react-table.css";
+
+const SubDrawer = styled.div`
+  padding: 20px;
+  display: flex;
+`
+const DeleteButton = styled.button`
+    border: 1px solid red;
+    border-radius: 3px;
+    background-color: red;
+    color: white;
+    font-weight: bold;
+    height: 35px;
+    width: 100px;
+    margin-left: 4px;
+    cursor: pointer;
+`
 
 class ApprovedKeyResources extends Component {
     componentDidMount() {
         this.props.getKeyResources()
     }
 
-    // handleClick(e, id) {
-    //     e.preventDefault();
+    handleClick(e, id) {
+        e.preventDefault();
 
-    //     this.props.denyEmail(id)
-    //     setTimeout(() => {
-    //         window.location.reload();
-    //     }, 800);
-    // }
+        this.props.deleteResource(id)
+        setTimeout(() => {
+            window.location.reload();
+        }, 800);
+    }
     render() {
         return (
             <div>
@@ -54,18 +73,18 @@ class ApprovedKeyResources extends Component {
                             }
                         ]
                     }
-                    // SubComponent={
-                    //     row => {
-                    //         console.log(row)
-                    //         return (
-                    //             <div>
-                    //                 <button
-                    //                     onClick={e => this.handleClick(e, row.original.id)}
-                    //                 >Deny Email</button>
-                    //             </div>
-                    //         );
-                    //     }
-                    // }
+                    SubComponent={
+                        row => {
+                            console.log(row)
+                            return (
+                                <SubDrawer>
+                                    <DeleteButton
+                                        onClick={e => this.handleClick(e, row.original.id)}
+                                    >Delete Resource</DeleteButton>
+                                </SubDrawer>
+                            );
+                        }
+                    }
                     defaultPageSize={
                         5
                     }
@@ -82,15 +101,7 @@ const mapStoreToProps = state => {
     }
 }
 
-// const mapDispatchToProps = dispatch => {
-//     return {
-//         approveEmail: email => dispatch(approveEmail(email)),
-//         getEmails: () => dispatch(getEmails()),
-//         denyEmail: id => dispatch(denyEmail(id))
-//     }
-// }
-
 export default connect(
     mapStoreToProps,
-    { getKeyResources }
+    { getKeyResources, deleteResource }
 )(ApprovedKeyResources);
