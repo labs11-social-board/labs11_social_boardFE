@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link, NavLink } from "react-router-dom";
 import styled from 'styled-components';
 import { connect } from "react-redux";
 import { getUsers, getUsersNMods, makeMod, makeBas } from './../store/actions/UsersActions';
@@ -7,48 +6,24 @@ import {getEmails, approveEmail, denyEmail} from './../store/actions'
 import ReactTable from "react-table";
 import "react-table/react-table.css";
 
-
-
-const MainWrapper = styled.div`
+const SubDrawer = styled.div`
+  padding: 20px;
   display: flex;
-  flex-direction: row;
-  width: 90%;
-  font-size: 1.0rem;
-  justify-content: space-between;
-  justify-items: right;
-  align-items: right;
-  align-content: right;
-  padding-bottom: 5px;
+`
 
-  .title {
-    margin-top: 30px;
-    margin-bottom: 5px;
-  }
+const Button = styled.button`
+    border: 1px solid #418DCF;
+    border-radius: 3px;
+    color: white;
+    background-color: #418DCF;
+    height: 35px;
+    width: 100px;
+    margin-left: 4px;
+    cursor: pointer;
+    margin-right: 20px;
+`
 
-`;
-
-const InnerWrapper = styled.div`
-width: 23%;
-font-size: 1.1rem;
-
-
-`;
-
-
-class Users extends React.Component {
-    constructor(props) {
-        super(props)
-
-        // this.state = {
-        //   selected: {
-        //     index: 0
-        //   },
-        //   emails: []
-        // };
-    }
-
-
-
+class Users extends Component {
     componentDidMount() {
         this.props.getUsersNMods();
         this.props.getEmails();
@@ -83,10 +58,7 @@ class Users extends React.Component {
       } else {
         this.props.approveEmail({email})
       }
-      
-      
-      
-      
+    
       setTimeout(() => {
         window.location.reload();
       }, 800);
@@ -106,36 +78,36 @@ class Users extends React.Component {
             row => {
               console.log(row)
               return ( 
-                <div>
+                <SubDrawer>
 
                   {
                     row.original.user_permissions === 'moderator' ?
-                      <button
+                      <Button
                       onClick = {
                           e => {
                             this.buttony2(e, row.original.id);
                           }
                         } >
                         Make Basic 
-                        </button>
+                        </Button>
                     :
-                      <button
+                      <Button
                       onClick = {
                           e => {
                             this.buttony(e, row.original.id);
                           }
                         }>
                         Make Moderator 
-                        </button>
+                        </Button>
                   }
-                  <button
+                  <Button
                   onClick = {
                       e => {
                         this.handleEmailToggle(e, row.original.email)
                       }
                     }>
-                    Toggle E-mail Status</button>
-                </div>
+                    Toggle E-mail Status</Button>
+                </SubDrawer>
               );
             }
           }

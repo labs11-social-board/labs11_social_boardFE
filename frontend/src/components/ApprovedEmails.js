@@ -6,6 +6,8 @@ import {
     connect
 } from 'react-redux';
 
+import styled from 'styled-components';
+
 import {
     approveEmail,
     getEmails,
@@ -14,6 +16,22 @@ import {
 
 import ReactTable from "react-table";
 import "react-table/react-table.css";
+
+const DenyButton = styled.button`
+    border: 1px solid red;
+    border-radius: 3px;
+    background-color: red;
+    color: white;
+    font-weight: bold;
+    height: 35px;
+    width: 100px;
+    margin-left: 4px;
+    cursor: pointer;
+`
+
+const SubDrawer = styled.div`
+  padding: 20px;
+`
 
 class ApprovedEmails extends Component {
     componentDidMount(){
@@ -62,11 +80,11 @@ class ApprovedEmails extends Component {
                         row => {
                             console.log(row)
                             return ( 
-                                <div>
-                                    <button
+                                <SubDrawer>
+                                    <DenyButton
                                         onClick={e => this.handleClick(e, row.original.id)}
-                                    >Deny Email</button>
-                                </div>
+                                    > Deny Email </DenyButton>
+                                </SubDrawer>
                             );
                         }
                     }
