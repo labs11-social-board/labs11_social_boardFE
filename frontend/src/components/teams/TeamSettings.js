@@ -193,8 +193,10 @@ class TeamSettings extends React.Component{
     updateTeam(team.id, changes)
       .then(() => {
         displayMessage('Team Settings Updated!');
-        this.setState({ newImg: this.props.image.image });
-        resetImageState();
+        if(image){
+          this.setState({ newImg: this.props.image.image });
+          resetImageState();
+        }
       })
       .then(() => setTimeout(() => this.props.getDiscussions(), 150));
   };

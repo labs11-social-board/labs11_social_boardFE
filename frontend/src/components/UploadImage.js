@@ -12,7 +12,6 @@ const FileUpload = styled.div `
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom:30px;
   
   @media ${phoneP}{
     flex-direction: column;

@@ -22,7 +22,8 @@ const PostsView = ({
 	team_id,
   isShowImage,
 	handleImageShow,
-	imageClickedId
+	imageClickedId,
+	handleisVoting
 }) => {
 	
 	return(
@@ -45,6 +46,7 @@ const PostsView = ({
 					isShowImage = { isShowImage}
 					handleImageShow = { handleImageShow}
 					imageClickedId={imageClickedId}
+					handleisVoting={handleisVoting}
 				/>)
 			}
 		</PostsViewWrapper>
