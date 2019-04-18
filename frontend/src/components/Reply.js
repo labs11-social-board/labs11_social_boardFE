@@ -170,7 +170,8 @@ const Reply = ({
   isShowImage,
   handleImageShow,
   imageClickedId,
-  user_type
+  user_type,
+  user_permissions
 }) => {
   const {
     body,
@@ -251,7 +252,7 @@ const Reply = ({
               (<div className='delete'>
                 <a href='# ' onClick={e => deleteReply(e, id)}>Delete reply</a>
               </div>) :
-              (user_type === 'admin' || user_type === 'moderator') ?
+              (user_type === 'admin' || user_type === 'moderator' || user_permissions === 'moderator') ?
                 <DeleteReply
                   deleteReply={deleteReply}
                   handleTeamFilter={handleTeamFilter}
@@ -261,6 +262,7 @@ const Reply = ({
                   teamId={team_id}
                   user_id={user_id}
                   user_type={user_type}
+                  user_permissions={user_permissions}
                   className='delete'
                 />
                 : null}
@@ -286,7 +288,8 @@ const mapStateToProps = state => ({
   loggedInUserId: state.users.user_id,
   avatar: state.users.avatar,
   username: state.users.username,
-  user_type: state.users.user_type
+  user_type: state.users.user_type,
+  user_permissions: state.users.user_permissions
 });
 
 export default connect(

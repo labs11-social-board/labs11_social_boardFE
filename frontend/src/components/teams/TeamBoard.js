@@ -483,6 +483,8 @@ class TeamBoard extends Component {
     const member = this.props.team_members.filter(member => member.user_id === user_id);
     let isTeamOwner;
     let isMember;
+    let isCoOwner;
+    
     if(member.length === 0 ){
       isMember = false;
     } else {
@@ -491,6 +493,11 @@ class TeamBoard extends Component {
         isTeamOwner=true;
       } else {
         isTeamOwner=false;
+      }
+      if(member[0].role === 'co_owner'){
+        isCoOwner = true; 
+      }else {
+        isCoOwner = false; 
       }
     }
     if(!team){
@@ -555,7 +562,7 @@ class TeamBoard extends Component {
                 />)
               }
             </div>
-            <TeamWiki wiki={team.wiki} isTeamOwner={isTeamOwner} team_id={team.id} getDiscussions={this.getDiscussions}/>
+            <TeamWiki wiki={team.wiki} isCoOwner = {isCoOwner} isTeamOwner={isTeamOwner} team_id={team.id} getDiscussions={this.getDiscussions}/>
             <div id='team members' className='team-members tab-content'>
             {!isMember ? null : isTeamMembersTab ? <InviteButton onClick={e => this.setTeamMemberModal(e, true)}>Invite Team Member</InviteButton> : null}
               {team_members.map( (member, i)=> {
