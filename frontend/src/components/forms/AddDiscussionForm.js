@@ -205,8 +205,9 @@ class AddDiscussionForm extends Component {
   handleSubmit = e => {
     e.preventDefault();
     const { body, category_id,} = this.state;
-    const { toggleAddDiscussionForm, getDiscussions, updateDiscussionWithImage, image, followDiscussion, user_id, resetImageState } = this.props;
-
+    const { toggleAddDiscussionForm, getDiscussions, updateDiscussionWithImage, image, followDiscussion, user_id, resetImageState, handleisVoting } = this.props;
+		handleisVoting();
+		
 		if(this.props.team_id){
 			this.props.addTeamDiscussion(body, this.props.team_id)
 			.then(res => {
