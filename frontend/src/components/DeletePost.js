@@ -19,7 +19,6 @@ class DeletePost extends React.Component {
   }
 
   componentDidMount() {
-    // const posts = await this.props.posts
     this.setState({
       posts: this.props.post
     })
@@ -42,7 +41,6 @@ class DeletePost extends React.Component {
 
   handleAddDeletedPost = (e, id) => {
     const post = this.state.posts.filter(p => p.id === id)
-    console.log(post)
     this.props.addDeletedPost(id, post)
   }
 
