@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import {Line} from 'react-chartjs-2';
+import {Line, Bar} from 'react-chartjs-2';
+import Chart from 'chart.js';
 
 import {BrowserRouter as Router, Route, Link, NavLink} from "react-router-dom";
 import styled from 'styled-components';
@@ -7,6 +8,7 @@ import { connect } from "react-redux";
 import Users from './Users';
 import { getPageViews, getUsersAna, getPageViews30, getUsersAna30, } from './../store/actions/analyticActions';
 import { GoogleProvider, GoogleDataChart } from 'react-analytics-widget';
+import ChartAnalytics from './ChartAnalytics';
 
 import {} from '../components'
 
@@ -90,12 +92,11 @@ class Analytics extends React.Component {
 
         for( let i =0; i < this.state.pagev3.length; i++) {
             let part1 = this.state.pagev3[i][0];
-            let part2 = this.state.pagev3[i][1];
+            let part2 = Number(this.state.pagev3[i][1]);
             
             this.state.dataA.push(part1);
             //console.log(this.state.dataA)
-            this.state.dataB.push(part2);
-            
+            this.state.dataB.push(part2);  
         }
 
         this.setState ({
@@ -145,37 +146,66 @@ class Analytics extends React.Component {
                                 <h2>{this.state.pagev2}</h2>
                             
                             </Boxed>
-
-                            <Boxed>
-                                <div style={{position: "relative", width:800, height: 700}}>
-                                    <Line
-                                        options={{
-                                            responsive:true
-                                        }}
-                                        data={{
-                                            
-                                                labels: this.state.dataA,
-                                                datasets: [
-                                                    {
-                                                        label: "Page Views",
-                                                        backgroundColor: "#863546",
-                                                        data: this.state.dataB
-                                                    },
-                                                    // {
-                                                    //     label: "Dummy Data",
-                                                    //     backgroundColor: "#473146",
-                                                    //     data: [1,18,12,24,2,19,6,13]
-                                                    // }
+                            <div style={{position: "relative", width:800, height: 700}}>
+                                <Bar
+                                    options={{
+                                        responsive:true
+                                    }}
+                                    data={{
+                                            labels: ['30','29','28','27','26','25','24','23','22','21','20','19','18','17','16','15','14','13','12','11','10','9','8','7','6','5','4','3','2','1','0'],
+                                            datasets: [
+                                                {
+                                                    label: "Page Views",
+                                                    backgroundColor: "#863546",
+                                                    data: [
+                                                        this.state.dataB[0],
+                                                        this.state.dataB[1],
+                                                        this.state.dataB[2],
+                                                        this.state.dataB[3],
+                                                        this.state.dataB[4],
+                                                        this.state.dataB[5],
+                                                        this.state.dataB[6],
+                                                        this.state.dataB[7],
+                                                        this.state.dataB[8],
+                                                        this.state.dataB[9],
+                                                        this.state.dataB[10],
+                                                        this.state.dataB[11],
+                                                        this.state.dataB[12],
+                                                        this.state.dataB[13],
+                                                        this.state.dataB[14],
+                                                        this.state.dataB[15],
+                                                        this.state.dataB[16],
+                                                        this.state.dataB[17],
+                                                        this.state.dataB[18],
+                                                        this.state.dataB[19],
+                                                        this.state.dataB[20],
+                                                        this.state.dataB[21],
+                                                        this.state.dataB[22],
+                                                        this.state.dataB[23],
+                                                        this.state.dataB[24],
+                                                        this.state.dataB[25],
+                                                        this.state.dataB[26],
+                                                        this.state.dataB[27],
+                                                        this.state.dataB[28],
+                                                        this.state.dataB[29],
+                                                        this.state.dataB[30],
+                                                    ]
                                                 
-                                                ]
-                                            
-                                        }}
-                                        
-                                    />
-                                </div>
+                                                },
+                                                {
+                                                    label: "Dummy Data",
+                                                    backgroundColor: "#473146",
+                                                    data: [1,18,12,24,2,19,6,13]
+                                                }
+                                            ]
+                                    }}
+                                />
+                            </div>
+                            <Boxed>
+                                <ChartAnalytics dataB={this.state.dataB} />
                             </Boxed>
-                            {console.log(this.state.dataA)}
-                            {console.log(this.state.dataB)}
+                            {/* {console.log(this.state.dataA)}
+                            {console.log(this.state.dataB)} */}
                             
                         </InnerWrapper>
                     </MainWrapper>
@@ -205,3 +235,30 @@ const mapStateToProps = state => {
   export default connect(
     mapStateToProps,{ getPageViews, getUsersAna, getPageViews30, getUsersAna30, } 
   )(Analytics);
+
+
+
+
+
+{/* <div style={{position: "relative", width:800, height: 700}}>
+    <Bar
+        options={{
+            responsive:true
+        }}
+        data={{
+                labels: ['30','29','28','27','26','25','24','23','22','21','20','19','18','17','16','15','14','13','12','11','10','9','8','7','6','5','4','3','2','1','0'],
+                datasets: [
+                    {
+                        label: "Page Views",
+                        backgroundColor: "#863546",
+                        data: this.state.dataB
+                    },
+                    {
+                        label: "Dummy Data",
+                        backgroundColor: "#473146",
+                        data: [1,18,12,24,2,19,6,13]
+                    }
+                ]
+        }}
+    />
+</div> */}
