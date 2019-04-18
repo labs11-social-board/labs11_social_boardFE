@@ -73,9 +73,7 @@ class ApproveEmailForm extends Component {
 
     render() {
         const {
-            email,
-            first_name,
-            last_name
+            email
         } = this.state;
 
         return ( 
