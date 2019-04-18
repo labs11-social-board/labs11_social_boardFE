@@ -378,6 +378,7 @@ class TeamDiscussion extends Component {
                     toggleAddPostForm={this.toggleAddPostForm}
                     team_id={team_id}
                     handleTeamFilter={this.handleTeamFilter}
+                    handleisVoting={this.handleisVoting}
                   />
                 )}
                 {posts ? (

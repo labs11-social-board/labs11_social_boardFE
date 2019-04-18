@@ -184,6 +184,9 @@ class DiscussionsByCats extends Component {
   handleImageShow = id => {
     this.setState({ isShowImage: !this.state.isShowImage, imageClickedId: id });
   }
+  handleisVoting = () => {
+    this.setState({ isVoting: true })
+  }
   conditionalRender() {
     const { discussions, history, category_name, match, isGettingDiscussions } = this.props;
     const { showAddDiscussionForm, isVoting } = this.state;
@@ -241,6 +244,7 @@ class DiscussionsByCats extends Component {
                 toggleAddDiscussionForm={this.toggleAddDiscussionForm}
                 getDiscussions={this.getDiscussions}
                 category_id={match.params.category_id}
+                handleisVoting={this.handleisVoting}
               />
             }
           </DiscussionsWrapper>
