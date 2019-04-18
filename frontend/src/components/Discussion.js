@@ -417,4 +417,3 @@ export default connect(
   mapStateToProps,
   { getDiscussionById, removePost, removeDiscussion, handleDiscussionVote }
 )(Discussion);
-
