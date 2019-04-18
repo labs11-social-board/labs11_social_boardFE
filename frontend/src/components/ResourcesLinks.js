@@ -28,14 +28,14 @@ border-left: ${props => props.islinkselected === 'true' ? `5px solid ${props.the
 `;
 
 const ResourceLinks = props => {
-    console.log(props)
-    return (
-        <>
-            {props.resources.map((resource, id) => {
-                return <LinkResource key={id} href={`${resource.resource}`} >{resource.title}</LinkResource>
-            })}
-        </>
-    )
+
+  return (
+    <>
+      {props.resources.map((resource, id) => {
+        return <LinkResource key={id} href={`${resource.resource}`} >{resource.title}</LinkResource>
+      })}
+    </>
+  )
 }
 
 
