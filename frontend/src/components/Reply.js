@@ -220,7 +220,7 @@ const Reply = ({
         <BodyWrapper>{body}</BodyWrapper>
         {image ?
           <div className='show-image-wrapper'>
-            <a href='# ' className='show-image' onClick={() => handleImageShow(id)}><i className="fas fa-camera"></i>{isShowImage ? '-' : '+'}</a>
+            <a href='# ' className='show-image' onClick={() => handleImageShow(id)}><i className="fas fa-camera"></i>{isShowImage ? id === imageClickedId ? '-' : '+' : '+'}</a>
             {isShowImage ? id === imageClickedId ? <img src={image} alt="uploaded" /> : null : null}
           </div> : null}
       </div>
