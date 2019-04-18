@@ -36,7 +36,10 @@ export const KEYRESOURCES_SUBMITTED = 'KEYRESOURCES_SUBMITTED';
 export const KEYRESOURCES_SUCCESS = 'KEYRESOURCES_SUCCESS';
 export const KEYRESOURCES_FAIL = 'KEYRESOURCES_FAIL';
 
-
+// Key Resources Get
+export const GET_KEYRESOURCES_LOADING = 'GET_KEYRESOURCES_SUBMITTED';
+export const GET_KEYRESOURCES_SUCCESS = 'GET_KEYRESOURCES_SUCCESS';
+export const GET_KEYRESOURCES_FAIL = 'GET_KEYRESOURCES_FAIL';
 
 /***************************************************************************************************
  ****************************************** Action Creators ****************************************
@@ -121,4 +124,15 @@ export const putKeyResource = resourceInfo => dispatch => {
             err,
             KEYRESOURCES_FAIL
         )(dispatch));
+}
+
+//Get Key Resources
+export const getKeyResources = () => dispatch => {
+    dispatch({ type: GET_KEYRESOURCES_LOADING })
+    return axios
+        .get(`${backendUrl}/resources`)
+        .then(res => {
+            dispatch({ type: GET_KEYRESOURCES_SUCCESS, payload: res.data })
+        })
+        .catch(err => handleError(err, GET_KEYRESOURCES_FAIL)(dispatch))
 }
