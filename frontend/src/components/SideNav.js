@@ -4,9 +4,10 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import NoGo2 from './NoGo2.js';
+import ResourcesLinks from './ResourcesLinks.js';
 
 // actions
-import { getCategoriesFollowed, getUsersTeams, getUsers, verifyEmail } from '../store/actions/index.js';
+import { getCategoriesFollowed, getUsersTeams, getUsers, verifyEmail, getKeyResources } from '../store/actions/index.js';
 
 // globals
 import { accountUserTypes, subSilverStartIndex } from '../globals/globals.js';
@@ -266,6 +267,9 @@ const TeamsContent = styled.div`
 const CatContent = styled.div`
   display: ${props => props.section === true ? 'block' : 'none'}
 `;
+const ResourcesContent = styled.div`
+  display: ${props => props.section === true ? 'block' : 'none'}
+`;
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
@@ -277,11 +281,13 @@ class SideNav extends Component {
       categories: [],
       categoryFollows: [],
       userTeams: [],
+      resources: [],
       isFollowedCatsOpen: true,
       setWrapperRef: this.setWrapperRef.bind(this),
       updated: this.props.verified,
       isTeamSectionDisplayed : true,
-      isCatSectionDisplayed: true
+      isCatSectionDisplayed: true,
+      isResourcesSectionDisplayed: true,
     }
   }
 
@@ -293,6 +299,10 @@ class SideNav extends Component {
     this.props.getUsersTeams().then(() => {
       this.setState({ userTeams: this.props.userTeams });
     });
+
+    this.props.getKeyResources().then(() => {
+      this.setState({ resources: this.props.resource })
+    })
 
     document.addEventListener('click', this.handleClick, false);
   }
@@ -330,9 +340,10 @@ class SideNav extends Component {
   setWrapperRef(node){
     this.wrapperRef = node;
   }
+
   render() {
     const { user_type } = this.props;
-    const { isTeamSectionDisplayed, isCatSectionDisplayed } = this.state;
+    const { isTeamSectionDisplayed, isCatSectionDisplayed, isResourcesSectionDisplayed } = this.state;
     //console.log(this.props.verified)
     if (!this.props.verified) {
       return(
@@ -514,6 +525,20 @@ class SideNav extends Component {
           </DivNavContainer>
         </TeamsContent>
 
+        <span className='section-select' onClick={() => this.setState({ isResourcesSectionDisplayed: !this.state.isResourcesSectionDisplayed })}>
+          Resources
+          {isResourcesSectionDisplayed ? <i className="fas fa-chevron-up"/>: <i className="fas fa-chevron-down"/>}
+        </span>
+        <ResourcesContent section={isResourcesSectionDisplayed}>
+          <DivNavContainer>
+            <H4BrowseCategories>
+            <div>
+              <ResourcesLinks className='browse-categories' resources={this.state.resources} />
+            </div>
+            </H4BrowseCategories>
+          </DivNavContainer>  
+        </ResourcesContent>
+
 
         { /*
         <ul>
@@ -542,9 +567,10 @@ const mapStateToProps = state => ({
   categoriesFollowed: state.categories.categoriesFollowed,
   userTeams: state.teams.userTeams,
   verified: state.users.verified,
+  resource: state.emails.resources
 });
 
 export default connect(
   mapStateToProps,
-  { getCategoriesFollowed, getUsersTeams, getUsers, verifyEmail }
+  { getCategoriesFollowed, getUsersTeams, getUsers, verifyEmail, getKeyResources }
 )(SideNav);
