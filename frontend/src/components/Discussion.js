@@ -376,6 +376,7 @@ class Discussion extends Component {
                   historyPush={historyPush}
                   toggleAddPostForm={this.toggleAddPostForm}
                   handleFilterChange={this.handleFilterChange}
+                  handleisVoting={this.handleisVoting}
                 />
               )}
               <Posts>

@@ -258,6 +258,11 @@ color: ${props => props.islinkselected === 'true' ? props.theme.defaultColorOnHo
 }
 `
 const UserTeams = styled.div`
+  .noteams {
+    font-size: .8rem;
+    padding-left: 20px;
+    font-weight: 400;
+  }
   .teams {
     padding-left: 4px;
 
@@ -504,7 +509,7 @@ class SideNav extends Component {
 
               </div>
               <UserTeams>
-                {this.state.userTeams.length === 0 ? <div>You're not apart of any Teams Yet!</div> : this.state.userTeams.map(team => (
+                {this.state.userTeams.length === 0 ? <div className='noteams'>You're not apart of any Teams Yet!</div> : this.state.userTeams.map(team => (
                   <LinkSideNav 
                     to={`/team/discussions/${team.team_id}`}
                     islinkselected={(this.state.linkSelected === team.team_name).toString()}
