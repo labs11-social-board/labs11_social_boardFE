@@ -171,7 +171,8 @@ const Reply = ({
   handleImageShow,
   imageClickedId,
   user_type,
-  user_permissions
+  user_permissions,
+  handleisVoting
 }) => {
   const {
     body,
@@ -278,6 +279,7 @@ const Reply = ({
           team_id={team_id}
           handleFilterChange={handleFilterChange}
           handleTeamFilter={handleTeamFilter}
+          handleisVoting={handleisVoting}
         />
       )}
     </ReplyWrapper>
