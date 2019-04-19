@@ -250,7 +250,9 @@ export const UsersReducer = (state = initialState, action) => {
     case USER_AUTH0_LOGIN_SUCCESS:
       return {
         ...state,
-        user_permissions: action.payload.user_permissions
+        user_permissions: action.payload.user_permissions,
+        isLoggedIn: true,
+        avatar: action.payload.avatar
       }
     case USER_LOG_BACK_IN_SUCCESS:
     case USER_LOGIN_SUCCESS:
