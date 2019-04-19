@@ -523,23 +523,6 @@ class SideNav extends Component {
                   </LinkSideNav>
                 ))}
               </UserTeams>
-              <div>
-                <LinkBrowseCategories
-                  to={`/teamanalytics`}
-                  islinkselected={(this.state.linkSelected === 'TeamAnalytics').toString()}
-                  onClick={() => this.selectLink('TeamAnalytics')}
-                  className='browse-categories'
-                ><i className="fas fa-chart-line" />Team Analytics</LinkBrowseCategories>
-
-              </div>
-              <div>
-                <LinkBrowseCategories
-                  to={`/teamconversations`}
-                  islinkselected={(this.state.linkSelected === 'TeamConversations').toString()}
-                  onClick={() => this.selectLink('TeamConversations')}
-                  className='browse-categories'
-                ><i className="fas fa-comment" />Team Conversations</LinkBrowseCategories>
-              </div>
             </H4BrowseCategories>
           </DivNavContainer>
         </TeamsContent>
