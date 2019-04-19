@@ -23,6 +23,7 @@ class DeleteReply extends React.Component {
     }
 
     componentDidMount() {
+        const newReplyArray = []
         const replyArray = [];
         replyArray.push(this.props.replies.map(reply => {
             return reply.replies
@@ -30,11 +31,15 @@ class DeleteReply extends React.Component {
         }))
 
         for(let i = 0; i < replyArray.length; i++) {
-            console.log(replyArray[i])
+            for(let j = 0; j < replyArray[i].length; j++) {
+                for (let n = 0; n < replyArray[i][j].length; n++) {
+                   newReplyArray.push(replyArray[i][j][n])
+                }
+            }
         }
 
         this.setState({
-            replies: replyArray
+            replies: newReplyArray
         })
     }
 
@@ -52,11 +57,7 @@ class DeleteReply extends React.Component {
     }
 
     handleAddDeletedReply = (e, id) => {
-
-        const post = this.state.replies.filter(r => {
-            console.log(r.replies)
-        })
-
+        const post = this.state.replies.filter(r => r.id === id)
         this.props.addDeletedPost(id, post)
     }
 
