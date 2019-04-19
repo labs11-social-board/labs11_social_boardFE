@@ -348,6 +348,7 @@ const Post = ({
             isShowImage={isShowImage}
             handleImageShow={handleImageShow}
             imageClickedId={imageClickedId}
+            handleisVoting={handleisVoting}
           />
         ))}
 

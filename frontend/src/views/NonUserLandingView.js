@@ -56,7 +56,6 @@ const LandingText = styled.h1`
   margin-bottom: 15px;
   @media (max-width: 1240px) {
     width: 100%;
-    color: black;
     font-size: 32px;
     
   }
