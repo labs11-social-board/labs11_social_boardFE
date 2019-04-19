@@ -43,7 +43,7 @@ class ApprovedKeyResources extends Component {
         this.props.deleteResource(id)
         setTimeout(() => {
             window.location.reload();
-        }, 800);
+        }, 500);
     }
     render() {
         return (
