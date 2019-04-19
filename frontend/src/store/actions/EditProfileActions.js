@@ -7,7 +7,7 @@ import { handleError } from "../../helpers/index.js";
 import { backendUrl } from "../../globals/globals.js";
 
 //action creator
-// import { getProfile } from "../../store/actions/index.js";
+import { getProfile } from "../../store/actions/index.js";
 
 
 /***************************************************************************************************
@@ -87,7 +87,7 @@ export const updateProfile = (
       .put(`${backendUrl}/users/bio/${userId}`, body, headers)
       .then(response => {
         dispatch({ type: UPDATE_BIO_SUCCESSFUL });
-      })
+      }).then(() => getProfile(userId, history))
       .catch(err => handleError(err, UPDATE_BIO_FAILURE)(dispatch));
   }
 
@@ -98,7 +98,7 @@ export const updateProfile = (
       .put(`${backendUrl}/users/twitter/${userId}`, body, headers)
       .then(response => {
         dispatch({ type: UPDATE_TWITTER_SUCCESSFUL });
-      })
+      }).then(() => getProfile(userId, history))
       .catch(err => handleError(err, UPDATE_TWITTER_FAILURE)(dispatch));
   }
 
@@ -109,7 +109,7 @@ export const updateProfile = (
       .put(`${backendUrl}/users/github/${userId}`, body, headers)
       .then(response => {
         dispatch({ type: UPDATE_GITHUB_SUCCESSFUL });
-      })
+      }).then(() => getProfile(userId, history))
       .catch(err => handleError(err, UPDATE_GITHUB_FAILURE)(dispatch));
   }
 
@@ -120,7 +120,7 @@ export const updateProfile = (
       .put(`${backendUrl}/users/linkedin/${userId}`, body, headers)
       .then(response => {
         dispatch({ type: UPDATE_LINKEDIN_SUCCESSFUL });
-      })
+      }).then(() => getProfile(userId, history))
       .catch(err => handleError(err, UPDATE_LINKEDIN_FAILURE)(dispatch));
   }
 
@@ -131,9 +131,11 @@ export const updateProfile = (
       .put(`${backendUrl}/users/location/${userId}`, body, headers)
       .then(response => {
         dispatch({ type: UPDATE_LOCATION_SUCCESSFUL})
-      })
+      }).then(() => getProfile(userId, history))
       .catch(err => handleError(err, UPDATE_LOCATION_FAILURE)(dispatch))
   }
+
+  
 
 };
 

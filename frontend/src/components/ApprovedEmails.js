@@ -45,7 +45,7 @@ class ApprovedEmails extends Component {
         this.props.denyEmail(id)
         setTimeout(() => {
             window.location.reload();
-        }, 800);
+        }, 400);
     }
 
     addFilterPlaceholder = () => {
