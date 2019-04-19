@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import NoGo2 from './NoGo2.js';
 import ResourcesLinks from './ResourcesLinks.js';
+import './sidenav.css';
 
 // actions
 import { getCategoriesFollowed, getUsersTeams, getUsers, verifyEmail, getKeyResources } from '../store/actions/index.js';
@@ -534,7 +535,7 @@ class SideNav extends Component {
         <ResourcesContent section={isResourcesSectionDisplayed}>
           <DivNavContainer>
             <H4BrowseCategories>
-            <div>
+            <div className='alignstuff'>
               <ResourcesLinks className='browse-categories' resources={this.state.resources} />
             </div>
             </H4BrowseCategories>
