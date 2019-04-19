@@ -1,6 +1,13 @@
 import React from 'react';
+import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { removePost, addDeletedPost } from '../store/actions/PostsActions.js'
+
+const DeleteButton = styled.a`
+    margin-left: 15px;
+    color: red!important;
+    cursor: pointer;
+`
 
 class DeletePost extends React.Component {
   constructor(props) {
@@ -12,7 +19,6 @@ class DeletePost extends React.Component {
   }
 
   componentDidMount() {
-    // const posts = await this.props.posts
     this.setState({
       posts: this.props.post
     })
@@ -35,7 +41,6 @@ class DeletePost extends React.Component {
 
   handleAddDeletedPost = (e, id) => {
     const post = this.state.posts.filter(p => p.id === id)
-    console.log(post)
     this.props.addDeletedPost(id, post)
   }
 
@@ -43,7 +48,7 @@ class DeletePost extends React.Component {
     return (
       <>
         {(this.props.user_type === 'admin' || this.props.user_type === 'moderator' || this.props.user_permissions === 'moderator') ?
-          (<a className='delete' onClick={e => this.handleRemovePost(e, this.props.id)}>Delete comment</a>) : null}
+          (<DeleteButton onClick={e => this.handleRemovePost(e, this.props.id)}>Delete comment</DeleteButton>) : null}
       </>
     )
   }

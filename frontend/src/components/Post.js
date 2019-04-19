@@ -195,7 +195,8 @@ const Post = ({
   displayMessage,
   isShowImage,
   handleImageShow,
-  imageClickedId
+  imageClickedId,
+  handleisVoting
 }) => {
   const {
     body,
@@ -215,8 +216,10 @@ const Post = ({
   } = post;
 
   const handleVote = (e, type) =>
+    
     handlePostVote(post.id, type)
       .then(() => {
+        handleisVoting();
         if (team_id) {
           handleTeamFilter();
         } else {
@@ -226,8 +229,10 @@ const Post = ({
       .then(() => scrollTo());
 
   const handleReplyVoting = (reply_id, type) =>
+    
     handleReplyVote(reply_id, type)
       .then(() => {
+        handleisVoting();
         if (team_id) {
           handleTeamFilter();
         } else {
@@ -260,7 +265,6 @@ const Post = ({
     }
   };
 
-  console.log(user_permissions)
 
   return (
     <PostWrapper>
@@ -325,6 +329,7 @@ const Post = ({
           team_id={team_id}
           handleFilterChange={handleFilterChange}
           handleTeamFilter={handleTeamFilter}
+          handleisVoting={handleisVoting}
         />
       )}
       <div>

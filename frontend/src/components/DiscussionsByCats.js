@@ -120,7 +120,8 @@ class DiscussionsByCats extends Component {
     orderType: '', // possible values: 'desc', 'asc'
     showAddDiscussionForm: false,
     isShowImage: false,
-    imageClickedId: ''
+    imageClickedId: '',
+    isVoting: false
   };
   toggleAddDiscussionForm = () => this.setState({
     showAddDiscussionForm: !this.state.showAddDiscussionForm,
@@ -128,8 +129,11 @@ class DiscussionsByCats extends Component {
   handleDiscussionVote = (discussion_id, type) => {
     const { order, orderType } = this.state;
     const { getDiscussionsByCat, handleDiscussionVote, match } = this.props;
+    this.setState({ isVoting: true });
     return handleDiscussionVote(discussion_id, type)
-      .then(() => getDiscussionsByCat(match.params.category_id, order, orderType));
+      .then(() => getDiscussionsByCat(match.params.category_id, order, orderType).then(() => {
+        this.setState({ isVoting: false });
+      }));
   };
   handleSelectChange = e => {
     let order = 'created_at';
@@ -180,14 +184,17 @@ class DiscussionsByCats extends Component {
   handleImageShow = id => {
     this.setState({ isShowImage: !this.state.isShowImage, imageClickedId: id });
   }
-  render() {
+  handleisVoting = () => {
+    this.setState({ isVoting: true })
+  }
+  conditionalRender() {
     const { discussions, history, category_name, match, isGettingDiscussions } = this.props;
-    const { showAddDiscussionForm } = this.state;
-    return (
-      <>
-        {isGettingDiscussions ? <img src={require('../assets/gif/spinner2.gif')} alt='spinner'/>
-        :
-          <DiscussionsWrapper>
+    const { showAddDiscussionForm, isVoting } = this.state;
+    if(isGettingDiscussions && !isVoting){
+      return <img src={require('../assets/gif/spinner2.gif')} alt='spinner'/>;
+    } else {
+      return (
+        <DiscussionsWrapper>
             <DiscussionHeader>
               <div className='name-follow-wrapper'>
                 <h2 className='name'>{category_name}</h2>
@@ -219,7 +226,7 @@ class DiscussionsByCats extends Component {
             </DiscussionHeader>
             <hr />
             <div className='content'>
-              {isGettingDiscussions ? <img src={require('../assets/gif/spinner2.gif')} alt='spinner'/> : discussions.map((discussion, i) =>
+              {discussions.map((discussion, i) =>
                 <DiscussionByFollowedCats
                   key={i}
                   discussion={discussion}
@@ -237,11 +244,16 @@ class DiscussionsByCats extends Component {
                 toggleAddDiscussionForm={this.toggleAddDiscussionForm}
                 getDiscussions={this.getDiscussions}
                 category_id={match.params.category_id}
+                handleisVoting={this.handleisVoting}
               />
             }
           </DiscussionsWrapper>
-        }
-      </>
+      );
+    }
+  }
+  render() {
+    return ( 
+      this.conditionalRender()
     );
   }
 };

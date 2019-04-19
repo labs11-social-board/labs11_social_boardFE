@@ -108,7 +108,7 @@ const mostViews = 'most views';
 const mostComments = 'most comments';
 
 class AllDiscussionsByFollowedCats extends Component {
-  state = { filter: newest, followedDiscussions: [], showAddDiscussionForm: false };
+  state = { filter: newest, followedDiscussions: [], showAddDiscussionForm: false, isVoting: false };
   toggleAddDiscussionForm = () => this.setState({
     showAddDiscussionForm: !this.state.showAddDiscussionForm,
   });
@@ -145,18 +145,38 @@ class AllDiscussionsByFollowedCats extends Component {
   }, () => this.handleFilterChange());
   getDiscussions = () => {
     this.props.getAllDiscussionsByFollowedCategories().then(() => {
-      this.setState({ followedDiscussions: this.props.followedDiscussions })
+      this.setState({ followedDiscussions: this.props.followedDiscussions, isVoting: false })
     });
   }
-  voteOnDiscussion = (id, type) => this.props.handleDiscussionVote(id, type)
-    .then(() => this.getDiscussions())
+  voteOnDiscussion = (id, type) => {
+    this.props.handleDiscussionVote(id, type)
+    .then(() => { 
+      this.setState({ isVoting: true });
+      this.getDiscussions();
+    })
     .then(() => this.handleFilterChange());
+  }
   componentDidMount = () => {
     this.getDiscussions();
   };
+  conditionalRender() {
+    const { followedDiscussions, isVoting } = this.state;
+    const { history, isGettingAllFollowed } = this.props;
+    if(isGettingAllFollowed && !isVoting){
+      return <img src={require('../assets/gif/spinner2.gif')} alt='spinner'/>;
+    } else {
+      return followedDiscussions.map((discussion, i) =>
+        <DiscussionByFollowedCats
+          key={i}
+          discussion={discussion}
+          history={history}
+          voteOnDiscussion={this.voteOnDiscussion}
+        />)
+    }
+  }
   render() {
-    const { followedDiscussions, showAddDiscussionForm } = this.state;
-    const { history, match, isGettingAllFollowed } = this.props;
+    const { showAddDiscussionForm } = this.state;
+    const { match } = this.props;
     return (
       <DiscussionsWrapper>
         <DiscussionHeader>
@@ -182,14 +202,7 @@ class AllDiscussionsByFollowedCats extends Component {
         </DiscussionHeader>
         <hr />
         <div className='content'>
-          {isGettingAllFollowed ? <img src={require('../assets/gif/spinner2.gif')} alt='spinner'/> : followedDiscussions.map((discussion, i) =>
-            <DiscussionByFollowedCats
-              key={i}
-              discussion={discussion}
-              history={history}
-              voteOnDiscussion={this.voteOnDiscussion}
-            />)
-          }
+          {this.conditionalRender()}
         </div>
         {
           showAddDiscussionForm &&
