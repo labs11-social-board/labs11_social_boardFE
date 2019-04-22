@@ -79,6 +79,14 @@ const ButtonY = styled.button `
     }
 `;
 
+const StyledA = styled.a`
+    color: white;  
+    text-decoration: none;
+
+    &:focus, &:hover, &:visited, &:link, &:active {
+        text-decoration: none;
+    }
+`;
 
 
 class Admin extends React.Component {
@@ -122,11 +130,11 @@ class Admin extends React.Component {
                             <Boxed>
                                 <h2>Demo Site</h2>
                                 <p>Make use of all Admin (and moderator) site functionality on a demo site!</p>
-                                <p>Login with: </p>
+                                <p>Login with- Username: admin   Password: admin </p>
                                 <ButtonY>
-                                <StyledLink to='/upload'>
-                                    Import CSV
-                                </StyledLink>
+                                
+                                    <StyledA href="https://sympdemo.netlify.com/" target="_blank" >DEMO SITE</StyledA>
+                                
                                 </ButtonY>
                             </Boxed>
                         </InnerWrapper>
