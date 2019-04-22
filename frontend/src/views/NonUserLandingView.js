@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { background, computericon, landingPageImage1, subscriptions } from '../assets/index.js';
-import { Link } from 'react-router-dom';
+import { background, subscriptions } from '../assets/index.js';
+// import { Link } from 'react-router-dom';
 // import { register, isEmailTaken, isUsernameTaken } from '../store/actions/index.js';
 // import { RegisterDropdown } from './index.js';
 
@@ -97,32 +97,32 @@ const GetStartedButton = styled.button`
 // auto;margin-right: auto;}'}   } `; const Vidception = styled.div `   width:
 // 60%;   height: 100%;   padding: 130px;   padding-left: 0px;   `;
 
-const TopFiller = styled.div`
+// const TopFiller = styled.div`
   
-  `;
+//   `;
 
-const BottomFiller = styled.section`
-    display: flex;
-    justify-content: space-evenly
-    margin-top: 10px;
-    width: 100%;
-    height: 100%
-    postion: fixed;
-    height: 25vh;
+// const BottomFiller = styled.section`
+//     display: flex;
+//     justify-content: space-evenly
+//     margin-top: 10px;
+//     width: 100%;
+//     height: 100%
+//     postion: fixed;
+//     height: 25vh;
     
-    @media(max-width: 1240px) {
-        flex-direction: column;
-        height: 60vh;
-      }
+//     @media(max-width: 1240px) {
+//         flex-direction: column;
+//         height: 60vh;
+//       }
     
-  `;
+//   `;
 
-const TextBlurb = styled.div`
-    vertical-align: middle;
-    overflow-wrap: break-word;
-    text-align: center;
-    width: 100%;
-  `;
+// const TextBlurb = styled.div`
+//     vertical-align: middle;
+//     overflow-wrap: break-word;
+//     text-align: center;
+//     width: 100%;
+//   `;
 
 const LandingDiv = styled.div`
     display: flex;

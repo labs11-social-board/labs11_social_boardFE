@@ -6,11 +6,11 @@ import {
 } from '../../helpers/index.js';
 
 // globals
-const {
-    backendUrl,
-    auth0Domain,
-    accountStatusTypes
-} = require('../../globals/globals.js');
+// const {
+//     backendUrl,
+//     auth0Domain,
+//     accountStatusTypes
+// } = require('../../globals/globals.js');
 
 /***************************************************************************************************
  ********************************************* Actions *******************************************

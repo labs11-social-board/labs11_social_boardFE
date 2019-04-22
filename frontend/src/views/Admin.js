@@ -1,8 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-import { BrowserRouter as Router, Route, Link, NavLink } from "react-router-dom";
 import styled from 'styled-components';
-import { connect } from "react-redux";
 import Users from './Users';
 
 import { ApproveEmailForm, ApprovedEmails, DeletedPostAndMods } from '../components'
@@ -59,25 +57,6 @@ const ButtonY = styled.button `
     margin-left: 4px;
   `;
 
-  const ButtonX = styled.button `
-    border: 1px solid #418DCF;
-    border-radius: 3px;
-    color: white;
-    background-color: #418DCF;
-    height: 35px;
-    width: 100px;
-    margin-left: 24px;
-    
-  `;
-  
-  const StyledLink = styled(NavLink)`
-    color: white;  
-    text-decoration: none;
-
-    &:focus, &:hover, &:visited, &:link, &:active {
-        text-decoration: none;
-    }
-`;
 
 const StyledA = styled.a`
     color: white;  
@@ -90,10 +69,10 @@ const StyledA = styled.a`
 
 
 class Admin extends React.Component {
-    constructor() {
-        super()
+    // constructor() {
+    //     super()
 
-    }
+    // }
 
     // componentDidMount() {
 
@@ -145,11 +124,5 @@ class Admin extends React.Component {
     }
 }
 
-const mapStoreToProps = state => {
-    console.log('Admin State', state)
-    return {
-
-    };
-};
 
 export default Admin;
