@@ -377,7 +377,7 @@ class SideNav extends Component {
         <DivNavContainer>
           {
             (user_type === 'admin') &&
-            <span className='section-select admin'>Admin</span>
+            <span className='section-select admin'><div className="underit">ADMIN</div></span>
           }
           <H4BrowseCategories>
             <div>
@@ -418,7 +418,7 @@ class SideNav extends Component {
 
 
         <span className='section-select' onClick={() => this.setState({ isCatSectionDisplayed: !this.state.isCatSectionDisplayed })}>
-          Categories
+        <div className="underit">CATEGORIES</div>
           {isCatSectionDisplayed ? <i className="fas fa-chevron-up" /> : <i className="fas fa-chevron-down" />}
         </span>
         <CatContent section={isCatSectionDisplayed}>
@@ -490,7 +490,7 @@ class SideNav extends Component {
           </DivNavContainer>
         </CatContent>
         <span className='section-select' onClick={() => this.setState({ isTeamSectionDisplayed: !this.state.isTeamSectionDisplayed })}>
-          Teams
+        <div className="underit">TEAMS</div>
           {isTeamSectionDisplayed ? <i className="fas fa-chevron-up" /> : <i className="fas fa-chevron-down" />}
         </span>
         <TeamsContent section={isTeamSectionDisplayed}>
@@ -529,7 +529,7 @@ class SideNav extends Component {
         </TeamsContent>
 
         <span className='section-select' onClick={() => this.setState({ isResourcesSectionDisplayed: !this.state.isResourcesSectionDisplayed })}>
-          Resources
+        <div className="underit">RESOURCES</div>
           {isResourcesSectionDisplayed ? <i className="fas fa-chevron-up"/>: <i className="fas fa-chevron-down"/>}
         </span>
         <ResourcesContent section={isResourcesSectionDisplayed}>
