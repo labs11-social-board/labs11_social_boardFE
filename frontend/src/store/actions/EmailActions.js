@@ -8,8 +8,6 @@ import {
 // globals
 const {
     backendUrl,
-    auth0Domain,
-    accountStatusTypes
 } = require('../../globals/globals.js');
 
 /***************************************************************************************************

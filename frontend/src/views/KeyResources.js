@@ -1,9 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-import { BrowserRouter as Router, Route, Link, NavLink } from "react-router-dom";
 import styled from 'styled-components';
-import { connect } from "react-redux";
-import Users from './Users';
 
 import '../components/css/Admin.css'
 import KeyResourceForm from '../components/forms/KeyResourceForm';
@@ -53,10 +50,10 @@ width: 90%;
 
 
 class KeyResources extends React.Component {
-    constructor() {
-        super()
+    // constructor() {
+    //     super()
 
-    }
+    // }
 
     // componentDidMount() {
 
@@ -89,11 +86,6 @@ class KeyResources extends React.Component {
     }
 }
 
-const mapStoreToProps = state => {
-    console.log('Admin State', state)
-    return {
 
-    };
-};
 
 export default KeyResources;
