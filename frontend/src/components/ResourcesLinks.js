@@ -14,7 +14,7 @@ border-left: ${props => props.islinkselected === 'true' ? `5px solid ${props.the
     width: 46px;
     display: inline-block;
     text-align: center;
-    margin: 0;
+    margin: 25px;
     i {
       cursor: pointer;
       padding: 10px 10px 10px 0;
