@@ -1,8 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-import { BrowserRouter as Router, Route, Link, NavLink } from "react-router-dom";
 import styled from 'styled-components';
-import { connect } from "react-redux";
 import Users from './Users';
 
 import { ApproveEmailForm, ApprovedEmails, DeletedPostAndMods } from '../components'
@@ -59,18 +57,8 @@ const ButtonY = styled.button `
     margin-left: 4px;
   `;
 
-  const ButtonX = styled.button `
-    border: 1px solid #418DCF;
-    border-radius: 3px;
-    color: white;
-    background-color: #418DCF;
-    height: 35px;
-    width: 100px;
-    margin-left: 24px;
-    
-  `;
-  
-  const StyledLink = styled(NavLink)`
+
+const StyledA = styled.a`
     color: white;  
     text-decoration: none;
 
@@ -80,12 +68,11 @@ const ButtonY = styled.button `
 `;
 
 
-
 class Admin extends React.Component {
-    constructor() {
-        super()
+    // constructor() {
+    //     super()
 
-    }
+    // }
 
     // componentDidMount() {
 
@@ -122,11 +109,11 @@ class Admin extends React.Component {
                             <Boxed>
                                 <h2>Demo Site</h2>
                                 <p>Make use of all Admin (and moderator) site functionality on a demo site!</p>
-                                <p>Login with: </p>
+                                <p>Login with- Username: admin   Password: admin </p>
                                 <ButtonY>
-                                <StyledLink to='/upload'>
-                                    Import CSV
-                                </StyledLink>
+                                
+                                    <StyledA href="https://sympdemo.netlify.com/" target="_blank" >DEMO SITE</StyledA>
+                                
                                 </ButtonY>
                             </Boxed>
                         </InnerWrapper>
@@ -137,11 +124,5 @@ class Admin extends React.Component {
     }
 }
 
-const mapStoreToProps = state => {
-    console.log('Admin State', state)
-    return {
-
-    };
-};
 
 export default Admin;

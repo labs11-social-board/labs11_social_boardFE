@@ -1,14 +1,12 @@
-import React, { Component } from 'react';
-import {Line, Bar} from 'react-chartjs-2';
-import Chart from 'chart.js';
+import React from 'react';
+import {Bar} from 'react-chartjs-2';
 
-import {BrowserRouter as Router, Route, Link, NavLink} from "react-router-dom";
+
 import styled from 'styled-components';
 import { connect } from "react-redux";
-import Users from './Users';
+
 import { getPageViews, getUsersAna, getPageViews30, getUsersAna30, } from './../store/actions/analyticActions';
-import { GoogleProvider, GoogleDataChart } from 'react-analytics-widget';
-import ChartAnalytics from './ChartAnalytics';
+
 
 import {} from '../components'
 
@@ -51,11 +49,6 @@ margin-bottom: 10px;
 const TableWrapper = styled.div`
 width: 90%;
 `;
-
-
-function tom() {
-        
-}
 
 
 class Analytics extends React.Component {
@@ -116,20 +109,9 @@ class Analytics extends React.Component {
 
     }
 
-    componentDidUpdate(prevProps) {
-        if(prevProps.gPageviews30 != this.props.gPageviews30) {
-
-            
-        }
-
-
-    }
-
+    
 
     render() {
-
-        
-
 
 
         return(
@@ -283,25 +265,25 @@ const mapStateToProps = state => {
 
 
 
-{/* <div style={{position: "relative", width:800, height: 700}}>
-    <Bar
-        options={{
-            responsive:true
-        }}
-        data={{
-                labels: ['30','29','28','27','26','25','24','23','22','21','20','19','18','17','16','15','14','13','12','11','10','9','8','7','6','5','4','3','2','1','0'],
-                datasets: [
-                    {
-                        label: "Page Views",
-                        backgroundColor: "#863546",
-                        data: this.state.dataB
-                    },
-                    {
-                        label: "Dummy Data",
-                        backgroundColor: "#473146",
-                        data: [1,18,12,24,2,19,6,13]
-                    }
-                ]
-        }}
-    />
-</div> */}
+// {/* <div style={{position: "relative", width:800, height: 700}}>
+//     <Bar
+//         options={{
+//             responsive:true
+//         }}
+//         data={{
+//                 labels: ['30','29','28','27','26','25','24','23','22','21','20','19','18','17','16','15','14','13','12','11','10','9','8','7','6','5','4','3','2','1','0'],
+//                 datasets: [
+//                     {
+//                         label: "Page Views",
+//                         backgroundColor: "#863546",
+//                         data: this.state.dataB
+//                     },
+//                     {
+//                         label: "Dummy Data",
+//                         backgroundColor: "#473146",
+//                         data: [1,18,12,24,2,19,6,13]
+//                     }
+//                 ]
+//         }}
+//     />
+// </div> */}
