@@ -141,7 +141,7 @@ export const DiscussionsReducer = (state = initialState, action) => {
         isGettingAllFollowed: false
       };
 
-    case GET_ALL_DISCS_BY_FOLLOWED_CATS_LOADING:
+   
     case GET_ALL_DISCS_BY_FOLLOWED_CATS_FAILURE:
     case HANDLE_DISCUSSION_VOTE_LOADING:
     case HANDLE_DISCUSSION_VOTE_SUCCESS:
@@ -155,7 +155,6 @@ export const DiscussionsReducer = (state = initialState, action) => {
     case ADD_DISCUSSION_LOADING:
     case ADD_DISCUSSION_SUCCESS:
     case ADD_DISCUSSION_FAILURE:
-    case GET_DISCUSSION_BY_ID_LOADING:
     case GET_DISCUSSION_BY_ID_FAILURE:
     case TOP_DISCUSSIONS_LOADING:
     case TOP_DISCUSSIONS_FAILURE:
@@ -163,7 +162,6 @@ export const DiscussionsReducer = (state = initialState, action) => {
     case FOLLOW_DISCUSSION_FAILURE:
     case FOLLOW_CATEGORY_LOADING:
     case FOLLOW_CATEGORY_FAILURE:
-    case GET_DISCUSSIONS_LOADING:
     case GET_DISCUSSIONS_FAILURE:
     default:
       return state;

@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import {
     connect
 } from 'react-redux';
-import {
-    NavLink
-} from 'react-router-dom';
+
 import styled from 'styled-components';
 import { putKeyResource, displayMessage } from '../../store/actions';
 
@@ -18,26 +16,6 @@ const ButtonY = styled.button`
     margin-left: 1px;
     margin-top: 5px;
   `;
-
-const ButtonX = styled.button`
-    border: 1px solid #418DCF;
-    border-radius: 3px;
-    color: white;
-    background-color: #418DCF;
-    height: 35px;
-    width: 100px;
-    margin-left: 24px;
-    
-  `;
-
-const StyledLink = styled(NavLink)`
-    color: white;  
-    text-decoration: none;
-
-    &:focus, &:hover, &:visited, &:link, &:active {
-        text-decoration: none;
-    }
-`;
 
 const InputY = styled.input`
   padding-left: 5px;
