@@ -25,6 +25,7 @@ const InputY = styled.input`
   background: dcdcdc;
   border: 1px solid black;
   border-radius: 3px;
+  margin-bottom: 4px;
 `;
 
 class KeyResourceForm extends Component {
