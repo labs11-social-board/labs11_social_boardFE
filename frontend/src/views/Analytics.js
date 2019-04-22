@@ -188,7 +188,7 @@ class Analytics extends React.Component {
                                                 },
                                                 {
                                                     label: "Users Per Day",
-                                                    backgroundColor: "#75a5f8",
+                                                    backgroundColor: "#f173b8",
                                                     data: [
                                                         this.state.dataC[0],
                                                         this.state.dataC[1],
