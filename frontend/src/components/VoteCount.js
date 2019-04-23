@@ -52,7 +52,7 @@ const VoteCount = ({
 				<i class="fas fa-caret-up"></i>
 				{/* <span>{ upvotes || 0 }</span> */}
 			</div>
-			<div>{upvotes || 0}</div>
+			<div className='upvotes'>{upvotes || 0}</div>
 			<div className='downvote' onClick={e => handleClick(e, -1)}>
 				{/* <i className = 'fas fa-arrow-alt-circle-down' /> */}
 				<i class="fas fa-caret-down"></i>
