@@ -17,7 +17,8 @@ const ReplyWrapper = styled.div`
 	width: 90%;
   margin-left: 50px;
   margin-bottom: 20px;
-	padding-left: 10px;
+  padding-left: 10px;
+  font-family: 'PT Sans';
 
 	.reply-wrap {
     display: flex;
