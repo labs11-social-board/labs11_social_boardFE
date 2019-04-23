@@ -10,7 +10,7 @@ const VoteCountWrapper = styled.div`
 	flex-direction: column;
 
 	i {
-		padding-left: 10px;
+		padding-left: 7px;
 		padding-right: 5px;
 		font-size: 20px;
 		color: #D8D8D8;
@@ -52,7 +52,7 @@ const VoteCount = ({
 				<i class="fas fa-caret-up"></i>
 				{/* <span>{ upvotes || 0 }</span> */}
 			</div>
-			<div>{ upvotes || 0 }</div>
+			<div className='upvotes'>{upvotes || 0}</div>
 			<div className='downvote' onClick={e => handleClick(e, -1)}>
 				{/* <i className = 'fas fa-arrow-alt-circle-down' /> */}
 				<i class="fas fa-caret-down"></i>

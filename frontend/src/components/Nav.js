@@ -16,7 +16,7 @@ import { Search } from './index.js';
  *********************************************** Styles *********************************************
  **************************************************************************************************/
 const DivWrapper = styled.div`
-  width: 90%;
+  width: 100%;
   display: flex;
   color: black;
   justify-content: space-between;
@@ -34,7 +34,7 @@ const DivWrapper = styled.div`
 
 const DivAuth = styled.div`
   display: flex;
-  width: 100%;
+  width: 40%;
   height: 100%;
   justify-content: flex-end;
 
@@ -56,6 +56,7 @@ const DivAuth = styled.div`
 
   i {
     color: ${props => props.theme.notificationFontColor};
+    opacity: 0.5;
     margin-left: 10px;
     display: flex;
     align-items: center;
@@ -66,7 +67,7 @@ const DivAuth = styled.div`
 const SearchContainer = styled.div`
   margin-left: 15px;
   display: flex;
-  width: 30%;
+  width: 60%;
   justify-content: center;
   align-items: center;
 
