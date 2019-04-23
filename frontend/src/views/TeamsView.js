@@ -172,7 +172,7 @@ class TeamsView extends Component {
           </div>
           <div className="filter-wrapper">
             <i className="fab fa-mix" />
-            <span>Filter by</span>
+            <span>Sort by</span>
             <select
               className="filter"
               onChange={this.handleSelectChange}

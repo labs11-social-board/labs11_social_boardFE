@@ -17,13 +17,14 @@ import { accountUserTypes, subSilverStartIndex } from '../globals/globals.js';
  ********************************************** Styles *********************************************
  **************************************************************************************************/
 const DivSideNav = styled.div`
-margin-top: 20px;
+  padding-top: 20px;
   flex-direction: column;
   width: 100%;
   user-select:none;
   overflow-y: auto;
   height: calc(100% - 180px);
   min-height: 10%;
+  background-color: #fafbfc;
 
   span {
     margin-left: 20px;
