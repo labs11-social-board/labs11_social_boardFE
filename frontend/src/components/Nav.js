@@ -34,7 +34,7 @@ const DivWrapper = styled.div`
 
 const DivAuth = styled.div`
   display: flex;
-  width: 100%;
+  width: 40%;
   height: 100%;
   justify-content: flex-end;
 
@@ -56,6 +56,7 @@ const DivAuth = styled.div`
 
   i {
     color: ${props => props.theme.notificationFontColor};
+    opacity: 0.5;
     margin-left: 10px;
     display: flex;
     align-items: center;

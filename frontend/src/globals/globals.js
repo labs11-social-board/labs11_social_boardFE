@@ -99,7 +99,7 @@ const dayTheme = {
   messageBoxBgColor: '#657ED4',
   messageBoxBorder: '1px solid black',
   messageBoxPColor: 'black',
-  notificationFontColor: 'black',
+  notificationFontColor: '#252935',
   notificationBackgroundColor: 'white',
   navWelcomeUsername: 'black',
   navWelcomeUsernameHov: 'white',

@@ -11,6 +11,7 @@ const AvatarWrapper = styled.div`
   background-position: center;
   border-radius: 50%;
   margin:0;
+  opacity: 0.5;
 `;
 
 const Avatar = ({ height, width, src }) => {
