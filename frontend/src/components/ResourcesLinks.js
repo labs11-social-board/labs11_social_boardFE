@@ -32,7 +32,9 @@ const ResourceLinks = props => {
   return (
     <>
       {props.resources.map((resource, id) => {
-        return <LinkResource target='_blank' key={id} href={`${resource.resource}`} >{resource.title}</LinkResource>
+        return <LinkResource target='_blank' key={id} href={`${resource.resource}`} >
+        <i style={{ marginTop: 10 + 'px', marginRight: 9 + 'px', marginBottom: 9 + 'px' }} className="fas fa fa-key" />{resource.title}
+        </LinkResource>
       })}
     </>
   )
