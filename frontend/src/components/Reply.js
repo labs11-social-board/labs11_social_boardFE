@@ -19,6 +19,7 @@ const ReplyWrapper = styled.div`
   margin-bottom: 20px;
   padding-left: 10px;
   font-family: 'PT Sans';
+  color: #252935;
 
 	.reply-wrap {
     display: flex;

@@ -25,6 +25,7 @@ const PostWrapper = styled.div`
   font-size: 16px;
 	overflow-wrap: break-word;
 	font-family: 'PT Sans'
+	color: #252935;
 
   .title {
     margin-top: 30px;
