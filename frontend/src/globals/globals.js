@@ -154,7 +154,8 @@ const dayTheme = {
 	settingsBgColor: 'white',
 	skyColor: '#37d8e6',
 	symposiumBorderColor: '#f1c40f',
-	postColor: '#8A8C90'
+	postColor: '#8A8C90',
+	replyColor: '#252935'
 };
 
 const nightTheme = {
@@ -265,7 +266,8 @@ const nightTheme = {
 	topDiscussionElipColor: 'white',
 	skyColor: '#2c3e50',
 	symposiumBorderColor: '#eaeff2',
-	postColor: 'white'
+	postColor: '#D8D8D8',
+	replyColor: '#D8D8D8'
 };
 const isUrl = (str, profileLink = false) => {
 	/*if it is a profileLink meaning set to true check if str is null if it is return true. This will allow  for a user to reset their profile link to null

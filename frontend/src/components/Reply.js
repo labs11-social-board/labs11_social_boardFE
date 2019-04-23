@@ -27,13 +27,13 @@ const ReplyWrapper = styled.div`
     .reply-info {
       display: flex;
       flex-direction: column;
-      margin-top: 10px;
+			margin-top: 10px;
 
       .user-info {
         display: flex;
         justify-content: flex-start;
         align-items: center;
-        margin-right: 20px;
+				margin-right: 20px;
     
         .user {
           width: fit-content;
@@ -58,6 +58,7 @@ const ReplyWrapper = styled.div`
 const BodyWrapper = styled.p`
 	text-align: justify;
 	margin-bottom: 20px;
+	color: ${(props) => props.theme.replyColor};
 `;
 
 const InfoWrapper = styled.div`
@@ -261,7 +262,7 @@ const Reply = ({
 							</div>
 						</div>
 					</div>
-					<BodyWrapper>{body}</BodyWrapper>
+					<BodyWrapper className="body">{body}</BodyWrapper>
 
 					<InfoWrapper>
 						{/* <div className="user-info">
