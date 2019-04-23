@@ -19,20 +19,36 @@ const DiscussionWrapper = styled.div`
 	border-radius: 3px;
 	overflow-wrap: break-word;
 	
+	.discussion-info {
+		height: 100%;
+		display: flex;
+		justify-content: center;
+		width: 7%;
+		align-items: center;
+		border-right: solid 1px #D8D8D8;
+		
+	}
 
 	.info {
 		height: 100%;
+		width: 80%;
 		display: flex;
 		flex-direction: column;
-		justify-content: space-around;
+		justify-content: center;
+		padding-left: 40px;
 		
 
 		.info-div {
-			align-self: flex-end;
-			
+			margin-bottom: 5px;
+
+			p {
+				margin: 0;
+				text-align: left;
+			}
 		}
 
 		.user-info {
+			margin-top: 5px;
 			// display: flex;
 			// justify-content: flex-start;
 			// flex-direction: row;
@@ -56,12 +72,6 @@ const DiscussionWrapper = styled.div`
 					}
 				}
 			}
-	}
-	
-	.discussion-info {
-		height: 100%;
-		display: flex;
-		justify-content: center;
 	}
 	
 
@@ -103,24 +113,24 @@ const DiscussionWrapper = styled.div`
 			}
 		}
 	
-		.discussion-info {
-			display: flex;
-			width: 8%;
-			height: 100%;
+		// .discussion-info {
+		// 	display: flex;
+		// 	width: 8%;
+		// 	height: 100%;
 	
-			.votes-wrapper {
-				// margin-right: 10px;
-				display: flex;
-				justify-content: flex-start;
-				align-items: center;
-				height: 100%;
+		// 	.votes-wrapper {
+		// 		// margin-right: 10px;
+		// 		display: flex;
+		// 		justify-content: flex-start;
+		// 		align-items: center;
+		// 		height: 100%;
 	
-				i {
-					padding-left: 10px;
-					padding-right: 5px;
-					padding-top: 2px;
-				}
-			}
+		// 		i {
+		// 			padding-left: 10px;
+		// 			padding-right: 5px;
+		// 			padding-top: 2px;
+		// 		}
+		// 	}
 			.breaking {
 				// margin-top: 100px;
 			}

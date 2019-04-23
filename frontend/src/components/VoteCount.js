@@ -12,6 +12,8 @@ const VoteCountWrapper = styled.div`
 	i {
 		padding-left: 10px;
 		padding-right: 5px;
+		font-size: 20px;
+		color: #D8D8D8;
 	}
 
 	.upvote {
