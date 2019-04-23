@@ -34,14 +34,14 @@ const SubDrawer = styled.div`
 `
 
 class ApprovedEmails extends Component {
-    componentDidMount(){
+    componentDidMount() {
         this.props.getEmails();
         this.addFilterPlaceholder();
     }
 
-    handleClick(e, id){
+    handleClick(e, id) {
         e.preventDefault();
-        
+
         this.props.denyEmail(id)
         setTimeout(() => {
             window.location.reload();
@@ -50,10 +50,10 @@ class ApprovedEmails extends Component {
 
     addFilterPlaceholder = () => {
         const filters = document.querySelectorAll("div.rt-th > input");
-          for (let filter of filters) {
+        for (let filter of filters) {
             filter.placeholder = "Search...";
-          }
         }
+    }
 
     render() {
         return (
@@ -61,11 +61,11 @@ class ApprovedEmails extends Component {
                 <ReactTable
                     data={this.props.approvedEmails}
                     filterable
-                    defaultFilterMethod = {
+                    defaultFilterMethod={
                         (filter, row) =>
-                        String(row[filter.id]) === filter.value
+                            String(row[filter.id]) === filter.includes(filter.value)
                     }
-                    columns = {
+                    columns={
                         [
                             {
                                 Header: "Approved E-Mails",
@@ -76,10 +76,10 @@ class ApprovedEmails extends Component {
                             }
                         ]
                     }
-                    SubComponent = {
+                    SubComponent={
                         row => {
                             console.log(row)
-                            return ( 
+                            return (
                                 <SubDrawer>
                                     <DenyButton
                                         onClick={e => this.handleClick(e, row.original.id)}
@@ -88,18 +88,18 @@ class ApprovedEmails extends Component {
                             );
                         }
                     }
-                    defaultPageSize = {
+                    defaultPageSize={
                         5
                     }
-                    className = "-striped -highlight"
+                    className="-striped -highlight"
                     style={
                         this.props.isDay ?
-                        {
-                            color: 'black'
-                        }
-                        : {
-                            color: 'white'
-                        }
+                            {
+                                color: 'black'
+                            }
+                            : {
+                                color: 'white'
+                            }
                     }
                 />
             </div>
