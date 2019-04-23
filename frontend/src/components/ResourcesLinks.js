@@ -7,7 +7,7 @@ border-left: ${props => props.islinkselected === 'true' ? `5px solid ${props.the
   text-decoration: none;
   // color: ${props => props.islinkselected === 'true' ? 'blue' : 'black'};
   color: ${props => props.islinkselected === 'true' ? `${props.theme.defaultColorOnHover}` : `${props.theme.defaultColor}`};
-  font-weight: 400;
+  font-weight: bold;
   display: flex;
   align-items: center;
   span {
