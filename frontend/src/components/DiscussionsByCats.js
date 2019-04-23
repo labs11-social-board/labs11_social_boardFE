@@ -206,7 +206,7 @@ class DiscussionsByCats extends Component {
               <div className='filter-add-btn-wrapper'>
                 <div className='filter-wrapper'>
                   <i className='fab fa-mix' />
-                  <span>Filter by</span>
+                  <span>Sort by</span>
                   <select
                     className='filter'
                     onChange={this.handleSelectChange}
