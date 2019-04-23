@@ -39,27 +39,6 @@ const PostWrapper = styled.div`
     margin-bottom: 16px;
     margin-top: 16px;
   }
-`;
-
-const BodyWrapper = styled.p`
-  text-align: justify;
-  margin-bottom: 20px;
-`;
-
-const InfoWrapper = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-end;
-  font-size: 0.9rem;
-  color: #a7a7a7;
-
-  a{
-    color: #a7a7a7
-    &:hover {
-      color: ${ props => props.theme.defaultColorOnHover};
-    }
-  }
 
   .user-info {
     display: flex;
@@ -82,6 +61,49 @@ const InfoWrapper = styled.div`
       width: 100%;
     }
   }
+`;
+
+const BodyWrapper = styled.p`
+  text-align: justify;
+  margin-bottom: 20px;
+`;
+
+const InfoWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+  font-size: 0.9rem;
+  color: #a7a7a7;
+
+  a{
+    color: #a7a7a7
+    &:hover {
+      color: ${ props => props.theme.defaultColorOnHover};
+    }
+  }
+
+  // .user-info {
+  //   display: flex;
+  //   justify-content: flex-start;
+  //   align-items: center;
+  //   margin-right: 20px;
+
+  //   .user {
+  //     display: flex;
+  //     flex-wrap: wrap;
+  //     width: 100%;
+  //     color: black;
+
+  //     &:hover {
+  //       cursor: pointer;
+  //     }
+  //   }
+
+  //   @media (max-width: 530px) {
+  //     width: 100%;
+  //   }
+  // }
 
   .discussion-info {
     display: flex;
@@ -270,6 +292,13 @@ const Post = ({
 
   return (
     <PostWrapper>
+      <div className="user-info">
+          <div className="user" onClick={handleUserClick}>
+            <Avatar height="20px" width="20px" src={avatar} />
+            &nbsp;
+            <UsernameWrapper>{username}</UsernameWrapper>
+          </div>
+        </div>
       <div>
         <BodyWrapper>{body}</BodyWrapper>
         {image ?
@@ -279,13 +308,13 @@ const Post = ({
           </div> : null}
       </div>
       <InfoWrapper>
-        <div className="user-info">
+        {/* <div className="user-info">
           <div className="user" onClick={handleUserClick}>
             <Avatar height="20px" width="20px" src={avatar} />
             &nbsp;
             <UsernameWrapper>{username}</UsernameWrapper>
           </div>
-        </div>
+        </div> */}
         <div className="discussion-info">
           <span className="reply" onClick={handleAddReply}>
             Reply
