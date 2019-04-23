@@ -50,6 +50,23 @@ const PostWrapper = styled.div`
       width: 100%;
       color: black;
 
+      .upvote .hide-arrows {
+        display: none;
+      }
+
+      .downvote .hide-arrows {
+        display: none;
+      }
+
+      .username {
+        margin-right: 10px;
+        color: #F66042;
+      }
+
+      .likes {
+        margin-right: 10px;
+      }
+
       .avatar {
         width: 20px;
       }
@@ -317,7 +334,12 @@ const Post = ({
 					<div className="user-info">
 						<div className="user" onClick={handleUserClick}>
 							<Avatar height="20px" width="20px" src={avatar} />
-							<UsernameWrapper>{username}</UsernameWrapper>
+							<UsernameWrapper className="username">{username}</UsernameWrapper>
+							<VoteCount className="hide-arrows" upvotes={upvotes} />
+							<span className="likes">Likes</span>
+							<div className="date tablet">
+								<span>{moment(new Date(Number(created_at))).fromNow()}</span>
+							</div>
 						</div>
 					</div>
 					<div>
@@ -352,9 +374,6 @@ const Post = ({
               handleVote={handleVote}
             />
           </div> */}
-							<div className="date tablet">
-								<span>{moment(new Date(Number(created_at))).fromNow()}</span>
-							</div>
 							{loggedInUserId === user_id ? (
 								<div className="delete">
 									<a href="# " onClick={(e) => handleRemovePost(e, id)}>
