@@ -56,24 +56,26 @@ const StyledHeader = styled.div`
 `;
 
 const NavContainer = styled.div`
- width: 60%;
+ width: 100%;
  display: flex;
  justify-content: center;
  background-color: ${props => props.theme.headerBg};;
  
 
  @media ${tabletL}{
-    width: 60%;
+    width: 100%;
   }
   @media ${phoneL} {
-      width: 60%;
+      width: 100%;
       justify-content: space-between;
   }
 `;
 
 const SympLogo = styled.div`
-  width: 150px;
+  width: ${sideNavWidth};
   height: 50px;
+  background-repeat: no-repeat;
+  background-position: center;
   background-image: url(${ ({ isDay }) => isDay ? symposiumLight : symposiumDark});
     &:hover {
       cursor: pointer;

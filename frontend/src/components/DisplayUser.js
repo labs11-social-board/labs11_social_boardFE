@@ -17,14 +17,14 @@ import { Avatar } from './index.js';
  **************************************************************************************************/
 const DivWrapper = styled.div`
   display: flex;
+  width: 100%;
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
-  width: 55%;
+  padding-right: 15px;
   @media ${phoneL}{
     display: flex;
     justify-content: space-between;
-    width: 70%;
   }
 `;
 
