@@ -26,13 +26,13 @@ const Followed = styled.div`
     margin-left: 10px;
     padding: 10px 15px;
 		border-radius: 5px;
-		border: 1px solid #418DCF;
-		background-color: ${ ({ isFollowing }) => isFollowing ? 'lightsteelblue' : '#418DCF' };
+		border: 1px solid #f66042;
+		background-color: ${ ({ isFollowing }) => isFollowing ? 'lightsteelblue' : '#f66042' };
     color: white;
     
     &:hover {
       background-color: white;
-      color: #418DCF;
+      color: #f66042;
       cursor: pointer;
     }
   }
@@ -111,7 +111,7 @@ class FollowCat extends Component {
                 onClick={this.handleFollowClick}
                 onChange = { this.handleChange }
               >
-                <i className={isFollowing ? "fas fa-minus-circle" : "fas fa-plus-circle"}></i>&nbsp;&nbsp;Unfollow
+                &nbsp;Unfollow
               </button>
             </Followed>
         </FollowWrapper> : null :
@@ -122,7 +122,7 @@ class FollowCat extends Component {
                 onClick={this.handleFollowClick}
                 onChange = { this.handleChange }
               >
-                <i className={isFollowing ? "fas fa-minus-circle" : "fas fa-plus-circle"}></i>&nbsp;&nbsp;Follow
+                &nbsp;Follow
               </button>
             </Followed>
           </FollowWrapper>
