@@ -35,7 +35,7 @@ align-content: center;
 const Boxed = styled.div`
 width: 100%;
 padding: 10px;
-border: 2px solid #418dcf;
+border: 1px solid #f66042;
 border-radius: 5px;
 flex-direction: column;
 justify-content: space-around;
