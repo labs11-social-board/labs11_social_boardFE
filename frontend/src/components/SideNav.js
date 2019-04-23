@@ -44,6 +44,7 @@ margin-top: 20px;
   
   .admin {
     cursor:default;
+    color: black;
     &:hover {
       color:grey;
     }
@@ -82,10 +83,11 @@ const LinkBrowseCategories = styled(Link)`
   //margin-left: -6px;
   color: ${props => props.islinkselected === 'true' ? props.theme.defaultColorOnHover : props.theme.defaultColor};
   border-left: ${props => props.islinkselected === 'true' ? `5px solid ${props.theme.defaultColorOnHover}` : '6px solid transparent'};
-  font-weight: normal;
+  font-weight: bold;
   display: flex;
   align-items: center;
   height: 35px;
+  margin-bottom: 15px;
   i {
     cursor: pointer;
     padding: 10px 8px 6px 0;
@@ -124,7 +126,7 @@ const DivCatFollowItems = styled.div`
 const H4AllPosts = styled.h4`
   display: flex;
   align-items: center;
-  margin-bottom: 9px;
+  margin-bottom: 20px;
   border-left: ${props => props.islinkselected === 'true' ? `1px solid ${props.theme.defaultColor}` : '0px solid transparent'};
   i {
     cursor: pointer;
@@ -142,7 +144,7 @@ const LinkAllPosts = styled(Link)`
   display: flex;
   text-decoration: none;
   color: ${props => props.islinkselected === 'true' ? `${props.theme.defaultColorOnHover}` : `${props.theme.defaultColor}`};
-  font-weight: normal;
+  font-weight: bold;
   margin-left: -1px;
   margin-right: 41px;
   margin-top: -65px;
@@ -196,6 +198,7 @@ const LiCategoryFollowed = styled.li`
   padding-left: 50px;
   border-left: ${props => props.islinkselected === 'true' ? `5px solid ${props => props.theme.defaultColorOnHover}` : '1px solid transparent'};
   list-style-position: inside;
+  
   &::before{
     // background-color: ${props => props.islinkselected === 'true' ? 'blue' : 'black'};
     background-color: ${props => props.islinkselected === 'true' ? `${props.theme.defaultColorOnHover}` : `${props.theme.defaultColor}`};
@@ -205,7 +208,7 @@ const LiCategoryFollowed = styled.li`
     height: 6px;
     border-radius: 50%;
     margin-right: 16px;
-    margin-bottom: 3px;
+    margin-bottom: 20px;
   }
 `;
 
@@ -215,10 +218,11 @@ border-left: ${props => props.islinkselected === 'true' ? `5px solid ${props.the
   text-decoration: none;
   // color: ${props => props.islinkselected === 'true' ? 'blue' : 'black'};
   color: ${props => props.islinkselected === 'true' ? `${props.theme.defaultColorOnHover}` : `${props.theme.defaultColor}`};
-  font-weight: 400;
+  font-weight: bold;
   display: flex;
   align-items: center;
   height: 35px;
+  margin-bottom: 20px;
 
   span {
     width: 30px;
@@ -234,6 +238,7 @@ border-left: ${props => props.islinkselected === 'true' ? `5px solid ${props.the
       padding: 10px 10px 9px 0;
       color: inherit;
       margin-left: 15px;
+      
     }
   }
   &:hover {
@@ -257,12 +262,13 @@ color: ${props => props.islinkselected === 'true' ? props.theme.defaultColorOnHo
   color: ${props => props.theme.defaultColorOnHover};
   cursor: pointer;
 }
+
 `
 const UserTeams = styled.div`
   .noteams {
     font-size: .8rem;
     padding-left: 20px;
-    font-weight: 400;
+    font-weight: bold;
   }
   .teams {
     padding-left: 4px;
@@ -290,7 +296,8 @@ const CatContent = styled.div`
   display: ${props => props.section === true ? 'block' : 'none'}
 `;
 const ResourcesContent = styled.div`
-  display: ${props => props.section === true ? 'block' : 'none'}
+  display: ${props => props.section === true ? 'block' : 'none'};
+  
 `;
 /***************************************************************************************************
  ********************************************* Component *******************************************
@@ -417,7 +424,7 @@ class SideNav extends Component {
         </DivNavContainer>
 
 
-        <span className='section-select' onClick={() => this.setState({ isCatSectionDisplayed: !this.state.isCatSectionDisplayed })}>
+        <span className='section-select admin' onClick={() => this.setState({ isCatSectionDisplayed: !this.state.isCatSectionDisplayed })}>
         <div className="underit">CATEGORIES</div>
           {isCatSectionDisplayed ? <i className="fas fa-chevron-up" /> : <i className="fas fa-chevron-down" />}
         </span>
@@ -489,7 +496,7 @@ class SideNav extends Component {
             </DivCategoriesFollowed>
           </DivNavContainer>
         </CatContent>
-        <span className='section-select' onClick={() => this.setState({ isTeamSectionDisplayed: !this.state.isTeamSectionDisplayed })}>
+        <span className='section-select admin' onClick={() => this.setState({ isTeamSectionDisplayed: !this.state.isTeamSectionDisplayed })}>
         <div className="underit">TEAMS</div>
           {isTeamSectionDisplayed ? <i className="fas fa-chevron-up" /> : <i className="fas fa-chevron-down" />}
         </span>
@@ -528,7 +535,7 @@ class SideNav extends Component {
           </DivNavContainer>
         </TeamsContent>
 
-        <span className='section-select' onClick={() => this.setState({ isResourcesSectionDisplayed: !this.state.isResourcesSectionDisplayed })}>
+        <span className='section-select admin' onClick={() => this.setState({ isResourcesSectionDisplayed: !this.state.isResourcesSectionDisplayed })}>
         <div className="underit">RESOURCES</div>
           {isResourcesSectionDisplayed ? <i className="fas fa-chevron-up"/>: <i className="fas fa-chevron-down"/>}
         </span>
