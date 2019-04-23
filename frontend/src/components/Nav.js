@@ -66,7 +66,7 @@ const DivAuth = styled.div`
 const SearchContainer = styled.div`
   margin-left: 15px;
   display: flex;
-  width: 30%;
+  width: 60%;
   justify-content: center;
   align-items: center;
 
