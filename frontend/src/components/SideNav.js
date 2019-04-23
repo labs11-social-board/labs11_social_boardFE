@@ -383,6 +383,8 @@ class SideNav extends Component {
 
     return (
       <DivSideNav isOpen={`${this.props.isOpen}`} ref={this.state.setWrapperRef}>
+
+
         <DivNavContainer>
           {
             (user_type === 'admin') &&
@@ -424,6 +426,63 @@ class SideNav extends Component {
             </div>
           </H4BrowseCategories>
         </DivNavContainer>
+
+
+        <span className='section-select admin' onClick={() => this.setState({ isResourcesSectionDisplayed: !this.state.isResourcesSectionDisplayed })}>
+        <div className="underit">RESOURCES</div>
+          {isResourcesSectionDisplayed ? <i className="fas fa-chevron-up"/>: <i className="fas fa-chevron-down"/>}
+        </span>
+        <ResourcesContent section={isResourcesSectionDisplayed}>
+          <DivNavContainer>
+            <H4BrowseCategories>
+            <div className='alignstuff'>
+              <ResourcesLinks className='browse-categories' resources={this.state.resources} />
+            </div>
+            </H4BrowseCategories>
+          </DivNavContainer>  
+        </ResourcesContent>
+
+
+
+        <span className='section-select admin' onClick={() => this.setState({ isTeamSectionDisplayed: !this.state.isTeamSectionDisplayed })}>
+        <div className="underit">TEAMS</div>
+          {isTeamSectionDisplayed ? <i className="fas fa-chevron-up" /> : <i className="fas fa-chevron-down" />}
+        </span>
+        <TeamsContent section={isTeamSectionDisplayed}>
+          <DivNavContainer>
+            <H4BrowseCategories>
+              <DivModalRaised onClick={(ev) => this.props.setAddTeamModalRaised(ev, true)}>
+                <i style={{ marginLeft: 22 + 'px', marginTop: 10 + 'px', marginRight: 9 + 'px', marginBottom: 9 + 'px' }} className="fas fa-plus-circle" />
+                Create Team
+              </DivModalRaised>
+              <div>
+                <LinkBrowseCategories
+                  to='/teams'
+                  islinkselected={(this.state.linkSelected === 'Teams').toString()}
+                  onClick={() => this.selectLink('Teams')}
+                  className='browse-categories'
+                ><i className="fas fa-book-open" />Browse Teams</LinkBrowseCategories>
+
+              </div>
+              <UserTeams>
+                {this.state.userTeams.length === 0 ? <div className='noteams'>You're not apart of any Teams Yet!</div> : this.state.userTeams.map(team => (
+                  <LinkSideNav 
+                    to={`/team/discussions/${team.team_id}`}
+                    islinkselected={(this.state.linkSelected === team.team_name).toString()}
+                    onClick={() => this.selectLink(team.team_name)}
+                    className='browse-categories teams'
+                    key={team.team_id}>
+                    <span>
+                      { team.logo ? <img src={team.logo} alt='team logo' /> : <i className="fas fa-users logo"></i>}
+                    </span>
+                    {team.team_name}
+                  </LinkSideNav>
+                ))}
+              </UserTeams>
+            </H4BrowseCategories>
+          </DivNavContainer>
+        </TeamsContent>
+
 
 
         <span className='section-select admin' onClick={() => this.setState({ isCatSectionDisplayed: !this.state.isCatSectionDisplayed })}>
@@ -498,58 +557,20 @@ class SideNav extends Component {
             </DivCategoriesFollowed>
           </DivNavContainer>
         </CatContent>
-        <span className='section-select admin' onClick={() => this.setState({ isTeamSectionDisplayed: !this.state.isTeamSectionDisplayed })}>
-        <div className="underit">TEAMS</div>
-          {isTeamSectionDisplayed ? <i className="fas fa-chevron-up" /> : <i className="fas fa-chevron-down" />}
-        </span>
-        <TeamsContent section={isTeamSectionDisplayed}>
-          <DivNavContainer>
-            <H4BrowseCategories>
-              <DivModalRaised onClick={(ev) => this.props.setAddTeamModalRaised(ev, true)}>
-                <i style={{ marginLeft: 22 + 'px', marginTop: 10 + 'px', marginRight: 9 + 'px', marginBottom: 9 + 'px' }} className="fas fa-plus-circle" />
-                Create Team
-              </DivModalRaised>
-              <div>
-                <LinkBrowseCategories
-                  to='/teams'
-                  islinkselected={(this.state.linkSelected === 'Teams').toString()}
-                  onClick={() => this.selectLink('Teams')}
-                  className='browse-categories'
-                ><i className="fas fa-book-open" />Browse Teams</LinkBrowseCategories>
 
-              </div>
-              <UserTeams>
-                {this.state.userTeams.length === 0 ? <div className='noteams'>You're not apart of any Teams Yet!</div> : this.state.userTeams.map(team => (
-                  <LinkSideNav 
-                    to={`/team/discussions/${team.team_id}`}
-                    islinkselected={(this.state.linkSelected === team.team_name).toString()}
-                    onClick={() => this.selectLink(team.team_name)}
-                    className='browse-categories teams'
-                    key={team.team_id}>
-                    <span>
-                      { team.logo ? <img src={team.logo} alt='team logo' /> : <i className="fas fa-users logo"></i>}
-                    </span>
-                    {team.team_name}
-                  </LinkSideNav>
-                ))}
-              </UserTeams>
-            </H4BrowseCategories>
-          </DivNavContainer>
-        </TeamsContent>
 
-        <span className='section-select admin' onClick={() => this.setState({ isResourcesSectionDisplayed: !this.state.isResourcesSectionDisplayed })}>
-        <div className="underit">RESOURCES</div>
-          {isResourcesSectionDisplayed ? <i className="fas fa-chevron-up"/>: <i className="fas fa-chevron-down"/>}
-        </span>
-        <ResourcesContent section={isResourcesSectionDisplayed}>
-          <DivNavContainer>
-            <H4BrowseCategories>
-            <div className='alignstuff'>
-              <ResourcesLinks className='browse-categories' resources={this.state.resources} />
-            </div>
-            </H4BrowseCategories>
-          </DivNavContainer>  
-        </ResourcesContent>
+
+
+        
+
+
+
+
+        
+
+
+
+
       </DivSideNav>
     );
   }
