@@ -21,16 +21,16 @@ const Followed = styled.div`
   //   padding: 10px 15px;
   //   border-radius: 5px;
   //   border: none;
-  //   background-color: #418DCF;
-  //   border: 1px solid #418DCF;
+  //   background-color: #f66042;
+  //   border: 1px solid #f66042;
   //   color: white;
   //   width: 100%;
 
   //   &:hover {
   //     cursor: pointer;
   //     background-color: white;
-  //     color: #418DCF;
-  //     border: 1px solid #418DCF;
+  //     color: #f66042;
+  //     border: 1px solid #f66042;
   //   }
   // }
 
@@ -43,13 +43,13 @@ const Followed = styled.div`
     margin-left: 10px;
     padding: 10px 15px;
 		border-radius: 5px;
-		border: 1px solid #418DCF;
-		background-color: ${ ({ isFollowing }) => isFollowing ? 'lightsteelblue' : '#418DCF' };
+		border: 1px solid #f66042;
+		background-color: ${ ({ isFollowing }) => isFollowing ? 'lightsteelblue' : '#f66042' };
     color: white;
     
     &:hover {
       background-color: white;
-      color: #418DCF;
+      color: #f66042;
       cursor: pointer;
     }
   }
@@ -80,10 +80,10 @@ const Followed = styled.div`
               {
                 isFollowing ?
                 <>
-                  <i className='fas fa-minus-circle' />&nbsp;Unfollow Post
+                  &nbsp;Unfollow Post
                 </> :
                 <>
-                  <i className='fas fa-plus-circle' />&nbsp;Follow Post
+                  &nbsp;Follow Post
                 </>
               }
               </button>
