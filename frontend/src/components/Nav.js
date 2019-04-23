@@ -34,9 +34,10 @@ const DivWrapper = styled.div`
 
 const DivAuth = styled.div`
   display: flex;
-  width: 40%;
+  width: 100%;
   height: 100%;
   justify-content: flex-end;
+  padding-right: 15px;
 
 
   @media ${tabletL}{
@@ -108,11 +109,17 @@ class Nav extends Component {
         {
           this.props.user_id !== 0 &&
           <SearchContainer>
+            {
+              this.props.isSideNavOpen === true ? <StyledNavButton id = 'nav-button'
+              className = "fas fa-times"
+              onClick = {
+                this.props.toggleSideNav
+              }/> : <StyledNavButton id='nav-button' className="fas fa-bars" onClick={this.props.toggleSideNav}/>
+            }
             <Search showSearch={this.props.showSearch} scrollTo={this.props.scrollTo} pathname={this.props.pathname} goTo={this.props.goTo} toggleSearch={this.props.toggleSearch} />
           </SearchContainer>
         }
         <DivAuth user_id={this.props.user_id}>
-
           {/* {
             this.props.user_id !== 0 && (
               this.props.isDay ?
@@ -126,7 +133,7 @@ class Nav extends Component {
           ) : (
             <Auth history={this.props.history} isLoginDropdownModalRaised={this.props.isLoginDropdownModalRaised} setLoginDropdownModalRaised={this.props.setLoginDropdownModalRaised} toggleRegisterModal={this.props.toggleRegisterModal} />
           )}
-          {this.props.isSideNavOpen === true ? <StyledNavButton id='nav-button' className="fas fa-times" onClick={this.props.toggleSideNav}></StyledNavButton> : <StyledNavButton id='nav-button' className="fas fa-bars" onClick={this.props.toggleSideNav}></StyledNavButton>}
+          {/* {this.props.isSideNavOpen === true ? <StyledNavButton id='nav-button' className="fas fa-times" onClick={this.props.toggleSideNav}></StyledNavButton> : <StyledNavButton id='nav-button' className="fas fa-bars" onClick={this.props.toggleSideNav}></StyledNavButton>} */}
         </DivAuth>
       </DivWrapper>
     );
