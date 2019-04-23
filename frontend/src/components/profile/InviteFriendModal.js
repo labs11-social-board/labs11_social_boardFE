@@ -207,7 +207,7 @@ class InviteFriendModal extends React.Component {
                         <span className = "back"
                         onClick = {event => setInviteFriendModalRaised(event, false)}
                         >
-                          <i className="far fa-arrow-alt-circle-left" />
+                          <i className="fa fa-arrow-left" />
                         </span>
                       </div>
                       <FormContent onSubmit = {this.handleSubmit}>

@@ -203,7 +203,7 @@ class NonUserLandingView extends Component {
         <BackgroundBox>
           <LandingDivBox>
             <LandingText loggedIn={this.props.user_id !== 0}>
-              Welcome to Social App 2
+              Welcome to Social App 3
               </LandingText>
             <LandingDiv>
               <p>A place where discussions are built to further projects and encourage conversations.</p>
@@ -230,6 +230,21 @@ class NonUserLandingView extends Component {
           <TeamContainer>
             <h2>TEAM MEMBERS</h2>
             <TeamList>
+            <TeamMember onClick={()=> window.open("https://github.com/nek0senpa1 ", "_blank")}>
+                <h2>Amber Meador</h2>
+                <img src='https://avatars2.githubusercontent.com/u/44776869?s=400&v=4' alt='Member' />
+              </TeamMember>
+
+              <TeamMember onClick={()=> window.open("https://github.com/TraiLynne ", "_blank")}>
+                <h2>Trai Compton</h2>
+                <img src='https://avatars1.githubusercontent.com/u/24273686?s=460&v=4' alt='Member' />
+              </TeamMember>
+
+              <TeamMember onClick={()=> window.open("https://github.com/imon3 ", "_blank")}>
+                <h2>Imonhimi Ovbude</h2>
+                <img src='https://avatars1.githubusercontent.com/u/40075966?s=460&v=4' alt='Member' />
+              </TeamMember>
+              
               <TeamMember onClick={()=> window.open("https://github.com/ModestoT", "_blank")}>
                 <h2>Modesto Tamayo</h2>
                 <img src='https://avatars2.githubusercontent.com/u/32940785?s=400&v=4' alt='Member' />
@@ -248,21 +263,6 @@ class NonUserLandingView extends Component {
               <TeamMember onClick={()=> window.open("https://github.com/jeff15113 ", "_blank")}>
                 <h2>Jeffery Artrip</h2>
                 <img src='https://avatars1.githubusercontent.com/u/9707341?s=460&v=4' alt='Member' />
-              </TeamMember>
-
-              <TeamMember onClick={()=> window.open("https://github.com/nek0senpa1 ", "_blank")}>
-                <h2>Amber Meador</h2>
-                <img src='https://avatars2.githubusercontent.com/u/44776869?s=400&v=4' alt='Member' />
-              </TeamMember>
-
-              <TeamMember onClick={()=> window.open("https://github.com/TraiLynne ", "_blank")}>
-                <h2>Trai Compton</h2>
-                <img src='https://avatars1.githubusercontent.com/u/24273686?s=460&v=4' alt='Member' />
-              </TeamMember>
-
-              <TeamMember onClick={()=> window.open("https://github.com/imon3 ", "_blank")}>
-                <h2>Imonhimi Ovbude</h2>
-                <img src='https://avatars1.githubusercontent.com/u/40075966?s=460&v=4' alt='Member' />
               </TeamMember>
 
             </TeamList>

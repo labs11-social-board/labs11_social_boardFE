@@ -61,7 +61,7 @@ const Error = ({ error, displayError, isDay }) => {
 				<span
 					className='back'
 					onClick={() => displayError('')}		
-				><i className="far fa-arrow-alt-circle-left"></i></span>
+				><i className="fa fa-arrow-left"></i></span>
 				<p>{ error }</p>
 			</ErrorBox>
 		</ErrorWrapper>
