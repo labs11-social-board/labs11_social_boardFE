@@ -317,7 +317,7 @@ class Discussion extends Component {
       <Wrapper>
         <div className="back-follow-wrapper">
           <Link className="back" to={`/discussions/category/${category_id}`}>
-            <i className="far fa-arrow-alt-circle-left" />
+            <i className="fa fa-arrow-left" />
           </Link>
           <Follow discussion_id={id} historyPush={historyPush} />
         </div>

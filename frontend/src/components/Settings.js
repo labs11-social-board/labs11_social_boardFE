@@ -491,7 +491,7 @@ class Settings extends Component {
     const splitUsername = username.split(' ');
     return (
       <SettingsWrapper>
-        <i onClick={this.goBack} className="far fa-arrow-alt-circle-left" />
+        <i onClick={this.goBack} className="fa fa-arrow-left" />
         {/* <UsernameSettings><h1>{username}'s Settings</h1></UsernameSettings> */}
         <UserSettings>
           <ProfileSettings>
@@ -567,7 +567,7 @@ class Settings extends Component {
                   <span
                     className='back'
                     onClick={() => this.toggleForm('')}
-                  ><i className="far fa-arrow-alt-circle-left"></i></span>
+                  ><i className="fa fa-arrow-left"></i></span>
                   <button className='btn' onClick={() => this.toggleForm('avatar-pc-form')}>
                     Upload&nbsp;from&nbsp;PC
                   </button>
