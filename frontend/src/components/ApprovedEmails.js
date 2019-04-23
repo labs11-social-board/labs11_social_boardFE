@@ -27,11 +27,55 @@ const DenyButton = styled.button`
     width: 100px;
     margin-left: 4px;
     cursor: pointer;
-`
 
+`
 const SubDrawer = styled.div`
   padding: 20px;
 `
+
+const MainWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  font-size: 1.4rem;
+  justify-content: space-around;
+  justify-items: center;
+  align-items: center;
+  align-content: center;
+
+  .title {
+    margin-top: 30px;
+    margin-bottom: 5px;
+  }
+
+`;
+
+const InnerWrapper = styled.div`
+width: 90%;
+font-size: 1.1rem;
+justify-content: space-around;
+justify-items: center;
+align-items: center;
+align-content: center;
+`;
+
+const Boxed = styled.div`
+width: 100%;
+padding: 10px;
+border: 1px solid #418dcf;
+border-radius: 5px;
+flex-direction: column;
+color:black;
+justify-content: space-around;
+margin-bottom: 10px;
+`;
+
+const TableWrapper = styled.div`
+width: 90%;
+`;
+
+
+
 
 class ApprovedEmails extends Component {
     componentDidMount() {
@@ -57,7 +101,11 @@ class ApprovedEmails extends Component {
 
     render() {
         return (
-            <div>
+            <TableWrapper>
+                <MainWrapper>
+                <InnerWrapper>
+                <Boxed>
+                    <h4>Approved E-Mails Table View</h4>
                 <ReactTable
                     data={this.props.approvedEmails}
                     filterable
@@ -98,11 +146,14 @@ class ApprovedEmails extends Component {
                                 color: 'black'
                             }
                             : {
-                                color: 'white'
+                                color: 'black'
                             }
                     }
                 />
-            </div>
+                </Boxed>
+                </InnerWrapper>
+                </MainWrapper>
+            </TableWrapper>
         )
     }
 }
