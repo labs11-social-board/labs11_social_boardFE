@@ -6,7 +6,7 @@ import { addDeletedPost } from '../store/actions/PostsActions.js'
 
 
 const DeleteButton = styled.a`
-    color: red !important;
+    color: red #D8D8D8;
     margin-left: 15px;
     cursor: pointer;
 `
