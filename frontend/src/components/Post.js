@@ -23,7 +23,9 @@ const PostWrapper = styled.div`
   flex-direction: column;
   width: 100%;
   font-size: 16px;
-  overflow-wrap: break-word;
+	overflow-wrap: break-word;
+	font-family: 'PT Sans'
+	color: #252935;
 
   .title {
     margin-top: 30px;
@@ -51,12 +53,16 @@ const PostWrapper = styled.div`
       color: black;
 
       .upvote .hide-arrows {
-        display: none;
+				display: none;
       }
 
       .downvote .hide-arrows {
         display: none;
-      }
+			}
+			
+			.upvotes {
+				color: ${(props) => props.theme.postColor};
+			}
 
       .username {
         margin-right: 10px;
@@ -64,12 +70,17 @@ const PostWrapper = styled.div`
       }
 
       .likes {
-        margin-right: 10px;
+				margin-right: 10px;
+				color: ${(props) => props.theme.postColor};
       }
 
       .avatar {
         width: 20px;
-      }
+			}
+			
+			.date.tablet{
+				color: ${(props) => props.theme.postColor};
+			}
 
       &:hover {
         cursor: pointer;
