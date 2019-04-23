@@ -5,7 +5,8 @@ import socrates from './img/socrates.png';
 import landingPageImage1 from './img/landing-page-image1.png';
 import background from './img/background.jpg';
 import computericon from './img/computericon.png';
-import subscriptions from './img/subscriptions.png'
+import subscriptions from './img/subscriptions.png';
+import symposiumLightOrange from './img/symposiumLightOrange.png';
 
 export {
 	spinner2,
@@ -15,5 +16,6 @@ export {
 	landingPageImage1,
 	background,
 	computericon,
-	subscriptions
+	subscriptions,
+	symposiumLightOrange
 };
