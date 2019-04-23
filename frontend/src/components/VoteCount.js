@@ -7,14 +7,17 @@ import styled from 'styled-components';
 const VoteCountWrapper = styled.div`
 	display: flex;
 	margin-right: 10px;
+	flex-direction: column;
 
 	i {
 		padding-left: 10px;
 		padding-right: 5px;
+		font-size: 20px;
+		color: #D8D8D8;
 	}
 
 	.upvote {
-		${ ({ user_vote }) => user_vote === 1 && 'color: blue;' }
+		${ ({ user_vote }) => user_vote === 1 && 'color: blue;'}
 
 		&:hover {
 		cursor: pointer;
@@ -23,7 +26,7 @@ const VoteCountWrapper = styled.div`
 	}
 
 	.downvote {
-		${ ({ user_vote }) => user_vote === -1 && 'color: red;' }
+		${ ({ user_vote }) => user_vote === -1 && 'color: red;'}
 
 		&:hover {
 		cursor: pointer;
@@ -43,14 +46,17 @@ const VoteCount = ({
 }) => {
 	const handleClick = (e, type) => handleVote(e, type);
 	return (
-		<VoteCountWrapper user_vote = { user_vote }>
-			<div className = 'upvote' onClick = { e => handleClick(e, 1) }>
-				<i className = 'fas fa-arrow-alt-circle-up' />
-				<span>{ upvotes || 0 }</span>
+		<VoteCountWrapper user_vote={user_vote}>
+			<div className='upvote' onClick={e => handleClick(e, 1)}>
+				{/* <i className = 'fas fa-arrow-alt-circle-up' /> */}
+				<i class="fas fa-caret-up"></i>
+				{/* <span>{ upvotes || 0 }</span> */}
 			</div>
-			<div className = 'downvote' onClick = { e => handleClick(e, -1) }>
-				<i className = 'fas fa-arrow-alt-circle-down' />
-				<span>{ downvotes || 0 }</span>
+			<div>{ upvotes || 0 }</div>
+			<div className='downvote' onClick={e => handleClick(e, -1)}>
+				{/* <i className = 'fas fa-arrow-alt-circle-down' /> */}
+				<i class="fas fa-caret-down"></i>
+				{/* <span>{ downvotes || 0 }</span> */}
 			</div>
 		</VoteCountWrapper>
 	);
