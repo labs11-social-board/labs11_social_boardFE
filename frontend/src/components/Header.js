@@ -19,8 +19,9 @@ const StyledHeader = styled.div`
   width: 100%;
   z-index: 9000;
   align-self: center;
-  background-color: ${props => props.theme.headerBg};;
-  border-bottom: 2px solid ${props => props.theme.borderColor};
+  
+  border-bottom: 2px solid ${props => props.theme.bgColor};
+  
 
   @media ${tabletL}{
     width: 100%;
@@ -41,6 +42,8 @@ const StyledHeader = styled.div`
     justify-content: center;
     align-items: center;
     box-sizing: border-box;
+    background-color: ${props => props.theme.bgColor};
+    
     border-right: 2px solid ${props => props.theme.borderColor};
       &:hover {
         cursor: pointer;
@@ -56,6 +59,8 @@ const NavContainer = styled.div`
  width: 100%;
  display: flex;
  justify-content: center;
+ background-color: ${props => props.theme.headerBg};;
+ 
 
  @media ${tabletL}{
     width: 100%;
