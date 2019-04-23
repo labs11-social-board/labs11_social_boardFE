@@ -1,13 +1,15 @@
 .pagination-bottom .-pagination .-previous .-btn {
-    background-color: #418dcf;
+	background-color: #418dcf;
+	font-family: 'PT-Sans';
 }
 
 .pagination-bottom .-pagination .-next .-btn {
-    background-color: #418dcf;
+	background-color: #418dcf;
+	font-family: 'PT-Sans';
 }
 
 .ReactTable .rt-thead .rt-th.-sort-asc {
-    box-shadow: inset 0 3px 0 0 rgba(65, 141, 207, 0.6);
-    color: #418dcf;
-    font-weight: 700;
+	box-shadow: inset 0 3px 0 0 rgba(65, 141, 207, 0.6);
+	color: #418dcf;
+	font-weight: 700;
 }
