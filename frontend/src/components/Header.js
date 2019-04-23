@@ -58,10 +58,10 @@ const NavContainer = styled.div`
  justify-content: center;
 
  @media ${tabletL}{
-    width: 60%;
+    width: 100%;
   }
   @media ${phoneL} {
-      width: 60%;
+      width: 100%;
       justify-content: space-between;
   }
 `;

@@ -21,6 +21,7 @@ const DivWrapper = styled.div`
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
+  padding-right: 15px;
   @media ${phoneL}{
     display: flex;
     justify-content: space-between;

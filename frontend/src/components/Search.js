@@ -58,7 +58,7 @@ const SearchBox = styled.div`
       user-select: none;
 
       @media (min-width: 320px) and (max-width: 767px) {
-        margin: auto;
+        margin: 4px;
       }
     }
 
