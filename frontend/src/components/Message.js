@@ -60,7 +60,7 @@ const Message = ({ message, displayMessage, isDay }) => {
 				<span
 					className='back'
 					onClick={() => displayMessage('')}		
-				><i className="far fa-arrow-alt-circle-left"></i></span>
+				><i className="fa fa-arrow-left"></i></span>
 				<p>{ message }</p>
 			</MessageBox>
 		</MessageWrapper>

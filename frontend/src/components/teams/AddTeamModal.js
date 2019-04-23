@@ -304,7 +304,7 @@ class AddTeamModal extends React.Component {
               <span
                 className='back'
                 onClick={(e) => setAddTeamModalRaised(e, false)}		
-              ><i className="far fa-arrow-alt-circle-left"></i></span>
+              ><i className="fa fa-arrow-left"></i></span>
               <span></span>
             </div>
           <FormContent onSubmit={this.handleSubmit}>

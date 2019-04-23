@@ -140,7 +140,7 @@ class UsersListModal extends React.Component {
               <span
                 className='back'
                 onClick={(e) => setTeamMemberModal(e, false)}		
-              ><i className="far fa-arrow-alt-circle-left"></i></span>
+              ><i className="fa fa-arrow-left"></i></span>
               <span></span>
             </div>
             <div className='search-input-wrapper'>

@@ -339,7 +339,7 @@ class EditProfileModal extends React.Component {
               className="back"
               onClick={event => setEditProfileModalRaised(event, false)}
             >
-              <i className="far fa-arrow-alt-circle-left" />
+              <i className="fa fa-arrow-left" />
             </span>
           </div>
           <FormContent onSubmit={this.handleSubmit}>
