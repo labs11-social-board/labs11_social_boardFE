@@ -16,7 +16,7 @@ import { Search } from './index.js';
  *********************************************** Styles *********************************************
  **************************************************************************************************/
 const DivWrapper = styled.div`
-  width: 90%;
+  width: 100%;
   display: flex;
   color: black;
   justify-content: space-between;

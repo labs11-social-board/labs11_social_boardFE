@@ -53,7 +53,7 @@ const StyledHeader = styled.div`
 `;
 
 const NavContainer = styled.div`
- width: 60%;
+ width: 100%;
  display: flex;
  justify-content: center;
 
@@ -67,8 +67,10 @@ const NavContainer = styled.div`
 `;
 
 const SympLogo = styled.div`
-  width: 150px;
+  width: ${sideNavWidth};
   height: 50px;
+  background-repeat: no-repeat;
+  background-position: center;
   background-image: url(${ ({ isDay }) => isDay ? symposiumLight : symposiumDark});
     &:hover {
       cursor: pointer;
