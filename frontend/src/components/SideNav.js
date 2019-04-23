@@ -316,7 +316,8 @@ class SideNav extends Component {
       setWrapperRef: this.setWrapperRef.bind(this),
       updated: this.props.verified,
       isTeamSectionDisplayed: true,
-      isCatSectionDisplayed: true
+      isCatSectionDisplayed: true,
+      isResourcesSectionDisplayed: true,
     }
   }
 
