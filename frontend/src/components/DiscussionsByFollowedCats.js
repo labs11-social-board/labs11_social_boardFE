@@ -84,8 +84,8 @@ const DiscussionHeader = styled.div`
 		margin-left: 10px;
 		padding: 10px 15px;
 		border-radius: 5px;
-    border: 1px solid #418DCF;
-		background-color: #418DCF;
+    border: 1px solid #f66042;
+		background-color: #f66042;
 		color: white;
 
 		@media (max-width: 530px) {
@@ -96,7 +96,7 @@ const DiscussionHeader = styled.div`
 		&:hover {
 			cursor: pointer;
 			background-color: white;
-			color: #418DCF;
+			color: #f66042;
 		}
 	}
 `;
@@ -197,7 +197,7 @@ class AllDiscussionsByFollowedCats extends Component {
             </select>
           </div>
           <button onClick={this.toggleAddDiscussionForm} className='add-post-btn'>
-            <i className='fas fa-plus-circle' />&nbsp;Add Post
+            &nbsp;Add Post
           </button>
         </DiscussionHeader>
         <hr />
