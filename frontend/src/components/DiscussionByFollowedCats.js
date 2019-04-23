@@ -15,9 +15,10 @@ const DiscussionWrapper = styled.div`
 	height: 116px;
 	// margin-bottom: 20px;
 	// padding: 5px;
-	border: solid 1px grey;
+	border: 1px solid #EAECEF;
 	border-radius: 3px;
 	overflow-wrap: break-word;
+	font-family: 'PT Sans';
 	
 	.discussion-info {
 		height: 100%;
@@ -60,11 +61,12 @@ const DiscussionWrapper = styled.div`
 	
 			.user {
 				width: fit-content;
-				color: black;
+				color: #8A8C90;
 				display:flex;
 	
 				.username-wrapper {
-					color: ${props => props.theme.defaultColor};
+					// color: ${props => props.theme.defaultColor};
+					color: #F66042;
 					margin: 0 10px;
 					&:hover {
 						cursor: pointer;
@@ -149,6 +151,7 @@ const DiscussionWrapper = styled.div`
 	
 			.date-views-comment {
 				display: flex;
+				color: #8A8C90;
 			}
 	
 			@media (max-width: 1075px) {
