@@ -11,7 +11,7 @@ import {
     getEmails
 } from '../../store/actions';
 
-const ButtonY = styled.button `
+const ButtonY = styled.button`
     border: 1px solid #418DCF;
     border-radius: 3px;
     color: white;
@@ -21,7 +21,7 @@ const ButtonY = styled.button `
     margin-left: 4px;
   `;
 
-  const ButtonX = styled.button `
+const ButtonX = styled.button`
     border: 1px solid #418DCF;
     border-radius: 3px;
     color: white;
@@ -31,8 +31,8 @@ const ButtonY = styled.button `
     margin-left: 24px;
     
   `;
-  
-  const StyledLink = styled(NavLink)`
+
+const StyledLink = styled(NavLink)`
     color: white;  
     text-decoration: none;
 
@@ -76,36 +76,36 @@ class ApproveEmailForm extends Component {
             email
         } = this.state;
 
-        return ( 
+        return (
             <div>
                 <h2>Add Approved Emails</h2>
                 <p>(Add one at a time, or upload a CSV file)</p>
 
                 <InputY
-                    placeholder = 'E-mail Address'
-                    name = 'email'
+                    placeholder='E-mail Address'
+                    name='email'
                     type='email'
-                    required="required"
-                    value = {
+                    required
+                    value={
                         email
                     }
-                    onChange = {
+                    onChange={
                         this.handleChange
                     }
                 />
 
                 <ButtonY type='submit'
-                onClick={
-                    this.handleSubmit
-                }>Add</ButtonY>
+                    onClick={
+                        this.handleSubmit
+                    }>Add</ButtonY>
 
-                
-                    <ButtonX>
+
+                <ButtonX>
                     <StyledLink to='/upload'>
                         Import CSV
                     </StyledLink>
-                    </ButtonX>
-                
+                </ButtonX>
+
 
             </div>
         );

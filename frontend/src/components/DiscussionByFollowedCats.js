@@ -8,42 +8,95 @@ import { Avatar, VoteCount } from './index.js';
 
 const DiscussionWrapper = styled.div`
 	display: flex;
-	flex-direction: column;
-	justify-content: flex-start;
+	flex-direction: row-reverse;
+	justify-content: flex-end;
+	align-items: center
 	width: 98%;
-	margin-bottom: 20px;
-	padding: 5px;
-	border-radius: 5px;
+	height: 116px;
+	// margin-bottom: 20px;
+	// padding: 5px;
+	border: solid 1px grey;
+	border-radius: 3px;
 	overflow-wrap: break-word;
-
-	.info-wrapper {
-		width: 100%;
-		display: flex;
-		justify-content: space-between;
-		align-items: flex-end;
-		font-size: 0.9rem;
-		color: #a7a7a7;
 	
+
+	.info {
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
+		
+
+		.info-div {
+			align-self: flex-end;
+			
+		}
+
 		.user-info {
-			display: flex;
-			justify-content: flex-start;
-			align-items: center;
-			width: 25%;
-			margin-right: 20px;
+			// display: flex;
+			// justify-content: flex-start;
+			// flex-direction: row;
+			// align-items: center;
+			// width: 25%;
+			// height 50%;
+			// margin-right: 20px;
+	
 	
 			.user {
 				width: fit-content;
 				color: black;
-
+				display:flex;
+	
 				.username-wrapper {
 					color: ${props => props.theme.defaultColor};
-
+					margin: 0 10px;
 					&:hover {
 						cursor: pointer;
 						color: #418DCF;
 					}
 				}
 			}
+	}
+	
+	.discussion-info {
+		height: 100%;
+		display: flex;
+		justify-content: center;
+	}
+	
+
+	.info-wrapper {
+		width: 20%;
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-end;
+		font-size: 0.9rem;
+		color: #a7a7a7;
+	
+		// .user-info {
+		// 	display: flex;
+		// 	justify-content: flex-start;
+		// 	flex-direction: row;
+		// 	align-items: center;
+		// 	// width: 25%;
+		// 	height 100%;
+		// 	// margin-right: 20px;
+	
+		// 	.user {
+		// 		width: fit-content;
+		// 		color: black;
+		// 		display:flex;
+			
+
+		// 		.username-wrapper {
+		// 			color: ${props => props.theme.defaultColor};
+
+		// 			&:hover {
+		// 				cursor: pointer;
+		// 				color: #418DCF;
+		// 			}
+		// 		}
+		// 	}
 	
 			@media (max-width: 530px) {
 				width: 100%;
@@ -52,13 +105,15 @@ const DiscussionWrapper = styled.div`
 	
 		.discussion-info {
 			display: flex;
-			width: 75%;
+			width: 8%;
+			height: 100%;
 	
 			.votes-wrapper {
-				margin-right: 10px;
+				// margin-right: 10px;
 				display: flex;
 				justify-content: flex-start;
 				align-items: center;
+				height: 100%;
 	
 				i {
 					padding-left: 10px;
@@ -136,11 +191,11 @@ const DiscussionWrapper = styled.div`
 
 	&:hover {
 		${ ({ singleDiscussion, isDay }) => {
-			return !singleDiscussion && (isDay ?
-				'background-color: #ddd;' :
-				'background-color: #ddd;color: black;'
-			)
-		} }
+		return !singleDiscussion && (isDay ?
+			'background-color: #ddd;' :
+			'background-color: #ddd;color: black;'
+		)
+	}}
 
 		.info-wrapper {
 			${props => (!props.singleDiscussion && !props.isDay) && 'color: black;'}
@@ -157,9 +212,15 @@ const DiscussionWrapper = styled.div`
 `;
 
 const BodyWrapper = styled.p`
-	text-align: justify;
-	margin-bottom: 20px;
+	text-align: center;
+	// margin-bottom: 20px;
 	cursor:pointer;
+	height: 100%;
+
+	p {
+		margin: 0;
+	}
+	
 
 	&:hover {
 		color: #418DCF;
@@ -185,61 +246,80 @@ const DiscussionByFollowedCats = ({ discussion, history, voteOnDiscussion, singl
 		image
 	} = discussion;
 	const handleDiscussionClick = () => {
-			if(isTeam){
-				history.push(`/team/posts/${ id }`);
-				if(toggleIsTeam){
-					toggleIsTeam();
-				}
-			} else {
-				history.push(`/discussion/${ id }`);
+		if (isTeam) {
+			history.push(`/team/posts/${id}`);
+			if (toggleIsTeam) {
+				toggleIsTeam();
 			}
+		} else {
+			history.push(`/discussion/${id}`);
+		}
 	}
 	const handleCategoryClick = e => {
 		e.stopPropagation();
-		return history.push(`/discussions/category/${ category_id }`);
+		return history.push(`/discussions/category/${category_id}`);
 	};
 	const handleUserClick = e => {
 		e.stopPropagation();
-		return history.push(`/profile/${ user_id }`);
+		return history.push(`/profile/${user_id}`);
 	};
 	const handleVote = (e, type) => {
 		e.stopPropagation();
 		return voteOnDiscussion(id, type);
 	};
-	return(
-		<DiscussionWrapper isDay = { isDay } singleDiscussion = { singleDiscussion } >
-			<div>
-			<BodyWrapper onClick = { handleDiscussionClick }>{
-				!singleDiscussion ? body.length > 183 ? body.substr(0, 183) + '...' : body : body
-			}</BodyWrapper>
-			{image ? 
-				<div className='show-image-wrapper'>
-					<a href='# ' className='show-image' onClick={() => handleImageShow(id)}><i className="fas fa-camera"></i>{ isShowImage ? id === imageClickedId ? '-' : '+' : '+'}</a>
-					{isShowImage ? id === imageClickedId ? <img src={image} alt="uploaded"/> : null : null }
-				</div> : null}
-			</div>
-			<div className = 'info-wrapper'>
-				<div className = 'user-info'>
-					<div className = 'user' onClick = { handleUserClick }>
+	return (
+		<DiscussionWrapper isDay={isDay} singleDiscussion={singleDiscussion} >
+			<div className='info'>
+				<div className='info-div'>
+					<BodyWrapper onClick={handleDiscussionClick}>{
+						!singleDiscussion ? body.length > 183 ? body.substr(0, 183) + '...' : body : body
+					}</BodyWrapper>
+					{image ?
+						<div className='show-image-wrapper'>
+							<a href='# ' className='show-image' onClick={() => handleImageShow(id)}><i className="fas fa-camera"></i>{isShowImage ? id === imageClickedId ? '-' : '+' : '+'}</a>
+							{isShowImage ? id === imageClickedId ? <img src={image} alt="uploaded" /> : null : null}
+						</div> : null}
+					{/* <div className='user-info'>
+					<div className='user' onClick={handleUserClick}>
 						<Avatar
-							height = '20px'
-							width = '20px'
-							src = { avatar }
+							height='20px'
+							width='20px'
+							src={avatar}
 						/>
 						&nbsp;
-						<div className = 'username-wrapper'>{ username }</div>
+						<div className='username-wrapper'>{username}</div>
+					</div> */}
+				</div>
+				{/* <div className='info-wrapper'> */}
+				<div className='user-info'>
+					<div className='user' onClick={handleUserClick}>
+						<Avatar
+							height='20px'
+							width='20px'
+							src={avatar}
+						/>
+						<div className='username-wrapper'>{username}</div>
+						<div className='date-views-comment tablet'>
+							<span>{moment(new Date(Number(created_at))).fromNow()}</span>
+							&nbsp;&nbsp;&nbsp;&nbsp;
+					</div>
 					</div>
 				</div>
-				<div className = 'discussion-info'>
-					<div className = 'votes-wrapper'>
-						<VoteCount
-							upvotes = { upvotes }
-							downvotes = { downvotes }
-							user_vote = { user_vote }
-							handleVote = { handleVote }
-						/>
-					</div>
-					<div className = 'category-wrapper' onClick = { handleCategoryClick }>
+			</div>
+
+			<div className='discussion-info'>
+				<div className='votes-wrapper'>
+					<VoteCount
+						upvotes={upvotes}
+						downvotes={downvotes}
+						user_vote={user_vote}
+						handleVote={handleVote}
+					/>
+				</div>
+			</div>
+
+
+			{/* <div className = 'category-wrapper' onClick = { handleCategoryClick }>
 							<i className = { category_icon } />
 							<span className = 'category-name'>{ category_name }</span>
 					</div> 
@@ -250,9 +330,9 @@ const DiscussionByFollowedCats = ({ discussion, history, voteOnDiscussion, singl
 						<span className = 'desktop'>{ views || 0 } View{ views !== 1 && 's' }</span>
 						&nbsp;&nbsp;&nbsp;&nbsp;
 						<span>{ post_count } Comment{ Number(post_count) !== 1 && 's' }</span>
-					</div>
-				</div>
-			</div>
+					</div> */}
+			{/* </div> */}
+			{/* </div> */}
 		</DiscussionWrapper>
 	);
 };
@@ -261,4 +341,4 @@ const mapStateToProps = state => ({
 	isDay: state.users.isDay,
 });
 
-export default connect(mapStateToProps, { })(DiscussionByFollowedCats);
+export default connect(mapStateToProps, {})(DiscussionByFollowedCats);
