@@ -115,7 +115,7 @@ class RequestResetPWForm extends Component {
 		return(
 			<RequestResetPWFormWrapper onSubmit = { this.handleSubmit }>
 				<ArrowLink>
-					<Link className = 'far fa-arrow-alt-circle-left' to = '/'></Link>
+					<Link className = 'fa fa-arrow-left' to = '/'></Link>
 				</ArrowLink>
 				<p className = 'enter-email-text'>
 					Enter your email:

@@ -273,7 +273,7 @@ class AddDiscussionForm extends Component {
 						<span
 							className='back'
 							onClick={toggleAddDiscussionForm}		
-						><i className="far fa-arrow-alt-circle-left"></i></span>
+						><i className="fa fa-arrow-left"></i></span>
 						<span></span>
 					</div>
           <textarea

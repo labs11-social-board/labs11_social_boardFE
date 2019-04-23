@@ -19,7 +19,7 @@ const StyledHeader = styled.div`
   width: 100%;
   z-index: 9000;
   align-self: center;
-  
+  background-color: ${props => props.theme.headerBg};
   border-bottom: 2px solid ${props => props.theme.bgColor};
   
 
@@ -32,7 +32,7 @@ const StyledHeader = styled.div`
   @media ${phoneL} {
     width: 100%;
   }
-  @media ${phoneP}{
+  @media ${phoneP}{41
     width: 100%;
   }
 
@@ -59,7 +59,7 @@ const NavContainer = styled.div`
  width: 60%;
  display: flex;
  justify-content: center;
- background-color: ${props => props.theme.headerBg};;
+ background-color: ${props => props.theme.headerBg};
  
 
  @media ${tabletL}{
