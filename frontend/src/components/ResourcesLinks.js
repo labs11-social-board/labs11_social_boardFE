@@ -10,6 +10,7 @@ border-left: ${props => props.islinkselected === 'true' ? `5px solid ${props.the
   font-weight: bold;
   display: flex;
   align-items: center;
+  margin-bottom: 20px;
   span {
     width: 46px;
     display: inline-block;

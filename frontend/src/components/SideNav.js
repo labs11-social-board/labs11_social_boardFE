@@ -44,6 +44,7 @@ margin-top: 20px;
   
   .admin {
     cursor:default;
+    color: black;
     &:hover {
       color:grey;
     }
@@ -125,7 +126,7 @@ const DivCatFollowItems = styled.div`
 const H4AllPosts = styled.h4`
   display: flex;
   align-items: center;
-  margin-bottom: 9px;
+  margin-bottom: 20px;
   border-left: ${props => props.islinkselected === 'true' ? `1px solid ${props.theme.defaultColor}` : '0px solid transparent'};
   i {
     cursor: pointer;
@@ -423,7 +424,7 @@ class SideNav extends Component {
         </DivNavContainer>
 
 
-        <span className='section-select' onClick={() => this.setState({ isCatSectionDisplayed: !this.state.isCatSectionDisplayed })}>
+        <span className='section-select admin' onClick={() => this.setState({ isCatSectionDisplayed: !this.state.isCatSectionDisplayed })}>
         <div className="underit">CATEGORIES</div>
           {isCatSectionDisplayed ? <i className="fas fa-chevron-up" /> : <i className="fas fa-chevron-down" />}
         </span>
@@ -495,7 +496,7 @@ class SideNav extends Component {
             </DivCategoriesFollowed>
           </DivNavContainer>
         </CatContent>
-        <span className='section-select' onClick={() => this.setState({ isTeamSectionDisplayed: !this.state.isTeamSectionDisplayed })}>
+        <span className='section-select admin' onClick={() => this.setState({ isTeamSectionDisplayed: !this.state.isTeamSectionDisplayed })}>
         <div className="underit">TEAMS</div>
           {isTeamSectionDisplayed ? <i className="fas fa-chevron-up" /> : <i className="fas fa-chevron-down" />}
         </span>
@@ -534,7 +535,7 @@ class SideNav extends Component {
           </DivNavContainer>
         </TeamsContent>
 
-        <span className='section-select' onClick={() => this.setState({ isResourcesSectionDisplayed: !this.state.isResourcesSectionDisplayed })}>
+        <span className='section-select admin' onClick={() => this.setState({ isResourcesSectionDisplayed: !this.state.isResourcesSectionDisplayed })}>
         <div className="underit">RESOURCES</div>
           {isResourcesSectionDisplayed ? <i className="fas fa-chevron-up"/>: <i className="fas fa-chevron-down"/>}
         </span>
