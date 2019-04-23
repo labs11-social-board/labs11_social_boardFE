@@ -73,7 +73,7 @@ const GlobalStyle = createGlobalStyle`
     justify-content: center;
     flex-wrap: wrap;
     flex-direction: column;
-    background: ${props => props.theme.appBgColor};
+    // background: ${props => props.theme.appBgColor};
     width: 100%;
     min-height: 100vh;
     a{

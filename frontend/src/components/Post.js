@@ -68,7 +68,9 @@ const InfoWrapper = styled.div`
     margin-right: 20px;
 
     .user {
-      width: fit-content;
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
       color: black;
 
       &:hover {
@@ -216,7 +218,7 @@ const Post = ({
   } = post;
 
   const handleVote = (e, type) =>
-    
+
     handlePostVote(post.id, type)
       .then(() => {
         handleisVoting();
@@ -229,7 +231,7 @@ const Post = ({
       .then(() => scrollTo());
 
   const handleReplyVoting = (reply_id, type) =>
-    
+
     handleReplyVote(reply_id, type)
       .then(() => {
         handleisVoting();
@@ -272,8 +274,8 @@ const Post = ({
         <BodyWrapper>{body}</BodyWrapper>
         {image ?
           <div className='show-image-wrapper'>
-            <a href='# ' className='show-image' onClick={() => handleImageShow(id)}><i className="fas fa-camera"></i>{ isShowImage ? id === imageClickedId ? '-' : '+' : '+'}</a>
-					  {isShowImage ? id === imageClickedId ? <img src={image} alt="uploaded"/> : null : null }
+            <a href='# ' className='show-image' onClick={() => handleImageShow(id)}><i className="fas fa-camera"></i>{isShowImage ? id === imageClickedId ? '-' : '+' : '+'}</a>
+            {isShowImage ? id === imageClickedId ? <img src={image} alt="uploaded" /> : null : null}
           </div> : null}
       </div>
       <InfoWrapper>
@@ -300,24 +302,24 @@ const Post = ({
             <span>{moment(new Date(Number(created_at))).fromNow()}</span>
           </div>
           {
-            (loggedInUserId === user_id) ? 
-            (<div className='delete'>
-              <a href='# ' onClick={e => handleRemovePost(e, id)}>Delete post</a>
-            </div>) : 
-            (user_type === 'admin' || user_type === 'moderator' || user_permissions === 'moderator') ? 
-            <DeletePost 
-            handleRemovePost={handleRemovePost}
-            handleTeamFilter={handleTeamFilter}
-            handleFilterChange={handleFilterChange}
-            displayMessage={displayMessage}
-            id={id}
-            teamId={team_id}
-            user_id={user_id}
-            user_type={user_type}
-            user_permissions={user_permissions}
-            className='delete'
-            />
-            : null}
+            (loggedInUserId === user_id) ?
+              (<div className='delete'>
+                <a href='# ' onClick={e => handleRemovePost(e, id)}>Delete post</a>
+              </div>) :
+              (user_type === 'admin' || user_type === 'moderator' || user_permissions === 'moderator') ?
+                <DeletePost
+                  handleRemovePost={handleRemovePost}
+                  handleTeamFilter={handleTeamFilter}
+                  handleFilterChange={handleFilterChange}
+                  displayMessage={displayMessage}
+                  id={id}
+                  teamId={team_id}
+                  user_id={user_id}
+                  user_type={user_type}
+                  user_permissions={user_permissions}
+                  className='delete'
+                />
+                : null}
         </div>
       </InfoWrapper>
       {showAddReplyForm === id && (
