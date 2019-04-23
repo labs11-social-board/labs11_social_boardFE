@@ -24,7 +24,7 @@ const DivSideNav = styled.div`
   overflow-y: auto;
   height: calc(100% - 180px);
   min-height: 10%;
-  background-color: #fafbfc;
+  background-color: ${props => props.theme.bgColor};
 
   span {
     margin-left: 20px;

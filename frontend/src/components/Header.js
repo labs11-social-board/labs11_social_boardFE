@@ -20,7 +20,7 @@ const StyledHeader = styled.div`
   z-index: 9000;
   align-self: center;
   
-  border-bottom: 2px solid #fafbfc;
+  border-bottom: 2px solid ${props => props.theme.bgColor};
   
 
   @media ${tabletL}{
@@ -42,8 +42,8 @@ const StyledHeader = styled.div`
     justify-content: center;
     align-items: center;
     box-sizing: border-box;
-    background-color: #fafbfc;
-    border-bottom: 2px solid #fafbfc;
+    background-color: ${props => props.theme.bgColor};
+    
     border-right: 2px solid ${props => props.theme.borderColor};
       &:hover {
         cursor: pointer;
