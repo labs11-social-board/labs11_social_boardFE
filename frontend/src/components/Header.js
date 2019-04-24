@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Nav } from '../components/index.js';
 
 // assets
-import { symposiumDark, symposiumLight } from '../assets/index.js';
+import { symposiumDark, symposiumLight, symposiumLightOrange } from '../assets/index.js';
 
 // Globals
 import { sideNavWidth, topHeaderHeight, phoneP, phoneL, tabletP, tabletL } from '../globals/globals.js';
