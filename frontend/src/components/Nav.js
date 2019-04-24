@@ -20,29 +20,20 @@ const DivWrapper = styled.div`
   display: flex;
   color: black;
   justify-content: space-between;
-
-  @media ${tabletL}{
-    width: 90%;
-  }
-    @media ${phoneL}{
-      width: 95%;
-  }
-  @media ${phoneP}{
-    justify-content: space-between;
-  }
 `;
 
 const DivAuth = styled.div`
   display: flex;
-  width: 40%;
+  width: 100%;
   height: 100%;
   justify-content: flex-end;
+  padding-right: 15px;
 
 
   @media ${tabletL}{
     width: ${ ({ user_id }) => user_id !== 0 ? '50%' : '100%'};
     display: flex;
-    justify-content: ${ ({ user_id }) => user_id !== 0 ? 'flex-end' : 'space-between'};
+    justify-content: ${ ({ user_id }) => user_id !== 0 ? 'flex-end' : 'center'};
     align-items: center;
   }
 
@@ -51,7 +42,9 @@ const DivAuth = styled.div`
   }
   @media ${phoneL}{
     display: flex;
-    justify-content: space-between;
+    justify-content: ${ ({ user_id }) => user_id !== 0 ? 'space-between' : 'center'};
+    padding-right: 0px;
+    width: ${ ({ user_id }) => user_id !== 0 ? '40%' : '100%'};
   }
 
   i {
@@ -78,7 +71,7 @@ const SearchContainer = styled.div`
     
     @media ${phoneL}{
       margin-left: 10px;
-      width: 45%;
+      width: 70%;
       
     }
 `;
@@ -89,6 +82,9 @@ const StyledNavButton = styled.button`
   border: none;
   background: none;
   cursor: pointer;
+  padding: 0;
+  color: ${props => props.theme.notificationFontColor};
+  opacity: 0.5;
 
   &:focus {
     outline: 0;
@@ -108,11 +104,17 @@ class Nav extends Component {
         {
           this.props.user_id !== 0 &&
           <SearchContainer>
+            {
+              this.props.isSideNavOpen === true ? <StyledNavButton id = 'nav-button'
+              className = "fas fa-times"
+              onClick = {
+                this.props.toggleSideNav
+              }/> : <StyledNavButton id='nav-button' className="fas fa-bars" onClick={this.props.toggleSideNav}/>
+            }
             <Search showSearch={this.props.showSearch} scrollTo={this.props.scrollTo} pathname={this.props.pathname} goTo={this.props.goTo} toggleSearch={this.props.toggleSearch} />
           </SearchContainer>
         }
         <DivAuth user_id={this.props.user_id}>
-
           {/* {
             this.props.user_id !== 0 && (
               this.props.isDay ?
@@ -126,7 +128,7 @@ class Nav extends Component {
           ) : (
             <Auth history={this.props.history} isLoginDropdownModalRaised={this.props.isLoginDropdownModalRaised} setLoginDropdownModalRaised={this.props.setLoginDropdownModalRaised} toggleRegisterModal={this.props.toggleRegisterModal} />
           )}
-          {this.props.isSideNavOpen === true ? <StyledNavButton id='nav-button' className="fas fa-times" onClick={this.props.toggleSideNav}></StyledNavButton> : <StyledNavButton id='nav-button' className="fas fa-bars" onClick={this.props.toggleSideNav}></StyledNavButton>}
+          {/* {this.props.isSideNavOpen === true ? <StyledNavButton id='nav-button' className="fas fa-times" onClick={this.props.toggleSideNav}></StyledNavButton> : <StyledNavButton id='nav-button' className="fas fa-bars" onClick={this.props.toggleSideNav}></StyledNavButton>} */}
         </DivAuth>
       </DivWrapper>
     );
