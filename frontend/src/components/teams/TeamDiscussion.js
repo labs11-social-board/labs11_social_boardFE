@@ -129,15 +129,15 @@ const CommentSort = styled.div`
     padding: 10px 15px;
     border-radius: 5px;
     border: none;
-    background-color: #418dcf;
+    background-color: #f66042;
     color: white;
-    border: 1px solid #418dcf;
+    border: 1px solid #f66042;
 
     &:hover {
       cursor: pointer;
       background-color: white;
-      color: #418dcf;
-      border: 1px solid #418dcf;
+      color: #f66042;
+      border: 1px solid #f66042;
     }
   }
 
@@ -342,7 +342,7 @@ class TeamDiscussion extends Component {
                         onClick={this.toggleAddPostForm}
                         className="add-post-btn desktop"
                       >
-                        <i className="fas fa-plus-circle" />
+                        
                         &nbsp;Add Comment
                       </button>
                     </div>

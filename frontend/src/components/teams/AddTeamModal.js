@@ -55,15 +55,15 @@ const DivModal = styled.div`
     margin-left: 10px;
     padding: 10px 15px;
     border-radius: 5px;
-    border: 1px solid #418DCF;
-    background-color: #418DCF;
+    border: 1px solid #f66042;
+    background-color: #f66042;
     color: white;
 
     &:hover {
       cursor: pointer;
       background-color: white;
-      color: #418DCF;
-      border: 1px solid #418DCF;
+      color: #f66042;
+      border: 1px solid #f66042;
     }
 
     @media (max-width: 600px) {

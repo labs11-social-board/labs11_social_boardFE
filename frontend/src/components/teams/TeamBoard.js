@@ -187,13 +187,13 @@ const DiscussionHeader = styled.div`
       }
 
       &:hover {
-        color: ${ props => props.theme.defaultColorOnHover}
+        color: #f18500
       }
     } 
       
     .tab-selected {
-      color: dodgerblue;
-      border-bottom: 1px solid dodgerblue;
+      color: #f66042;
+      border-bottom: 1px solid #f66042;
     }
   }
 
