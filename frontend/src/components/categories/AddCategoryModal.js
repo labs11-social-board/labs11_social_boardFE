@@ -213,7 +213,7 @@ class AddCategoryModal extends Component {
             <span
               className='back'
               onClick={(ev) => setAddCatModalRaised(ev, false)}		
-            ><i className="far fa-arrow-alt-circle-left"></i></span>
+            ><i className="fa fa-arrow-left"></i></span>
             <span></span>
           </div>
           <FormContent onSubmit={this.handleSubmit}>

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Nav } from '../components/index.js';
 
 // assets
-import { symposiumDark, symposiumLight } from '../assets/index.js';
+import { symposiumDark, symposiumLight, symposiumLightOrange, symposiumDarkOrange } from '../assets/index.js';
 
 // Globals
 import { sideNavWidth, topHeaderHeight, phoneP, phoneL, tabletP, tabletL } from '../globals/globals.js';
@@ -19,7 +19,7 @@ const StyledHeader = styled.div`
   width: 100%;
   z-index: 9000;
   align-self: center;
-  
+  background-color: ${props => props.theme.headerBg};
   border-bottom: 2px solid ${props => props.theme.bgColor};
   
 
@@ -32,7 +32,7 @@ const StyledHeader = styled.div`
   @media ${phoneL} {
     width: 100%;
   }
-  @media ${phoneP}{
+  @media ${phoneP}{41
     width: 100%;
   }
 
@@ -59,7 +59,7 @@ const NavContainer = styled.div`
  width: 100%;
  display: flex;
  justify-content: center;
- background-color: ${props => props.theme.headerBg};;
+ background-color: ${props => props.theme.headerBg};
  
 
  @media ${tabletL}{
@@ -76,7 +76,7 @@ const SympLogo = styled.div`
   height: 50px;
   background-repeat: no-repeat;
   background-position: center;
-  background-image: url(${ ({ isDay }) => isDay ? symposiumLight : symposiumDark});
+  background-image: url(${ ({ isDay }) => isDay ? symposiumLightOrange : symposiumDarkOrange});
     &:hover {
       cursor: pointer;
     }

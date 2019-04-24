@@ -211,7 +211,7 @@ class EditAvatarForm extends Component {
 					<span
 						className='back'
 						onClick={toggleForm}		
-					><i className="far fa-arrow-alt-circle-left"></i></span>
+					><i className="fa fa-arrow-left"></i></span>
 					<div className = 'upload-input-wrapper'>
 						<input
 							type = 'file'

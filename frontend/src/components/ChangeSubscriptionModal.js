@@ -541,7 +541,7 @@ class ChangeSubscriptionModal extends Component {
           <DivChangeSub>
             <DivHeader>
               <DivBack>
-                <i className='far fa-arrow-alt-circle-left' onClick={(ev) => setChangeSubModalRaised(ev, false)} />
+                <i className='fa fa-arrow-left' onClick={(ev) => setChangeSubModalRaised(ev, false)} />
               </DivBack>
               <DivHeaderTitle>
                 <H1HeaderTitle>Change&nbsp;Account&nbsp;Subscription</H1HeaderTitle>

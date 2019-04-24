@@ -2,6 +2,7 @@ import React from 'react';
 
 import styled from 'styled-components';
 import Users from './Users';
+import { NavLink } from 'react-router-dom';
 
 import { ApproveEmailForm, ApprovedEmails, DeletedPostAndMods } from '../components'
 
@@ -36,7 +37,7 @@ align-content: center;
 const Boxed = styled.div`
 width: 100%;
 padding: 10px;
-border: 1px solid #418dcf;
+border: 1px solid #f66042;
 border-radius: 5px;
 flex-direction: column;
 justify-content: space-around;
@@ -48,10 +49,10 @@ width: 90%;
 `;
 
 const ButtonY = styled.button `
-    border: 1px solid #418DCF;
+    border: 1px solid #f66042;
     border-radius: 3px;
     color: white;
-    background-color: #418DCF;
+    background-color: #f66042;
     height: 35px;
     width: 100px;
     margin-left: 4px;
@@ -66,6 +67,16 @@ const StyledA = styled.a`
         text-decoration: none;
     }
 `;
+
+const StyledLink = styled(NavLink)`
+    color: white;  
+    text-decoration: none;
+
+    &:focus, &:hover, &:visited, &:link, &:active {
+        text-decoration: none;
+    }
+`;
+
 
 
 class Admin extends React.Component {
@@ -91,15 +102,24 @@ class Admin extends React.Component {
                         </div>
 
                         <InnerWrapper>
-                            <Boxed>
+                            {/* <Boxed>
                                 <ApproveEmailForm histoy={this.props.history} isDay={this.props.isDay} />
                                 <br></br>
                                 <ApprovedEmails isDay={this.props.isDay} />
-                            </Boxed>
+                            </Boxed> */}
                             <Boxed>
+                            <ApproveEmailForm histoy={this.props.history} isDay={this.props.isDay} />
+                                <br></br>
                                 <h4>Users</h4>
 
                                 <Users isDay={this.props.isDay} />
+                                <br></br>
+                                <br></br>
+                                <ButtonY>
+                                    <StyledLink to='/approved'>
+                                        E-Mail List View
+                                    </StyledLink>
+                                </ButtonY>
 
                             </Boxed>
                             <Boxed>
