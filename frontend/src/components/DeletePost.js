@@ -49,7 +49,7 @@ class DeletePost extends React.Component {
     return (
       <>
         {(this.props.user_type === 'admin' || this.props.user_type === 'moderator' || this.props.user_permissions === 'moderator') ?
-          (<DeleteButton onClick={e => this.handleRemovePost(e, this.props.id)}>Delete comment</DeleteButton>) : null}
+          (<DeleteButton onClick={e => this.handleRemovePost(e, this.props.id)}>Hide Comment</DeleteButton>) : null}
       </>
     )
   }
