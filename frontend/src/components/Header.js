@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Nav } from '../components/index.js';
 
 // assets
-import { symposiumDark, symposiumLight, symposiumLightOrange } from '../assets/index.js';
+import { symposiumDark, symposiumLight, symposiumLightOrange, symposiumDarkOrange } from '../assets/index.js';
 
 // Globals
 import { sideNavWidth, topHeaderHeight, phoneP, phoneL, tabletP, tabletL } from '../globals/globals.js';
@@ -76,7 +76,7 @@ const SympLogo = styled.div`
   height: 50px;
   background-repeat: no-repeat;
   background-position: center;
-  background-image: url(${ ({ isDay }) => isDay ? symposiumLight : symposiumDark});
+  background-image: url(${ ({ isDay }) => isDay ? symposiumLightOrange : symposiumDarkOrange});
     &:hover {
       cursor: pointer;
     }
