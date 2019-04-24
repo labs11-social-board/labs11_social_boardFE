@@ -20,16 +20,6 @@ const DivWrapper = styled.div`
   display: flex;
   color: black;
   justify-content: space-between;
-
-  @media ${tabletL}{
-    width: 90%;
-  }
-    @media ${phoneL}{
-      width: 95%;
-  }
-  @media ${phoneP}{
-    justify-content: space-between;
-  }
 `;
 
 const DivAuth = styled.div`
@@ -43,7 +33,7 @@ const DivAuth = styled.div`
   @media ${tabletL}{
     width: ${ ({ user_id }) => user_id !== 0 ? '50%' : '100%'};
     display: flex;
-    justify-content: ${ ({ user_id }) => user_id !== 0 ? 'flex-end' : 'space-between'};
+    justify-content: ${ ({ user_id }) => user_id !== 0 ? 'flex-end' : 'center'};
     align-items: center;
   }
 
@@ -52,7 +42,9 @@ const DivAuth = styled.div`
   }
   @media ${phoneL}{
     display: flex;
-    justify-content: space-between;
+    justify-content: ${ ({ user_id }) => user_id !== 0 ? 'space-between' : 'center'};
+    padding-right: 0px;
+    width: ${ ({ user_id }) => user_id !== 0 ? '40%' : '100%'};
   }
 
   i {
@@ -79,7 +71,7 @@ const SearchContainer = styled.div`
     
     @media ${phoneL}{
       margin-left: 10px;
-      width: 45%;
+      width: 70%;
       
     }
 `;
@@ -90,6 +82,9 @@ const StyledNavButton = styled.button`
   border: none;
   background: none;
   cursor: pointer;
+  padding: 0;
+  color: ${props => props.theme.notificationFontColor};
+  opacity: 0.5;
 
   &:focus {
     outline: 0;
