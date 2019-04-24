@@ -22,10 +22,10 @@ const TextContainer = styled.textarea`
  `;
 
 const WikiEditButton = styled.button`
-    border: 1px solid #418DCF;
+    border: 1px solid #f66042;
     border-radius: 3px;
     color: white;
-    background-color: #418DCF;
+    background-color: #f66042;
     height: 35px;
     width: 50px;
 
@@ -35,24 +35,24 @@ const WikiEditButton = styled.button`
     
     cursor: pointer;
     &:hover {
-      color: #418DCF;
-      border: 1px solid #418DCF;
+      color: #f66042;
+      border: 1px solid #f66042;
       background-color: white;
     }
 `;
 
 const TextContainerButtons = styled.button`
-    border: 1px solid #418DCF;
+    border: 1px solid #f66042;
     height: 35px;
     border-radius: 3px;
     color: white;
-    background-color: #418DCF;
+    background-color: #f66042;
     margin: 5px;
     cursor:pointer;
     
     &:hover {
-      color: #418DCF;
-      border: 1px solid #418DCF;
+      color: #f66042;
+      border: 1px solid #f66042;
       background-color: white;
     }
 `;

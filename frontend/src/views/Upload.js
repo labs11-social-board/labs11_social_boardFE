@@ -43,10 +43,10 @@ const Boxed = styled.div`
 `;
 
 const ButtonY = styled.button `
-    border: 1px solid #418DCF;
+    border: 1px solid #f66042;
     border-radius: 3px;
     color: white;
-    background-color: #418DCF;
+    background-color: #f66042;
     height: 35px;
     width: 200px;
     margin-left: 4px;
