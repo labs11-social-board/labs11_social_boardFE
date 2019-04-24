@@ -290,7 +290,7 @@ const Reply = ({
 							{loggedInUserId === user_id ? (
 								<div className="delete">
 									<a href="# " onClick={(e) => deleteReply(e, id)}>
-										Delete reply
+										Hide Reply
 									</a>
 								</div>
 							) : user_type === 'admin' ||
