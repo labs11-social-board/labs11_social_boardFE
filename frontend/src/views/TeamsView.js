@@ -37,18 +37,18 @@ const TeamsHeader = styled.div`
     h2{
       cursor: pointer;
       &:hover {
-        color: ${ props => props.theme.defaultColorOnHover}
+        color: #f18500
       }
     }
     .name {
       font-size: 24px;
       margin-right: 40px;
-      color: ${props => props.tab === 'Teams' ? 'dodgerblue' : null};
-      border-bottom: ${props => props.tab === 'Teams' ? '1px solid dodgerblue' : null }
+      color: ${props => props.tab === 'Teams' ? '#f66042' : null};
+      border-bottom: ${props => props.tab === 'Teams' ? '1px solid #f66042' : null }
     }
     .userTeams {
-      color: ${props => props.tab === 'My Teams' ? 'dodgerblue' : null };
-      border-bottom: ${props => props.tab === 'My Teams' ? '1px solid dodgerblue' : null }
+      color: ${props => props.tab === 'My Teams' ? '#f66042' : null };
+      border-bottom: ${props => props.tab === 'My Teams' ? '1px solid #f66042' : null }
     }
   }
 
