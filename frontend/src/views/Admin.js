@@ -3,7 +3,8 @@ import React from 'react';
 import styled from 'styled-components';
 import Users from './Users';
 import { NavLink } from 'react-router-dom';
-
+import { connect } from 'react-redux';
+import NoGo2 from '../components/NoGo2';
 import { ApproveEmailForm, ApprovedEmails, DeletedPostAndMods } from '../components';
 
 import '../components/css/Admin.css';
@@ -79,10 +80,14 @@ const StyledLink = styled(NavLink)`
 `;
 
 class Admin extends React.Component {
-	// constructor() {
-	//     super()
-
-	// }
+	constructor(props) {
+		super(props)
+		this.state = {
+		  
+		  updated: this.props.verified,
+		  
+		}
+	  }
 
 	// componentDidMount() {
 
@@ -90,6 +95,12 @@ class Admin extends React.Component {
 
 	render() {
 		//if (!this.props.isLoggedIn) return <h2>--Yo, dog.  You ain't logged in.  Do That <Link to="/">HERE</Link> </h2>;
+
+		if (!this.props.verified) {
+			return (
+			  <NoGo2 />
+			)
+		  }
 
 		return (
 			<TableWrapper>
@@ -139,4 +150,11 @@ class Admin extends React.Component {
 	}
 }
 
-export default Admin;
+const mapStateToProps = state => ({
+	verified: state.users.verified,
+  });
+
+export default connect(
+	mapStateToProps,
+  {}
+)(Admin);
