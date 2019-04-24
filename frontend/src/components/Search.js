@@ -171,6 +171,10 @@ const SearchBox = styled.div`
       ::placeholder {
         color: #babec8;
       }
+      @media (max-width: 767px) {
+        padding-left: 0px;
+        padding-right: 0px;
+      }
     }
   }
 
