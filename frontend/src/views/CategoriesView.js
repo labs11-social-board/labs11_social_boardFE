@@ -139,7 +139,7 @@ class CategoriesView extends Component {
             <h2 className='name'>Categories</h2>
           </div>
           <div className='filter-wrapper'>
-            <i className='fab fa-mix' />
+            {/* <i className='fab fa-mix' /> */}
             <span>Sort by</span>
             <select
               className='filter'

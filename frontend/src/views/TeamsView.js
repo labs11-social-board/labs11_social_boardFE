@@ -171,7 +171,7 @@ class TeamsView extends Component {
             <h2 className="userTeams" onClick={this.selectTab}>My Teams</h2>
           </div>
           <div className="filter-wrapper">
-            <i className="fab fa-mix" />
+            {/* <i className="fab fa-mix" /> */}
             <span>Sort by</span>
             <select
               className="filter"

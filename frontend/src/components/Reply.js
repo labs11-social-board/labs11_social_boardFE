@@ -258,7 +258,7 @@ const Reply = ({
 							<VoteCount upvotes={upvotes} />
 							<span className="likes">Likes</span>
 							<VoteCount downvotes={downvotes} />
-							<span className="likes">DisLikes</span>
+							<span className="likes">Dislikes</span>
 							<div className="date tablet">
 								<span>{moment(new Date(Number(created_at))).fromNow()}</span>
 							</div>
