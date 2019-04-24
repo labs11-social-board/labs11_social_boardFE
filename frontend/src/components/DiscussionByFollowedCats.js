@@ -201,13 +201,13 @@ const DiscussionWrapper = styled.div`
 			align-items: flex-start;
 		}
 	}
+	transition: all .2s ease-in-out;
 
 	&:hover {
-		${ ({ singleDiscussion, isDay }) => {
-		return !singleDiscussion && (isDay ?
-			'background-color: #ddd;' :
-			'background-color: #ddd;color: black;'
-		)
+		transform: scale(1.1);
+		margin-bottom: 7px;
+		margin-top: 7px;
+		z-index: 99;
 	}}
 
 		.info-wrapper {
