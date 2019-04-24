@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
+import NoGo2 from '../components/NoGo2';
 
 // actions
 import { getCategories } from '../store/actions/index.js';
@@ -87,6 +88,7 @@ class CategoriesView extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      updated: this.props.verified,
       order: 'name', // possible values: 'name', 'discussion_count', 'created_at'
       orderType: '', // possible values: 'asc', 'desc'
     };
@@ -123,6 +125,13 @@ class CategoriesView extends Component {
   };
   componentDidMount = () => this.props.getCategories(this.state.order, this.state.orderType);
   render() {
+
+    if (!this.props.verified) {
+			return (
+			  <NoGo2 />
+			)
+		  }
+
     return (
       <CategoriesWrapper>
         <CategoriesHeader>
@@ -152,6 +161,7 @@ class CategoriesView extends Component {
 }
 
 const mapStateToProps = state => ({
+  verified: state.users.verified,
   categories: state.categories.categories,
 });
 
