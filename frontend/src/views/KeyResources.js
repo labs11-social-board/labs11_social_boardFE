@@ -1,7 +1,8 @@
 import React from 'react';
 
 import styled from 'styled-components';
-
+import { connect } from 'react-redux';
+import NoGo2 from '../components/NoGo2';
 import '../components/css/Admin.css'
 import KeyResourceForm from '../components/forms/KeyResourceForm';
 import ApprovedKeyResources from '../components/ApprovedKeyResources';
@@ -50,16 +51,26 @@ width: 90%;
 
 
 class KeyResources extends React.Component {
-    // constructor() {
-    //     super()
-
-    // }
+    constructor(props) {
+		super(props)
+		this.state = {
+		  
+		  updated: this.props.verified,
+		  
+		}
+	  }
 
     // componentDidMount() {
 
     // }
 
     render() {
+
+        if (!this.props.verified) {
+			return (
+			  <NoGo2 />
+			)
+		  }
         
         return (
             <TableWrapper>
@@ -86,6 +97,12 @@ class KeyResources extends React.Component {
     }
 }
 
+const mapStateToProps = state => ({
+	verified: state.users.verified,
+  });
 
+export default connect(
+	mapStateToProps,
+  {}
+)(KeyResources);
 
-export default KeyResources;

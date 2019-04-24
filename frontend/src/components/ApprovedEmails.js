@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import { connect } from "react-redux";
-
+import NoGo2 from "../components/NoGo2";
 import styled from "styled-components";
 
 import { approveEmail, getEmails, denyEmail } from "../store/actions";
@@ -65,6 +65,13 @@ const TableWrapper = styled.div`
 `;
 
 class ApprovedEmails extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      updated: this.props.verified
+    };
+  }
+
   componentDidMount() {
     this.props.getEmails();
     this.addFilterPlaceholder();
@@ -79,14 +86,11 @@ class ApprovedEmails extends Component {
     }, 400);
   }
 
-  addFilterPlaceholder = () => {
-    const filters = document.querySelectorAll("div.rt-th > input");
-    for (let filter of filters) {
-      filter.placeholder = "Search...";
-    }
-  };
-
   render() {
+    if (!this.props.verified) {
+      return <NoGo2 />;
+    }
+
     return (
       <TableWrapper>
         <MainWrapper>
@@ -143,7 +147,8 @@ class ApprovedEmails extends Component {
 
 const mapStoreToProps = state => {
   return {
-    approvedEmails: state.emails.approvedEmails
+    approvedEmails: state.emails.approvedEmails,
+    verified: state.users.verified
   };
 };
 

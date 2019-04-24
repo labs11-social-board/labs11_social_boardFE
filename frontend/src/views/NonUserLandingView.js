@@ -5,6 +5,7 @@ import { background, subscriptions } from '../assets/index.js';
 // import { Link } from 'react-router-dom';
 // import { register, isEmailTaken, isUsernameTaken } from '../store/actions/index.js';
 // import { RegisterDropdown } from './index.js';
+import { symposiumDark, symposiumLight, symposiumLightOrange, symposiumDarkOrange } from '../assets/index.js';
 
 const Woah = styled.section`
   width: 100%;
@@ -127,6 +128,7 @@ const GetStartedButton = styled.button`
 const LandingDiv = styled.div`
     display: flex;
     justify-content: center;
+    margin: 10px;
   `;
 
 const BottomFillerDiv = styled.div`
@@ -204,7 +206,11 @@ class NonUserLandingView extends Component {
           <LandingDivBox>
             <LandingText loggedIn={this.props.user_id !== 0}>
               Welcome to Social App 3
-              </LandingText>
+              
+            </LandingText>
+            <LandingDiv>
+            <img src={symposiumLightOrange} />
+            </LandingDiv>
             <LandingDiv>
               <p>A place where discussions are built to further projects and encourage conversations.</p>
             </LandingDiv>
