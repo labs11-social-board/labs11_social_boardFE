@@ -257,6 +257,8 @@ const Reply = ({
 							<UsernameWrapper className="username">{username}</UsernameWrapper>
 							<VoteCount upvotes={upvotes} />
 							<span className="likes">Likes</span>
+							<VoteCount downvotes={downvotes} />
+							<span className="likes">DisLikes</span>
 							<div className="date tablet">
 								<span>{moment(new Date(Number(created_at))).fromNow()}</span>
 							</div>
