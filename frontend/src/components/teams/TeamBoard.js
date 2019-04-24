@@ -417,7 +417,7 @@ class TeamBoard extends Component {
               </div>
               <div className='filter-add-btn-wrapper'>
                 <div className='filter-wrapper'>
-                  <i className='fab fa-mix' />
+                  {/* <i className='fab fa-mix' /> */}
                   <span>Sort by</span>
                   <select
                     className='filter'
