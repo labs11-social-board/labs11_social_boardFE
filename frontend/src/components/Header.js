@@ -76,7 +76,7 @@ const SympLogo = styled.div`
   height: 50px;
   background-repeat: no-repeat;
   background-position: center;
-  background-image: url(${ ({ isDay }) => isDay ? symposiumLight : symposiumDark});
+  background-image: url(${ ({ isDay }) => isDay ? symposiumLightOrange : symposiumDark});
     &:hover {
       cursor: pointer;
     }
