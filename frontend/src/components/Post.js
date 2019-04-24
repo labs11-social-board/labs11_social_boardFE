@@ -348,6 +348,8 @@ const Post = ({
 							<UsernameWrapper className="username">{username}</UsernameWrapper>
 							<VoteCount className="hide-arrows" upvotes={upvotes} />
 							<span className="likes">Likes</span>
+							<VoteCount className="hide-arrows" downvotes={downvotes} />
+							<span className="likes">DisLikes</span>
 							<div className="date tablet">
 								<span>{moment(new Date(Number(created_at))).fromNow()}</span>
 							</div>
