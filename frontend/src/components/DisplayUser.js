@@ -25,6 +25,7 @@ const DivWrapper = styled.div`
   @media ${phoneL}{
     display: flex;
     justify-content: space-between;
+    padding-right: 5px;
   }
 `;
 
@@ -36,7 +37,7 @@ const DivUser = styled.div`
       width: 70%;
     }
     @media (max-width: 450px){
-      width: 70%;
+      width: 50%;
     }
 `;
 

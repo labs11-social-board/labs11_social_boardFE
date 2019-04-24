@@ -14,52 +14,25 @@ const LogInContainer = styled.div`
   justify-content: flex-end;
   color: ${props => props.theme.authColor};
   font-size: 18px;
-  width: 40%;
-
-  @media ${phoneL}{
-      width: 80%;
-    }
-    @media ${phoneP}{
-      width: 80%;
-      }
+  width: 100%;
 `;
 
 const DivAuthRegLog = styled.div`
-  width: 90%;
+  width: 100%;
   margin-top: -5px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
   div {
     color: black;
   }
-
-  @media (max-width: 750px){
-
-  }
-  @media ${phoneL}{
-      width: 80%;
-      display: flex;
-      flex-direction: column;
-      .line {
-        display: none;
-      }
-    }
-    @media ${phoneP}{
-      width: 80%;
-      display: flex;
-      flex-direction: column;
-      .line {
-        display: none;
-      }
-    }
-
 `;
 
 const DivLogin = styled.div`
   display: flex;
   position: relative;
-  justify-content: flex-end;
+  justify-content: center;
+
 `;
 
 const Login = styled.a`
