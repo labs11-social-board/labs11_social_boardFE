@@ -473,7 +473,7 @@ class Search extends Component {
 
             <div className="order-type-wrapper">
               <div className="filter-wrapper">
-                <i className="fab fa-mix" />
+                {/* <i className="fab fa-mix" /> */}
                 <span className="filter-by">Sort by &nbsp;</span>
                 <select
                   className="filter"
