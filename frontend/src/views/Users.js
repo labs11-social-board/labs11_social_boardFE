@@ -199,6 +199,7 @@ class Users extends Component {
 const mapStateToProps = state => {
   return {
     users: state.users,
+    usersNmods: state.users.usersNmods,
     approvedEmails: state.emails.approvedEmails,
     approvingEmail: state.emails.approvingEmail,
     deletingEmail: state.emails.deletingEmail,
