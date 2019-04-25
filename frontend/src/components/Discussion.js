@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
 
 //globals
-import { phoneL, tabletP } from '../globals/globals.js';
+import { phoneL, tabletP } from "../globals/globals.js";
 
 // components
 import {
@@ -15,10 +15,10 @@ import {
   // VoteCount,
   // Deleted,
   DiscussionByFollowedCats
-} from './index.js';
+} from "./index.js";
 
 // views
-import { PostsView } from '../views/index.js';
+import { PostsView } from "../views/index.js";
 
 // action creators
 import {
@@ -26,7 +26,7 @@ import {
   removePost,
   removeDiscussion,
   handleDiscussionVote
-} from '../store/actions/index.js';
+} from "../store/actions/index.js";
 
 /***************************************************************************************************
  ********************************************* Styles *********************************************
@@ -72,7 +72,7 @@ const DiscussionWrapper = styled.div`
 
   @media ${phoneL} {
     flex-direction: column;
-    width: 90%;
+    width: 85%;
     margin: 0 auto;
   }
 `;
@@ -205,9 +205,9 @@ const Spinner = styled.div`
   left: 43%;
 `;
 
-const newest = 'newest';
-const oldest = 'oldest';
-const mostUpvotes = 'most upvotes';
+const newest = "newest";
+const oldest = "oldest";
+const mostUpvotes = "most upvotes";
 
 class Discussion extends Component {
   state = {
@@ -217,7 +217,7 @@ class Discussion extends Component {
     showAddReplyForm: null, // post_id
     filter: newest,
     isShowImage: false,
-    imageClickedId: '',
+    imageClickedId: "",
     isVoting: false
   };
   handleSelectChange = e =>
@@ -232,13 +232,19 @@ class Discussion extends Component {
     const { getDiscussionById, id } = this.props;
     switch (filter) {
       case newest: {
-        return getDiscussionById(id, 'created_at', 'desc').then(() => this.setState({ isVoting: false }));
+        return getDiscussionById(id, "created_at", "desc").then(() =>
+          this.setState({ isVoting: false })
+        );
       }
       case oldest: {
-        return getDiscussionById(id, 'created_at', 'asc').then(() => this.setState({ isVoting: false }));
+        return getDiscussionById(id, "created_at", "asc").then(() =>
+          this.setState({ isVoting: false })
+        );
       }
       case mostUpvotes: {
-        return getDiscussionById(id, 'upvotes', 'desc').then(() => this.setState({ isVoting: false }));
+        return getDiscussionById(id, "upvotes", "desc").then(() =>
+          this.setState({ isVoting: false })
+        );
       }
       default:
         return;
@@ -277,16 +283,21 @@ class Discussion extends Component {
   };
   handleVote = (id, type) => {
     this.handleDiscussionVote(id, type);
-    this.setState({ isVoting: true })
+    this.setState({ isVoting: true });
   };
   handleImageShow = id => {
     this.setState({ isShowImage: !this.state.isShowImage, imageClickedId: id });
-  }
+  };
   handleisVoting = () => {
     this.setState({ isVoting: true });
-  }
+  };
   render() {
-    const { showAddPostForm, showEditPostForm, showAddReplyForm, isVoting } = this.state;
+    const {
+      showAddPostForm,
+      showEditPostForm,
+      showAddReplyForm,
+      isVoting
+    } = this.state;
     const {
       discussion,
       history,
@@ -312,100 +323,105 @@ class Discussion extends Component {
       // username,
       // user_vote,
     } = discussion;
-   if(isGettingDiscussion && !isVoting){
-    return (<Spinner><img src={require('../assets/gif/spinner2.gif')} alt='spinner'/></Spinner>)
-   } else {
-    return (
-      <Wrapper>
-        <div className="back-follow-wrapper">
-          <Link className="back" to={`/discussions/category/${category_id}`}>
-            <i className="fa fa-arrow-left" />
-          </Link>
-          <Follow discussion_id={id} historyPush={historyPush} />
-        </div>
-        <DiscussionWrapper>
-          <SubWrapper>
-            <DiscussionByFollowedCats
-              discussion={discussion}
-              history={history}
-              voteOnDiscussion={this.handleVote}
-              singleDiscussion={true}
-              isShowImage={this.state.isShowImage}
-              handleImageShow={this.handleImageShow}
-              imageClickedId={this.state.imageClickedId}
-            />
-            <CommentWrapper>
-              <CommentSort>
-                <div className="comment-sort-wrapper">
-                  <div className="title-add-wrapper">
-                    <span className="title">Comments: </span>
-                    <button
-                      onClick={this.toggleAddPostForm}
-                      className="add-post-btn desktop"
-                    >
-                      
-                      &nbsp;Leave Comment
-                    </button>
-                  </div>
-                  <div className="sort">
-                    <div className="filter-wrapper">
-                      {/* <i className="fab fa-mix" /> */}
-                      <span className="filter-by">Sort by &nbsp;</span>
-                      <select
-                        className="filter"
-                        onChange={this.handleSelectChange}
-                        name="filter"
+    if (isGettingDiscussion && !isVoting) {
+      return (
+        <Spinner>
+          <img src={require("../assets/gif/spinner2.gif")} alt="spinner" />
+        </Spinner>
+      );
+    } else {
+      return (
+        <Wrapper>
+          <div className="back-follow-wrapper">
+            <Link className="back" to={`/discussions/category/${category_id}`}>
+              <i className="fa fa-arrow-left" />
+            </Link>
+            <Follow discussion_id={id} historyPush={historyPush} />
+          </div>
+          <DiscussionWrapper>
+            <SubWrapper>
+              <DiscussionByFollowedCats
+                discussion={discussion}
+                history={history}
+                voteOnDiscussion={this.handleVote}
+                singleDiscussion={true}
+                isShowImage={this.state.isShowImage}
+                handleImageShow={this.handleImageShow}
+                imageClickedId={this.state.imageClickedId}
+              />
+              <CommentWrapper>
+                <CommentSort>
+                  <div className="comment-sort-wrapper">
+                    <div className="title-add-wrapper">
+                      <span className="title">Comments: </span>
+                      <button
+                        onClick={this.toggleAddPostForm}
+                        className="add-post-btn desktop"
                       >
-                        <option value={newest}>{newest}</option>
-                        <option value={oldest}>{oldest}</option>
-                        <option value={mostUpvotes}>{mostUpvotes}</option>
-                      </select>
+                        &nbsp;Leave Comment
+                      </button>
+                    </div>
+                    <div className="sort">
+                      <div className="filter-wrapper">
+                        {/* <i className="fab fa-mix" /> */}
+                        <span className="filter-by">Sort by &nbsp;</span>
+                        <select
+                          className="filter"
+                          onChange={this.handleSelectChange}
+                          name="filter"
+                        >
+                          <option value={newest}>{newest}</option>
+                          <option value={oldest}>{oldest}</option>
+                          <option value={mostUpvotes}>{mostUpvotes}</option>
+                        </select>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <button
-                  onClick={this.toggleAddPostForm}
-                  className="add-post-btn tablet-btn"
-                >
-                  <i className="fas fa-plus-circle" />
-                  &nbsp;Add Comment
-                </button>
-              </CommentSort>
-              {showAddPostForm && (
-                <AddPostForm
-                  user_id={loggedInUserId}
-                  discussion_id={id}
-                  historyPush={historyPush}
-                  toggleAddPostForm={this.toggleAddPostForm}
-                  handleFilterChange={this.handleFilterChange}
-                  handleisVoting={this.handleisVoting}
-                />
-              )}
-              <Posts>
-                <PostsView
-                  posts={posts}
-                  showEditPostForm={showEditPostForm}
-                  updateEditPostForm={this.updateEditPostForm}
-                  handleRemovePost={this.handleRemovePost}
-                  showAddReplyForm={showAddReplyForm}
-                  toggleAddReplyForm={this.toggleAddReplyForm}
-                  discussion_id={id}
-                  historyPush={historyPush}
-                  repliedPost={posts.find(post => post.id === showAddReplyForm)}
-                  handleFilterChange={this.handleFilterChange}
-                  scrollTo={scrollTo}
-                  isShowImage={this.state.isShowImage}
-                  handleImageShow={this.handleImageShow}
-                  imageClickedId={this.state.imageClickedId}
-                  handleisVoting={this.handleisVoting}
-                />
-              </Posts>
-            </CommentWrapper>
-          </SubWrapper>
-        </DiscussionWrapper>
-      </Wrapper>
-    );
-   }
+                  <button
+                    onClick={this.toggleAddPostForm}
+                    className="add-post-btn tablet-btn"
+                  >
+                    <i className="fas fa-plus-circle" />
+                    &nbsp;Add Comment
+                  </button>
+                </CommentSort>
+                {showAddPostForm && (
+                  <AddPostForm
+                    user_id={loggedInUserId}
+                    discussion_id={id}
+                    historyPush={historyPush}
+                    toggleAddPostForm={this.toggleAddPostForm}
+                    handleFilterChange={this.handleFilterChange}
+                    handleisVoting={this.handleisVoting}
+                  />
+                )}
+                <Posts>
+                  <PostsView
+                    posts={posts}
+                    showEditPostForm={showEditPostForm}
+                    updateEditPostForm={this.updateEditPostForm}
+                    handleRemovePost={this.handleRemovePost}
+                    showAddReplyForm={showAddReplyForm}
+                    toggleAddReplyForm={this.toggleAddReplyForm}
+                    discussion_id={id}
+                    historyPush={historyPush}
+                    repliedPost={posts.find(
+                      post => post.id === showAddReplyForm
+                    )}
+                    handleFilterChange={this.handleFilterChange}
+                    scrollTo={scrollTo}
+                    isShowImage={this.state.isShowImage}
+                    handleImageShow={this.handleImageShow}
+                    imageClickedId={this.state.imageClickedId}
+                    handleisVoting={this.handleisVoting}
+                  />
+                </Posts>
+              </CommentWrapper>
+            </SubWrapper>
+          </DiscussionWrapper>
+        </Wrapper>
+      );
+    }
   }
 }
 
