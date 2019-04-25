@@ -1,14 +1,14 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import moment from 'moment';
-import styled from 'styled-components';
-import DeleteReply from './DeleteReply';
+import React from "react";
+import { connect } from "react-redux";
+import moment from "moment";
+import styled from "styled-components";
+import DeleteReply from "./DeleteReply";
 
 // action creators
-import { removeReply, displayMessage } from '../store/actions/index.js';
+import { removeReply, displayMessage } from "../store/actions/index.js";
 
 // components
-import { AddReplyForm, Avatar, VoteCount } from './index.js';
+import { AddReplyForm, Avatar, VoteCount } from "./index.js";
 
 //styles
 const ReplyWrapper = styled.div`
@@ -56,9 +56,9 @@ const ReplyWrapper = styled.div`
 `;
 
 const BodyWrapper = styled.p`
-	text-align: justify;
-	margin-bottom: 20px;
-	color: ${(props) => props.theme.replyColor};
+  text-align: justify;
+  margin-bottom: 20px;
+  color: ${props => props.theme.replyColor};
 `;
 
 const InfoWrapper = styled.div`
@@ -72,7 +72,7 @@ const InfoWrapper = styled.div`
 	a {
 		color: #a7a7a7
     &:hover {
-			color: ${(props) => props.theme.defaultColorOnHover};
+			color: ${props => props.theme.defaultColorOnHover};
 		}
 	}
 
@@ -168,117 +168,130 @@ const InfoWrapper = styled.div`
 `;
 
 const UsernameWrapper = styled.span`
-	color: ${(props) => props.theme.discussionPostColor};
+  color: ${props => props.theme.discussionPostColor};
 
-	&:hover {
-		cursor: pointer;
-		color: #418dcf;
-	}
+  &:hover {
+    cursor: pointer;
+    color: #418dcf;
+  }
 `;
 
 const Reply = ({
-	reply,
-	loggedInUserId,
-	historyPush,
-	toggleAddReplyForm,
-	showAddReplyForm,
-	handleReplyVote,
-	team_id,
-	handleFilterChange,
-	handleTeamFilter,
-	removeReply,
-	displayMessage,
-	isShowImage,
-	handleImageShow,
-	imageClickedId,
-	user_type,
-	user_permissions,
-	handleisVoting
+  reply,
+  loggedInUserId,
+  historyPush,
+  toggleAddReplyForm,
+  showAddReplyForm,
+  handleReplyVote,
+  team_id,
+  handleFilterChange,
+  handleTeamFilter,
+  removeReply,
+  displayMessage,
+  isShowImage,
+  handleImageShow,
+  imageClickedId,
+  user_type,
+  user_permissions,
+  handleisVoting
 }) => {
-	const {
-		body,
-		created_at,
-		post_id,
-		avatar,
-		username,
-		user_id,
-		id,
-		discussion_id,
-		upvotes,
-		downvotes,
-		user_vote,
-		image
-	} = reply;
+  const {
+    body,
+    created_at,
+    post_id,
+    avatar,
+    username,
+    user_id,
+    id,
+    discussion_id,
+    upvotes,
+    downvotes,
+    user_vote,
+    image
+  } = reply;
 
-	const handleAddReply = () => {
-		if (showAddReplyForm === id) {
-			return toggleAddReplyForm();
-		} else {
-			return toggleAddReplyForm(id);
-		}
-	};
+  const handleAddReply = () => {
+    if (showAddReplyForm === id) {
+      return toggleAddReplyForm();
+    } else {
+      return toggleAddReplyForm(id);
+    }
+  };
 
-	const replyVote = (e, type) => handleReplyVote(id, type);
+  const replyVote = (e, type) => handleReplyVote(id, type);
 
-	const handleUserClick = (e) => {
-		e.stopPropagation();
-		return historyPush(`/profile/${user_id}`);
-	};
-	const deleteReply = (e, id) => {
-		e.preventDefault();
-		removeReply(id);
-		displayMessage('Reply deleted');
-		if (team_id) {
-			handleTeamFilter();
-		} else {
-			handleFilterChange();
-		}
-	};
+  const handleUserClick = e => {
+    e.stopPropagation();
+    return historyPush(`/profile/${user_id}`);
+  };
+  const deleteReply = (e, id) => {
+    e.preventDefault();
+    removeReply(id);
+    displayMessage("Reply deleted");
+    if (team_id) {
+      handleTeamFilter();
+    } else {
+      handleFilterChange();
+    }
+  };
 
-	return (
-		<ReplyWrapper>
-			<div className="reply-wrap">
-				<div className="votes-wrapper">
-					<VoteCount upvotes={upvotes} downvotes={downvotes} user_vote={user_vote} handleVote={replyVote} />
-				</div>
-				<div className="reply-info">
-					{image ? (
-						<div className="show-image-wrapper">
-							<a href="# " className="show-image" onClick={() => handleImageShow(id)}>
-								<i className="fas fa-camera" />
-								{isShowImage ? id === imageClickedId ? '-' : '+' : '+'}
-							</a>
-							{isShowImage ? id === imageClickedId ? <img src={image} alt="uploaded" /> : null : null}
-						</div>
-					) : null}
-					<div className="user-info">
-						<div className="user" onClick={handleUserClick}>
-							<Avatar height="20px" width="20px" src={avatar} />
-							<UsernameWrapper className="username">{username}</UsernameWrapper>
-							<VoteCount upvotes={upvotes} />
-							<span className="likes">Likes</span>
-							<VoteCount downvotes={downvotes} />
-							<span className="likes">Dislikes</span>
-							<div className="date tablet">
-								<span>{moment(new Date(Number(created_at))).fromNow()}</span>
-							</div>
-						</div>
-					</div>
-					<BodyWrapper className="body">{body}</BodyWrapper>
+  return (
+    <ReplyWrapper>
+      <div className="reply-wrap">
+        <div className="votes-wrapper">
+          <VoteCount
+            upvotes={upvotes}
+            downvotes={downvotes}
+            user_vote={user_vote}
+            handleVote={replyVote}
+          />
+        </div>
+        <div className="reply-info">
+          {image ? (
+            <div className="show-image-wrapper">
+              <a
+                href="# "
+                className="show-image"
+                onClick={() => handleImageShow(id)}
+              >
+                <i className="fas fa-camera" />
+                {isShowImage ? (id === imageClickedId ? "-" : "+") : "+"}
+              </a>
+              {isShowImage ? (
+                id === imageClickedId ? (
+                  <img src={image} alt="uploaded" />
+                ) : null
+              ) : null}
+            </div>
+          ) : null}
+          <div className="user-info">
+            <div className="user" onClick={handleUserClick}>
+              <Avatar height="20px" width="20px" src={avatar} />
+              <UsernameWrapper className="username">{username}</UsernameWrapper>
+              <VoteCount upvotes={upvotes} />
+              <span className="likes">Likes</span>
+              <VoteCount downvotes={downvotes} />
+              <span className="likes">Dislikes</span>
+              <div className="date tablet">
+                <span>{moment(new Date(Number(created_at))).fromNow()}</span>
+              </div>
+            </div>
+          </div>
+          <BodyWrapper className="body">{body}</BodyWrapper>
 
-					<InfoWrapper>
-						{/* <div className="user-info">
+          <InfoWrapper>
+            {/* <div className="user-info">
           <div className="user" onClick={handleUserClick}>
             <Avatar height="20px" width="20px" src={avatar} />
             &nbsp;
             <UsernameWrapper>{username}</UsernameWrapper>
           </div>
         </div> */}
-						<div className="discussion-info">
-							<span className="reply" onClick={handleAddReply}>
-								Reply
-							</span>
-							{/* <div className="votes-wrapper">
+            <div className="discussion-info">
+              <span className="reply" onClick={handleAddReply}>
+                Reply
+              </span>
+              {/* <div className="votes-wrapper">
 						<VoteCount
 							upvotes={upvotes}
 							downvotes={downvotes}
@@ -287,55 +300,58 @@ const Reply = ({
 						/>
 					</div> */}
 
-							{loggedInUserId === user_id ? (
-								<div className="delete">
-									<a href="# " onClick={(e) => deleteReply(e, id)}>
-										Hide Reply
-									</a>
-								</div>
-							) : user_type === 'admin' ||
-							user_type === 'moderator' ||
-							user_permissions === 'moderator' ? (
-								<DeleteReply
-									deleteReply={deleteReply}
-									handleTeamFilter={handleTeamFilter}
-									handleFilterChange={handleFilterChange}
-									displayMessage={displayMessage}
-									id={id}
-									teamId={team_id}
-									user_id={user_id}
-									user_type={user_type}
-									user_permissions={user_permissions}
-									className="delete"
-								/>
-							) : null}
-						</div>
-					</InfoWrapper>
-				</div>
-			</div>
-			{showAddReplyForm === id && (
-				<AddReplyForm
-					user_id={loggedInUserId}
-					toggleAddReplyForm={toggleAddReplyForm}
-					discussion_id={discussion_id}
-					post_id={post_id}
-					historyPush={historyPush}
-					team_id={team_id}
-					handleFilterChange={handleFilterChange}
-					handleTeamFilter={handleTeamFilter}
-					handleisVoting={handleisVoting}
-				/>
-			)}
-		</ReplyWrapper>
-	);
+              {loggedInUserId === user_id ? (
+                <div className="delete">
+                  <a href="# " onClick={e => deleteReply(e, id)}>
+                    Hide Reply
+                  </a>
+                </div>
+              ) : user_type === "admin" ||
+                user_type === "moderator" ||
+                user_permissions === "moderator" ? (
+                <DeleteReply
+                  deleteReply={deleteReply}
+                  handleTeamFilter={handleTeamFilter}
+                  handleFilterChange={handleFilterChange}
+                  displayMessage={displayMessage}
+                  id={id}
+                  teamId={team_id}
+                  user_id={user_id}
+                  user_type={user_type}
+                  user_permissions={user_permissions}
+                  className="delete"
+                />
+              ) : null}
+            </div>
+          </InfoWrapper>
+        </div>
+      </div>
+      {showAddReplyForm === id && (
+        <AddReplyForm
+          user_id={loggedInUserId}
+          toggleAddReplyForm={toggleAddReplyForm}
+          discussion_id={discussion_id}
+          post_id={post_id}
+          historyPush={historyPush}
+          team_id={team_id}
+          handleFilterChange={handleFilterChange}
+          handleTeamFilter={handleTeamFilter}
+          handleisVoting={handleisVoting}
+        />
+      )}
+    </ReplyWrapper>
+  );
 };
 
-const mapStateToProps = (state) => ({
-	loggedInUserId: state.users.user_id,
-	avatar: state.users.avatar,
-	username: state.users.username,
-	user_type: state.users.user_type,
-	user_permissions: state.users.user_permissions
+const mapStateToProps = state => ({
+  loggedInUserId: state.users.user_id,
+  avatar: state.users.avatar,
+  username: state.users.username,
+  user_type: state.users.user_type,
+  user_permissions: state.users.user_permissions
 });
 
-export default connect(mapStateToProps, { removeReply, displayMessage })(Reply);
+export default connect(
+  mapStateToProps,
+  { removeReply, displayMessage }
+)(Reply);
