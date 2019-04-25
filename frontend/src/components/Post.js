@@ -72,6 +72,10 @@ const PostWrapper = styled.div`
       .username {
         margin-right: 10px;
         color: #F66042;
+
+        @media (max-width: 530px) {
+          width: 100%;
+        }
       }
 
       .likes {

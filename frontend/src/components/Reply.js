@@ -21,13 +21,23 @@ const ReplyWrapper = styled.div`
   font-family: 'PT Sans';
   color: #252935;
 
+  @media (max-width: 530px) {
+    margin-left: 25px;
+  }
+
 	.reply-wrap {
     display: flex;
     
     .reply-info {
       display: flex;
       flex-direction: column;
-			margin-top: 10px;
+      margin-top: 10px;
+      
+      @media (max-width: 530px) {
+          .body {
+            margin-bottom: 0;
+        }
+      }
 
       .user-info {
         display: flex;
@@ -41,6 +51,11 @@ const ReplyWrapper = styled.div`
 
           .username {
             margin-right: 10px;
+
+            @media (max-width: 530px) {
+              width: 100%;
+              margin: 3px 0;
+            }
           }
     
           &:hover {
