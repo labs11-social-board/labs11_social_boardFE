@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
+import NoGo2 from '../components/NoGo2';
 
 // actions
 import { getTeams, getUsersTeams } from "../store/actions/index.js";
@@ -101,6 +102,7 @@ class TeamsView extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      updated: this.props.verified,
       order: "team_name", // possible values: 'name', 'discussion_count', 'created_at'
       orderType: "", // possible values: 'asc', 'desc'
       tab: 'Teams'
@@ -163,6 +165,13 @@ class TeamsView extends Component {
     } 
   }
   render() {
+
+    if (!this.props.verified) {
+			return (
+			  <NoGo2 />
+			)
+		  }
+
     return (
       <TeamsWrapper>
         <TeamsHeader tab={this.state.tab}>
@@ -193,6 +202,7 @@ class TeamsView extends Component {
 }
 
 const mapStateToProps = state => ({
+  verified: state.users.verified,
   teams: state.teams.teams,
   usersTeams: state.teams.userTeams
 });
