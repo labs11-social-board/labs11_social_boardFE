@@ -54,7 +54,7 @@ const ReplyWrapper = styled.div`
 
             @media (max-width: 530px) {
               width: 100%;
-              margin: 5px 0;
+              margin: 3px 0;
             }
           }
     
