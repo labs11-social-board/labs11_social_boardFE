@@ -185,7 +185,7 @@ const DiscussionWrapper = styled.div`
 	
 			@media (max-width: 530px) {
 				width: 100%;
-				justify-content: flex-start;
+				justify-content: center;
 				padding-top: 10px;
 				margin-left: -10px;
 			}
@@ -214,6 +214,8 @@ const DiscussionWrapper = styled.div`
 			flex-wrap: wrap;
 			flex-direction: column;
 			align-items: flex-start;
+			min-height: 15vh;
+			max-height: 30vh;
 		}
 	}
 	transition: all .2s ease-in-out;
