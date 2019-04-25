@@ -140,7 +140,13 @@ class Analytics extends React.Component {
                             
                             </Boxed>
                             <Boxed>
-                            <div style={{position: "relative", width:800, height: 800}}>
+                            < div style = {
+                                {
+                                    position: "relative",
+                                    width: '100%',
+                                    height: '100%',
+                                }
+                            } >
                                 <Bar
                                     options={{
                                         responsive:true
