@@ -1,10 +1,10 @@
-import React from 'react';
-import moment from 'moment';
-import { connect } from 'react-redux';
-import styled from 'styled-components';
+import React from "react";
+import moment from "moment";
+import { connect } from "react-redux";
+import styled from "styled-components";
 
 // components
-import { Avatar, VoteCount } from './index.js';
+import { Avatar, VoteCount } from "./index.js";
 
 const DiscussionWrapper = styled.div`
 	display: flex;
@@ -28,6 +28,12 @@ const DiscussionWrapper = styled.div`
 		align-items: center;
 		border-right: solid 1px #D8D8D8;
 		
+		@media (max-width: 530px) {
+			position: relative;
+			z-index: 1;
+			right: 50px;
+			border: none;
+		}
 	}
 
 	.info {
@@ -38,9 +44,18 @@ const DiscussionWrapper = styled.div`
 		justify-content: center;
 		padding-left: 40px;
 		
+		@media (max-width: 530px) {
+			padding-left: 1.2rem;
+			font-size: 1rem;
+			width: 70%;
+		}
 
 		.info-div {
 			margin-bottom: 5px;
+
+			@media (max-width: 530px) {
+				width: 80%;
+			}
 
 			p {
 				margin: 0;
@@ -211,13 +226,13 @@ const DiscussionWrapper = styled.div`
 	}}
 
 		.info-wrapper {
-			${props => (!props.singleDiscussion && !props.isDay) && 'color: black;'}
+			${props => !props.singleDiscussion && !props.isDay && "color: black;"}
 		}
 
 		.user-info {
 			.user {
 				.username-wrapper {
-					${props => (!props.singleDiscussion && !props.isDay) && 'color: black;'}
+					${props => !props.singleDiscussion && !props.isDay && "color: black;"}
 				}
 			}
 		}
@@ -225,74 +240,100 @@ const DiscussionWrapper = styled.div`
 `;
 
 const BodyWrapper = styled.p`
-	text-align: center;
-	// margin-bottom: 20px;
-	cursor:pointer;
-	height: 100%;
+  text-align: center;
+  // margin-bottom: 20px;
+  cursor: pointer;
+  height: 100%;
 
-	p {
-		margin: 0;
-	}
-	
+  p {
+    margin: 0;
+  }
 
-	&:hover {
-		color: #418DCF;
-	}
+  &:hover {
+    color: #418dcf;
+  }
 `;
 
-const DiscussionByFollowedCats = ({ discussion, history, voteOnDiscussion, singleDiscussion, isDay, isTeam, toggleIsTeam, isShowImage, handleImageShow, imageClickedId }) => {
-	const {
-		avatar,
-		body,
-		category_icon,
-		category_id,
-		category_name,
-		created_at,
-		downvotes,
-		id,
-		post_count,
-		upvotes,
-		user_vote,
-		username,
-		user_id,
-		views,
-		image
-	} = discussion;
-	const handleDiscussionClick = () => {
-		if (isTeam) {
-			history.push(`/team/posts/${id}`);
-			if (toggleIsTeam) {
-				toggleIsTeam();
-			}
-		} else {
-			history.push(`/discussion/${id}`);
-		}
-	}
-	const handleCategoryClick = e => {
-		e.stopPropagation();
-		return history.push(`/discussions/category/${category_id}`);
-	};
-	const handleUserClick = e => {
-		e.stopPropagation();
-		return history.push(`/profile/${user_id}`);
-	};
-	const handleVote = (e, type) => {
-		e.stopPropagation();
-		return voteOnDiscussion(id, type);
-	};
-	return (
-		<DiscussionWrapper isDay={isDay} singleDiscussion={singleDiscussion} >
-			<div className='info'>
-				<div className='info-div'>
-					<BodyWrapper onClick={handleDiscussionClick}>{
-						!singleDiscussion ? body.length > 183 ? body.substr(0, 183) + '...' : body : body
-					}</BodyWrapper>
-					{image ?
-						<div className='show-image-wrapper'>
-							<a href='# ' className='show-image' onClick={() => handleImageShow(id)}><i className="fas fa-camera"></i>{isShowImage ? id === imageClickedId ? '-' : '+' : '+'}</a>
-							{isShowImage ? id === imageClickedId ? <img src={image} alt="uploaded" /> : null : null}
-						</div> : null}
-					{/* <div className='user-info'>
+const DiscussionByFollowedCats = ({
+  discussion,
+  history,
+  voteOnDiscussion,
+  singleDiscussion,
+  isDay,
+  isTeam,
+  toggleIsTeam,
+  isShowImage,
+  handleImageShow,
+  imageClickedId
+}) => {
+  const {
+    avatar,
+    body,
+    category_icon,
+    category_id,
+    category_name,
+    created_at,
+    downvotes,
+    id,
+    post_count,
+    upvotes,
+    user_vote,
+    username,
+    user_id,
+    views,
+    image
+  } = discussion;
+  const handleDiscussionClick = () => {
+    if (isTeam) {
+      history.push(`/team/posts/${id}`);
+      if (toggleIsTeam) {
+        toggleIsTeam();
+      }
+    } else {
+      history.push(`/discussion/${id}`);
+    }
+  };
+  const handleCategoryClick = e => {
+    e.stopPropagation();
+    return history.push(`/discussions/category/${category_id}`);
+  };
+  const handleUserClick = e => {
+    e.stopPropagation();
+    return history.push(`/profile/${user_id}`);
+  };
+  const handleVote = (e, type) => {
+    e.stopPropagation();
+    return voteOnDiscussion(id, type);
+  };
+  return (
+    <DiscussionWrapper isDay={isDay} singleDiscussion={singleDiscussion}>
+      <div className="info">
+        <div className="info-div">
+          <BodyWrapper onClick={handleDiscussionClick}>
+            {!singleDiscussion
+              ? body.length > 183
+                ? body.substr(0, 183) + "..."
+                : body
+              : body}
+          </BodyWrapper>
+          {image ? (
+            <div className="show-image-wrapper">
+              <a
+                href="# "
+                className="show-image"
+                onClick={() => handleImageShow(id)}
+              >
+                <i className="fas fa-camera" />
+                {isShowImage ? (id === imageClickedId ? "-" : "+") : "+"}
+              </a>
+              {isShowImage ? (
+                id === imageClickedId ? (
+                  <img src={image} alt="uploaded" />
+                ) : null
+              ) : null}
+            </div>
+          ) : null}
+          {/* <div className='user-info'>
 					<div className='user' onClick={handleUserClick}>
 						<Avatar
 							height='20px'
@@ -302,37 +343,32 @@ const DiscussionByFollowedCats = ({ discussion, history, voteOnDiscussion, singl
 						&nbsp;
 						<div className='username-wrapper'>{username}</div>
 					</div> */}
-				</div>
-				{/* <div className='info-wrapper'> */}
-				<div className='user-info'>
-					<div className='user' onClick={handleUserClick}>
-						<Avatar
-							height='20px'
-							width='20px'
-							src={avatar}
-						/>
-						<div className='username-wrapper'>{username}</div>
-						<div className='date-views-comment tablet'>
-							<span>{moment(new Date(Number(created_at))).fromNow()}</span>
-							&nbsp;&nbsp;&nbsp;&nbsp;
-					</div>
-					</div>
-				</div>
-			</div>
+        </div>
+        {/* <div className='info-wrapper'> */}
+        <div className="user-info">
+          <div className="user" onClick={handleUserClick}>
+            <Avatar height="20px" width="20px" src={avatar} />
+            <div className="username-wrapper">{username}</div>
+            <div className="date-views-comment tablet">
+              <span>{moment(new Date(Number(created_at))).fromNow()}</span>
+              &nbsp;&nbsp;&nbsp;&nbsp;
+            </div>
+          </div>
+        </div>
+      </div>
 
-			<div className='discussion-info'>
-				<div className='votes-wrapper'>
-					<VoteCount
-						upvotes={upvotes}
-						downvotes={downvotes}
-						user_vote={user_vote}
-						handleVote={handleVote}
-					/>
-				</div>
-			</div>
+      <div className="discussion-info">
+        <div className="votes-wrapper">
+          <VoteCount
+            upvotes={upvotes}
+            downvotes={downvotes}
+            user_vote={user_vote}
+            handleVote={handleVote}
+          />
+        </div>
+      </div>
 
-
-			{/* <div className = 'category-wrapper' onClick = { handleCategoryClick }>
+      {/* <div className = 'category-wrapper' onClick = { handleCategoryClick }>
 							<i className = { category_icon } />
 							<span className = 'category-name'>{ category_name }</span>
 					</div> 
@@ -344,14 +380,17 @@ const DiscussionByFollowedCats = ({ discussion, history, voteOnDiscussion, singl
 						&nbsp;&nbsp;&nbsp;&nbsp;
 						<span>{ post_count } Comment{ Number(post_count) !== 1 && 's' }</span>
 					</div> */}
-			{/* </div> */}
-			{/* </div> */}
-		</DiscussionWrapper>
-	);
+      {/* </div> */}
+      {/* </div> */}
+    </DiscussionWrapper>
+  );
 };
 
 const mapStateToProps = state => ({
-	isDay: state.users.isDay,
+  isDay: state.users.isDay
 });
 
-export default connect(mapStateToProps, {})(DiscussionByFollowedCats);
+export default connect(
+  mapStateToProps,
+  {}
+)(DiscussionByFollowedCats);
