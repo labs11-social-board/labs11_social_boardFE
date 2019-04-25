@@ -74,7 +74,7 @@ class ApprovedEmails extends Component {
 
   componentDidMount() {
     this.props.getEmails();
-    this.addFilterPlaceholder();
+    //this.addFilterPlaceholder();
   }
 
   handleClick(e, id) {
