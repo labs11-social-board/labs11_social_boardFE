@@ -182,7 +182,7 @@ const SearchBox = styled.div`
     max-height: 80vh;
     overflow: auto;
     position: absolute;
-    right: -120px;
+    left: 0px;
     top: 44px;
     z-index: 9001;
     border-radius: 5px;
@@ -202,7 +202,7 @@ const SearchBox = styled.div`
     @media (min-width: 320px) and (max-width: 767px) {
       margin-right: -103px;
       overflow-x: hidden;
-      right: -61%;
+      left: -135%;
       width: 340px;
     }
 
